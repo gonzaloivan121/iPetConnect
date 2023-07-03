@@ -1,0 +1,26 @@
+{
+    "selectedLanguage": "en-EN",
+    "onlySearchVerifiedUsers": true,
+    "minDistancePossible": 1,
+    "maxDistancePossible": 100,
+    "selectedMinDistancePossible": 1,
+    "selectedMaxDistancePossible": 20,
+    "onlySearchDistanceRange": true,
+    "availableGenders": [
+        "MALES",
+        "FEMALES",
+        "OTHERS",
+        "ALL"
+    ],
+    "availableLanguages": [
+        "es-ES",
+        "en-EN"
+    ],
+    "selectedGender": "ALL",
+    "minAgePossible": 18,
+    "maxAgePossible": 100,
+    "selectedMinAgePossible": 22,
+    "selectedMaxAgePossible": 30,
+    "onlySearchAgeRange": true,
+    "onlySearchHasBioUsers": false
+}

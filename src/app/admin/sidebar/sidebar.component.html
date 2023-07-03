@@ -1,0 +1,24 @@
+<nav class="sidebar sidebar-offcanvas shadow" id="sidebar">
+    <ul class="nav">
+        <li class="nav-item nav-profile">
+            <a  class="nav-link">
+                <div class="nav-profile-image">
+                    <div class="img shadow" style="background-image: url('{{ user.image }}');" alt="profile"></div>
+                    <span class="login-status online"></span>
+                    <!--change to offline or busy as needed-->
+                </div>
+                <div class="nav-profile-text d-flex flex-column">
+                    <span class="font-weight-bold mb-2">{{ user.name }}</span>
+                    <span class="text-light small">{{ user.role_id | roleName | async | translate }}</span>
+                </div>
+            </a>
+        </li>
+
+        <li class="nav-item" *ngFor="let page of availablePages">
+            <a (click)="changeView(page.view)" class="nav-link">
+                <span class="menu-title">{{ page.name | translate }}</span>
+                <i class="ni ni-{{ page.icon }}"></i>
+            </a>
+        </li>
+    </ul>
+</nav>

@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+
+.gm-style-iw-c {
+    padding: 0 !important;
+    width: 500px !important;
+}
+
+.gm-style-iw-d {
+    padding: 0 !important;
+    overflow: auto !important;
+}
+
+.gm-ui-hover-effect {
+    display: none !important;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}

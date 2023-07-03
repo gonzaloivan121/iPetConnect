@@ -1,0 +1,77 @@
+<div class="page-header d-flex justify-center justify-content-between align-items-center">
+    <h3 class="page-title display-1">
+        <span class="page-title-icon bg-gradient-default text-white mr-2 text-center d-inline-block">
+            <i class="ni ni-single-02"></i>
+        </span> {{ 'MATCHES' | translate }}
+    </h3>
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">
+                <span></span>{{ 'OVERVIEW' | translate }} <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+            </li>
+        </ul>
+    </nav>
+</div>
+<div class="row" *ngIf="hasLoaded | async">
+    
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card shadow">
+            <div class="card-body">
+                <h4 class="card-title">Striped Table</h4>
+                <p class="card-description">Add class <code>.table-striped</code>
+                </p>
+                <div class="table-responsive">
+                    <div class="form-group">
+                        <div class="input-group mb-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
+                            </div>
+                            <input class="form-control" type="text" placeholder="{{ 'SEARCH' | translate }}" [(ngModel)]="searchText">
+                        </div>
+                    </div>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>{{ 'USER_1' | translate }}</th>
+                                <th>{{ 'USER_2' | translate }}</th>
+                                <th>{{ 'ACTIONS' | translate }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="cursor-pointer" *ngFor="let match of matches | search: searchText">
+                                <td class="align-middle">{{ match.id }}</td>
+                                <td class="align-middle">{{ match.user1_id }}</td>
+                                <td class="align-middle">{{ match.user2_id }}</td>
+                                <td class="align-middle">
+                                    <button class="btn btn-icon btn-sm btn-primary" type="button">
+                                        <span class="btn-inner--icon"><i class="ni ni-ruler-pencil"></i></span>
+                                    </button>
+                                    <button class="btn btn-icon btn-sm btn-danger" type="button">
+                                        <span class="btn-inner--icon"><i class="ni ni-fat-remove"></i></span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="d-flex justify-content-between p-2">
+                        <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+                            (pageChange)="refresh()">
+                        </ngb-pagination>
+
+                        <div class="form-group">
+                            <select class="form-control form-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refresh()">
+                                <option [ngValue]="10">10 {{ 'ITEMS_PER_PAGE' | translate }}</option>
+                                <option [ngValue]="20">20 {{ 'ITEMS_PER_PAGE' | translate }}</option>
+                                <option [ngValue]="30">30 {{ 'ITEMS_PER_PAGE' | translate }}</option>
+                                <option [ngValue]="collectionSize">{{ 'SHOW_ALL' | translate }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>

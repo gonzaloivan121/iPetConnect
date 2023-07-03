@@ -1,0 +1,40 @@
+import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { SessionService } from '../services';
+import { RoleEnum, AdminViewEnum } from '../enums/enums';
+
+@Component({
+    selector: 'app-admin',
+    templateUrl: './admin.component.html',
+    styleUrls: ['./admin.component.css']
+})
+export class AdminComponent implements OnInit {
+    user: any;
+
+    activePage: AdminViewEnum = AdminViewEnum.Dashboard;
+
+    public get adminViewEnum(): typeof AdminViewEnum {
+        return AdminViewEnum;
+    }
+
+    constructor(
+        private sessionService: SessionService,
+        private location: Location
+    ) { }
+
+    ngOnInit() {
+        if (this.sessionService.get('user') !== null) {
+            this.user = JSON.parse(this.sessionService.get('user'));
+            if (this.user.role_id != RoleEnum.Admin) {
+                this.location.back();
+            }
+        } else {
+            this.location.back();
+        }
+    }
+
+    changeView(view: AdminViewEnum) {
+        this.activePage = view;
+    }
+
+}

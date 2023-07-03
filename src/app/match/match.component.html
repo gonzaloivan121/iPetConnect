@@ -1,0 +1,150 @@
+<main>
+    <!-- Hero for FREE version -->
+    <div class="header"></div>
+
+    <section class="section-shaped limit-height">
+        <!-- Background circles -->
+        <div class="shape shape-style-1 shape-primary">
+            <span class="span-150"></span>
+            <span class="span-50"></span>
+            <span class="span-50"></span>
+            <span class="span-75"></span>
+            <span class="span-100"></span>
+            <span class="span-75"></span>
+            <span class="span-50"></span>
+            <span class="span-100"></span>
+            <span class="span-50"></span>
+            <span class="span-100"></span>
+        </div>
+        <div class="shape-container d-flex h-100 w-100">
+            <div class="d-flex">
+                <div class="d-flex col-xl-4 col-lg-5 col-md-5 col-sm-12 h-100 bg-white shadow p-0 overflow-hidden">
+                    <div>
+                        <div class="underline-container">
+                            <ul>
+                                <li class="" [class.active]="activeTab == matchTabEnum.Messages">
+                                    <a (click)="changeTab(matchTabEnum.Messages)" href="javascript:void(0)">{{ 'MESSAGES' | translate }}</a>
+                                </li>
+                                <li class="" [class.active]="activeTab == matchTabEnum.Matches">
+                                    <a (click)="changeTab(matchTabEnum.Matches)" href="javascript:void(0)">{{ 'MATCHES' | translate }}</a>
+                                </li>
+                                <li class="" [class.active]="activeTab == matchTabEnum.Likes">
+                                    <a (click)="changeTab(matchTabEnum.Likes)" href="javascript:void(0)">{{ 'LIKES' | translate }}</a>
+                                </li>
+                            </ul>
+                            <hr
+                                class="line"
+                                [class.messages-selected]="activeTab == matchTabEnum.Messages"
+                                [class.matches-selected]="activeTab == matchTabEnum.Matches"
+                                [class.likes-selected]="activeTab == matchTabEnum.Likes"
+                            >
+                        </div>
+                        <!-- START - Tabs -->
+                        <div class="h-100 position-relative">
+                            <!-- START - Messages Tab -->
+                            <div class="h-100 position-absolute d-flex swipe-animation" [style]="activeTab == matchTabEnum.Messages ? 'transform: translate(0%);' : 'transform: translate(-100%);'">
+                                <div class="p-3 d-flex flex-column justify-content-center align-items-center">
+                                    <div>
+                                        <div class="title text-center">
+                                            <h4 class="display-3">Sin Chats</h4>
+                                        </div>
+                                        <div class="text-center">
+                                            <p>Parece que aún no has hablado con nadie, ¿por qué no comienzas una conversación?</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END - Messages Tab -->
+                            <!-- START - Matches Tab -->
+                            <div class="h-100 position-absolute d-flex swipe-animation" [style]="activeTab == matchTabEnum.Messages ? 'transform: translate(100%);' : activeTab == matchTabEnum.Matches ? 'transform: translate(0%);' : 'transform: translate(-100%);'">
+                                <div class="p-3 d-flex flex-column justify-content-center align-items-center">
+                                    <div *ngIf="matches.length == 0">
+                                        <div class="title text-center">
+                                            <h4 class="display-3">Sin Matches</h4>
+                                        </div>
+                                        <div class="text-center">
+                                            <p>Parece que aún no has conectado con nadie, ¡Desliza para encontrar gente!</p>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="matches.length > 0">
+                                        <div *ngFor="let match of matches">
+                                            {{ match.user2_id }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END - Matches Tab -->
+                            <!-- START - Likes Tab -->
+                            <div class="h-100 swipe-animation" [style]="activeTab == matchTabEnum.Messages ? 'transform: translate(200%);' : activeTab == matchTabEnum.Matches ? 'transform: translate(100%);' : 'transform: translate(0%);'">
+                                <div class="underline-container">
+                                    <ul>
+                                        <li class="" [class.active]="activeSubTab == likesTabEnum.Received">
+                                            <a (click)="changeSubTab(likesTabEnum.Received)" href="javascript:void(0)">{{ 'RECEIVED' | translate }}</a>
+                                        </li>
+                                        <li class="" [class.active]="activeSubTab == likesTabEnum.Given">
+                                            <a (click)="changeSubTab(likesTabEnum.Given)" href="javascript:void(0)">{{ 'GIVEN' | translate }}</a>
+                                        </li>
+                                    </ul>
+                                    <hr class="line line-likes" [class.received-selected]="activeSubTab == likesTabEnum.Received"
+                                        [class.given-selected]="activeSubTab == likesTabEnum.Given"
+                                    >
+                                </div>
+
+                                <div class="h-100 position-relative">
+                                    <!-- START - Received Tab -->
+                                    <div class="h-100 d-flex position-absolute swipe-animation" [style]="activeSubTab == likesTabEnum.Received ? 'transform: translate(0%);' : 'transform: translate(-100%);'">
+                                        <div class="p-3 d-flex flex-column justify-content-center align-items-center">
+                                            <div>
+                                                <div class="title text-center">
+                                                    <h4 class="display-3">Sin Likes</h4>
+                                                </div>
+                                                <div class="text-center">
+                                                    <p>Parece que aún no le has gustado a nadie con quien no hayas hecho match aún, ¿Por qué no
+                                                        añades más información a tu perfil?</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- END - Received Tab -->
+                                    <!-- START - Given Tab -->
+                                    <div class="h-100 d-flex swipe-animation" [style]="activeSubTab == likesTabEnum.Given ? 'transform: translate(0%);' : 'transform: translate(100%);'">
+                                        <div class="p-3 d-flex flex-column justify-content-center align-items-center">
+                                            <div>
+                                                <div class="title text-center">
+                                                    <h4 class="display-3">Sin Likes</h4>
+                                                </div>
+                                                <div class="text-center">
+                                                    <p>Parece que aún no le has dado me gusta a nadie con quien no hayas hecho match aún, ¿Por qué no
+                                                        juegas un rato al match a ver si encuentras a alguien?</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- END - Given Tab -->
+                                </div>
+                            </div>
+                            <!-- END - Likes Tab -->
+                        </div>
+                        <!-- END - Tabs -->
+                    </div>
+                </div>
+                <div class="col-xl-8 col-lg-7 col-md-7 col-sm-12 h-100 p-xl">
+                    <div class="position-relative d-flex justify-content-center align-items-center h-100">
+                        <app-user-card *ngFor="let matchUser of users" class="position-absolute h-100 w-100"
+                            [user]="matchUser"
+                            (likeEvent)="like($event)"
+                            (dislikeEvent)="dislike($event)"
+                        ></app-user-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- SVG separator -->
+        <div class="separator separator-bottom separator-skew zindex-100">
+            <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
+                xmlns="http://www.w3.org/2000/svg">
+                <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
+            </svg>
+        </div>
+    </section>
+</main>

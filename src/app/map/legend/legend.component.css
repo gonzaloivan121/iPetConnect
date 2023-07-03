@@ -1,0 +1,21 @@
+.map-info-wrapper {
+    height: 600px;
+}
+
+.background-image {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.content {
+    overflow-y: auto;
+}
+
+.dropdown-toggle::after {
+    display: none !important;
+}
+
+.aspect-ratio-1by1 {
+    aspect-ratio: 1 / 1;
+}

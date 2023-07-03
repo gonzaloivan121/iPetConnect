@@ -1,0 +1,192 @@
+<main>
+  <section class="section section-shaped section-lg">
+    <div class="shape shape-style-1 bg-gradient-default">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="container pt-lg-md">
+      <div class="row justify-content-center">
+        <div class="col-lg-9">
+          <div class="card bg-secondary shadow border-0">
+            <div class="card-header bg-white pt-5">
+              <div class="text-muted text-center mb-3">
+                <small>{{ "REGISTER_WITH" | translate }}</small>
+              </div>
+              <div class="text-center">
+                <a href="javascript:void(0)" class="btn btn-neutral btn-icon mr-4">
+                  <span class="btn-inner--icon">
+                    <img src="./assets/img/icons/common/github.svg">
+                  </span>
+                  <span class="btn-inner--text">Github</span>
+                </a>
+                <a href="javascript:void(0)" class="btn btn-neutral btn-icon">
+                  <span class="btn-inner--icon">
+                    <img src="./assets/img/icons/common/google.svg">
+                  </span>
+                  <span class="btn-inner--text">Google</span>
+                </a>
+              </div>
+            </div>
+            <div class="card-body px-lg-5 py-lg-5">
+              <div class="text-center text-muted mb-4">
+                <small>{{ "REGISTER_WITH_CREDENTIALS" | translate }}</small>
+              </div>
+              <form [formGroup]="signupForm" (ngSubmit)="onSubmit()"  role="form">
+                <!-- START - Username -->
+                <div>
+                  <div class="row align-items-center" *ngIf="!username?.valid && (username?.dirty || username?.touched)">
+                    <div class="col pr-5" *ngIf="username.errors?.required">
+                      <p class="text-danger m-0">"{{ "USERNAME" | translate }}" {{ "IS_REQUIRED" | translate }}</p>
+                    </div>
+                    <div class="col pr-5" *ngIf="username.errors?.minlength">
+                      <p class="text-danger m-0">{{ "MIN_LENGTH_ALLOWED" | translate }} {{ username.errors.minlength.requiredLength }}</p>
+                    </div>
+                  </div>
+                  <div class="form-group" [ngClass]="{ 'focused': focusUsername === true }">
+                    <div class="input-group input-group-alternative mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
+                      </div>
+                      <input type="text" id="username" name="username" formControlName="username" class="form-control" placeholder="{{ 'USERNAME' | translate }}" (focus)="focusUsername = true" (blur)="focusUsername = false">
+                    </div>
+                  </div>
+                </div>
+                <!-- END - Username -->
+                <!-- START - Name -->
+                <div>
+                  <div class="row align-items-center" *ngIf="!name?.valid && (name?.dirty || name?.touched)">
+                    <div class="col pr-5" *ngIf="name.errors?.required">
+                      <p class="text-danger m-0">"{{ "NAME" | translate }}" {{ "IS_REQUIRED" | translate }}</p>
+                    </div>
+                  </div>
+                  <div class="form-group" [ngClass]="{ 'focused': focusName === true }">
+                    <div class="input-group input-group-alternative mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                      </div>
+                      <input type="text" id="name" name="name" formControlName="name" class="form-control" placeholder="{{ 'NAME' | translate }}" (focus)="focusName = true" (blur)="focusName = false">
+                    </div>
+                  </div>
+                </div>
+                <!-- END - Name -->
+                <!-- START - Email -->
+                <div>
+                  <div class="row align-items-center" *ngIf="!email?.valid && (email?.dirty || email?.touched)">
+                    <div class="col pr-5" *ngIf="email.errors?.required">
+                      <p class="text-danger m-0">"{{ "EMAIL" | translate }}" {{ "IS_REQUIRED" | translate }}</p>
+                    </div>
+                    <div class="col pr-5" *ngIf="email.errors?.email">
+                      <p class="text-danger m-0">{{ "INVALID_EMAIL" | translate }}</p>
+                    </div>
+                  </div>
+                  <div class="form-group" [ngClass]="{ 'focused': focusEmail === true }">
+                    <div class="input-group input-group-alternative mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                      </div>
+                      <input type="email" id="email" name="email" formControlName="email" class="form-control" placeholder="{{ 'EMAIL' | translate }}" (focus)="focusEmail = true" (blur)="focusEmail = false">
+                    </div>
+                  </div>
+                </div>
+                <!-- END - Email -->
+                <!-- START - Age -->
+                <div>
+                  <div class="row align-items-center" *ngIf="!birthday?.valid && (birthday?.dirty || birthday?.touched)">
+                    <div class="col pr-5" *ngIf="birthday.errors?.required">
+                      <p class="text-danger m-0">"{{ "BIRTHDAY" | translate }}" {{ "IS_REQUIRED" | translate }}</p>
+                    </div>
+                    <div class="col pr-5" *ngIf="birthday.errors?.ageRequired">
+                      <p class="text-danger m-0">{{ "MIN_AGE_ALLOWED" | translate }} {{ birthday.errors.ageRequired.minAgePossible }}</p>
+                    </div>
+                  </div>
+
+                  <div class="form-group" [ngClass]="{ 'focused': focusBirthday === true }">
+                    <div class="input-group input-group-alternative mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                      </div>
+                      <input type="text" id="birthday" name="birthday" formControlName="birthday" class="form-control datepicker" placeholder="{{ 'BIRTHDAY' | translate }}" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" [maxDate]="maxBirthDate" (focus)="focusBirthday = true" (blur)="focusBirthday = false" />
+                    </div>
+                  </div>
+                </div>
+                <!-- END - Age -->
+                <!-- START - Gender -->
+                <div>
+                  <div class="row align-items-center" *ngIf="!gender?.valid && (gender?.dirty || gender?.touched)">
+                    <div class="col pr-5" *ngIf="gender.errors?.required">
+                      <p class="text-danger m-0">"{{ "GENDER" | translate }}" {{ "IS_REQUIRED" | translate }}</p>
+                    </div>
+                  </div>
+                  <div class="form-group" [ngClass]="{ 'focused': focusGender === true }">
+                    <div class="input-group input-group-alternative mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-compass-04"></i></span>
+                      </div>
+                      <select id="gender" name="gender" formControlName="gender" class="form-control form-select" (focus)="focusGender = true" (blur)="focusGender = false">
+                        <option value="" disabled selected>{{ "GENDER" | translate }}</option>
+                        <option value="MALE">{{ "MALE" | translate }}</option>
+                        <option value="FEMALE">{{ "FEMALE" | translate }}</option>
+                        <option value="OTHER">{{ "OTHER" | translate }}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <!-- END - Gender -->
+                <!-- START - Password -->
+                <div>
+                  <div class="row align-items-center" *ngIf="!password?.valid && (password?.dirty || password?.touched)">
+                    <div class="col pr-5" *ngIf="password.errors?.required">
+                      <p class="text-danger m-0">"{{ "PASSWORD" | translate }}" {{ "IS_REQUIRED" | translate }}</p>
+                    </div>
+                    <div class="col pr-5" *ngIf="password.errors?.minlength">
+                      <p class="text-danger m-0">{{ "MIN_LENGTH_ALLOWED" | translate }} {{ password.errors.minlength.requiredLength }}</p>
+                    </div>
+                  </div>
+                  <div class="form-group" [ngClass]="{ 'focused': focusPassword === true }">
+                    <div class="input-group input-group-alternative">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                      </div>
+                      <input type="password" id="password" name="password" formControlName="password" class="form-control" placeholder="{{ 'PASSWORD' | translate }}" (focus)="focusPassword = true" (blur)="focusPassword = false">
+                    </div>
+                  </div>
+
+                  <div class="text-muted font-italic">
+                    <small>{{ "PASSWORD_STRENGTH" | translate }}:
+                      <span class="text-success font-weight-700">{{ "STRONG" | translate }}</span>
+                    </small>
+                  </div>
+                </div>
+                <!-- END - Password -->
+                <!-- START - Privacy Policy -->
+                <div class="row my-4">
+                  <div class="col-12">
+                    <div class="custom-control custom-control-alternative custom-checkbox">
+                      <input type="checkbox" id="agreePrivacyPolicy" name="agreePrivacyPolicy" formControlName="agreePrivacyPolicy" class="custom-control-input">
+                      <label class="custom-control-label" for="agreePrivacyPolicy">
+                        <span>{{ "I_AGREE_WITH" | translate }}
+                          <a [routerLink]="['/privacy']">{{ "PRIVACY_POLICY" | translate }}</a>
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <!-- END - Privacy Policy -->
+
+                <div class="text-center">
+                  <button type="submit" [disabled]="signupForm.invalid" class="btn btn-primary mt-4">{{ "CREATE_ACCOUNT" | translate }}</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

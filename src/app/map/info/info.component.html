@@ -1,0 +1,78 @@
+<div *ngIf="marker">
+    <div class="map-info-wrapper" id="{{ 'marker-' + marker.id }}">
+        <div class="img-wrapper position-relative d-flex h-50">
+            <div *ngIf="marker.image !== null" class="background-image position-absolute bg-image h-100 w-100" style="background-image: url('{{ marker.image }}')"></div>
+            <div *ngIf="marker.image == null" class="background-image position-absolute bg-image h-100 w-100" style="background: var(--default)">
+                <!-- START - Logo SVG -->
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1024"
+                    height="256" viewBox="0 0 1024 256" xml:space="preserve" class="col p-5 h-100">
+                    <g transform="matrix(0.35 0 0 0.35 189.26 37.23)">
+                        <path vector-effect="non-scaling-stroke" transform=" translate(-521.01, -186.56)"
+                            d="M 516.277 174.628 C 520.3140000000001 168.60399999999998 524.166 163.61499999999998 527.398 159.754 C 569.8000000000001 157.41299999999998 565.126 110.80999999999999 565.126 110.80999999999999 C 527.286 109.61299999999999 521.769 138.595 521.949 151.048 C 517.683 155.894 512.135 162.83 506.36599999999993 171.721 C 505.2199999999999 152.661 490.7629999999999 141.6 490.7629999999999 141.6 C 476.51699999999994 166.317 487.9629999999999 182.901 495.6959999999999 190.377 C 486.84899999999993 208.106 479.1289999999999 230.488 476.7519999999999 257.048 C 476.5229999999999 259.617 478.3379999999999 261.9 480.8559999999999 262.282 C 480.9559999999999 262.299 481.0569999999999 262.31199999999995 481.1609999999999 262.32 C 483.83499999999987 262.558 486.1959999999999 260.586 486.4339999999999 257.912 C 488.6859999999999 232.74899999999997 496.1739999999999 211.384 504.6909999999999 194.46399999999997 C 526.9219999999999 202.89299999999997 548.5339999999999 180.67299999999997 548.5339999999999 180.67299999999997 C 535.18 170.691 524.358 170.945 516.277 174.628 z"
+                            stroke-linecap="round"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;">
+                        </path>
+                    </g>
+                    <g transform="matrix(0.35 0 0 0.35 100.54 83.33)">
+                        <path vector-effect="non-scaling-stroke" transform=" translate(-256.26, -300)"
+                            d="M 474.786 195.917 C 470.985 194.495 460.303 188.587 460.303 188.587 C 460.303 188.587 452.412 144.80399999999997 408.986 149.783 C 385.956 152.42899999999997 372.822 177.303 366.182 195.28699999999998 C 356.803 220.69799999999998 345.744 257.15999999999997 328.738 293.775 C 321.143 301.659 311.713 306.929 301.671 301.892 C 290.392 296.236 291.144 280.902 300.879 260.46 C 318.802 222.81099999999998 329.12800000000004 203.712 308.37600000000003 185.212 C 287.63000000000005 166.71599999999998 122.93700000000004 137.559 62.36600000000004 104.40599999999999 C 1.7940000000000396 71.25299999999999 46.28400000000004 263.626 142.18200000000004 232.93 C 142.18200000000004 232.93 99.13700000000004 267.243 127.22100000000005 304.00800000000004 C 151.62500000000006 335.949 223.02700000000004 324.379 223.02700000000004 324.379 C 223.02700000000004 324.379 201.33900000000006 353.75 222.74700000000004 374.533 C 231.85300000000004 383.375 247.37200000000004 387.861 264.40700000000004 385.817 C 222.50300000000004 423.093 163.03900000000004 442.938 75.81100000000004 419.312 C 75.81100000000004 419.312 83.00600000000003 483.084 153.90500000000003 497.13300000000004 C 224.79900000000004 511.18800000000005 256.326 456.61600000000004 256.326 456.61600000000004 C 256.326 456.61600000000004 376.499 468.51200000000006 423.06100000000004 390.908 C 471.40500000000003 310.33500000000004 461.39000000000004 214.479 461.39000000000004 214.479 C 461.39000000000004 214.479 471.75800000000004 205.603 475.15500000000003 202.579 C 480.478 197.839 476.35 196.504 474.786 195.917 z M 414.29 197.445 C 409.32500000000005 197.487 405.269 193.49699999999999 405.228 188.531 C 405.18600000000004 183.568 409.177 179.51 414.14 179.47 C 419.10499999999996 179.428 423.161 183.419 423.202 188.382 C 423.244 193.348 419.254 197.407 414.29 197.445 z"
+                            stroke-linecap="round"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;">
+                        </path>
+                    </g>
+                    <g transform="matrix(2.17 0 0 2.17 557.07 93.41)">
+                        <text xml:space="preserve" font-family="Open Sans" font-size="64"
+                            font-style="normal" font-weight="normal"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1; white-space: pre;">
+                            <tspan x="-156.42" y="20.1">iPetConnect</tspan>
+                        </text>
+                    </g>
+                    <g transform="matrix(2.17 0 0 2.17 445.47 206.66)">
+                        <text xml:space="preserve" font-family="Open Sans" font-size="30"
+                            font-style="normal" font-weight="normal"
+                            style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(188,138,201); fill-rule: nonzero; opacity: 1; white-space: pre;">
+                            <tspan x="-188.29" y="9.42">Connecting hearts in one swipe</tspan>
+                        </text>
+                    </g>
+                </svg>
+                <!-- END - Logo SVG -->
+            </div>
+            <div class="w-100 position-absolute p-3 d-flex justify-content-between">
+                <div class="" ngbDropdown>
+                    <button *ngIf="user" class="btn btn-icon m-0 rounded-circle aspect-ratio-1by1" type="button" id="contextMenuDropdown" ngbDropdownToggle>
+                        <span class="btn-inner--icon"><i class="ni ni-bullet-list-67"></i></span>
+                    </button>
+                    <ul *ngIf="user" class="my-3" aria-labelledby="contextMenuDropdown" ngbDropdownMenu>
+                        <li>
+                            <a *ngIf="user.role_id == roleEnum.Admin || user.id == marker.user_id" (click)="editMarker()" class="btn-icon dropdown-item" href="javascript:void(0)">
+                                <span class="btn-inner--icon"><i class="ni ni-ruler-pencil"></i></span>
+                                <span class="btn-inner--text">{{ "EDIT_MARKER" | translate }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a *ngIf="user.role_id == roleEnum.Admin || user.id == marker.user_id" (click)="deleteMarker()" class="btn-icon dropdown-item" href="javascript:void(0)">
+                                <span class="btn-inner--icon"><i class="ni ni-basket"></i></span>
+                                <span class="btn-inner--text">{{ "DELETE_MARKER" | translate }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a *ngIf="user.role_id == roleEnum.User && user.id != marker.user_id" (click)="favouriteMarker()" class="btn-icon dropdown-item" href="javascript:void(0)">
+                                <span class="btn-inner--icon"><i class="ni ni-favourite-28"></i></span>
+                                <span class="btn-inner--text">{{ "ADD_TO_FAVOURITES" | translate }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <button (click)="closeInfo()" class="btn m-0 rounded-circle aspect-ratio-1by1" type="button">
+                    <span class="btn-inner--text">✖</span>
+                </button>
+            </div>
+        </div>
+        <div class="content d-flex flex-column text-center p-4 h-50">
+            <h3 class="display-4">{{ marker.title }}</h3>
+            <div>
+                <p class="text-justify"><strong>{{ marker.description }}</strong></p>
+            </div>
+        </div>
+    </div>
+</div>

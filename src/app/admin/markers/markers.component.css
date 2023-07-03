@@ -1,0 +1,100 @@
+.page-header {
+    margin: 0 0 1.5rem 0;
+}
+
+.page-title {
+    color: #343a40;
+    font-size: 1.125rem;
+    margin-bottom: 0;
+}
+
+.page-title .page-title-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    -webkit-box-shadow: 0px 0px 5px 0 rgb(23 43 77 / 75%);
+    box-shadow: 0px 0px 5px 0 rgb(23 43 77 / 75%);
+}
+
+.page-title .page-title-icon i {
+    font-size: .9375rem;
+    line-height: 36px;
+}
+
+.page-header .breadcrumb {
+    border: 0;
+    margin-bottom: 0;
+}
+
+.breadcrumb {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding: 0.56rem 1.13rem;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    list-style: none;
+    background-color: transparent;
+    border-radius: 0.25rem;
+}
+
+.breadcrumb .breadcrumb-item {
+    font-size: 0.875rem;
+}
+
+.breadcrumb .breadcrumb-item.active {
+    color: rgba(52, 58, 64, 0.8);
+}
+
+.stretch-card {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    -webkit-box-pack: stretch;
+    -ms-flex-pack: stretch;
+    justify-content: stretch;
+}
+
+.grid-margin,
+.purchase-popup {
+    margin-bottom: 2.5rem;
+}
+
+.stretch-card>.card {
+    width: 100%;
+    min-width: 100%;
+}
+
+.card.card-img-holder {
+    position: relative;
+}
+
+.card .card-body {
+    padding: 2.5rem 2.5rem;
+}
+
+.card.card-img-holder .card-img-absolute {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+}
+
+.background-image {
+    height: 36px;
+    width: 36px;
+    background-position: center;
+    background-size: cover;
+    border-radius: 100%;
+}
+
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

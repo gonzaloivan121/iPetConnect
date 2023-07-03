@@ -1,0 +1,9 @@
+.header {
+    padding-top: 72px !important;
+}
+
+.google-map {
+    height: calc(100vh - 72px) !important;
+    width: 100% !important;
+    display: block;
+}
