@@ -18,18 +18,18 @@
         </div>
         <div class="shape-container d-flex h-100 w-100">
             <div class="d-flex w-100">
-                <div class="d-flex col-3 h-100 bg-white shadow p-0 overflow-hidden">
+                <div class="d-flex col-4 h-100 bg-white shadow p-0 overflow-hidden">
                     <div>
                         <div class="underline-container">
                             <ul>
                                 <li class="" [class.active]="activeTab == matchTabEnum.Messages">
-                                    <a (click)="changeTab(matchTabEnum.Messages)" href="javascript:void(0)">{{ 'MESSAGES' | translate }}</a>
+                                    <a class="text-dark" (click)="changeTab(matchTabEnum.Messages)" href="javascript:void(0)">{{ 'MESSAGES' | translate }}</a>
                                 </li>
                                 <li class="" [class.active]="activeTab == matchTabEnum.Matches">
-                                    <a (click)="changeTab(matchTabEnum.Matches)" href="javascript:void(0)">{{ 'MATCHES' | translate }}</a>
+                                    <a class="text-dark" (click)="changeTab(matchTabEnum.Matches)" href="javascript:void(0)">{{ 'MATCHES' | translate }}</a>
                                 </li>
                                 <li class="" [class.active]="activeTab == matchTabEnum.Likes">
-                                    <a (click)="changeTab(matchTabEnum.Likes)" href="javascript:void(0)">{{ 'LIKES' | translate }}</a>
+                                    <a class="text-dark" (click)="changeTab(matchTabEnum.Likes)" href="javascript:void(0)">{{ 'LIKES' | translate }}</a>
                                 </li>
                             </ul>
                             <hr
@@ -42,14 +42,14 @@
                         <!-- START - Tabs -->
                         <div class="h-100 position-relative">
                             <!-- START - Messages Tab -->
-                            <div class="h-100 position-absolute d-flex swipe-animation" [style]="activeTab == matchTabEnum.Messages ? 'transform: translate(0%);' : 'transform: translate(-100%);'">
-                                <div class="p-3 d-flex flex-column justify-content-center align-items-center">
+                            <div class="h-100 w-100 position-absolute d-flex swipe-animation" [style]="activeTab == matchTabEnum.Messages ? 'transform: translate(0%);' : 'transform: translate(-100%);'">
+                                <div class="p-3 w-100 d-flex flex-column justify-content-center align-items-center">
                                     <div *ngIf="chats.length == 0">
                                         <div class="title text-center">
-                                            <h4 class="display-3">Sin Chats</h4>
+                                            <h4 class="display-4 font-weight-700">Sin Chats</h4>
                                         </div>
                                         <div class="text-center">
-                                            <p>Parece que aún no has hablado con nadie, ¿por qué no comienzas una conversación?</p>
+                                            <p class="px-md text-dark">Parece que aún no has hablado con nadie, ¿por qué no comienzas una conversación?</p>
                                         </div>
                                     </div>
                                     <div *ngIf="chats.length > 0">
@@ -61,14 +61,14 @@
                             </div>
                             <!-- END - Messages Tab -->
                             <!-- START - Matches Tab -->
-                            <div class="h-100 position-absolute d-flex swipe-animation" [style]="activeTab == matchTabEnum.Messages ? 'transform: translate(100%);' : activeTab == matchTabEnum.Matches ? 'transform: translate(0%);' : 'transform: translate(-100%);'">
-                                <div class="p-3 d-flex flex-column justify-content-center align-items-center">
+                            <div class="h-100 w-100 position-absolute d-flex swipe-animation" [style]="activeTab == matchTabEnum.Messages ? 'transform: translate(100%);' : activeTab == matchTabEnum.Matches ? 'transform: translate(0%);' : 'transform: translate(-100%);'">
+                                <div class="p-3 w-100 d-flex flex-column justify-content-center align-items-center">
                                     <div *ngIf="matches.length == 0">
                                         <div class="title text-center">
-                                            <h4 class="display-3">Sin Matches</h4>
+                                            <h4 class="display-4 font-weight-700">Sin Matches</h4>
                                         </div>
                                         <div class="text-center">
-                                            <p>Parece que aún no has conectado con nadie, ¡Desliza para encontrar gente!</p>
+                                            <p class="px-md text-dark">Parece que aún no has conectado con nadie, ¡Desliza para encontrar gente!</p>
                                         </div>
                                     </div>
                                     <div *ngIf="matches.length > 0">
@@ -80,14 +80,14 @@
                             </div>
                             <!-- END - Matches Tab -->
                             <!-- START - Likes Tab -->
-                            <div class="h-100 swipe-animation" [style]="activeTab == matchTabEnum.Messages ? 'transform: translate(200%);' : activeTab == matchTabEnum.Matches ? 'transform: translate(100%);' : 'transform: translate(0%);'">
+                            <div class="h-100 w-100 swipe-animation" [style]="activeTab == matchTabEnum.Messages ? 'transform: translate(200%);' : activeTab == matchTabEnum.Matches ? 'transform: translate(100%);' : 'transform: translate(0%);'">
                                 <div class="underline-container">
                                     <ul>
                                         <li class="" [class.active]="activeSubTab == likesTabEnum.Received">
-                                            <a (click)="changeSubTab(likesTabEnum.Received)" href="javascript:void(0)">{{ 'RECEIVED' | translate }}</a>
+                                            <a class="text-dark" (click)="changeSubTab(likesTabEnum.Received)" href="javascript:void(0)">{{ 'RECEIVED' | translate }}</a>
                                         </li>
                                         <li class="" [class.active]="activeSubTab == likesTabEnum.Given">
-                                            <a (click)="changeSubTab(likesTabEnum.Given)" href="javascript:void(0)">{{ 'GIVEN' | translate }}</a>
+                                            <a class="text-dark" (click)="changeSubTab(likesTabEnum.Given)" href="javascript:void(0)">{{ 'GIVEN' | translate }}</a>
                                         </li>
                                     </ul>
                                     <hr class="line line-likes" [class.received-selected]="activeSubTab == likesTabEnum.Received"
@@ -97,14 +97,14 @@
 
                                 <div class="h-100 position-relative">
                                     <!-- START - Received Tab -->
-                                    <div class="h-100 d-flex position-absolute swipe-animation" [style]="activeSubTab == likesTabEnum.Received ? 'transform: translate(0%);' : 'transform: translate(-100%);'">
-                                        <div class="p-3 d-flex flex-column justify-content-center align-items-center">
+                                    <div class="h-100 w-100 d-flex position-absolute swipe-animation" [style]="activeSubTab == likesTabEnum.Received ? 'transform: translate(0%);' : 'transform: translate(-100%);'">
+                                        <div class="p-3 w-100 d-flex flex-column justify-content-center align-items-center">
                                             <div>
                                                 <div class="title text-center">
-                                                    <h4 class="display-3">Sin Likes</h4>
+                                                    <h4 class="display-4 font-weight-700">Sin Likes</h4>
                                                 </div>
                                                 <div class="text-center">
-                                                    <p>Parece que aún no le has gustado a nadie con quien no hayas hecho match aún, ¿Por qué no
+                                                    <p class="px-md text-dark">Parece que aún no le has gustado a nadie con quien no hayas hecho match aún, ¿Por qué no
                                                         añades más información a tu perfil?</p>
                                                 </div>
                                             </div>
@@ -112,14 +112,14 @@
                                     </div>
                                     <!-- END - Received Tab -->
                                     <!-- START - Given Tab -->
-                                    <div class="h-100 d-flex swipe-animation" [style]="activeSubTab == likesTabEnum.Given ? 'transform: translate(0%);' : 'transform: translate(100%);'">
-                                        <div class="p-3 d-flex flex-column justify-content-center align-items-center">
+                                    <div class="h-100 w-100 d-flex swipe-animation" [style]="activeSubTab == likesTabEnum.Given ? 'transform: translate(0%);' : 'transform: translate(100%);'">
+                                        <div class="p-3 w-100 d-flex flex-column justify-content-center align-items-center">
                                             <div>
                                                 <div class="title text-center">
-                                                    <h4 class="display-3">Sin Likes</h4>
+                                                    <h4 class="display-4 font-weight-700">Sin Likes</h4>
                                                 </div>
                                                 <div class="text-center">
-                                                    <p>Parece que aún no le has dado me gusta a nadie con quien no hayas hecho match aún, ¿Por qué no
+                                                    <p class="px-md text-dark">Parece que aún no le has dado me gusta a nadie con quien no hayas hecho match aún, ¿Por qué no
                                                         juegas un rato al match a ver si encuentras a alguien?</p>
                                                 </div>
                                             </div>
@@ -133,8 +133,8 @@
                         <!-- END - Tabs -->
                     </div>
                 </div>
-                <div class="d-flex col-9 h-100 justify-content-center p-xl">
-                    <div class="position-relative d-flex justify-content-center align-items-center h-100 card-container">
+                <div class="d-flex col-8 h-100 justify-content-center p-xl">
+                    <div class="position-relative d-flex justify-content-center align-items-center h-100 w-50">
                         <app-user-card *ngFor="let matchUser of users" class="position-absolute h-100 w-100"
                             [user]="matchUser"
                             (likeEvent)="like($event)"
@@ -143,13 +143,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- SVG separator -->
-        <div class="separator separator-bottom separator-skew zindex-100">
-            <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
-                xmlns="http://www.w3.org/2000/svg">
-                <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
-            </svg>
         </div>
     </section>
 </main>
