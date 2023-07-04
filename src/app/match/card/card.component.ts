@@ -7,7 +7,7 @@ import { User } from 'src/classes';
     styleUrls: ['./card.component.css']
 })
 export class CardComponent {
-    @Input() user?: User;
+    @Input() user: User;
     @Output() likeEvent = new EventEmitter<User>();
     @Output() dislikeEvent = new EventEmitter<User>();
 
@@ -19,5 +19,9 @@ export class CardComponent {
 
     dislike() {
         this.dislikeEvent.emit(this.user);
+    }
+
+    info() {
+        
     }
 }

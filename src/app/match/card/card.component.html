@@ -1,8 +1,8 @@
-<div class="card shadow h-100 w-100 rounded-pill">
+<div class="card h-100 w-100 custom-card">
     <div class="p-0 h-100">
-        <div *ngIf="user.image !== null" class="background-image bg-image h-50 w-100"
+        <div *ngIf="user.image !== null" class="background-image bg-image shadow h-50 w-100"
             style="background-image: url('{{ user.image }}')"></div>
-        <div *ngIf="user.image == null" class="background-image bg-image h-50 w-100"
+        <div *ngIf="user.image == null" class="background-image bg-image shadow h-50 w-100"
             style="background: var(--default)">
             <!-- START - Logo SVG -->
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1024"
@@ -36,6 +36,42 @@
             </svg>
             <!-- END - Logo SVG -->
         </div>
-        <div class="h-50 container"></div>
+
+        <div class="h-50 container p-4 position-relative">
+            <a (click)="info()" class="info-link" href="javascript:void(0)">
+                <div class="info-img-container d-flex justify-content-center align-items-center bg-primary">
+                    <div class="image-container d-flex justify-content-center align-items-center text-white">
+                        <i class="fa fa-info" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </a>
+            
+            <div class="container d-flex align-items-center justify-content-between py-2">
+                <h3 class="display-4 m-0">{{ user.name }}</h3>
+                <p class="display-4 m-0">{{ user.birthday | age }}</p>
+            </div>
+            
+            <div class="container py-2">
+                <div class="d-flex align-items-center">
+                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                    <p class="m-0">IES Campanillas</p>
+                </div>
+                <div class="d-flex align-items-center">
+                    <i class="fa fa-briefcase" aria-hidden="true"></i>
+                    <p class="m-0">Desarrollador Web</p>
+                </div>
+        
+                <p class="m-0 py-2">{{ user.bio }}</p>
+            </div>
+        </div>
+
+        <div class="buttons-container w-100 position-absolute text-center">
+            <a (click)="dislike()" class="d-inline-block w-25" href="javascript:void(0)">
+                <i class="fa fa-times-circle match-button text-danger" aria-hidden="true"></i>
+            </a>
+            <a (click)="like()" class="d-inline-block w-25" href="javascript:void(0)">
+                <i class="fa fa-check-circle match-button text-success" aria-hidden="true"></i>
+            </a>
+        </div>
     </div>
 </div>
