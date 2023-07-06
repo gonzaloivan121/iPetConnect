@@ -1,12 +1,10 @@
 .custom-card {
-    position: absolute;
-    background: linear-gradient(#d3d8dc, #d0d4d8);
     border-radius: 35px;
     overflow: hidden;
 }
 
 .custom-card-component {
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .info-link {

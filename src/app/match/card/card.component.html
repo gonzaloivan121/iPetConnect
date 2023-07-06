@@ -41,7 +41,7 @@
             <a (click)="info()" class="info-link" href="javascript:void(0)">
                 <div class="info-img-container d-flex justify-content-center align-items-center bg-primary">
                     <div class="image-container d-flex justify-content-center align-items-center text-white">
-                        <i class="fa fa-info" aria-hidden="true"></i>
+                        <i class="ni ni-bold-down" aria-hidden="true"></i>
                     </div>
                 </div>
             </a>
@@ -61,17 +61,21 @@
                     <p class="m-0">Desarrollador Web</p>
                 </div>
         
-                <p class="m-0 py-2">{{ user.bio }}</p>
+                <p class="m-0 py-2 pb-lg text-break">{{ user.bio }}</p>
             </div>
         </div>
 
-        <div class="buttons-container w-100 position-absolute text-center">
-            <a (click)="dislike()" class="d-inline-block w-25" href="javascript:void(0)">
-                <i class="fa fa-times-circle match-button text-danger" aria-hidden="true"></i>
-            </a>
-            <a (click)="like()" class="d-inline-block w-25" href="javascript:void(0)">
-                <i class="fa fa-check-circle match-button text-success" aria-hidden="true"></i>
-            </a>
+        <div class="buttons-container w-100 d-flex justify-content-around position-absolute text-center">
+            <button (click)="dislike()" class="btn btn-round btn-danger d-flex justify-content-center align-items-center info-img-container">
+                <div class="d-flex justify-content-center align-items-center text-white image-container">
+                    <i aria-hidden="true" class="ni ni-fat-remove"></i>
+                </div>
+            </button>
+            <button (click)="like()" class="btn btn-round btn-success d-flex justify-content-center align-items-center info-img-container">
+                <div class="d-flex justify-content-center align-items-center text-white image-container">
+                    <i aria-hidden="true" class="ni ni-favourite-28"></i>
+                </div>
+            </button>
         </div>
     </div>
 </div>

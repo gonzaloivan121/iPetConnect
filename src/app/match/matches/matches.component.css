@@ -1,0 +1,13 @@
+.background-image {
+    background-position: center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+}
+
+.chat-name {
+    font-size: 1.4rem;
+}
+
+.match {
+    
+}

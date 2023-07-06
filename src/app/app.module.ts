@@ -47,6 +47,8 @@ import { AdminChatsComponent } from './admin/chats/chats.component';
 import { AdminMessagesComponent } from './admin/messages/messages.component';
 import { AdminMarkersComponent } from './admin/markers/markers.component';
 import { AdminEditComponent } from './admin/edit/edit.component';
+import { MessagesComponent } from './match/messages/messages.component';
+import { MatchesComponent } from './match/matches/matches.component';
 
 export function setupAppConfigServiceFactory(
     service: AppConfigService
@@ -95,7 +97,9 @@ export function setupTranslateServiceFactory(
         AdminChatsComponent,
         AdminMessagesComponent,
         AdminMarkersComponent,
-        AdminEditComponent
+        AdminEditComponent,
+        MessagesComponent,
+        MatchesComponent,
     ],
     imports: [
         NgbModule,

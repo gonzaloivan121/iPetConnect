@@ -43,39 +43,43 @@
                         <div class="h-100 position-relative">
                             <!-- START - Messages Tab -->
                             <div class="h-100 w-100 position-absolute d-flex swipe-animation" [style]="activeTab == matchTabEnum.Messages ? 'transform: translate(0%);' : 'transform: translate(-100%);'">
-                                <div class="p-3 w-100 d-flex flex-column justify-content-center align-items-center">
-                                    <div *ngIf="chats.length == 0">
-                                        <div class="title text-center">
-                                            <h4 class="display-4 font-weight-700">Sin Chats</h4>
-                                        </div>
-                                        <div class="text-center">
-                                            <p class="px-md text-dark">Parece que aún no has hablado con nadie, ¿por qué no comienzas una conversación?</p>
-                                        </div>
+                                <!-- TEST -->
+                                <div *ngIf="isTest" class="position-absolute w-100 d-flex px-4" style="bottom: 10%;">
+                                    <button (click)="addTestChat()" class="btn w-50">Add Test Chat</button>
+                                    <button (click)="removeTestChat()" class="btn w-50">Remove Test Chat</button>
+                                </div>
+                                <!-- TEST -->
+                                <div *ngIf="chats.length == 0" class="p-3 w-100 d-flex flex-column justify-content-center align-items-center">
+                                    <div class="title text-center">
+                                        <h4 class="display-4 font-weight-700">Sin Chats</h4>
                                     </div>
-                                    <div *ngIf="chats.length > 0">
-                                        <div *ngFor="let chat of chats">
-                                            {{ chat.id }}
-                                        </div>
+                                    <div class="text-center">
+                                        <p class="px-md text-dark">Parece que aún no has hablado con nadie, ¿por qué no comienzas una conversación?</p>
                                     </div>
+                                </div>
+                                <div *ngIf="chats.length > 0" class="py-3 w-100 scroll">
+                                    <app-messages *ngFor="let chat of chats" [chat]="chat" [currentUser]="user"></app-messages>
                                 </div>
                             </div>
                             <!-- END - Messages Tab -->
                             <!-- START - Matches Tab -->
                             <div class="h-100 w-100 position-absolute d-flex swipe-animation" [style]="activeTab == matchTabEnum.Messages ? 'transform: translate(100%);' : activeTab == matchTabEnum.Matches ? 'transform: translate(0%);' : 'transform: translate(-100%);'">
-                                <div class="p-3 w-100 d-flex flex-column justify-content-center align-items-center">
-                                    <div *ngIf="matches.length == 0">
-                                        <div class="title text-center">
-                                            <h4 class="display-4 font-weight-700">Sin Matches</h4>
-                                        </div>
-                                        <div class="text-center">
-                                            <p class="px-md text-dark">Parece que aún no has conectado con nadie, ¡Desliza para encontrar gente!</p>
-                                        </div>
+                                <!-- TEST -->
+                                <div *ngIf="isTest" class="position-absolute w-100 d-flex px-4" style="bottom: 10%;">
+                                    <button (click)="addTestMatch()" class="btn w-50">Add Test Match</button>
+                                    <button (click)="removeTestMatch()" class="btn w-50">Remove Test Match</button>
+                                </div>
+                                <!-- TEST -->
+                                <div *ngIf="matches.length == 0" class="p-3 w-100 d-flex flex-column justify-content-center align-items-center">
+                                    <div class="title text-center">
+                                        <h4 class="display-4 font-weight-700">Sin Matches</h4>
                                     </div>
-                                    <div *ngIf="matches.length > 0">
-                                        <div *ngFor="let match of matches">
-                                            {{ match.user2_id }}
-                                        </div>
+                                    <div class="text-center">
+                                        <p class="px-md text-dark">Parece que aún no has conectado con nadie, ¡Desliza para encontrar gente!</p>
                                     </div>
+                                </div>
+                                <div *ngIf="matches.length > 0" class="py-3 w-100 scroll">
+                                    <app-matches *ngFor="let match of matches" [match]="match" [currentUser]="user"></app-matches>
                                 </div>
                             </div>
                             <!-- END - Matches Tab -->

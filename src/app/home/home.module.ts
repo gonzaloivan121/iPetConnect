@@ -16,6 +16,7 @@ import { LanguageNamePipe } from '../pipes/language.pipe';
 import { BreedNamePipe } from '../pipes/breed.pipe';
 import { SpeciesNamePipe } from '../pipes/species.pipe';
 import { TruncatePipe } from '../pipes/truncate.pipe';
+import { CountUnreadMessagesPipe } from '../pipes/count-unread-messages.pipe';
 
 @NgModule({
     imports: [
@@ -36,6 +37,7 @@ import { TruncatePipe } from '../pipes/truncate.pipe';
         BreedNamePipe,
         SpeciesNamePipe,
         TruncatePipe,
+        CountUnreadMessagesPipe,
     ],
     exports: [
         HomeComponent,
@@ -47,6 +49,7 @@ import { TruncatePipe } from '../pipes/truncate.pipe';
         BreedNamePipe,
         SpeciesNamePipe,
         TruncatePipe,
+        CountUnreadMessagesPipe,
     ],
     providers: []
 })

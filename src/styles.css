@@ -17,3 +17,7 @@
 .cursor-pointer {
     cursor: pointer;
 }
+
+.text-break {
+    white-space: break-spaces;
+}

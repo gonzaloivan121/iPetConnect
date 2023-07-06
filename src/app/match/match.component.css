@@ -95,3 +95,7 @@ app-user-card {
     transition: box-shadow .2s ease-in-out;
     border-radius: 35px;
 }
+
+.scroll {
+    overflow: auto;
+}

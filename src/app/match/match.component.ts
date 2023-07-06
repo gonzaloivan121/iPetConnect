@@ -29,6 +29,8 @@ export class MatchComponent implements OnInit {
         return LikesTabEnum;
     }
 
+    public isTest: boolean = false;
+
     constructor(
         public location: Location,
         private sessionService: SessionService,
@@ -42,24 +44,66 @@ export class MatchComponent implements OnInit {
             if (this.user.role_id == RoleEnum.Admin) {
                 this.location.back();
             }
-            
-            this.dataService.getExcluding('user', this.user.id).then((response: any) => {
-                if (response.status === 'success') {
-                    this.users = response.results;
-                }
-            });
 
-            this.dataService.getFrom('match', 'user', this.user.id).then((response: any) => {
-                if (response.status === 'success') {
-                    this.matches = response.results;
-                }
-            });
+            this.getData();
         } else {
             this.location.back();
         }
     }
 
-    changeTab(tab: MatchTabEnum) {
+    getData() {
+        this.getChats();
+        this.getUsers();
+        this.getMatches();
+        this.getLikes();
+    }
+
+    getChats() {
+        this.dataService.getFrom('chat', 'user', this.user.id).then((response: any) => {
+            if (response.status === 'success') {
+                this.chats = response.results as Chat[];
+            }
+        });
+    }
+
+    getUsers() {
+        this.dataService.getExcluding('user', this.user.id).then((response: any) => {
+            if (response.status === 'success') {
+                this.users = response.results as User[];
+            }
+        });
+    }
+
+    getMatches() {
+        this.dataService.getFrom('match', 'user', this.user.id).then((response: any) => {
+            if (response.status === 'success') {
+                this.matches = response.results as Match[];
+            }
+        });
+    }
+
+    getLikes() {
+        this.getLikesReceived();
+        this.getLikesGiven();
+    }
+
+    getLikesReceived() {
+        this.dataService.getFrom('like', 'user_2', this.user.id).then((response: any) => {
+            if (response.status === 'success') {
+                this.likesReceived = response.results as Like[];
+            }
+        });
+    }
+
+    getLikesGiven() {
+        this.dataService.getFrom('like', 'user_1', this.user.id).then((response: any) => {
+            if (response.status === 'success') {
+                this.likesGiven = response.results as Like[];
+            }
+        });
+    }
+
+    changeTab(tab: MatchTabEnum): void {
         this.activeTab = tab;
 
         if (tab == MatchTabEnum.Matches || tab == MatchTabEnum.Messages) {
@@ -67,41 +111,61 @@ export class MatchComponent implements OnInit {
         }
     }
 
-    changeSubTab(tab: LikesTabEnum) {
+    changeSubTab(tab: LikesTabEnum): void {
         this.activeSubTab = tab;
     }
 
-    updateMessages() {
+    refresh(): void {
 
     }
 
-    updateMatches() {
-
-    }
-
-    like(user: User) {
+    like(user: User): void {
         const likeData = {
             user1_id: this.user.id,
             user2_id: user.id
         };
 
         console.log(likeData)
-
-        /*this.dataService.insert('like', likeData).then((response: any) => {
-            console.log('Response', response);
-
-            if (response.status === 'success') {
-
-            }
-        });*/
     }
 
-    dislike(user: User) {
+    dislike(user: User): void {
         const dislikeData = {
             user1_id: this.user.id,
             user2_id: user.id
         };
 
         console.log(dislikeData)
+    }
+
+    addTestChat(): void {
+        const messages: Message[] = [];
+        const chat_id = this.random(1, 100);
+
+        for (let i = 0; i < this.random(1, 5); i++) {
+            messages.push(
+                new Message(chat_id, this.random(0, 1) == 0 ? 45 : 12, `Message ${this.random(0,100)}`, false, false)
+            );
+        }
+
+        const chat = new Chat(45, 12, messages);
+        chat.id = chat_id;
+
+        this.chats.push(chat);
+    }
+
+    removeTestChat(): void {
+        this.chats.pop();
+    }
+
+    addTestMatch(): void {
+        this.matches.push(new Match(45, 3));
+    }
+
+    removeTestMatch(): void {
+        this.matches.pop();
+    }
+
+    random(min: number, max: number): number {
+        return Math.floor(Math.random() * (max - min + 1) + min);
     }
 }
