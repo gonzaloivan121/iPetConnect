@@ -13,8 +13,7 @@
 }
 
 .main-panel {
-    -webkit-transition: width 0.25s ease, margin 0.25s ease;
-    transition: width 0.25s ease, margin 0.25s ease;
+    transition: width .2s ease-in-out, margin .2s ease-in-out;
     width: calc(100% - 260px);
     min-height: calc(100vh - 72px);
     display: -webkit-box;
