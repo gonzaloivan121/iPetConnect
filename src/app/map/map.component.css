@@ -7,3 +7,23 @@
     width: 100% !important;
     display: block;
 }
+
+.btn-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.custom-map-control-button {
+    background-color: #ffffff;
+    border: 2px solid #ffffff;
+    border-radius: 3px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.3);
+    color: rgb(25,25,25);
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 38px;
+    margin: 10px;
+    padding: 0 5px;
+    text-align: center;
+}

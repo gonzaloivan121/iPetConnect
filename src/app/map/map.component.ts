@@ -17,6 +17,7 @@ export class MapComponent implements OnInit {
     public apiLoaded: Observable<boolean>;
     public user: User;
     public isLoggedIn: boolean = false;
+    public firstLoad: boolean = true;
 
     @ViewChild('myGoogleMap', { static: false })
     map!: GoogleMap;
@@ -25,6 +26,7 @@ export class MapComponent implements OnInit {
 
     maxZoom = 20;
     minZoom = 5;
+    zoom = 14;
     center!: google.maps.LatLng;
     options: google.maps.MapOptions = {
         zoomControl: true,
@@ -43,7 +45,14 @@ export class MapComponent implements OnInit {
         private httpClient: HttpClient,
         private dataService: DataService,
         private sessionService: SessionService
-    ) {
+    ) { }
+
+    ngOnInit(): void {
+        if (this.sessionService.get('user') !== null) {
+            this.isLoggedIn = true;
+            this.user = JSON.parse(this.sessionService.get('user'));
+        }
+
         this.apiLoaded = this.httpClient.jsonp(`https://maps.googleapis.com/maps/api/js?key=${environment.googleMapsApiKey}`, 'callback')
         .pipe(
             map(() => true),
@@ -51,22 +60,33 @@ export class MapComponent implements OnInit {
         );
     }
 
-    ngOnInit(): void {
-        if (this.sessionService.get('user') !== null) {
-            this.isLoggedIn = true;
-            this.user = JSON.parse(this.sessionService.get('user'));
-        }
-        this.apiLoaded.subscribe((loaded) => {
-            if (loaded) {
-                navigator.geolocation.getCurrentPosition((position) => {
+    setCurrentPosition() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
                     this.center = new google.maps.LatLng({
                         lat: position.coords.latitude,
                         lng: position.coords.longitude
                     });
-                });
-                this.loadMarkersFromDataService();
-            }
-        })
+                },
+                () => {
+                    this.handleLocationError(true, this.map.googleMap.getCenter());
+                }
+            );
+        } else {
+            // Browser doesn't support Geolocation
+            this.handleLocationError(false, this.map.googleMap.getCenter());
+        }
+    }
+
+    handleLocationError(browserHasGeolocation: boolean, position) {
+        this.infoWindow.infoWindow.setPosition(position)
+        this.infoWindow.infoWindow.setContent(
+            browserHasGeolocation ?
+                "Error: El servicio de Geolocalización ha fallado." :
+                "Error: Tu navegador no soporta el servicio de Geolocalización."
+        );
+        this.infoWindow.open();
     }
 
     generateIcons() {
@@ -121,15 +141,26 @@ export class MapComponent implements OnInit {
     eventHandler(event: any, name: string) {
         console.log(event, name);
 
-        if (name === 'mapDblclick') {
-            if (!this.user) return;
+        switch(name) {
+            case 'mapDblclick':
+                if (!this.user) return;
 
-            const coordinates = {
-                lat: event.latLng.lat(),
-                lng: event.latLng.lng(),
-            }
+                const coordinates = {
+                    lat: event.latLng.lat(),
+                    lng: event.latLng.lng(),
+                }
 
-            this.createTestMarker(coordinates);
+                this.createTestMarker(coordinates);
+                break;
+            case 'idle':
+                if (this.firstLoad) {
+                    this.setCurrentPosition();
+                    this.loadMarkersFromDataService();
+                    this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('go-to-location'));
+                    this.map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(document.getElementById('add-marker'));
+                    this.firstLoad = false;
+                }
+                break;
         }
     }
 

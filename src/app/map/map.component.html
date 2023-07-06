@@ -2,11 +2,12 @@
 
 <div *ngIf="apiLoaded | async">
     <google-map #myGoogleMap class="google-map" height="100%" width="100%" [zoom]="zoom" [center]="center" [options]="options"
-        (mapClick)="eventHandler($event,'mapClick')" (mapDblclick)="eventHandler($event,'mapDblclick')"
+        (idle)="eventHandler($event, 'idle')" (mapClick)="eventHandler($event,'mapClick')" (mapDblclick)="eventHandler($event,'mapDblclick')"
         (mapDrag)="eventHandler($event,'mapDrag')" (mapDragend)="eventHandler($event,'mapDragend')"
         (mapRightclick)="eventHandler($event,'mapRightclick')"
         (positionChanged)="eventHandler($event,'marker_positionChanged')"
         (zoomChanged)="eventHandler($event,'zoomChanged')">
+
         <map-marker #markerElem="mapMarker" *ngFor="let marker of markers" [position]="marker.position"
             [label]="marker.label" [title]="marker.title" [options]="marker.options" [icon]="marker.icon"
             (mapClick)="openInfo(markerElem, marker.data)">
@@ -22,6 +23,14 @@
                 (favouriteEvent)="favouriteMarker($event)"
             ></app-info>
         </map-info-window>
+
+        <button class="btn btn-icon btn-primary btn-circle" type="button" id="add-marker">
+            <span class="btn-inner--icon">
+                <i class="ni ni-fat-add"></i>
+            </span>
+        </button>
+
+        <button type="button" id="go-to-location" class="custom-map-control-button" (click)="setCurrentPosition()">{{ 'GO_TO_LOCATION' | translate }}</button>
     </google-map>
     <app-map-legend (filterEvent)="filterMarkers($event)"></app-map-legend>
 </div>
