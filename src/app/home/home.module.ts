@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
@@ -37,7 +37,7 @@ import { CountUnreadMessagesPipe } from '../pipes/count-unread-messages.pipe';
         BreedNamePipe,
         SpeciesNamePipe,
         TruncatePipe,
-        CountUnreadMessagesPipe,
+        CountUnreadMessagesPipe
     ],
     exports: [
         HomeComponent,
@@ -50,6 +50,7 @@ import { CountUnreadMessagesPipe } from '../pipes/count-unread-messages.pipe';
         SpeciesNamePipe,
         TruncatePipe,
         CountUnreadMessagesPipe,
+        DatePipe
     ],
     providers: []
 })
