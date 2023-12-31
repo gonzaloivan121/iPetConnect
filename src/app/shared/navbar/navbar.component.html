@@ -81,7 +81,7 @@
                 </li>
                 <!-- END - Map Button -->
                 <!-- START - Blog Button -->
-                <li class="nav-item">
+                <li class="nav-item" *ngIf="false">
                     <a [routerLink]="['/blog']" class="nav-link nav-link-icon no-caret" role="button">
                         <i class="ni ni-collection d-lg-none"></i>
                         <span class="nav-link-inner--text">{{ "BLOG" | translate }}</span>
@@ -121,41 +121,10 @@
                     </a>
                 </li>
                 <li class="nav-item d-lg-block ml-lg-4">
-                    <div *ngIf="isLoggedIn" class="row" ngbDropdown>
-                        <div class="col">
-                <li class="nav-item dropdown">
-                    <a class="nav-link no-caret dropdown-toggle" data-toggle="dropdown" role="button"
-                        style="cursor: pointer;" id="dropdownMenuButton" ngbDropdownToggle>
-                        <i class="ni ni-single-02"></i>
-                        <span class="nav-link-inner--text">{{ user.username }}</span>
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" ngbDropdownMenu>
-                        <a *ngIf="user.role_id == roleEnum.User" [routerLink]="['/profile']" class="dropdown-item" role="button">{{ "PROFILE" | translate }}</a>
-                        <a *ngIf="user.role_id == roleEnum.Admin" [routerLink]="['/admin']" class="dropdown-item" role="button">{{ "ADMIN" | translate }}</a>
-                        <a *ngIf="user.role_id == roleEnum.User" [routerLink]="['/settings']" class="dropdown-item" role="button">{{ "SETTINGS" | translate }}</a>
-                        <div class="dropdown-divider"></div>
-                        <a (click)="logout()" class="dropdown-item" style="cursor: pointer;" role="button">{{ "LOG_OUT" | translate }}</a>
-                    </div>
+                    <app-user-dropdown [user]="user"></app-user-dropdown>
                 </li>
+            </ul>
+        <!-- END - Panel Derecho -->
         </div>
-    </div>
-
-    <div *ngIf="!isLoggedIn" class="row btn-wrapper">
-        <div class="col">
-            <a [routerLink]="['/login']" class="btn btn-white btn-block">
-                <span class="btn-inner--text">{{ "LOGIN" | translate }}</span>
-            </a>
-        </div>
-        <div class="col">
-            <a [routerLink]="['/register']" class="btn btn-white btn-block">
-                <span class="btn-inner--text">{{ "REGISTER" | translate }}</span>
-            </a>
-        </div>
-    </div>
-
-    </li>
-    </ul>
-    <!-- END - Panel Derecho -->
-    </div>
     </div>
 </nav>
