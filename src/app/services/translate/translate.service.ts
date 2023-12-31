@@ -23,4 +23,8 @@ export class TranslateService {
             );
         });
     }
+
+    get(key: string) {
+        return this.data[key] || key;
+    }
 }
