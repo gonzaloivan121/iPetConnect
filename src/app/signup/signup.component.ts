@@ -27,6 +27,12 @@ export class SignupComponent implements OnInit {
     focusBirthday;
     focusGender;
     focusPassword;
+    focusConfirmPassword;
+
+    isPasswordShown: boolean = false;
+    isConfirmPasswordShown: boolean = false;
+
+    passwordStrength: number = 0;
 
     constructor(
         private location: Location,
@@ -40,13 +46,51 @@ export class SignupComponent implements OnInit {
         this.signupForm = this.formBuilder.group({
             username: ["", [Validators.required, Validators.minLength(8)]],
             email: ["", [Validators.required, Validators.email]],
-            password: ["", [Validators.required, Validators.minLength(8)]],
+            password: ["", [Validators.required, Validators.minLength(8), this.createPasswordStrengthValidator()]],
+            confirmPassword: ["", [Validators.required]],
             name: ["", [Validators.required]],
             role_id: [2, [Validators.required]],
             birthday: ["", [Validators.required, this.ageGreaterThanMinRequired()]],
             gender: ["", [Validators.required]],
             agreePrivacyPolicy: [false, [Validators.requiredTrue]]
-        });
+        }, { validators: this.confirmPasswordValidator() });
+    }
+
+    confirmPasswordValidator(): ValidatorFn {
+        return (control: AbstractControl): ValidationErrors | null => {
+            console.log(control.value.password === control.value.confirmPassword)
+            return control.value.password === control.value.confirmPassword ? null : { passwordNoMatch: true };
+        }
+    }
+
+    createPasswordStrengthValidator(): ValidatorFn {
+        return (control: AbstractControl): ValidationErrors | null => {
+            const value = control.value;
+
+            if (!value) {
+                return null;
+            }
+
+            const hasUpperCase = /[A-Z]+/.test(value);
+            const hasLowerCase = /[a-z]+/.test(value);
+            const hasNumeric = /[0-9]+/.test(value);
+            const hasSpecial = /[!@#$%&*()_+=|<>?{}\[\]~-]+/.test(value);
+
+            const isValid = hasUpperCase && hasLowerCase && hasNumeric && hasSpecial;
+
+            const validArray = [hasUpperCase, hasLowerCase, hasNumeric, hasSpecial];
+            this.passwordStrength = validArray.filter(Boolean).length;
+
+            return !isValid ? {
+                passwordStrength: {
+                    hasUpperCase: !hasUpperCase,
+                    hasLowerCase: !hasLowerCase,
+                    hasNumeric: !hasNumeric,
+                    hasSpecial: !hasSpecial
+                }
+            } : null;
+
+        }
     }
 
     get username() {
@@ -59,6 +103,10 @@ export class SignupComponent implements OnInit {
 
     get password() {
         return this.signupForm.get('password');
+    }
+
+    get confirmPassword() {
+        return this.signupForm.get('confirmPassword');
     }
 
     get name() {
@@ -126,5 +174,13 @@ export class SignupComponent implements OnInit {
                 }
             } : null;
         }
+    }
+
+    toggleShowPassword() {
+        this.isPasswordShown = !this.isPasswordShown;
+    }
+
+    toggleShowConfirmPassword() {
+        this.isConfirmPasswordShown = !this.isConfirmPasswordShown;
     }
 }
