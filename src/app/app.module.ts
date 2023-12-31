@@ -49,6 +49,7 @@ import { AdminMarkersComponent } from './admin/markers/markers.component';
 import { AdminEditComponent } from './admin/edit/edit.component';
 import { MessagesComponent } from './match/messages/messages.component';
 import { MatchesComponent } from './match/matches/matches.component';
+import { LikesComponent } from './match/likes/likes.component';
 
 export function setupAppConfigServiceFactory(
     service: AppConfigService
@@ -100,6 +101,7 @@ export function setupTranslateServiceFactory(
         AdminEditComponent,
         MessagesComponent,
         MatchesComponent,
+        LikesComponent,
     ],
     imports: [
         NgbModule,
