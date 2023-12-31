@@ -1,0 +1,39 @@
+<div *ngIf="otherUserLoaded | async" class="d-flex flex-column h-100">
+    <!-- START - Chat Header -->
+    <div class="d-flex p-4">
+        <button class="btn btn-icon btn-circle p-0" type="button" (click)="closeChat()">
+            <span class="btn-inner--icon"><i class="ni ni-bold-left"></i></span>
+        </button>
+
+        <div class="d-flex align-items-center cursor-pointer info-hover" (click)="viewProfile(user)">
+            <div class="background-image shadow ml-2 mr-3" style="background-image: url('{{ otherUser.image }}');"></div>
+            <h3 class="display-4 m-0 match-name">{{ otherUser.name }}</h3>
+        </div>
+    </div>
+    <!-- END - Chat Header -->
+    <!-- START - Chat Body -->
+    <div class="d-flex px-4 pb-4 flex-grow-1">
+        <div class="h-100 w-100 rounded-edges overflow-hidden">
+            <div class="px-5 chat-container shadow">
+                <ul class="w-100 h-100 m-0 list-unstyled p-0 d-flex flex-column">
+                    <app-message *ngFor="let message of chat?.messages" [message]="message" [user]="user" [otherUser]="otherUser"></app-message>
+                </ul>
+            </div>
+            <div class="p-0 input-container shadow">
+                <form [formGroup]="messageForm" (ngSubmit)="onSubmit()" role="form" class="w-100 h-100 d-flex">
+                    <div class="flex-grow-1">
+                        <div class="form-group m-0 h-100">
+                            <textarea (keydown.control.enter)="onCtrlEnter()" id="message" name="message" formControlName="message" class="w-100 h-100 form-control form-control-alternative message-input" placeholder="{{ 'TYPE_A_MESSAGE' | translate }}..." (focus)="focusMessage = true" (blur)="focusMessage = false"></textarea>
+                        </div>
+                    </div>
+                    <div class="position-absolute h-100 right-0 d-flex align-items-center">
+                        <button type="submit" [disabled]="messageForm.invalid" class="btn btn-primary btn-icon btn-circle p-0 m-4">
+                            <span class="btn-inner--icon"><i class="ni ni-send"></i></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- END - Chat Body -->
+</div>

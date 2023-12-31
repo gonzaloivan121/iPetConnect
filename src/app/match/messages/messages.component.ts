@@ -1,6 +1,8 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core'; 
 import { User, Chat, Message } from 'src/classes';
 import { DataService, SessionService } from 'src/app/services';
+import { Observable, from, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 @Component({
     selector: 'app-messages',
@@ -8,32 +10,52 @@ import { DataService, SessionService } from 'src/app/services';
     styleUrls: ['./messages.component.css']
 })
 export class MessagesComponent implements OnInit {
+
     @Input() chat: Chat;
-    @Input() currentUser: User;
+    @Input() user: User;
+
     otherUser: User;
     messages: Message[];
 
-    //@Output() likeEvent = new EventEmitter<User>();
-    //@Output() dislikeEvent = new EventEmitter<User>();
+    public messagesLoaded: Observable<boolean>;
+    public otherUserLoaded: Observable<boolean>;
 
-    constructor(private dataService: DataService) { }
+    @Output() openChatEvent = new EventEmitter<Chat>();
 
-    ngOnInit(): void {
-        this.dataService.get('user', this.chat.user1_id == this.currentUser.id ? this.chat.user2_id : this.chat.user1_id).then((response: any) => {
+    constructor(
+        private dataService: DataService
+    ) { }
+
+    ngOnInit() {
+        this.otherUserLoaded = this.getOtherUser();
+        this.messagesLoaded = this.getMessages();
+    }
+
+    getOtherUser(): Observable<boolean> {
+        return from(this.dataService.get('user', this.chat.user1_id == this.user.id ? this.chat.user2_id : this.chat.user1_id).then((response: any) => {
             if (response.status === 'success') {
                 this.otherUser = response.results[0] as User;
             }
-        });
+        })).pipe(
+            map(() => true),
+            catchError(() => of(false))
+        );
+    }
 
-        this.dataService.getFrom('message', 'chat', this.chat.id).then((response: any) => {
+    getMessages() {
+        return from(this.dataService.getFrom('message', 'chat', this.chat.id).then((response: any) => {
             if (response.status === 'success') {
-                this.chat.messages = response.results as Message[];
+                this.messages = response.results as Message[];
             }
-        });
+        })).pipe(
+            map(() => true),
+            catchError(() => of(false))
+        );
     }
 
     openChat() {
-        console.log(this.chat)
+        this.chat.messages = this.messages;
+        this.openChatEvent.emit(this.chat);
     }
 
     deleteChat(event: PointerEvent) {

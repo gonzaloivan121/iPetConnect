@@ -1,7 +1,28 @@
-<button class="match btn background-image" style="background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0), rgba(0,0,0,.75)), url('{{ otherUser.image }}');">
-    <div class="p-3 d-flex">
-        <div class="d-flex align-items-center">
-            <h3 class="m-0 display-4 chat-name">{{ otherUser.name }}</h3>
+<div *ngIf="otherUserLoaded | async" ngbDropdown>
+    <button ngbDropdownToggle class="match btn background-image d-flex align-items-end no-caret" type="button" style="width: 9.33vw; background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0), rgba(0,0,0,.75)), url('{{ otherUser.image }}');">
+        <div class="px-3">
+            <h3 class="m-0 display-4 chat-name text-white">{{ otherUser.name }}</h3>
         </div>
-    </div>
-</button>
+    </button>
+
+    <ul class="my-3" ngbDropdownMenu>
+        <li>
+            <a (click)="viewProfile(otherUser)" class="btn-icon dropdown-item" href="javascript:void(0)">
+                <span class="btn-inner--icon"><i class="ni ni-circle-08"></i></span>
+                <span class="btn-inner--text">{{ "VIEW_PROFILE" | translate }}</span>
+            </a>
+        </li>
+        <li>
+            <a (click)="openChat(otherUser)" class="btn-icon dropdown-item" href="javascript:void(0)">
+                <span class="btn-inner--icon"><i class="ni ni-chat-round"></i></span>
+                <span class="btn-inner--text">{{ "OPEN_CHAT" | translate }}</span>
+            </a>
+        </li>
+        <li>
+            <a (click)="undoMatch(otherUser)" class="btn-icon dropdown-item" href="javascript:void(0)">
+                <span class="btn-inner--icon"><i class="ni ni-spaceship"></i></span>
+                <span class="btn-inner--text">{{ "UNDO_MATCH" | translate }}</span>
+            </a>
+        </li>
+    </ul>
+</div>

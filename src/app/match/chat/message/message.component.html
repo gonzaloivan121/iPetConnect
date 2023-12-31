@@ -1,0 +1,11 @@
+<li class="w-100 h-100">
+    <div class="my-3 w-75 p-2 d-flex position-relative justify-content-between align-items-center message" [ngClass]="{ 'right': message.user_id === user.id, 'flex-row-reverse left': message.user_id !== user.id }">
+        <div class="d-flex flex-column flex-grow-1">
+            <p class="text m-0" [ngClass]="{ 'right': message.user_id === user.id}">{{ message.message }}</p>
+            <small class="text-muted text-right">{{ message.created_at | date }}</small>
+        </div>
+        <div class="p-2">
+            <div class="background-image" style="background-image: url('{{ message.user_id === user.id ? user.image : otherUser.image }}');"></div>
+        </div>
+    </div>
+</li>

@@ -50,7 +50,11 @@ import { AdminEditComponent } from './admin/edit/edit.component';
 import { MessagesComponent } from './match/messages/messages.component';
 import { MatchesComponent } from './match/matches/matches.component';
 import { LikesComponent } from './match/likes/likes.component';
+import { UserDropdownComponent } from './shared/navbar/user-dropdown/user-dropdown.component';
 import { PrivacyComponent } from './privacy/privacy.component';
+import { TextareaAutosizeDirective } from './directives/textarea-autosize.directive';
+import { ChatComponent } from './match/chat/chat.component';
+import { MessageComponent } from './match/chat/message/message.component';
 
 export function setupAppConfigServiceFactory(
     service: AppConfigService
@@ -103,7 +107,11 @@ export function setupTranslateServiceFactory(
         MessagesComponent,
         MatchesComponent,
         LikesComponent,
+        UserDropdownComponent,
         PrivacyComponent,
+        TextareaAutosizeDirective,
+        ChatComponent,
+        MessageComponent,
     ],
     imports: [
         NgbModule,

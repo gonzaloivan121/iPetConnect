@@ -18,6 +18,7 @@
         </div>
         <div class="shape-container d-flex h-100 w-100">
             <div class="d-flex w-100">
+                <!-- START - Main Window -->
                 <div class="d-flex col-4 h-100 bg-white shadow p-0 overflow-hidden">
                     <div>
                         <div class="underline-container">
@@ -42,13 +43,7 @@
                         <!-- START - Tabs -->
                         <div class="h-100 position-relative">
                             <!-- START - Messages Tab -->
-                            <div class="h-100 w-100 position-absolute d-flex swipe-animation" [style]="activeTab == matchTabEnum.Messages ? 'transform: translate(0%);' : 'transform: translate(-100%);'">
-                                <!-- TEST -->
-                                <div *ngIf="isTest" class="position-absolute w-100 d-flex px-4" style="bottom: 10%;">
-                                    <button (click)="addTestChat()" class="btn w-50">Add Test Chat</button>
-                                    <button (click)="removeTestChat()" class="btn w-50">Remove Test Chat</button>
-                                </div>
-                                <!-- TEST -->
+                            <div *ngIf="chatsLoaded | async" class="h-100 w-100 position-absolute d-flex swipe-animation" [style]="activeTab == matchTabEnum.Messages ? 'transform: translate(0%);' : 'transform: translate(-100%);'">
                                 <div *ngIf="chats.length == 0" class="p-3 w-100 d-flex flex-column justify-content-center align-items-center">
                                     <div class="title text-center">
                                         <h4 class="display-4 font-weight-700">Sin Chats</h4>
@@ -57,19 +52,14 @@
                                         <p class="px-md text-dark">Parece que aún no has hablado con nadie, ¿por qué no comienzas una conversación?</p>
                                     </div>
                                 </div>
+                                <div *ngIf=""></div>
                                 <div *ngIf="chats.length > 0" class="py-3 w-100 scroll">
-                                    <app-messages *ngFor="let chat of chats" [chat]="chat" [currentUser]="user"></app-messages>
+                                    <app-messages *ngFor="let chat of chats" [chat]="chat" [user]="user" (openChatEvent)="openChat($event)"></app-messages>
                                 </div>
                             </div>
                             <!-- END - Messages Tab -->
                             <!-- START - Matches Tab -->
-                            <div class="h-100 w-100 position-absolute d-flex swipe-animation" [style]="activeTab == matchTabEnum.Messages ? 'transform: translate(100%);' : activeTab == matchTabEnum.Matches ? 'transform: translate(0%);' : 'transform: translate(-100%);'">
-                                <!-- TEST -->
-                                <div *ngIf="isTest" class="position-absolute w-100 d-flex px-4" style="bottom: 10%;">
-                                    <button (click)="addTestMatch()" class="btn w-50">Add Test Match</button>
-                                    <button (click)="removeTestMatch()" class="btn w-50">Remove Test Match</button>
-                                </div>
-                                <!-- TEST -->
+                            <div *ngIf="matchesLoaded | async" class="h-100 w-100 position-absolute d-flex swipe-animation" [style]="activeTab == matchTabEnum.Messages ? 'transform: translate(100%);' : activeTab == matchTabEnum.Matches ? 'transform: translate(0%);' : 'transform: translate(-100%);'">
                                 <div *ngIf="matches.length == 0" class="p-3 w-100 d-flex flex-column justify-content-center align-items-center">
                                     <div class="title text-center">
                                         <h4 class="display-4 font-weight-700">Sin Matches</h4>
@@ -78,8 +68,8 @@
                                         <p class="px-md text-dark">Parece que aún no has conectado con nadie, ¡Desliza para encontrar gente!</p>
                                     </div>
                                 </div>
-                                <div *ngIf="matches.length > 0" class="py-3 w-100 scroll">
-                                    <app-matches *ngFor="let match of matches" [match]="match" [currentUser]="user"></app-matches>
+                                <div *ngIf="matches.length > 0" class="p-3 w-100 scroll custom-flex">
+                                    <app-matches style="flex-grow: 1;" *ngFor="let match of matches" [match]="match" [user]="user"></app-matches>
                                 </div>
                             </div>
                             <!-- END - Matches Tab -->
@@ -102,31 +92,33 @@
                                 <div class="h-100 position-relative">
                                     <!-- START - Received Tab -->
                                     <div class="h-100 w-100 d-flex position-absolute swipe-animation" [style]="activeSubTab == likesTabEnum.Received ? 'transform: translate(0%);' : 'transform: translate(-100%);'">
-                                        <div class="p-3 w-100 d-flex flex-column justify-content-center align-items-center">
-                                            <div>
-                                                <div class="title text-center">
-                                                    <h4 class="display-4 font-weight-700">Sin Likes</h4>
-                                                </div>
-                                                <div class="text-center">
-                                                    <p class="px-md text-dark">Parece que aún no le has gustado a nadie con quien no hayas hecho match aún, ¿Por qué no
-                                                        añades más información a tu perfil?</p>
-                                                </div>
+                                        <div *ngIf="likesReceived.length == 0" class="p-3 w-100 d-flex flex-column justify-content-center align-items-center">
+                                            <div class="title text-center">
+                                                <h4 class="display-4 font-weight-700">Sin Likes</h4>
                                             </div>
+                                            <div class="text-center">
+                                                <p class="px-md text-dark">Parece que aún no le has gustado a nadie con quien no hayas hecho match aún, ¿Por qué no
+                                                    añades más información a tu perfil?</p>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="likesReceived.length > 0" class="p-3 w-100 scroll custom-flex">
+                                            <app-likes style="flex-grow: 1;" *ngFor="let like of likesReceived" [like]="like" [user]="user"></app-likes>
                                         </div>
                                     </div>
                                     <!-- END - Received Tab -->
                                     <!-- START - Given Tab -->
                                     <div class="h-100 w-100 d-flex swipe-animation" [style]="activeSubTab == likesTabEnum.Given ? 'transform: translate(0%);' : 'transform: translate(100%);'">
-                                        <div class="p-3 w-100 d-flex flex-column justify-content-center align-items-center">
-                                            <div>
-                                                <div class="title text-center">
-                                                    <h4 class="display-4 font-weight-700">Sin Likes</h4>
-                                                </div>
-                                                <div class="text-center">
-                                                    <p class="px-md text-dark">Parece que aún no le has dado me gusta a nadie con quien no hayas hecho match aún, ¿Por qué no
-                                                        juegas un rato al match a ver si encuentras a alguien?</p>
-                                                </div>
+                                        <div *ngIf="likesGiven.length == 0" class="p-3 w-100 d-flex flex-column justify-content-center align-items-center">
+                                            <div class="title text-center">
+                                                <h4 class="display-4 font-weight-700">Sin Likes</h4>
                                             </div>
+                                            <div class="text-center">
+                                                <p class="px-md text-dark">Parece que aún no le has dado me gusta a nadie con quien no hayas hecho match aún, ¿Por qué no
+                                                    juegas un rato al match a ver si encuentras a alguien?</p>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="likesGiven.length > 0" class="p-3 w-100 scroll custom-flex">
+                                            <app-likes style="flex-grow: 1;" *ngFor="let like of likesGiven" [like]="like" [user]="user"></app-likes>
                                         </div>
                                     </div>
                                     <!-- END - Given Tab -->
@@ -137,7 +129,12 @@
                         <!-- END - Tabs -->
                     </div>
                 </div>
-                <div class="d-flex col-8 h-100 justify-content-center p-xl">
+                <!-- END - Main Window -->
+                <!-- START - Chat Window -->
+                <app-chat *ngIf="currentChat" [chat]="currentChat" [user]="user" (closeChatEvent)="closeChat()" class="container-fluid col-4 h-100 bg-white shadow p-0 overflow-hidden position-absolute chat" [ngClass]="{'open':isChatOpen === true}"></app-chat>
+                <!-- END - Chat Window -->
+                <!-- START - User Cards -->
+                <div *ngIf="usersLoaded | async" class="d-flex col-8 h-100 justify-content-center p-xl">
                     <div class="position-relative d-flex justify-content-center align-items-center h-100 w-50">
                         <app-user-card *ngFor="let matchUser of users" class="position-absolute h-100 w-100"
                             [user]="matchUser"
@@ -146,6 +143,7 @@
                         ></app-user-card>
                     </div>
                 </div>
+                <!-- END - User Cards -->
             </div>
         </div>
     </section>

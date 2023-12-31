@@ -3,6 +3,8 @@ import { Location } from '@angular/common';
 import { SessionService, DataService } from '../services';
 import { User, Chat, Message, Match, Like } from '../../classes';
 import { RoleEnum, MatchTabEnum, LikesTabEnum } from '../enums/enums';
+import { Observable, from, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 @Component({
     selector: 'app-match',
@@ -12,6 +14,12 @@ import { RoleEnum, MatchTabEnum, LikesTabEnum } from '../enums/enums';
 export class MatchComponent implements OnInit {
     public user: User;
 
+    public chatsLoaded: Observable<boolean>;
+    public usersLoaded: Observable<boolean>;
+    public matchesLoaded: Observable<boolean>;
+    public likesReceivedLoaded: Observable<boolean>;
+    public likesGivenLoaded: Observable<boolean>;
+
     public users: User[] = [];
     public chats: Chat[] = [];
     public matches: Match[] = [];
@@ -20,6 +28,9 @@ export class MatchComponent implements OnInit {
 
     public activeTab: MatchTabEnum = MatchTabEnum.Messages;
     public activeSubTab: LikesTabEnum = LikesTabEnum.Received;
+
+    public isChatOpen: boolean = false;
+    public currentChat: Chat;
 
     public get matchTabEnum(): typeof MatchTabEnum {
         return MatchTabEnum;
@@ -37,7 +48,7 @@ export class MatchComponent implements OnInit {
         private dataService: DataService
     ) { }
 
-    ngOnInit(): void {
+    ngOnInit() {
         if (this.sessionService.get('user') !== null) {
             this.user = JSON.parse(this.sessionService.get('user'));
 
@@ -52,55 +63,89 @@ export class MatchComponent implements OnInit {
     }
 
     getData() {
-        this.getChats();
-        this.getUsers();
-        this.getMatches();
+        this.chatsLoaded = this.getChats();
+        this.usersLoaded = this.getUsers();
+        this.matchesLoaded = this.getMatches();
         this.getLikes();
     }
 
-    getChats() {
-        this.dataService.getFrom('chat', 'user', this.user.id).then((response: any) => {
+    getChats(): Observable<boolean> {
+        return from(this.dataService.getFrom('chat', 'user', this.user.id).then((response: any) => {
             if (response.status === 'success') {
                 this.chats = response.results as Chat[];
             }
-        });
+        })).pipe(
+            map(() => true),
+            catchError(() => of(false))
+        );
     }
 
-    getUsers() {
-        this.dataService.getExcluding('user', this.user.id).then((response: any) => {
+    getUsers(): Observable<boolean> {
+        return from(this.dataService.getExcluding('user', this.user.id).then((response: any) => {
             if (response.status === 'success') {
                 this.users = response.results as User[];
             }
-        });
+        })).pipe(
+            map(() => true),
+            catchError(() => of(false))
+        );
     }
 
-    getMatches() {
-        this.dataService.getFrom('match', 'user', this.user.id).then((response: any) => {
+    getMatches(): Observable<boolean> {
+        return from(this.dataService.getFrom('match', 'user', this.user.id).then((response: any) => {
             if (response.status === 'success') {
                 this.matches = response.results as Match[];
+
+                // TODO: Quitar, testing
+                var ids = [
+                    1, 2, 4, 5, 6, 7,
+                    24, 25, 26, 27, 28,
+                    29, 30, 31, 32, 33,
+                    35, 36, 37, 38, 46,
+                    47, 50, 51
+                ];
+
+                // TODO: Quitar, testing
+                for (let i = 0; i < ids.length; i++) {
+                    var newMatch = new Match(ids[i], 45);
+                    newMatch.id = this.matches[0].id + i;
+                    newMatch.created_at = this.matches[0].created_at;
+                    newMatch.updated_at = this.matches[0].updated_at;
+
+                    this.matches.push(newMatch);
+                }
             }
-        });
+        })).pipe(
+            map(() => true),
+            catchError(() => of(false))
+        );
     }
 
     getLikes() {
-        this.getLikesReceived();
-        this.getLikesGiven();
+        this.likesReceivedLoaded = this.getLikesReceived();
+        this.likesGivenLoaded = this.getLikesGiven();
     }
 
-    getLikesReceived() {
-        this.dataService.getFrom('like', 'user_2', this.user.id).then((response: any) => {
+    getLikesReceived(): Observable<boolean> {
+        return from(this.dataService.getFrom('like', 'user_2', this.user.id).then((response: any) => {
             if (response.status === 'success') {
                 this.likesReceived = response.results as Like[];
             }
-        });
+        })).pipe(
+            map(() => true),
+            catchError(() => of(false))
+        );
     }
 
-    getLikesGiven() {
-        this.dataService.getFrom('like', 'user_1', this.user.id).then((response: any) => {
+    getLikesGiven(): Observable<boolean> {
+        return from(this.dataService.getFrom('like', 'user_1', this.user.id).then((response: any) => {
             if (response.status === 'success') {
                 this.likesGiven = response.results as Like[];
             }
-        });
+        })).pipe(
+            map(() => true),
+            catchError(() => of(false))
+        );
     }
 
     changeTab(tab: MatchTabEnum): void {
@@ -116,7 +161,7 @@ export class MatchComponent implements OnInit {
     }
 
     refresh(): void {
-
+        
     }
 
     like(user: User): void {
@@ -165,7 +210,32 @@ export class MatchComponent implements OnInit {
         this.matches.pop();
     }
 
+    addTestReceivedLike(): void {
+        this.likesReceived.push(new Like(45, 3));
+    }
+
+    removeTestReceivedLike(): void {
+        this.likesReceived.pop();
+    }
+
+    addTestGivenLike(): void {
+        this.likesGiven.push(new Like(45, 3));
+    }
+
+    removeTestGivenLike(): void {
+        this.likesGiven.pop();
+    }
+
     random(min: number, max: number): number {
         return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    openChat(chat: Chat) {
+        this.currentChat = chat;
+        this.isChatOpen = true;
+    }
+
+    closeChat() {
+        this.isChatOpen = false;
     }
 }

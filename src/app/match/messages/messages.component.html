@@ -1,4 +1,4 @@
-<a (click)="openChat()" href="javascript:void(0)">
+<a *ngIf="messagesLoaded | async" (click)="openChat()" href="javascript:void(0)">
     <div class="chat p-3 d-flex justify-content-between align-items-center custom-border">
         <div class="d-flex align-items-center">
             <div class="match-image background-image shadow mr-3" style="background-image: url('{{ otherUser.image }}');">
@@ -6,16 +6,16 @@
             <div>
                 <h3 class="m-0 display-4 chat-name">{{ otherUser.name }}</h3>
                 <p class="m-0 text-dark d-flex align-items-center">
-                    <i *ngIf="chat.messages[chat.messages.length - 1].user_id == currentUser.id" class="ni ni-curved-next mr-1"></i>
-                    <strong>{{ chat.messages[chat.messages.length - 1].message }}</strong>
+                    <i *ngIf="messages[messages.length - 1].user_id == user.id" class="ni ni-curved-next mr-1"></i>
+                    <strong>{{ messages[messages.length - 1].message }}</strong>
                 </p>
             </div>
         </div>
         <div class="d-flex align-items-center justify-content-between">
             <div class="new-messages">
-                <span>{{ chat.messages | countUnreadMessages }}</span>
+                <span>{{ messages | countUnreadMessages }}</span>
             </div>
-            <div class="delete-chat-container">
+            <div class="delete-chat-container" style="display: none;">
                 <button type="button" (click)="deleteChat($event)">
                     <span class="delete-chat-button">x</span>
                 </button>
