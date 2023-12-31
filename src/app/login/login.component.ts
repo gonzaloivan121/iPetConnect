@@ -11,8 +11,8 @@ import { DataService, SessionService } from '../services';
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
 
-    focusEmail;
-    focusPassword;
+    focusEmail: boolean;
+    focusPassword: boolean;
 
     isLoginError: boolean = false;
     isPasswordShown: boolean = false;
