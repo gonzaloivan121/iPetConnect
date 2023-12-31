@@ -1,0 +1,34 @@
+<div *ngIf="user" class="row" ngbDropdown>
+    <div class="col">
+        <li class="nav-item dropdown">
+            <a class="nav-link no-caret dropdown-toggle" data-toggle="dropdown" role="button" style="cursor: pointer;"
+                id="dropdownMenuButton" ngbDropdownToggle>
+                <i class="ni ni-single-02"></i>
+                <span class="nav-link-inner--text">{{ user.username }}</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" ngbDropdownMenu>
+                <a *ngIf="user.role_id == roleEnum.User" [routerLink]="['/profile']" class="dropdown-item" role="button">{{ "PROFILE" | translate }}</a>
+                <a *ngIf="user.role_id == roleEnum.Admin" [routerLink]="['/admin']" class="dropdown-item" role="button">{{ "ADMIN" | translate }}</a>
+                <a *ngIf="user.role_id == roleEnum.User" [routerLink]="['/settings']" class="dropdown-item" role="button">{{ "SETTINGS" | translate }}</a>
+                <div class="dropdown-divider"></div>
+                <a (click)="logout()" class="dropdown-item" style="cursor: pointer;" role="button">{{ "LOG_OUT" | translate }}</a>
+            </div>
+        </li>
+    </div>
+</div>
+
+<div *ngIf="!user" class="row" ngbDropdown>
+    <div class="col">
+        <li class="nav-item dropdown">
+            <a class="nav-link no-caret dropdown-toggle" data-toggle="dropdown" role="button" style="cursor: pointer;"
+                id="dropdownMenuButton" ngbDropdownToggle>
+                <i class="ni ni-single-02"></i>
+                <i class="ni ni-bold-down"></i>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" ngbDropdownMenu>
+                <a [routerLink]="['/login']" class="dropdown-item">{{ "LOGIN" | translate }}</a>
+                <a [routerLink]="['/register']" class="dropdown-item">{{ "REGISTER" | translate }}</a>
+            </div>
+        </li>
+    </div>
+</div>
