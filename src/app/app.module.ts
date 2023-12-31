@@ -50,6 +50,7 @@ import { AdminEditComponent } from './admin/edit/edit.component';
 import { MessagesComponent } from './match/messages/messages.component';
 import { MatchesComponent } from './match/matches/matches.component';
 import { LikesComponent } from './match/likes/likes.component';
+import { PrivacyComponent } from './privacy/privacy.component';
 
 export function setupAppConfigServiceFactory(
     service: AppConfigService
@@ -102,6 +103,7 @@ export function setupTranslateServiceFactory(
         MessagesComponent,
         MatchesComponent,
         LikesComponent,
+        PrivacyComponent,
     ],
     imports: [
         NgbModule,

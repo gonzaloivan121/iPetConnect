@@ -1,0 +1,343 @@
+<main>
+    <div class="position-relative">
+        <!-- shape Hero -->
+        <section class="section section-lg section-shaped pb-250">
+            <div class="shape shape-style-1 shape-primary">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="container py-lg-md d-flex">
+                <div class="col px-0">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h1 class="display-3 text-white">{{ "PRIVACY_POLICY" | translate }}</h1>
+                            <p class="lead text-white">{{ "PRIVACY_POLICY_DESCRIPTION" | translate }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- SVG separator -->
+            <div class="separator separator-bottom separator-skew">
+                <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
+                </svg>
+            </div>
+        </section>
+        <!-- 1st Hero Variation -->
+    </div>
+    <!-- START - Cards -->
+    <section class="section section-lg pt-lg-0 mt--200">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="row row-grid">
+                        <div class="col-lg-4">
+                            <div class="card card-lift--hover shadow border-0">
+                                <div class="card-body py-5">
+                                    <div class="icon icon-shape icon-shape-primary rounded-circle mb-4">
+                                        <i class="ni ni-badge"></i>
+                                    </div>
+                                    <h6 class="text-primary text-uppercase">{{ "INFORMATION_WE_COLLECT" | translate }}</h6>
+                                    <p class="description mt-3">{{ "INFORMATION_WE_COLLECT_DESCRIPTION" | translate }}</p>
+                                    <div>
+                                        <span class="badge badge-pill badge-primary">{{ "NAME" | translate }}</span>
+                                        <span class="badge badge-pill badge-primary">{{ "EMAIL" | translate }}</span>
+                                        <span class="badge badge-pill badge-primary">{{ "PET" | translate }}</span>
+                                    </div>
+                                    <button (click)="scrollTo(informationWeCollect)" class="btn btn-primary mt-4">{{ "READ_MORE" | translate }}</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card card-lift--hover shadow border-0">
+                                <div class="card-body py-5">
+                                    <div class="icon icon-shape icon-shape-success rounded-circle mb-4">
+                                        <i class="ni ni-glasses-2"></i>
+                                    </div>
+                                    <h6 class="text-success text-uppercase">{{ "USE_OF_INFORMATION" | translate }}</h6>
+                                    <p class="description mt-3">{{ "USE_OF_INFORMATION_DESCRIPTION" | translate }}</p>
+                                    <div>
+                                        <span class="badge badge-pill badge-success">{{ "PROFILES" | translate }}</span>
+                                        <span class="badge badge-pill badge-success">{{ "MATCHES" | translate }}</span>
+                                        <span class="badge badge-pill badge-success">{{ "NOTIFICATIONS" | translate }}</span>
+                                    </div>
+                                    <button (click)="scrollTo(useOfInformation)" class="btn btn-success mt-4">{{ "READ_MORE" | translate }}</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card card-lift--hover shadow border-0">
+                                <div class="card-body py-5">
+                                    <div class="icon icon-shape icon-shape-warning rounded-circle mb-4">
+                                        <i class="ni ni-lock-circle-open"></i>
+                                    </div>
+                                    <h6 class="text-warning text-uppercase">{{ "SECURITY_MEASURES" | translate }}</h6>
+                                    <p class="description mt-3">{{ "SECURITY_MEASURES_SHORT_DESCRIPTION" | translate }}</p>
+                                    <div>
+                                        <span class="badge badge-pill badge-warning">{{ "ENCRYPTING" | translate }}</span>
+                                        <span class="badge badge-pill badge-warning">{{ "UPDATES" | translate }}</span>
+                                        <span class="badge badge-pill badge-warning">{{ "ACCESS" | translate }}</span>
+                                    </div>
+                                    <button (click)="scrollTo(securityMeasures)" class="btn btn-warning mt-4">{{ "READ_MORE" | translate }}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END - Cards -->
+    <!-- START - Information we Collect -->
+    <section #informationWeCollect class="section section-lg">
+        <div class="container">
+            <div class="row row-grid align-items-center">
+                <div class="col-md-6 order-md-2">
+                    <img src="./assets/img/theme/promo-1.png" class="img-fluid floating">
+                </div>
+                <div class="col-md-6 order-md-1">
+                    <div class="pr-md-5">
+                        <div class="icon icon-lg icon-shape icon-shape-primary shadow rounded-circle mb-5">
+                            <i class="ni ni-badge"></i>
+                        </div>
+                        <h3>{{ "INFORMATION_WE_COLLECT" | translate }}</h3>
+                        <p>{{ "INFORMATION_WE_COLLECT_DESCRIPTION" | translate }}</p>
+                        <ul class="list-unstyled mt-5">
+                            <li class="py-2">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <div class="badge badge-circle badge-primary mr-3">
+                                            <i class="ni ni-single-02"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0">{{ "INFORMATION_WE_COLLECT_LIST_1" | translate }}</h6>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="py-2">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <div class="badge badge-circle badge-primary mr-3">
+                                            <i class="ni ni-satisfied"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0">{{ "INFORMATION_WE_COLLECT_LIST_2" | translate }}</h6>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="py-2">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <div class="badge badge-circle badge-primary mr-3">
+                                            <i class="ni ni-square-pin"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0">{{ "INFORMATION_WE_COLLECT_LIST_3" | translate }}</h6>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <p class="mt-5">*{{ "INFORMATION_WE_COLLECT_FOOTER" | translate }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END - Information we Collect -->
+    <!-- START - Use of Information -->
+    <section #useOfInformation class="section bg-secondary">
+        <div class="container">
+            <div class="row row-grid align-items-center">
+                <div class="col-md-6">
+                    <div class="card bg-success shadow border-0">
+                        <img src="./assets/img/stock/information-1200x1000.jpg" class="card-img-top">
+                        <blockquote class="card-blockquote">
+                            <svg preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 583 95"
+                                class="svg-bg">
+                                <polygon points="0,52 583,95 0,95" class="fill-success" />
+                                <polygon points="0,42 583,95 683,0 0,95" opacity=".2" class="fill-success" />
+                            </svg>
+                            <h4 class="display-3 font-weight-bold text-white">{{ "TEST_TEXT" | translate }}</h4>
+                            <p class="lead text-italic text-white">{{ "LOREM_IPSUM" | translate }}</p>
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="pl-md-5">
+                        <div class="icon icon-lg icon-shape icon-shape-success shadow rounded-circle mb-5">
+                            <i class="ni ni-settings"></i>
+                        </div>
+                        <h3>{{ "USE_OF_INFORMATION" | translate }}</h3>
+                        <p>{{ "USE_OF_INFORMATION_DESCRIPTION" | translate }}</p>
+                        <ul class="list-unstyled mt-5">
+                            <li class="py-2">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <div class="badge badge-circle badge-success mr-3">
+                                            <i class="ni ni-single-02"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0">{{ "USE_OF_INFORMATION_LIST_1" | translate }}</h6>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="py-2">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <div class="badge badge-circle badge-success mr-3">
+                                            <i class="ni ni-satisfied"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0">{{ "USE_OF_INFORMATION_LIST_2" | translate }}</h6>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="py-2">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <div class="badge badge-circle badge-success mr-3">
+                                            <i class="ni ni-square-pin"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0">{{ "USE_OF_INFORMATION_LIST_3" | translate }}</h6>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="py-2">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <div class="badge badge-circle badge-success mr-3">
+                                            <i class="ni ni-square-pin"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0">{{ "USE_OF_INFORMATION_LIST_4" | translate }}</h6>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END - Use of Information -->
+    <!-- START - Security Measures -->
+    <section #securityMeasures class="section section-lg bg-gradient-warning">
+        <div class="container pt-lg pb-300">
+            <div class="row text-center justify-content-center">
+                <div class="col-lg-10">
+                    <h2 class="display-3 text-white">{{ "SECURITY_MEASURES" | translate }}</h2>
+                    <p class="lead text-white">{{ "SECURITY_MEASURES_LONG_DESCRIPTION" | translate }}</p>
+                </div>
+            </div>
+            <div class="row row-grid mt-5">
+                <div class="col-lg-3 text-center">
+                    <div class="icon icon-lg icon-shape bg-gradient-white shadow rounded-circle text-primary">
+                        <i class="ni ni-settings text-primary"></i>
+                    </div>
+                    <h5 class="text-white mt-3">{{ "ENCRYPTING_LONG" | translate }}</h5>
+                    <p class="text-white mt-3">{{ "ENCRYPTING_DESCRIPTION" | translate }}</p>
+                </div>
+                <div class="col-lg-3 text-center">
+                    <div class="icon icon-lg icon-shape bg-gradient-white shadow rounded-circle text-primary">
+                        <i class="ni ni-ruler-pencil text-primary"></i>
+                    </div>
+                    <h5 class="text-white mt-3">{{ "RESTRICTED_ACCESS" | translate }}</h5>
+                    <p class="text-white mt-3">{{ "RESTRICTED_ACCESS_DESCRIPTION" | translate }}</p>
+                </div>
+                <div class="col-lg-3 text-center">
+                    <div class="icon icon-lg icon-shape bg-gradient-white shadow rounded-circle text-primary">
+                        <i class="ni ni-atom text-primary"></i>
+                    </div>
+                    <h5 class="text-white mt-3">{{ "SECURITY_UPDATES" | translate }}</h5>
+                    <p class="text-white mt-3">{{ "SECURITY_UPDATES_DESCRIPTION" | translate }}</p>
+                </div>
+                <div class="col-lg-3 text-center">
+                    <div class="icon icon-lg icon-shape bg-gradient-white shadow rounded-circle text-primary">
+                        <i class="ni ni-atom text-primary"></i>
+                    </div>
+                    <h5 class="text-white mt-3">{{ "SERVER_PROTECTION" | translate }}</h5>
+                    <p class="text-white mt-3">{{ "SERVER_PROTECTION_DESCRIPTION" | translate }}</p>
+                </div>
+            </div>
+            <div class="row text-center justify-content-center mt-5">
+                <div class="col-lg-12">
+                    <p class="text-white">{{ "SECURITY_MEASURES_FOOTER" | translate }}</p>
+                </div>
+            </div>
+        </div>
+        <!-- SVG separator -->
+        <div class="separator separator-bottom separator-skew zindex-100">
+            <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
+                xmlns="http://www.w3.org/2000/svg">
+                <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
+            </svg>
+        </div>
+    </section>
+    <!-- END - Security Measures -->
+    <!-- START - Contact Us -->
+    <section class="section section-lg pt-lg-0 section-contact-us">
+        <div class="container">
+            <div class="row justify-content-center mt--300">
+                <div class="col-lg-8">
+                    <form [formGroup]="contactUsForm" (ngSubmit)="onSubmit()" role="form">
+                        <div class="card bg-gradient-secondary shadow">
+                            <div class="card-body p-lg-5">
+                                <h4 class="mb-1">{{ "WANT_TO_CONTACT_US" | translate }}</h4>
+                                <p class="mt-0">{{ "WANT_TO_CONTACT_US_DESCRIPTION" | translate }}</p>
+                                <div class="form-group mt-5" [ngClass]="{'focused': nameFocused===true}">
+                                    <div class="input-group input-group-alternative">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
+                                        </div>
+                                        <input type="text" id="name" name="name" formControlName="name" class="form-control" placeholder="{{ 'NAME' | translate }}" (focus)="nameFocused=true" (blur)="nameFocused=false">
+                                    </div>
+                                </div>
+                                <div class="form-group" [ngClass]="{'focused': emailFocused===true}">
+                                    <div class="input-group input-group-alternative">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                                        </div>
+                                        <input type="email" id="email" name="email" formControlName="email" class="form-control" placeholder="{{ 'EMAIL' | translate }}" (focus)="emailFocused=true" (blur)="emailFocused=false">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <textarea autosize id="message" name="message" formControlName="message" class="form-control form-control-alternative" rows="4" cols="80" placeholder="{{ 'TYPE_A_MESSAGE' | translate }}..."></textarea>
+                                </div>
+                                <div>
+                                    <button type="submit" [disabled]="contactUsForm.invalid" class="btn btn-default btn-round btn-block btn-lg">{{ "SEND_MESSAGE" | translate }}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END - Contact Us -->
+
+    <ngb-alert #contactAlert *ngIf="isContactAlertOpen" [type]="alert.type" [dismissible]="alert.dismissible" (closed)="isContactAlertOpen = false" class="position-fixed w-25 right-3 bottom-0" style="z-index: 10;">
+        <ng-container *ngIf="alert.icon">
+            <div class="alert-inner--icon">
+                <i class="{{ alert.icon }}"></i>
+            </div>
+        </ng-container>
+        <span class="alert-inner--text"> <strong>{{ alert.strong }} </strong>{{ alert.message }}</span>
+    </ngb-alert>
+    
+</main>
