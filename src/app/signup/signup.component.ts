@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { DataService, SessionService, AppConfigService } from '../services';
 import { User } from '../../classes/user';
 
@@ -43,6 +43,11 @@ export class SignupComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        if (this.sessionService.get('user') !== null) {
+            this.location.go('/home');
+            window.location.reload();
+        }
+
         this.signupForm = this.formBuilder.group({
             username: ["", [Validators.required, Validators.minLength(8)]],
             email: ["", [Validators.required, Validators.email]],

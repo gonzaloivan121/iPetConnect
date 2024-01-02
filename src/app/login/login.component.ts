@@ -25,8 +25,13 @@ export class LoginComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        if (this.sessionService.get('user') !== null) {
+            this.location.go('/home');
+            window.location.reload();
+        }
+
         this.loginForm = this.formBuilder.group({
-            email: ["", [Validators.required]],
+            email: ["", [Validators.required, Validators.email]],
             password: ["", [Validators.required]],
             remember: [false, [Validators.required]],
         });
