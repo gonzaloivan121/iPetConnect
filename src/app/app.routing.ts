@@ -16,6 +16,7 @@ import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 import { BlogComponent } from './blog/blog.component';
 import { AdminComponent } from './admin/admin.component';
 import { PrivacyComponent } from './privacy/privacy.component';
+import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 
 const routes: Routes = [
     { path: 'home',             component: HomeComponent },
@@ -30,6 +31,7 @@ const routes: Routes = [
     { path: 'settings',         component: SettingsComponent },
     { path: 'blog',             component: BlogComponent },
     { path: 'privacy',          component: PrivacyComponent },
+    { path: 'password',         component: ForgotpasswordComponent },
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: '**',               component: PageNotFoundComponent },
 ];

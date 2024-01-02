@@ -219,8 +219,16 @@
     "ERROR_SENDING_EMAIL": "Error sending Email.",
     "VIEW_PROFILE": "View profile",
     "OPEN_CHAT": "Open chat",
-    "UNDO_MATCH": "Open chat",
+    "UNDO_MATCH": "Undo match",
     "NO_LIKES": "No likes",
     "NO_LIKES_RECEIVED": "It seems like you haven't liked anyone you haven't matched with yet, why don't you add more information to your profile?",
-    "NO_LIKES_GIVEN": "It seems like you haven't liked anyone you haven't matched with yet, why don't you play match for a while and see if you find someone?"
+    "NO_LIKES_GIVEN": "It seems like you haven't liked anyone you haven't matched with yet, why don't you play match for a while and see if you find someone?",
+    "DELETE_CHAT": "Delete chat",
+    "REPORT_USER": "Report user",
+    "NO_CHATS": "No chats",
+    "NO_CHATS_DESCRIPTION": "It seems like you haven't talked to anyone yet, why don't you start a conversation?",
+    "NO_MATCHES": "No matches",
+    "NO_MATCHES_DESCRIPTION": "It seems like you haven't connected with anyone yet, Swipe to find people!",
+    "RESET_PASSWORD": "Reset Password",
+    "ENTER_EMAIL_TO_RESET": "Enter email address to reset password"
 }

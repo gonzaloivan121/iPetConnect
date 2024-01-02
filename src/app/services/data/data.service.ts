@@ -64,4 +64,9 @@ export class DataService {
         let url: string = `${environment.serverUrl}/user/login`;
         return this.request('POST', url, data);
     }
+
+    password(data: any) {
+        let url: string = `${environment.serverUrl}/user/password`;
+        return this.request('POST', url, data);
+    }
 }

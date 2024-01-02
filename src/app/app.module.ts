@@ -55,6 +55,7 @@ import { PrivacyComponent } from './privacy/privacy.component';
 import { TextareaAutosizeDirective } from './directives/textarea-autosize.directive';
 import { ChatComponent } from './match/chat/chat.component';
 import { MessageComponent } from './match/chat/message/message.component';
+import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 
 export function setupAppConfigServiceFactory(
     service: AppConfigService
@@ -112,6 +113,7 @@ export function setupTranslateServiceFactory(
         TextareaAutosizeDirective,
         ChatComponent,
         MessageComponent,
+        ForgotpasswordComponent,
     ],
     imports: [
         NgbModule,
