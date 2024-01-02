@@ -65,14 +65,14 @@
             </div>
         </div>
 
-        <div class="buttons-container w-100 d-flex justify-content-around position-absolute text-center">
-            <button (click)="dislike()" class="btn btn-round btn-danger d-flex justify-content-center align-items-center info-img-container">
-                <div class="d-flex justify-content-center align-items-center text-white image-container">
+        <div class="buttons-container w-100 d-flex justify-content-evenly position-absolute text-center">
+            <button (click)="dislike()" class="btn btn-danger m-0 d-flex justify-content-center align-items-center info-img-container dislike">
+                <div class="d-flex justify-content-center align-items-center text-white image-container display-2">
                     <i aria-hidden="true" class="ni ni-fat-remove"></i>
                 </div>
             </button>
-            <button (click)="like()" class="btn btn-round btn-success d-flex justify-content-center align-items-center info-img-container">
-                <div class="d-flex justify-content-center align-items-center text-white image-container">
+            <button (click)="like()" class="btn btn-success m-0 d-flex justify-content-center align-items-center info-img-container like">
+                <div class="d-flex justify-content-center align-items-center text-white image-container display-4">
                     <i aria-hidden="true" class="ni ni-favourite-28"></i>
                 </div>
             </button>

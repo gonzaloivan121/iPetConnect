@@ -1,9 +1,9 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, ElementRef, AfterViewInit, ViewChildren, QueryList, OnChanges, SimpleChanges } from '@angular/core';
 import { User, Chat, Message, DBTables } from 'src/classes';
 import { DataService } from 'src/app/services';
 import { Observable, from, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { IMessageRequest, IMessageResponse } from 'src/app/interfaces';
 
 @Component({
@@ -11,7 +11,7 @@ import { IMessageRequest, IMessageResponse } from 'src/app/interfaces';
     templateUrl: './chat.component.html',
     styleUrls: ['./chat.component.css']
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, AfterViewInit, OnChanges {
     messageForm: FormGroup;
 
     @Input() chat: Chat;
@@ -25,16 +25,33 @@ export class ChatComponent implements OnInit {
 
     focusMessage: boolean;
 
+    @ViewChildren('chatElement') chatQueryList: QueryList<ElementRef>;
+
     constructor(
         private dataService: DataService,
         private formBuilder: FormBuilder
     ) { }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        console.log(changes)
+    }
     
     ngOnInit(): void {
         this.otherUserLoaded = this.getOtherUser();
 
         this.messageForm = this.formBuilder.group({
             message: ["", [Validators.required]]
+        });
+    }
+
+    ngAfterViewInit() {
+        this.scrollToBottom();
+    }
+
+    scrollToBottom(): void {
+        this.chatQueryList.changes.subscribe((elementQueue: QueryList<ElementRef>) => {
+            const el: HTMLDivElement = elementQueue.first.nativeElement;
+            el.scrollTop = Math.max(0, el.scrollHeight - el.offsetHeight);
         });
     }
 
@@ -86,7 +103,7 @@ export class ChatComponent implements OnInit {
     }
 
     viewProfile(user: User) {
-
+        console.log(user)
     }
 
     onCtrlEnter() {

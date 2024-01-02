@@ -35,6 +35,7 @@
 
 .chat-container {
     height: 85%;
+    overflow: auto;
 }
 
 .input-container {

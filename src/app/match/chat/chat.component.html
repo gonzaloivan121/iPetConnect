@@ -1,23 +1,57 @@
 <div *ngIf="otherUserLoaded | async" class="d-flex flex-column h-100">
     <!-- START - Chat Header -->
-    <div class="d-flex p-4">
-        <button class="btn btn-icon btn-circle p-0" type="button" (click)="closeChat()">
-            <span class="btn-inner--icon"><i class="ni ni-bold-left"></i></span>
-        </button>
-
-        <div class="d-flex align-items-center cursor-pointer info-hover" (click)="viewProfile(user)">
-            <div class="background-image shadow ml-2 mr-3" style="background-image: url('{{ otherUser.image }}');"></div>
-            <h3 class="display-4 m-0 match-name">{{ otherUser.name }}</h3>
+    <div class="d-flex p-4 justify-content-between">
+        <div class="d-flex">
+            <button type="button" class="btn btn-icon btn-circle p-0" (click)="closeChat()">
+                <span class="btn-inner--icon"><i class="ni ni-bold-left"></i></span>
+            </button>
+            <div class="d-flex align-items-center cursor-pointer info-hover" (click)="viewProfile(otherUser)">
+                <div class="background-image shadow ml-2 mr-3" style="background-image: url('{{ otherUser.image }}');"></div>
+                <h3 class="display-4 m-0 match-name">{{ otherUser.name }}</h3>
+            </div>
         </div>
+        <!-- START - Chat Dropdown Menu -->
+        <div ngbDropdown>
+            <button ngbDropdownToggle type="button" class="btn btn-icon btn-circle p-0 no-caret">
+                <span class="btn-inner--icon"><i class="ni ni-bullet-list-67"></i></span>
+            </button>
+    
+            <ul class="my-3" ngbDropdownMenu>
+                <li>
+                    <a (click)="viewProfile(otherUser)" class="btn-icon dropdown-item" href="javascript:void(0)">
+                        <span class="btn-inner--icon"><i class="ni ni-circle-08"></i></span>
+                        <span class="btn-inner--text">{{ "VIEW_PROFILE" | translate }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a (click)="deleteChat()" class="btn-icon dropdown-item" href="javascript:void(0)">
+                        <span class="btn-inner--icon"><i class="ni ni-circle-08"></i></span>
+                        <span class="btn-inner--text">{{ "DELETE_CHAT" | translate }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a (click)="blockUser()" class="btn-icon dropdown-item" href="javascript:void(0)">
+                        <span class="btn-inner--icon"><i class="ni ni-circle-08"></i></span>
+                        <span class="btn-inner--text">{{ "BLOCK_USER" | translate }}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- END - Chat Dropdown Menu -->
     </div>
     <!-- END - Chat Header -->
     <!-- START - Chat Body -->
-    <div class="d-flex px-4 pb-4 flex-grow-1">
+    <div class="d-flex px-4 pb-4 flex-grow-1" style="max-height: 88.7%;">
         <div class="h-100 w-100 rounded-edges overflow-hidden">
-            <div class="px-5 chat-container shadow">
+            <div #chatElement class="px-5 chat-container shadow">
                 <ul class="w-100 h-100 m-0 list-unstyled p-0 d-flex flex-column">
                     <app-message *ngFor="let message of chat?.messages" [message]="message" [user]="user" [otherUser]="otherUser"></app-message>
                 </ul>
+            </div>
+            <div class="position-absolute back-to-top">
+                <button type="button" class="btn btn-primary btn-icon btn-circle p-0 m-4">
+                    <span class="btn-inner--icon"><i class="ni ni-send"></i></span>
+                </button>
             </div>
             <div class="p-0 input-container shadow">
                 <form [formGroup]="messageForm" (ngSubmit)="onSubmit()" role="form" class="w-100 h-100 d-flex">

@@ -1,6 +1,5 @@
 <footer class="footer"
-    [class.bg-white]="getPath() == '/match'"
-    [ngClass]="{'has-cards': getPath()!=='/profile' && getPath()!=='/register' && getPath()!=='/login' && getPath()!=='/match'}">
+    [class.bg-white]="getPath() == '/match'">
     <div class="container">
         <div class="row row-grid align-items-center"
             [ngClass]="{'my-md': getPath()!=='/profile' && getPath()!=='/register' && getPath()!=='/login', 'mb-5':getPath()==='/profile' || getPath()==='/register' || getPath()==='/login'}">

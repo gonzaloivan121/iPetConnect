@@ -219,5 +219,8 @@
     "ERROR_SENDING_EMAIL": "Error enviando Email.",
     "VIEW_PROFILE": "Ver perfil",
     "OPEN_CHAT": "Abrir chat",
-    "UNDO_MATCH": "Deshacer match"
+    "UNDO_MATCH": "Deshacer match",
+    "NO_LIKES": "Sin likes",
+    "NO_LIKES_RECEIVED": "Parece que aún no le has gustado a nadie con quien no hayas hecho match aún, ¿Por qué no añades más información a tu perfil?",
+    "NO_LIKES_GIVEN": "Parece que aún no le has dado me gusta a nadie con quien no hayas hecho match aún, ¿Por qué no juegas un rato al match a ver si encuentras a alguien?"
 }

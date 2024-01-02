@@ -29,4 +29,8 @@ export class AppConfigService {
     write(key: string, value: any) {
         this.data[key] = value;
     }
+
+    get(key: string) {
+        return this.data[key] || key;
+    }
 }

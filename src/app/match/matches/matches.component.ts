@@ -11,7 +11,7 @@ import { catchError, map } from 'rxjs/operators';
 })
 export class MatchesComponent implements OnInit {
     @Input() match: Match;
-    @Input() currentUser: User;
+    @Input() user: User;
     otherUser: User;
 
     public otherUserLoaded: Observable<boolean>;
@@ -26,7 +26,7 @@ export class MatchesComponent implements OnInit {
     }
 
     getOtherUser(): Observable<boolean> {
-        return from(this.dataService.get('user', this.match.user1_id == this.currentUser?.id ? this.match.user2_id : this.match.user1_id).then((response: any) => {
+        return from(this.dataService.get('user', this.match.user1_id == this.user.id ? this.match.user2_id : this.match.user1_id).then((response: any) => {
             if (response.status === 'success') {
                 this.otherUser = response.results[0] as User;
             }

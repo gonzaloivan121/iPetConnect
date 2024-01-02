@@ -6,8 +6,8 @@ import { Message } from 'src/classes';
 })
 export class CountUnreadMessagesPipe implements PipeTransform {
 
-    transform(messages: Message[]): number {
-        return messages.filter((message) => message.read == false).length;
+    transform(messages: Message[], userId: number): number {
+        return messages.filter((message) => message.read == false && message.user_id == userId).length;
     }
 
 }

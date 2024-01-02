@@ -219,5 +219,8 @@
     "ERROR_SENDING_EMAIL": "Error sending Email.",
     "VIEW_PROFILE": "View profile",
     "OPEN_CHAT": "Open chat",
-    "UNDO_MATCH": "Open chat"
+    "UNDO_MATCH": "Open chat",
+    "NO_LIKES": "No likes",
+    "NO_LIKES_RECEIVED": "It seems like you haven't liked anyone you haven't matched with yet, why don't you add more information to your profile?",
+    "NO_LIKES_GIVEN": "It seems like you haven't liked anyone you haven't matched with yet, why don't you play match for a while and see if you find someone?"
 }

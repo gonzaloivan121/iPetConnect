@@ -32,6 +32,8 @@ export class MatchComponent implements OnInit {
     public isChatOpen: boolean = false;
     public currentChat: Chat;
 
+    private dummyUser: User = new User('', '', '', 'NO_MORE_USERS', RoleEnum.User, '', '', 'NO_MORE_USERS');
+
     public get matchTabEnum(): typeof MatchTabEnum {
         return MatchTabEnum;
     }

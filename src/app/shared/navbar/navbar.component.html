@@ -80,6 +80,14 @@
                     </a>
                 </li>
                 <!-- END - Map Button -->
+                <!-- START - Pets Button -->
+                <li class="nav-item">
+                    <a [routerLink]="['/pets']" class="nav-link nav-link-icon no-caret" role="button">
+                        <i class="ni ni-collection d-lg-none"></i>
+                        <span class="nav-link-inner--text">{{ "PETS" | translate }}</span>
+                    </a>
+                </li>
+                <!-- END - Pets Button -->
                 <!-- START - Blog Button -->
                 <li class="nav-item" *ngIf="false">
                     <a [routerLink]="['/blog']" class="nav-link nav-link-icon no-caret" role="button">

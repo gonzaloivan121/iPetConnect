@@ -22,6 +22,12 @@
     transition: .2s ease-in-out;
 }
 
+.info-img-container.dislike,
+.info-img-container.like {
+    width: 65px;
+    height: 65px;
+}
+
 .info {
     padding-left: 30px;
     padding-right: 30px;
