@@ -4,7 +4,7 @@ import { DataService } from 'src/app/services';
 import { Observable, from, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { IMessageRequest, IMessageResponse } from 'src/app/interfaces/requests/requests';
+import { IMessageRequest, IMessageResponse } from 'src/app/interfaces';
 
 @Component({
     selector: 'app-chat',

@@ -7,6 +7,7 @@ import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { DataService, SessionService } from 'src/app/services';
 import { User } from 'src/classes';
 import { MarkerTypeEnum } from '../enums/enums';
+import { IMarkerResponse } from 'src/app/interfaces'
 
 @Component({
     selector: 'app-map',
@@ -213,14 +214,14 @@ export class MapComponent implements OnInit {
             image: null
         }
 
-        this.dataService.insert('marker', request).then((response: any) => {
-            if (response.status === 'success') {
-                request.id = response.result;
+        this.dataService.insert('marker', request).then((response: IMarkerResponse) => {
+            if (response.success) {
+                request.id = response.result.insertId;
                 let icons = this.generateIcons();
                 let marker = this.generateMarker(request, icons);
                 this.markers.push(marker);
             } else {
-
+                
             }
         });
     }

@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { AppConfigService, SessionService, DataService, TranslateService } from 'src/app/services';
-import { AppConfig, DBConfig } from 'src/app/interfaces/app-config/app-config';
+import { AppConfig, DBConfig } from 'src/app/interfaces';
 import noUiSlider from "nouislider";
 import { RoleEnum } from 'src/app/enums/enums';
 import { User } from 'src/classes';
