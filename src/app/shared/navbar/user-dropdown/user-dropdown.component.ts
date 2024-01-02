@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { User } from '../../../../classes';
-import { RoleEnum } from '../../../enums/enums';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { User } from 'src/classes';
+import { RoleEnum } from 'src/app/enums/enums';
 
 @Component({
     selector: 'app-user-dropdown',
@@ -11,6 +11,8 @@ export class UserDropdownComponent implements OnInit {
 
     @Input() user?: User;
 
+    @Output() logoutEvent = new EventEmitter<void>();
+
     public get roleEnum(): typeof RoleEnum {
         return RoleEnum;
     }
@@ -19,6 +21,10 @@ export class UserDropdownComponent implements OnInit {
 
     ngOnInit(): void {
 
+    }
+
+    logout() {
+        this.logoutEvent.emit();
     }
 
 }

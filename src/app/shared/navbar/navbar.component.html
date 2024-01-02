@@ -58,7 +58,7 @@
             <ul class="navbar-nav align-items-lg-center">
                 <!-- START - Match Button -->
                 <li *ngIf="isLoggedIn && user.role_id == roleEnum.User" class="nav-item">
-                    <a [routerLink]="['/match']" class="nav-link nav-link-icon no-caret" role="button">
+                    <a [routerLink]="['/match']" class="nav-link nav-link-icon" role="button">
                         <i class="ni ni-planet d-lg-none"></i>
                         <span class="nav-link-inner--text">{{ "MATCH" | translate }}</span>
                     </a>
@@ -66,7 +66,7 @@
                 <!-- END - Match Button -->
                 <!-- START - Admin Button -->
                 <li *ngIf="isLoggedIn && user.role_id == roleEnum.Admin" class="nav-item">
-                    <a [routerLink]="['/admin']" class="nav-link nav-link-icon no-caret" role="button">
+                    <a [routerLink]="['/admin']" class="nav-link nav-link-icon" role="button">
                         <i class="ni ni-lock-circle-open d-lg-none"></i>
                         <span class="nav-link-inner--text">{{ "ADMIN" | translate }}</span>
                     </a>
@@ -74,15 +74,15 @@
                 <!-- END - Admin Button -->
                 <!-- START - Map Button -->
                 <li class="nav-item">
-                    <a [routerLink]="['/map']" class="nav-link nav-link-icon no-caret" role="button">
+                    <a [routerLink]="['/map']" class="nav-link nav-link-icon" role="button">
                         <i class="ni ni-square-pin d-lg-none"></i>
                         <span class="nav-link-inner--text">{{ "MAP" | translate }}</span>
                     </a>
                 </li>
                 <!-- END - Map Button -->
                 <!-- START - Pets Button -->
-                <li class="nav-item">
-                    <a [routerLink]="['/pets']" class="nav-link nav-link-icon no-caret" role="button">
+                <li *ngIf="isLoggedIn && user.role_id == roleEnum.User" class="nav-item">
+                    <a [routerLink]="['/pets']" class="nav-link nav-link-icon" role="button">
                         <i class="ni ni-collection d-lg-none"></i>
                         <span class="nav-link-inner--text">{{ "PETS" | translate }}</span>
                     </a>
@@ -90,7 +90,7 @@
                 <!-- END - Pets Button -->
                 <!-- START - Blog Button -->
                 <li class="nav-item" *ngIf="false">
-                    <a [routerLink]="['/blog']" class="nav-link nav-link-icon no-caret" role="button">
+                    <a [routerLink]="['/blog']" class="nav-link nav-link-icon" role="button">
                         <i class="ni ni-collection d-lg-none"></i>
                         <span class="nav-link-inner--text">{{ "BLOG" | translate }}</span>
                     </a>
@@ -129,7 +129,7 @@
                     </a>
                 </li>
                 <li class="nav-item d-lg-block ml-lg-4">
-                    <app-user-dropdown [user]="user"></app-user-dropdown>
+                    <app-user-dropdown [user]="user" (logoutEvent)="logout()"></app-user-dropdown>
                 </li>
             </ul>
         <!-- END - Panel Derecho -->

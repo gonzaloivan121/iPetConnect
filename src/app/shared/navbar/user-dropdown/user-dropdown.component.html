@@ -1,8 +1,7 @@
 <div *ngIf="user" class="row" ngbDropdown>
     <div class="col">
         <li class="nav-item dropdown">
-            <a class="nav-link no-caret dropdown-toggle" data-toggle="dropdown" role="button" style="cursor: pointer;"
-                id="dropdownMenuButton" ngbDropdownToggle>
+            <a class="nav-link" data-toggle="dropdown" role="button" style="cursor: pointer;" id="dropdownMenuButton" ngbDropdownToggle>
                 <i class="ni ni-single-02"></i>
                 <span class="nav-link-inner--text">{{ user.username }}</span>
             </a>
@@ -20,10 +19,8 @@
 <div *ngIf="!user" class="row" ngbDropdown>
     <div class="col">
         <li class="nav-item dropdown">
-            <a class="nav-link no-caret dropdown-toggle" data-toggle="dropdown" role="button" style="cursor: pointer;"
-                id="dropdownMenuButton" ngbDropdownToggle>
+            <a class="nav-link" data-toggle="dropdown" role="button" style="cursor: pointer;" id="dropdownMenuButton" ngbDropdownToggle>
                 <i class="ni ni-single-02"></i>
-                <i class="ni ni-bold-down"></i>
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" ngbDropdownMenu>
                 <a [routerLink]="['/login']" class="dropdown-item">{{ "LOGIN" | translate }}</a>
