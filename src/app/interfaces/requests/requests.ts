@@ -13,6 +13,13 @@ export interface IMessageResponse {
     created_at?: string;
 }
 
+export interface IMarkerResponse {
+    success: boolean;
+    message: string;
+    result?: IResponseResult;
+    created_at?: string;
+}
+
 export interface IResponseResult {
     affectedRows: number;
     changedRows: number;
