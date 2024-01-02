@@ -98,8 +98,10 @@ export class MatchComponent implements OnInit {
             if (response.status === 'success') {
                 this.matches = response.results as Match[];
 
+                console.log(this.matches)
+
                 // TODO: Quitar, testing
-                var ids = [
+                /*var ids = [
                     1, 2, 4, 5, 6, 7,
                     24, 25, 26, 27, 28,
                     29, 30, 31, 32, 33,
@@ -115,7 +117,7 @@ export class MatchComponent implements OnInit {
                     newMatch.updated_at = this.matches[0].updated_at;
 
                     this.matches.push(newMatch);
-                }
+                }*/
             }
         })).pipe(
             map(() => true),
@@ -239,5 +241,17 @@ export class MatchComponent implements OnInit {
 
     closeChat() {
         this.isChatOpen = false;
+    }
+
+    viewProfile(user: User) {
+        console.log("viewProfile", user)
+    }
+
+    deleteChat(chat: Chat) {
+        console.log("deleteChat", chat)
+    }
+
+    repotUser(user: User) {
+        console.log("reportUser", user)
     }
 }

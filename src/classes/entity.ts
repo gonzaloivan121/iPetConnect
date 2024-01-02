@@ -17,6 +17,7 @@ export class Entity {
     }
 
     update() {
+        console.log("Updating " + this.table + " with ID: " + this.id)
 
     }
 

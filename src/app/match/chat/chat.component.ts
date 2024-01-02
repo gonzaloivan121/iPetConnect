@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, ElementRef, AfterViewInit, ViewChildren, QueryList, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { User, Chat, Message, DBTables } from 'src/classes';
 import { DataService } from 'src/app/services';
 import { Observable, from, of } from 'rxjs';
@@ -11,21 +11,23 @@ import { IMessageRequest, IMessageResponse } from 'src/app/interfaces';
     templateUrl: './chat.component.html',
     styleUrls: ['./chat.component.css']
 })
-export class ChatComponent implements OnInit, AfterViewInit, OnChanges {
+export class ChatComponent implements OnInit, OnChanges {
     messageForm: FormGroup;
 
     @Input() chat: Chat;
     @Input() user: User;
     @Input() match: User;
+    @Input() isOpen: boolean;
 
     public otherUser: User;
     public otherUserLoaded: Observable<boolean>;
 
     @Output() closeChatEvent = new EventEmitter<void>();
+    @Output() viewProfileEvent = new EventEmitter<User>();
+    @Output() deleteChatEvent = new EventEmitter<Chat>();
+    @Output() reportUserEvent = new EventEmitter<User>();
 
     focusMessage: boolean;
-
-    @ViewChildren('chatElement') chatQueryList: QueryList<ElementRef>;
 
     constructor(
         private dataService: DataService,
@@ -34,25 +36,49 @@ export class ChatComponent implements OnInit, AfterViewInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         console.log(changes)
+        if (changes.chat) {
+            this.chat = changes.chat.currentValue;
+        }
+
+        if (changes.isOpen && changes.isOpen.currentValue === true) {
+            this.scrollToBottom();
+            this.readMessages();
+        }
+
+        if (this.chat !== undefined) {
+            this.otherUserLoaded = this.getOtherUser();
+        }
+    }
+
+    readMessages() {
+        if (this.chat.messages !== undefined) {
+            this.chat.messages.forEach((message) => {
+                if (message.user_id !== this.user.id && !message.read) {
+                    this.readMessage(message);
+                }
+            });
+        }
+    }
+
+    readMessage(message: Message) {
+        message.read = true;
+        this.dataService.update(message.table, message).then(response => {
+            console.log(response)
+        });
     }
     
     ngOnInit(): void {
-        this.otherUserLoaded = this.getOtherUser();
-
         this.messageForm = this.formBuilder.group({
             message: ["", [Validators.required]]
         });
     }
 
-    ngAfterViewInit() {
-        this.scrollToBottom();
-    }
-
     scrollToBottom(): void {
-        this.chatQueryList.changes.subscribe((elementQueue: QueryList<ElementRef>) => {
-            const el: HTMLDivElement = elementQueue.first.nativeElement;
+        setTimeout(() => {
+            const el: HTMLElement = document.getElementById('chatElement');
+            console.log(el)
             el.scrollTop = Math.max(0, el.scrollHeight - el.offsetHeight);
-        });
+        }, 200);
     }
 
     get message() {
@@ -83,6 +109,7 @@ export class ChatComponent implements OnInit, AfterViewInit, OnChanges {
                 message.updated_at = new Date(response.created_at);
 
                 this.chat.messages.push(message);
+                this.scrollToBottom();
             }
         });
     }
@@ -98,18 +125,26 @@ export class ChatComponent implements OnInit, AfterViewInit, OnChanges {
         );
     }
 
-    closeChat() {
-        this.closeChatEvent.emit();
-    }
-
-    viewProfile(user: User) {
-        console.log(user)
-    }
-
     onCtrlEnter() {
         if (!this.message.valid) return;
 
         this.onSubmit();
+    }
+
+    closeChat() {
+        this.closeChatEvent.emit();
+    }
+
+    viewProfile() {
+        this.viewProfileEvent.emit(this.otherUser);
+    }
+
+    deleteChat() {
+        this.deleteChatEvent.emit(this.chat);
+    }
+
+    reportUser() {
+        this.reportUserEvent.emit(this.otherUser);
     }
 
 }

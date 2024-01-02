@@ -15,7 +15,7 @@ export class MessagesComponent implements OnInit {
     @Input() user: User;
 
     otherUser: User;
-    messages: Message[];
+    messages: Message[] = new Array<Message>();
 
     public messagesLoaded: Observable<boolean>;
     public otherUserLoaded: Observable<boolean>;
@@ -34,7 +34,12 @@ export class MessagesComponent implements OnInit {
     getOtherUser(): Observable<boolean> {
         return from(this.dataService.get('user', this.chat.user1_id == this.user.id ? this.chat.user2_id : this.chat.user1_id).then((response: any) => {
             if (response.status === 'success') {
-                this.otherUser = response.results[0] as User;
+                const user = response.results[0] as User;
+                const newUser = new User(user.username, user.email, user.password, user.name, user.role_id, user.birthday, user.gender, user.bio, user.image);
+                newUser.created_at = user.created_at;
+                newUser.updated_at = user.updated_at;
+                newUser.id = user.id;
+                this.otherUser = newUser;
             }
         })).pipe(
             map(() => true),
@@ -45,7 +50,11 @@ export class MessagesComponent implements OnInit {
     getMessages() {
         return from(this.dataService.getFrom('message', 'chat', this.chat.id).then((response: any) => {
             if (response.status === 'success') {
-                this.messages = response.results as Message[];
+                response.results.forEach((message) => {
+                    const newMessage = new Message(message.chat_id, message.user_id, message.message, message.edited, message.read, message.created_at, message.updated_at);
+                    newMessage.id = message.id;
+                    this.messages.push(newMessage)
+                });
             }
         })).pipe(
             map(() => true),

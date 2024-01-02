@@ -12,7 +12,9 @@ export class Message extends Entity {
         user_id: number,
         message: string,
         edited: boolean,
-        read: boolean
+        read: boolean,
+        created_at?: string,
+        updated_at?: string
     ) {
         super('message');
 
@@ -21,5 +23,7 @@ export class Message extends Entity {
         this.message = message;
         this.edited = edited;
         this.read = read;
+        this.created_at = new Date(created_at);
+        this.updated_at = new Date(updated_at);
     }
 }

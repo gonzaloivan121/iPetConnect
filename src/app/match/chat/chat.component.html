@@ -5,7 +5,7 @@
             <button type="button" class="btn btn-icon btn-circle p-0" (click)="closeChat()">
                 <span class="btn-inner--icon"><i class="ni ni-bold-left"></i></span>
             </button>
-            <div class="d-flex align-items-center cursor-pointer info-hover" (click)="viewProfile(otherUser)">
+            <div class="d-flex align-items-center cursor-pointer info-hover" (click)="viewProfile()">
                 <div class="background-image shadow ml-2 mr-3" style="background-image: url('{{ otherUser.image }}');"></div>
                 <h3 class="display-4 m-0 match-name">{{ otherUser.name }}</h3>
             </div>
@@ -18,21 +18,21 @@
     
             <ul class="my-3" ngbDropdownMenu>
                 <li>
-                    <a (click)="viewProfile(otherUser)" class="btn-icon dropdown-item" href="javascript:void(0)">
+                    <a (click)="viewProfile()" class="btn-icon dropdown-item" href="javascript:void(0)">
                         <span class="btn-inner--icon"><i class="ni ni-circle-08"></i></span>
                         <span class="btn-inner--text">{{ "VIEW_PROFILE" | translate }}</span>
                     </a>
                 </li>
                 <li>
                     <a (click)="deleteChat()" class="btn-icon dropdown-item" href="javascript:void(0)">
-                        <span class="btn-inner--icon"><i class="ni ni-circle-08"></i></span>
+                        <span class="btn-inner--icon"><i class="ni ni-fat-remove"></i></span>
                         <span class="btn-inner--text">{{ "DELETE_CHAT" | translate }}</span>
                     </a>
                 </li>
                 <li>
-                    <a (click)="blockUser()" class="btn-icon dropdown-item" href="javascript:void(0)">
-                        <span class="btn-inner--icon"><i class="ni ni-circle-08"></i></span>
-                        <span class="btn-inner--text">{{ "BLOCK_USER" | translate }}</span>
+                    <a (click)="reportUser()" class="btn-icon dropdown-item" href="javascript:void(0)">
+                        <span class="btn-inner--icon"><i class="ni ni-support-16"></i></span>
+                        <span class="btn-inner--text">{{ "REPORT_USER" | translate }}</span>
                     </a>
                 </li>
             </ul>
@@ -43,7 +43,7 @@
     <!-- START - Chat Body -->
     <div class="d-flex px-4 pb-4 flex-grow-1" style="max-height: 88.7%;">
         <div class="h-100 w-100 rounded-edges overflow-hidden">
-            <div #chatElement class="px-5 chat-container shadow">
+            <div #chatElement id="chatElement" class="px-5 chat-container shadow">
                 <ul class="w-100 h-100 m-0 list-unstyled p-0 d-flex flex-column">
                     <app-message *ngFor="let message of chat?.messages" [message]="message" [user]="user" [otherUser]="otherUser"></app-message>
                 </ul>
