@@ -43,18 +43,6 @@ export class NavbarComponent implements OnInit {
             icon: "fa fa-twitter-square",
             text: "Twitter"
         },
-        {
-            link: "https://dribbble.com/iPetConnect",
-            tooltip: "FOLLOW_DRIBBBLE",
-            icon: "fa fa-dribbble",
-            text: "Dribbble"
-        },
-        {
-            link: "https://github.com/gonzaloivan121",
-            tooltip: "STAR_GITHUB",
-            icon: "fa fa-github",
-            text: "GitHub"
-        }
     ];
 
     constructor(

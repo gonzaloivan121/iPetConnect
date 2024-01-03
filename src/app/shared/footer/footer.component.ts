@@ -29,18 +29,6 @@ export class FooterComponent implements OnInit {
             icon: "fa fa-twitter-square",
             text: "twitter"
         },
-        {
-            link: "https://dribbble.com/iPetConnect",
-            tooltip: "FOLLOW_DRIBBBLE",
-            icon: "fa fa-dribbble",
-            text: "dribbble"
-        },
-        {
-            link: "https://github.com/gonzaloivan121",
-            tooltip: "STAR_GITHUB",
-            icon: "fa fa-github",
-            text: "github"
-        }
     ];
 
     constructor(private router: Router ) {}
