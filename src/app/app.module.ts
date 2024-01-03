@@ -28,10 +28,8 @@ import { SettingsComponent } from './settings/settings.component';
 import { AppConfigService, TranslateService } from './services';
 import { BlogComponent } from './blog/blog.component';
 import { CardComponent } from './match/card/card.component';
-import { RecentPostsComponent } from './blog/recent-posts/recent-posts.component';
-import { ContactUsComponent } from './blog/contact-us/contact-us.component';
+import { CategoriesComponent } from './blog/categories/categories.component';
 import { NewsletterComponent } from './blog/newsletter/newsletter.component';
-import { ResourcesComponent } from './blog/resources/resources.component';
 
 import { AdminComponent } from './admin/admin.component';
 import { AdminSidebarComponent } from './admin/sidebar/sidebar.component';
@@ -56,6 +54,10 @@ import { TextareaAutosizeDirective } from './directives/textarea-autosize.direct
 import { ChatComponent } from './match/chat/chat.component';
 import { MessageComponent } from './match/chat/message/message.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
+import { RelatedStoriesComponent } from './blog/related-stories/related-stories.component';
+import { LatestBlogpostsComponent } from './blog/latest-blogposts/latest-blogposts.component';
+import { TheTeamComponent } from './blog/the-team/the-team.component';
+import { LanguageSelectComponent } from './shared/navbar/language-select/language-select.component';
 
 export function setupAppConfigServiceFactory(
     service: AppConfigService
@@ -87,10 +89,8 @@ export function setupTranslateServiceFactory(
         SettingsComponent,
         BlogComponent,
         CardComponent,
-        RecentPostsComponent,
-        ContactUsComponent,
+        CategoriesComponent,
         NewsletterComponent,
-        ResourcesComponent,
         AdminComponent,
         AdminSidebarComponent,
         AdminDashboardComponent,
@@ -114,6 +114,10 @@ export function setupTranslateServiceFactory(
         ChatComponent,
         MessageComponent,
         ForgotpasswordComponent,
+        RelatedStoriesComponent,
+        LatestBlogpostsComponent,
+        TheTeamComponent,
+        LanguageSelectComponent,
     ],
     imports: [
         NgbModule,

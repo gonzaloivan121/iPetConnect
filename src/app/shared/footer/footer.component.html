@@ -1,11 +1,13 @@
 <footer class="footer"
-    [class.bg-white]="getPath() == '/match'">
+    [class.bg-default]="getPath() == '/blog'"
+    [class.bg-white]="getPath() != '/blog'"
+>
     <div class="container">
         <div class="row row-grid align-items-center"
-            [ngClass]="{'my-md': getPath()!=='/profile' && getPath()!=='/register' && getPath()!=='/login', 'mb-5':getPath()==='/profile' || getPath()==='/register' || getPath()==='/login'}">
+            [ngClass]="{'my-md': getPath()!=='/profile' && getPath()!=='/register' && getPath()!=='/login' && getPath()!=='/blog', 'mb-5': getPath()==='/profile' || getPath()==='/register' || getPath()==='/login' || getPath()==='/blog'}">
             <div class="col-lg-6">
                 <h4 class="text-primary font-weight-light mb-2">{{ "SLOGAN" | translate }}</h4>
-                <h5 class="mb-0 font-weight-light">{{ "APP_DESCRIPTION" | translate }}</h5>
+                <h5 [class.text-white]="getPath() == '/blog'" class="mb-0 font-weight-light">{{ "APP_DESCRIPTION" | translate }}</h5>
             </div>
             <div class="col-lg-6 text-lg-center btn-wrapper">
                 <a *ngFor="let link of links" target="_blank" href="{{ link.link }}"

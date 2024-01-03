@@ -6,9 +6,9 @@
                 <span class="nav-link-inner--text">{{ user.username }}</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" ngbDropdownMenu>
-                <a *ngIf="user.role_id == roleEnum.User" [routerLink]="['/profile']" class="dropdown-item" role="button">{{ "PROFILE" | translate }}</a>
                 <a *ngIf="user.role_id == roleEnum.Admin" [routerLink]="['/admin']" class="dropdown-item" role="button">{{ "ADMIN" | translate }}</a>
-                <a *ngIf="user.role_id == roleEnum.User" [routerLink]="['/settings']" class="dropdown-item" role="button">{{ "SETTINGS" | translate }}</a>
+                <a *ngIf="user.role_id == roleEnum.User || user.role_id == roleEnum.Blogger" [routerLink]="['/profile']" class="dropdown-item" role="button">{{ "PROFILE" | translate }}</a>
+                <a *ngIf="user.role_id == roleEnum.User || user.role_id == roleEnum.Blogger" [routerLink]="['/settings']" class="dropdown-item" role="button">{{ "SETTINGS" | translate }}</a>
                 <div class="dropdown-divider"></div>
                 <a (click)="logout()" class="dropdown-item" style="cursor: pointer;" role="button">{{ "LOG_OUT" | translate }}</a>
             </div>

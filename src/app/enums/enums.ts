@@ -1,6 +1,7 @@
 export enum RoleEnum {
     Admin = 1,
     User = 2,
+    Blogger = 3
 };
 
 export enum AdminViewEnum {

@@ -1,0 +1,48 @@
+.team-4 .card {
+    text-align: left;
+    border: 0;
+}
+
+.card-profile[data-image=profile-image] {
+    overflow: hidden;
+}
+
+.card-profile[data-image=profile-image] .card-header {
+    height: 100%;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+.card-profile[data-image=profile-image] .card-image {
+    position: relative;
+    height: 250px;
+}
+
+.team-4 .card .card-image img {
+    width: 100%;
+}
+
+.card-profile[data-image=profile-image] .card-image .background-image {
+    height: 100%;
+    width: 100%;
+    background-position: 50% 50%;
+    background-size: cover;
+}
+
+.card-profile[data-image=profile-image] .card-header:after {
+    content: "";
+    width: 24%;
+    overflow: hidden;
+    position: absolute;
+    left: 32%;
+    top: 5%;
+    height: 90%;
+    background-color: #fff;
+    -webkit-transform: rotate(80deg);
+    transform: rotate(80deg);
+    z-index: 1;
+}
+
+.card-body {
+    z-index: 3;
+}
