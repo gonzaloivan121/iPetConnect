@@ -230,5 +230,9 @@
     "NO_MATCHES": "No matches",
     "NO_MATCHES_DESCRIPTION": "It seems like you haven't connected with anyone yet, Swipe to find people!",
     "RESET_PASSWORD": "Reset Password",
-    "ENTER_EMAIL_TO_RESET": "Enter email address to reset password"
+    "ENTER_EMAIL_TO_RESET": "Enter email address to reset password",
+    "USER_1": "First User",
+    "USER_2": "Second User",
+    "PIGEON": "Pigeon",
+    "FOLLOW_DRIBBBLE": "Follow us on Dribbble"
 }

@@ -230,5 +230,9 @@
     "NO_MATCHES": "Sin matches",
     "NO_MATCHES_DESCRIPTION": "Parece que aún no has conectado con nadie, ¡Desliza para encontrar gente!",
     "RESET_PASSWORD": "Restablecer Contraseña",
-    "ENTER_EMAIL_TO_RESET": "Ingrese la dirección de correo electrónico para restablecer la contraseña"
+    "ENTER_EMAIL_TO_RESET": "Ingrese la dirección de correo electrónico para restablecer la contraseña",
+    "USER_1": "Primer Usuario",
+    "USER_2": "Segundo Usuario",
+    "PIGEON": "Paloma",
+    "FOLLOW_DRIBBBLE": "Síguenos en Dribbble"
 }
