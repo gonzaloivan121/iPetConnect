@@ -10,3 +10,4 @@ export { Language } from './language';
 export { Like } from './like';
 export { Match } from './match';
 export { DBTables } from './db.tables';
+export { BlogPost } from './blog-post';

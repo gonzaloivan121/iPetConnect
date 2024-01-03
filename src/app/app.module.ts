@@ -58,6 +58,7 @@ import { RelatedStoriesComponent } from './blog/related-stories/related-stories.
 import { LatestBlogpostsComponent } from './blog/latest-blogposts/latest-blogposts.component';
 import { TheTeamComponent } from './blog/the-team/the-team.component';
 import { LanguageSelectComponent } from './shared/navbar/language-select/language-select.component';
+import { BlogPostComponent } from './blog/blog-post/blog-post.component';
 
 export function setupAppConfigServiceFactory(
     service: AppConfigService
@@ -118,6 +119,7 @@ export function setupTranslateServiceFactory(
         LatestBlogpostsComponent,
         TheTeamComponent,
         LanguageSelectComponent,
+        BlogPostComponent,
     ],
     imports: [
         NgbModule,

@@ -25,8 +25,15 @@
             </div>
             <div class="col-lg-4 order-lg-3 text-lg-right align-self-lg-center">
               <div class="card-profile-actions py-4 mt-lg-0">
-                <a href="javascript:void(0)" class="btn btn-sm btn-info mr-4">{{ "CONNECT" | translate }}</a>
-                <a href="javascript:void(0)" class="btn btn-sm btn-default float-right">{{ "MESSAGE" | translate }}</a>
+                <button class="btn btn-sm btn-info mr-4" [routerLink]="['/blog/post', 1]">{{ "CONNECT" | translate }}</button>
+                
+                <button class="btn btn-sm btn-default btn-icon float-right">
+                  <span class="btn-inner--icon">
+                    <i class="ni ni-ruler-pencil"></i>
+                  </span>
+                  <span class="btn-inner--text">{{ "EDIT_PROFILE" | translate }}</span>
+                </button>
+
               </div>
             </div>
             <div class="col-lg-4 order-lg-1">

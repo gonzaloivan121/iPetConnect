@@ -20,6 +20,13 @@ export interface IMarkerResponse {
     created_at?: string;
 }
 
+export interface IBlogPostResponse {
+    success: boolean;
+    message?: string;
+    result?: any;
+    created_at?: string;
+}
+
 export interface IResponseResult {
     affectedRows: number;
     changedRows: number;

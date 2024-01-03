@@ -1,0 +1,76 @@
+.page-header.header-filter {
+    position: relative;
+}
+
+.page-header {
+    min-height: 100vh;
+    max-height: 999px;
+    padding: 0;
+    overflow: hidden;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.page-header,
+header {
+    position: relative;
+}
+
+.page-header,
+.section-hero {
+    overflow: visible !important;
+}
+
+.page-header.header-filter:before {
+    position: absolute;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    left: 0;
+    top: 0;
+    content: "";
+    background-color: rgba(0, 0, 0, .5);
+}
+
+.page-header .page-header-image {
+    position: absolute;
+    background-size: cover;
+    background-position: 50%;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.page-header.header-filter .container {
+    z-index: 2;
+    position: relative;
+}
+
+@media (min-width: 768px) {
+    .page-header .container {
+        padding-top: 30vh;
+    }
+}
+
+.page-header .container {
+    height: 100%;
+    z-index: 1;
+}
+
+.page-header>.container,
+.page-header>.container-fluid {
+    padding-top: 12vh;
+    padding-bottom: 40px;
+}
+
+.page-header .floating-box {
+    margin-top: 10em;
+    border-radius: 0.25rem;
+}
+
+.page-header .floating-box .box {
+    margin-top: -40px;
+}
