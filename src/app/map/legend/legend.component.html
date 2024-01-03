@@ -1,14 +1,19 @@
-<div class="legend" id="legend">
-    <!-- START - Pestañas -->
-    <ul class="tabs ui-draggable-handle" id="tabs">
-        <li id="leyenda-tab" onclick="setLegendTab('legend')" class="active">
-            <img width="25" height="25" src="/assets/img/leyenda.png">
-            <span>Leyenda</span>
-        </li>
-        <li id="filtros-tab" onclick="setLegendTab('filter')" class="">
-            <img width="25" height="25" src="/assets/img/filtro.png">
-            <span>Filtros</span>
-        </li>
-    </ul>
-    <!-- END - Pestañas -->
+<div class="container">
+    <div class="row p-sm">
+        <div class="col">
+            <div class="text-center">
+                <span class="display-4">Tipo de Marcador</span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col p-0">
+            <ul class="list-unstyled d-flex flex-wrap justify-content-evenly px-sm m-0">
+                <li class="d-flex flex-column cursor-pointer align-items-center justify-content-center w-50 aspect-ratio-1by1 legend" [ngClass]="{ 'active': icon.active }" *ngFor="let icon of icons" (click)="filterMarkers(icon);">
+                    <img src="{{ icon.url }}">
+                    {{ icon.type | translate }}
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>

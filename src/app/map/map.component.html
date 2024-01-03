@@ -1,36 +1,53 @@
 <div class="header"></div>
 
-<div *ngIf="apiLoaded | async">
-    <google-map #myGoogleMap class="google-map" height="100%" width="100%" [zoom]="zoom" [center]="center" [options]="options"
-        (idle)="eventHandler($event, 'idle')" (mapClick)="eventHandler($event,'mapClick')" (mapDblclick)="eventHandler($event,'mapDblclick')"
-        (mapDrag)="eventHandler($event,'mapDrag')" (mapDragend)="eventHandler($event,'mapDragend')"
-        (mapRightclick)="eventHandler($event,'mapRightclick')"
-        (positionChanged)="eventHandler($event,'marker_positionChanged')"
-        (zoomChanged)="eventHandler($event,'zoomChanged')">
-
-        <map-marker #markerElem="mapMarker" *ngFor="let marker of markers" [position]="marker.position"
-            [label]="marker.label" [title]="marker.title" [options]="marker.options" [icon]="marker.icon"
-            (mapClick)="openInfo(markerElem, marker.data)">
-        </map-marker>
-    
-        <map-info-window>
-            <app-info 
-                [marker]="selectedMarker"
-                [user]="user"
-                (closeEvent)="closeInfo()"
-                (editEvent)="editMarker($event)"
-                (deleteEvent)="deleteMarker($event)"
-                (favouriteEvent)="favouriteMarker($event)"
-            ></app-info>
-        </map-info-window>
-
-        <button class="btn btn-icon btn-primary btn-circle" type="button" id="add-marker">
-            <span class="btn-inner--icon">
-                <i class="ni ni-fat-add"></i>
-            </span>
-        </button>
-
-        <button type="button" id="go-to-location" class="custom-map-control-button" (click)="setCurrentPosition()">{{ 'GO_TO_LOCATION' | translate }}</button>
-    </google-map>
-    <app-map-legend (filterEvent)="filterMarkers($event)"></app-map-legend>
+<div class="position-relative">
+    <div class="container-fluid p-0 d-flex flex-row">
+        <div class="w-25">
+            <div class="form-group m-0 p-4">
+                <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
+                    </div>
+                    <input class="form-control form-control-alternative" placeholder="{{ 'SEARCH' | translate }}..." type="text">
+                </div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <app-map-legend (filterMarkersEvent)="filterMarkers($event)"></app-map-legend>
+        </div>
+        <div class="flex-grow-1">
+            <div *ngIf="apiLoaded | async">
+                <google-map #myGoogleMap class="google-map" height="100%" width="100%" [zoom]="zoom" [center]="center" [options]="options"
+                    (idle)="eventHandler($event, 'idle')" (mapClick)="eventHandler($event,'mapClick')" (mapDblclick)="eventHandler($event,'mapDblclick')"
+                    (mapDrag)="eventHandler($event,'mapDrag')" (mapDragend)="eventHandler($event,'mapDragend')"
+                    (mapRightclick)="eventHandler($event,'mapRightclick')"
+                    (positionChanged)="eventHandler($event,'marker_positionChanged')"
+                    (zoomChanged)="eventHandler($event,'zoomChanged')">
+            
+                    <map-marker #markerElem="mapMarker" *ngFor="let marker of markers" [position]="marker.position"
+                        [label]="marker.label" [title]="marker.title" [options]="marker.options" [icon]="marker.icon" [visible]="marker.visible"
+                        (mapClick)="openInfo(markerElem, marker.data)">
+                    </map-marker>
+                
+                    <map-info-window>
+                        <app-info 
+                            [marker]="selectedMarker"
+                            [user]="user"
+                            (closeEvent)="closeInfo()"
+                            (editEvent)="editMarker($event)"
+                            (deleteEvent)="deleteMarker($event)"
+                            (favouriteEvent)="favouriteMarker($event)"
+                        ></app-info>
+                    </map-info-window>
+            
+                    <button class="btn btn-icon btn-primary btn-circle" type="button" id="add-marker">
+                        <span class="btn-inner--icon">
+                            <i class="ni ni-fat-add"></i>
+                        </span>
+                    </button>
+            
+                    <button type="button" id="go-to-location" class="custom-map-control-button" (click)="setCurrentPosition()">{{ 'GO_TO_LOCATION' | translate }}</button>
+                </google-map>
+            </div>
+        </div>
+    </div>
 </div>

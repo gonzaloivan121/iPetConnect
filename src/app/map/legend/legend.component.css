@@ -19,3 +19,21 @@
 .aspect-ratio-1by1 {
     aspect-ratio: 1 / 1;
 }
+
+.legend {
+    border: 2px solid transparent;
+    border-radius: 10%;
+    transition: .2s ease-in-out;
+}
+
+.legend img {
+    transition: .2s ease-in-out;
+    padding: 5px;
+}
+
+.legend:hover,
+.legend.active {
+    border: 2px solid var(--default);
+    background-color: var(--default);
+    color: white;
+}
