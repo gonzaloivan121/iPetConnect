@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { Location, PopStateEvent } from '@angular/common';
-import { SessionService } from '../../services';
-import { User } from '../../../classes';
-import { RoleEnum } from '../../enums/enums';
+import { SessionService } from 'src/app/services';
+import { User } from 'src/classes';
+import { RoleEnum } from 'src/app/enums/enums';
+import { ISocialMediaLink } from 'src/app/interfaces'
 
 @Component({
     selector: 'app-navbar',
@@ -22,6 +23,39 @@ export class NavbarComponent implements OnInit {
     public get roleEnum(): typeof RoleEnum {
         return RoleEnum;
     }
+
+    public links: ISocialMediaLink[] = [
+        {
+            link: "https://www.facebook.com/iPetConnect",
+            tooltip: "LIKE_FACEBOOK",
+            icon: "fa fa-facebook-square",
+            text: "Facebook"
+        },
+        {
+            link: "https://www.instagram.com/iPetConnect",
+            tooltip: "FOLLOW_INSTAGRAM",
+            icon: "fa fa-instagram",
+            text: "Instagram"
+        },
+        {
+            link: "https://twitter.com/iPetConnect",
+            tooltip: "FOLLOW_TWITTER",
+            icon: "fa fa-twitter-square",
+            text: "Twitter"
+        },
+        {
+            link: "https://dribbble.com/iPetConnect",
+            tooltip: "FOLLOW_DRIBBBLE",
+            icon: "fa fa-dribbble",
+            text: "Dribbble"
+        },
+        {
+            link: "https://github.com/gonzaloivan121",
+            tooltip: "STAR_GITHUB",
+            icon: "fa fa-github",
+            text: "GitHub"
+        }
+    ];
 
     constructor(
         public location: Location,

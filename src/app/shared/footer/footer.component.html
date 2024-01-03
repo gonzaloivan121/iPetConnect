@@ -8,25 +8,10 @@
                 <h5 class="mb-0 font-weight-light">{{ "APP_DESCRIPTION" | translate }}</h5>
             </div>
             <div class="col-lg-6 text-lg-center btn-wrapper">
-                <a target="_blank" href="https://twitter.com/iPetConnect"
-                    class="btn btn-neutral btn-icon-only btn-twitter btn-round btn-lg"
-                    ngbTooltip="{{ 'FOLLOW_US' | translate }}">
-                    <i class="fa fa-twitter"></i>
-                </a>
-                <a target="_blank" href="https://www.facebook.com/iPetConnect"
-                    class="btn btn-neutral btn-icon-only btn-facebook btn-round btn-lg"
-                    ngbTooltip="{{ 'LIKE_US' | translate }}">
-                    <i class="fa fa-facebook-square"></i>
-                </a>
-                <a target="_blank" href="https://dribbble.com/iPetConnect"
-                    class="btn btn-neutral btn-icon-only btn-dribbble btn-lg btn-round"
-                    ngbTooltip="{{ 'FOLLOW_US' | translate }}">
-                    <i class="fa fa-dribbble"></i>
-                </a>
-                <a target="_blank" href="https://github.com/gonzaloivan121"
-                    class="btn btn-neutral btn-icon-only btn-github btn-round btn-lg"
-                    ngbTooltip="{{ 'STAR_GITHUB' | translate }}">
-                    <i class="fa fa-github"></i>
+                <a *ngFor="let link of links" target="_blank" href="{{ link.link }}"
+                    class="btn btn-neutral btn-icon-only btn-{{ link.text }} btn-round btn-lg"
+                    ngbTooltip="{{ link.tooltip | translate }}">
+                    <i class="{{ link.icon }}"></i>
                 </a>
             </div>
         </div>
