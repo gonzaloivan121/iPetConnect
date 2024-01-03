@@ -62,9 +62,14 @@
                 </div>
               </div>
               <div *ngIf="isLoggedIn" class="row btn-wrapper mt-5">
-                <div class="col">
+                <div *ngIf="!isAdmin" class="col">
                   <a class="btn btn-lg btn-white mb-3 mb-sm-0 btn-block" [routerLink]="['/match']">
                     <span class="btn-inner--text">{{ "PLAY_MATCH" | translate }}</span>
+                  </a>
+                </div>
+                <div *ngIf="isAdmin"  class="col">
+                  <a class="btn btn-lg btn-white mb-3 mb-sm-0 btn-block" [routerLink]="['/admin']">
+                    <span class="btn-inner--text">{{ "ADMIN" | translate }}</span>
                   </a>
                 </div>
                 <div class="col">
