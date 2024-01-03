@@ -3,7 +3,7 @@ import { User, Chat, Message, DBTables } from 'src/classes';
 import { DataService } from 'src/app/services';
 import { Observable, from, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { IMessageRequest, IMessageResponse } from 'src/app/interfaces';
 
 @Component({
@@ -12,7 +12,7 @@ import { IMessageRequest, IMessageResponse } from 'src/app/interfaces';
     styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit, OnChanges {
-    messageForm: FormGroup;
+    messageForm: UntypedFormGroup;
 
     @Input() chat: Chat;
     @Input() user: User;
@@ -31,7 +31,7 @@ export class ChatComponent implements OnInit, OnChanges {
 
     constructor(
         private dataService: DataService,
-        private formBuilder: FormBuilder
+        private formBuilder: UntypedFormBuilder
     ) { }
 
     ngOnChanges(changes: SimpleChanges): void {

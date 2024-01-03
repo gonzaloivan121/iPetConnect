@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { EmailService, TranslateService } from '../services';
 import { NgbAlert, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -27,7 +27,7 @@ export class PrivacyComponent {
         dismissAfter: 5
     }
 
-    contactUsForm: FormGroup;
+    contactUsForm: UntypedFormGroup;
 
     emailFocused: boolean = false;
     nameFocused: boolean = false;
@@ -36,7 +36,7 @@ export class PrivacyComponent {
     @ViewChild('contactAlert', { static: false }) contactAlert: NgbAlert;
 
     constructor(
-        private formBuilder: FormBuilder,
+        private formBuilder: UntypedFormBuilder,
         private emailService: EmailService,
         private translateService: TranslateService
     ) { }

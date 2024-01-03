@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { DataService, SessionService, AppConfigService } from 'src/app/services';
 import { User } from 'src/classes';
 import { DBConfig } from '../interfaces';
@@ -11,7 +11,7 @@ import { DBConfig } from '../interfaces';
     styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
-    signupForm: FormGroup;
+    signupForm: UntypedFormGroup;
     maxBirthDate: {
         year: number,
         month: number,
@@ -37,7 +37,7 @@ export class SignupComponent implements OnInit {
 
     constructor(
         private location: Location,
-        private formBuilder: FormBuilder,
+        private formBuilder: UntypedFormBuilder,
         private dataService: DataService,
         private sessionService: SessionService,
         private configService: AppConfigService

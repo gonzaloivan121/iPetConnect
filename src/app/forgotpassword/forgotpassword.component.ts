@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { DataService, SessionService } from 'src/app/services';
 
 @Component({
@@ -10,12 +10,12 @@ import { DataService, SessionService } from 'src/app/services';
 })
 export class ForgotpasswordComponent implements OnInit {
 
-    passwordForm: FormGroup;
+    passwordForm: UntypedFormGroup;
 
     focusEmail: boolean;
 
     constructor(
-        private formBuilder: FormBuilder,
+        private formBuilder: UntypedFormBuilder,
         private dataService: DataService,
         private sessionService: SessionService,
         private location: Location

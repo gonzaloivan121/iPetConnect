@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, FormControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { DataService, SessionService } from '../services';
 
 @Component({
@@ -9,7 +9,7 @@ import { DataService, SessionService } from '../services';
     styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-    loginForm: FormGroup;
+    loginForm: UntypedFormGroup;
 
     focusEmail: boolean;
     focusPassword: boolean;
@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
 
     constructor(
         private location: Location,
-        private formBuilder: FormBuilder,
+        private formBuilder: UntypedFormBuilder,
         private dataService: DataService,
         private sessionService: SessionService
     ) { }
