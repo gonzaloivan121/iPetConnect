@@ -50,8 +50,8 @@
                                     <div class="background-image shadow" style="background-image: url('{{ pet.image }}');"></div>
                                 </td>
                                 <td class="align-middle">{{ pet.name }}</td>
-                                <td class="align-middle">{{ pet.species_id | speciesName | async }}</td>
-                                <td class="align-middle">{{ pet.breed_id | breedName | async }}</td>
+                                <td class="align-middle">{{ pet.species_id | speciesName | async | translate }}</td>
+                                <td class="align-middle">{{ pet.breed_id | breedName | async | translate }}</td>
                                 <td class="align-middle">{{ pet.color }}</td>
                                 <td class="align-middle">
                                     <button class="btn btn-icon btn-sm btn-primary" type="button">
