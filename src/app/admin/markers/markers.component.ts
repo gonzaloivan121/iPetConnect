@@ -50,4 +50,8 @@ export class AdminMarkersComponent implements OnInit {
         ) as Marker[];
     }
 
+    goToMarkerInMap(marker: Marker) {
+        window.open('https://www.google.com/maps/search/?api=1&query=' + marker.coordinates.lat + ' ' + marker.coordinates.lng, '_blank');
+    }
+
 }

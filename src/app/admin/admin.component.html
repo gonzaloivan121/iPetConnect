@@ -1,7 +1,7 @@
 <main>
     <div class="position-relative">
         <div class="container-fluid page-body-wrapper">
-            <app-admin-sidebar [user]="user" (viewEvent)="changeView($event)"></app-admin-sidebar>
+            <app-admin-sidebar [user]="user" [activePage]="activePage" (viewEvent)="changeView($event)"></app-admin-sidebar>
             <div class="main-panel">
                 <div class="content-wrapper">
                     <app-admin-dashboard *ngIf="activePage == adminViewEnum.Dashboard"></app-admin-dashboard>

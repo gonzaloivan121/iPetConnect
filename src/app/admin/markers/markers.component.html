@@ -60,6 +60,9 @@
                                 <td class="align-middle">{{ marker.coordinates.lat }}</td>
                                 <td class="align-middle">{{ marker.coordinates.lng }}</td>
                                 <td class="align-middle">
+                                    <button class="btn btn-icon btn-sm btn-success" type="button" (click)="goToMarkerInMap(marker)">
+                                        <span class="btn-inner--icon"><i class="ni ni-ruler-pencil"></i></span>
+                                    </button>
                                     <button class="btn btn-icon btn-sm btn-primary" type="button">
                                         <span class="btn-inner--icon"><i class="ni ni-ruler-pencil"></i></span>
                                     </button>
