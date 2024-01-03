@@ -51,49 +51,31 @@
         </div>
     </section>
     <section>
-        <div class="glide glide--ltr glide--carousel glide--swipeable">
-            <div data-glide-el="track" class="glide__track">
-                <ul class="glide__slides"
-                    style="transition: transform 0ms cubic-bezier(0.165, 0.84, 0.44, 1) 0s; width: 6080.5px; transform: translate3d(-937px, 0px, 0px);">
-                    <li class="glide__slide glide__slide--clone" style="width: 458.5px; margin-right: 5px;"><img
-                            height="500" src="assets/img/theme/sacha-styles.jpg" width="450"></li>
-                    <li class="glide__slide glide__slide--clone"
-                        style="width: 458.5px; margin-left: 5px; margin-right: 5px;"><img height="500"
-                            src="assets/img/theme/victor-garcia.jpg" width="450"></li>
-                    <li class="glide__slide glide__slide--clone"
-                        style="width: 458.5px; margin-left: 5px; margin-right: 5px;"><img height="500"
-                            src="assets/img/theme/doyoun-seo.jpg" width="450"></li>
-                    <li class="glide__slide glide__slide--clone"
-                        style="width: 458.5px; margin-left: 5px; margin-right: 5px;"><img height="500"
-                            src="assets/img/theme/ayo-ogunseinde.jpg" width="450"></li>
-                    <li class="glide__slide glide__slide--active"
-                        style="width: 458.5px; margin-left: 5px; margin-right: 5px;"><img height="500"
-                            src="assets/img/theme/sofia-kuniakina.jpg" width="450"></li>
-                    <li class="glide__slide" style="width: 458.5px; margin-left: 5px; margin-right: 5px;"><img
-                            height="500" src="assets/img/theme/sacha-styles.jpg" width="450"></li>
-                    <li class="glide__slide" style="width: 458.5px; margin-left: 5px; margin-right: 5px;"><img
-                            height="500" src="assets/img/theme/victor-garcia.jpg" width="450"></li>
-                    <li class="glide__slide" style="width: 458.5px; margin-left: 5px; margin-right: 5px;"><img
-                            height="500" src="assets/img/theme/doyoun-seo.jpg" width="450"></li>
-                    <li class="glide__slide" style="width: 458.5px; margin-left: 5px; margin-right: 5px;"><img
-                            height="500" src="assets/img/theme/ayo-ogunseinde.jpg" width="450"></li>
-                    <li class="glide__slide glide__slide--clone"
-                        style="width: 458.5px; margin-left: 5px; margin-right: 5px;"><img height="500"
-                            src="assets/img/theme/sofia-kuniakina.jpg" width="450"></li>
-                    <li class="glide__slide glide__slide--clone"
-                        style="width: 458.5px; margin-left: 5px; margin-right: 5px;"><img height="500"
-                            src="assets/img/theme/sacha-styles.jpg" width="450"></li>
-                    <li class="glide__slide glide__slide--clone"
-                        style="width: 458.5px; margin-left: 5px; margin-right: 5px;"><img height="500"
-                            src="assets/img/theme/victor-garcia.jpg" width="450"></li>
-                    <li class="glide__slide glide__slide--clone" style="width: 458.5px; margin-left: 5px;"><img
-                            height="500" src="assets/img/theme/doyoun-seo.jpg" width="450"></li>
+        <div class="light glide">
+            <div class="glide__track" data-glide-el="track">
+                <ul class="glide__slides" style="overflow: unset">
+                    <li class="glide__slide">
+                        <img height="500" src="assets/img/theme/sacha-styles.jpg" width="450">
+                    </li>
+                    <li class="glide__slide">
+                        <img height="500" src="assets/img/theme/victor-garcia.jpg" width="450">
+                    </li>
+                    <li class="glide__slide">
+                        <img height="500" src="assets/img/theme/doyoun-seo.jpg" width="450">
+                    </li>
+                    <li class="glide__slide">
+                        <img height="500" src="assets/img/theme/ayo-ogunseinde.jpg" width="450">
+                    </li>
                 </ul>
             </div>
-            <div data-glide-el="controls" class="glide__arrows"><button data-glide-dir="<" aria-label="Previous"
-                    class="glide__arrow glide__arrow--left"><i class="ni ni-bold-left"></i></button><button
-                    data-glide-dir=">" aria-label="Next" class="glide__arrow glide__arrow--right"><i
-                        class="ni ni-bold-right"></i></button></div>
+            <div class="glide__arrows" data-glide-el="controls">
+                <button class="glide__arrow glide__arrow--left" aria-label="Previous" data-glide-dir="<">
+                    <i class="ni ni-bold-left text-default"></i>
+                </button>
+                <button class="glide__arrow glide__arrow--right" aria-label="Next" data-glide-dir=">">
+                    <i class="ni ni-bold-right text-default"></i>
+                </button>
+            </div>
         </div>
     </section>
     <section class="section mt-5">
@@ -124,11 +106,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 mx-auto">
-                    <div class="card">
-                        <div class="card-header">
+                    <div class="card shadow">
+                        <div class="card-header bg-white">
                             <h5 class="h3 mb-0">Activity feed</h5>
                         </div>
-                        <div class="card-header d-flex align-items-center">
+                        <div class="card-header bg-white d-flex align-items-center">
                             <div class="d-flex align-items-center"><a href="javascript:;"><img
                                         src="assets/img/faces/team-1.jpg" class="avatar"></a>
                                 <div class="mx-3"><a href="javascript:;" class="text-dark font-weight-600 text-sm"> John
@@ -203,9 +185,11 @@
                                 <div class="media align-items-center mt-5"><img alt="Image placeholder"
                                         src="assets/img/faces/team-3.jpg" class="avatar avatar-lg rounded-circle mb-4">
                                     <div class="media-body">
-                                        <form novalidate="" class="ng-untouched ng-pristine ng-valid"><textarea
-                                                placeholder="Write your comment" rows="1"
-                                                class="form-control"></textarea></form>
+                                        <form novalidate="" class="ng-untouched ng-pristine ng-valid">
+                                            <div class="form-group m-0">
+                                                <textarea id="message" name="message" formcontrolname="message" class="form-control" placeholder="{{ 'TYPE_A_MESSAGE' | translate }}..."></textarea>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

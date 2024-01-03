@@ -3,7 +3,8 @@ import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
 import { DataService } from "src/app/services";
 import { BlogPost, DBTables } from "src/classes";
-import { IBlogPostResponse } from "src/app/interfaces"
+import { IBlogPostResponse } from "src/app/interfaces";
+import Glide from "@glidejs/glide";
 
 @Component({
     selector: "app-blog-post",
@@ -11,7 +12,6 @@ import { IBlogPostResponse } from "src/app/interfaces"
     styleUrls: ["./blog-post.component.css"],
 })
 export class BlogPostComponent implements OnInit, OnDestroy {
-
     routeSubscription: Subscription;
     post: BlogPost;
 
@@ -26,19 +26,29 @@ export class BlogPostComponent implements OnInit, OnDestroy {
         this.routeSubscription = this.activatedRoute.params.subscribe(
             (params) => {
                 const id = params["id"];
-                this.dataService.get(DBTables.BlogPost, id).then((response: IBlogPostResponse) => {
-                    if (response.success) {
-                        if (response.result.length > 0) {
-                            this.post = response.result[0] as BlogPost;
+                this.dataService
+                    .get(DBTables.BlogPost, id)
+                    .then((response: IBlogPostResponse) => {
+                        if (response.success) {
+                            if (response.result.length > 0) {
+                                this.post = response.result[0] as BlogPost;
+                            } else {
+                                console.warn("Empty data!");
+                            }
                         } else {
-                            console.warn("Empty data!")
+                            console.error(response.message);
                         }
-                    } else {
-                        console.error(response.message);
-                    }
-                }).catch((error) => console.error(error));
+                    })
+                    .catch((error) => console.error(error));
             }
         );
+
+        new Glide(".glide", {
+            type: "carousel",
+            perView: 4,
+            startAt: 2,
+            focusAt: 2,
+        }).mount();
     }
 
     ngOnDestroy(): void {
