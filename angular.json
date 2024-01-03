@@ -28,7 +28,12 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/assets/scss/argon.scss"
+              "src/assets/scss/argon.scss",
+              "src/assets/vendor/nucleo/css/nucleo.css",
+              "src/assets/vendor/font-awesome/css/font-awesome.min.css",
+              "src/assets/vendor/lipis/css/flag-icons.min.css",
+              "./node_modules/@glidejs/glide/dist/css/glide.core.min.css",
+              "./node_modules/@glidejs/glide/dist/css/glide.theme.min.css"
             ],
             "scripts": []
           },
