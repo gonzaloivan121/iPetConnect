@@ -18,18 +18,11 @@
 
 .sidebar .nav .nav-item {
     padding: 0 2.25rem;
-    -webkit-transition-duration: 0.25s;
-    transition-duration: 0.25s;
-    transition-property: background;
-    -webkit-transition-property: background;
+    transition: background .2s ease-in-out;
 }
 
-.sidebar .nav .nav-item {
-    padding: 0 2.25rem;
-    -webkit-transition-duration: 0.25s;
-    transition-duration: 0.25s;
-    transition-property: background;
-    -webkit-transition-property: background;
+.sidebar .nav .nav-item.active .nav-link {
+    color: var(default);
 }
 
 .sidebar .nav .nav-item.nav-profile .nav-link {

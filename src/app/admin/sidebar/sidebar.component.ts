@@ -9,6 +9,8 @@ import { AdminViewEnum } from '../../enums/enums';
 })
 export class AdminSidebarComponent implements OnInit {
     @Input() user?: any;
+    @Input() activePage: AdminViewEnum;
+
     @Output() viewEvent = new EventEmitter<AdminViewEnum>();
 
     // http://www.bootstrapdash.com/demo/purple-admin-free/pages/tables/basic-table.html
@@ -66,7 +68,7 @@ export class AdminSidebarComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {
-
+        
     }
 
     changeView(view: AdminViewEnum) {

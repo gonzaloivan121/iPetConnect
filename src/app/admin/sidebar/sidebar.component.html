@@ -14,7 +14,7 @@
             </a>
         </li>
 
-        <li class="nav-item" *ngFor="let page of availablePages">
+        <li class="nav-item" *ngFor="let page of availablePages" [ngClass]="{'active': page.view == activePage}">
             <a (click)="changeView(page.view)" class="nav-link">
                 <span class="menu-title">{{ page.name | translate }}</span>
                 <i class="ni ni-{{ page.icon }}"></i>
