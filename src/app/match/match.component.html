@@ -68,7 +68,7 @@
                                     </div>
                                 </div>
                                 <div *ngIf="matches.length > 0" class="p-3 w-100 scroll custom-flex">
-                                    <app-matches class="flex-grow-1" *ngFor="let match of matches" [match]="match" [user]="user"></app-matches>
+                                    <app-matches class="flex-grow-1" *ngFor="let match of matches" [match]="match" [user]="user" (viewProfileEvent)="viewProfile($event)" (openChatEvent)="openChatByUser($event)" (undoMatchEvent)="undoMatch($event)"></app-matches>
                                 </div>
                             </div>
                             <!-- END - Matches Tab -->

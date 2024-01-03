@@ -254,4 +254,19 @@ export class MatchComponent implements OnInit {
     repotUser(user: User) {
         console.log("reportUser", user)
     }
+
+    undoMatch(user: User) {
+        console.log("undoMatch", user)
+    }
+
+    openChatByUser(user: User) {
+        console.log("openChatByUser", user)
+
+        var chatToOpen = this.chats.filter(chat => chat.user1_id == user.id || chat.user2_id == user.id)[0];
+
+        if (chatToOpen !== undefined) {
+            console.log(chatToOpen)
+            this.openChat(chatToOpen);
+        }
+    }
 }

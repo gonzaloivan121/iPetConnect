@@ -16,10 +16,13 @@ export class MatchesComponent implements OnInit {
 
     public otherUserLoaded: Observable<boolean>;
 
-    //@Output() likeEvent = new EventEmitter<User>();
-    //@Output() dislikeEvent = new EventEmitter<User>();
+    @Output() viewProfileEvent = new EventEmitter<User>();
+    @Output() openChatEvent = new EventEmitter<User>();
+    @Output() undoMatchEvent = new EventEmitter<User>();
 
-    constructor(private dataService: DataService) { }
+    constructor(
+        private dataService: DataService
+    ) { }
 
     ngOnInit() {
         this.otherUserLoaded = this.getOtherUser();
@@ -37,15 +40,15 @@ export class MatchesComponent implements OnInit {
     }
 
     viewProfile(user: User) {
-        console.log(user)
+        this.viewProfileEvent.emit(user);
     }
 
     openChat(user: User) {
-        console.log(user)
+        this.openChatEvent.emit(user);
     }
 
     undoMatch(user: User) {
-        console.log(user)
+        this.undoMatchEvent.emit(user);
     }
 
 }
