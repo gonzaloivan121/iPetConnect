@@ -8,6 +8,7 @@ import { User } from 'src/classes';
 })
 export class CardComponent {
     @Input() user: User;
+
     @Output() likeEvent = new EventEmitter<User>();
     @Output() dislikeEvent = new EventEmitter<User>();
 
