@@ -7,9 +7,9 @@ import { RoleEnum } from 'src/app/enums/enums';
 import { ISocialMediaLink } from 'src/app/interfaces'
 
 @Component({
-    selector: 'app-navbar',
-    templateUrl: './navbar.component.html',
-    styleUrls: ['./navbar.component.scss']
+    selector: "app-navbar",
+    templateUrl: "./navbar.component.html",
+    styleUrls: ["./navbar.component.scss"],
 })
 export class NavbarComponent implements OnInit {
     public isCollapsed: boolean = true;
@@ -29,19 +29,19 @@ export class NavbarComponent implements OnInit {
             link: "https://www.facebook.com/iPetConnect",
             tooltip: "LIKE_FACEBOOK",
             icon: "fa fa-facebook-square",
-            text: "Facebook"
+            text: "Facebook",
         },
         {
             link: "https://www.instagram.com/iPetConnect",
             tooltip: "FOLLOW_INSTAGRAM",
             icon: "fa fa-instagram",
-            text: "Instagram"
+            text: "Instagram",
         },
         {
             link: "https://twitter.com/iPetConnect",
             tooltip: "FOLLOW_TWITTER",
             icon: "fa fa-twitter-square",
-            text: "Twitter"
+            text: "Twitter",
         },
     ];
 
@@ -49,12 +49,12 @@ export class NavbarComponent implements OnInit {
         public location: Location,
         private router: Router,
         private sessionService: SessionService
-    ) { }
+    ) {}
 
     ngOnInit() {
-        if (this.sessionService.get('user') !== null) {
+        if (this.sessionService.get("user") !== null) {
             this.isLoggedIn = true;
-            this.user = JSON.parse(this.sessionService.get('user'));
+            this.user = JSON.parse(this.sessionService.get("user"));
         }
         this.router.events.subscribe((event) => {
             this.isCollapsed = true;
@@ -71,14 +71,14 @@ export class NavbarComponent implements OnInit {
                 }
             }
         });
-        this.location.subscribe((ev:PopStateEvent) => {
+        this.location.subscribe((ev: PopStateEvent) => {
             this.lastPoppedUrl = ev.url;
         });
     }
 
     isHome() {
         var titlee = this.location.prepareExternalUrl(this.location.path());
-        if (titlee === '#/home' ) {
+        if (titlee === "#/home") {
             return true;
         } else {
             return false;
@@ -87,7 +87,7 @@ export class NavbarComponent implements OnInit {
 
     isAdmin() {
         var titlee = this.location.prepareExternalUrl(this.location.path());
-        if (titlee === '#/admin') {
+        if (titlee === "#/admin") {
             return true;
         } else {
             return false;
@@ -96,7 +96,7 @@ export class NavbarComponent implements OnInit {
 
     isMap() {
         var titlee = this.location.prepareExternalUrl(this.location.path());
-        if (titlee === '#/map') {
+        if (titlee === "#/map") {
             return true;
         } else {
             return false;
@@ -105,7 +105,7 @@ export class NavbarComponent implements OnInit {
 
     isMatch() {
         var titlee = this.location.prepareExternalUrl(this.location.path());
-        if (titlee === '#/match') {
+        if (titlee === "#/match") {
             return true;
         } else {
             return false;
@@ -114,7 +114,7 @@ export class NavbarComponent implements OnInit {
 
     isDocumentation() {
         var titlee = this.location.prepareExternalUrl(this.location.path());
-        if (titlee === '#/documentation' ) {
+        if (titlee === "#/documentation") {
             return true;
         } else {
             return false;
@@ -124,7 +124,7 @@ export class NavbarComponent implements OnInit {
     logout() {
         this.sessionService.clear();
         this.isLoggedIn = false;
-        this.location.go('/home');
+        this.location.go("/home");
         window.location.reload();
     }
 }
