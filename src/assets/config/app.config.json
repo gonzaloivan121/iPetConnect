@@ -1,5 +1,4 @@
 {
-    "selectedLanguage": "en-EN",
     "onlySearchVerifiedUsers": true,
     "minDistancePossible": 1,
     "maxDistancePossible": 100,
@@ -11,11 +10,6 @@
         "FEMALES",
         "OTHERS",
         "ALL"
-    ],
-    "availableLanguages": [
-        "es",
-        "gb",
-        "pt"
     ],
     "selectedGender": "ALL",
     "minAgePossible": 18,

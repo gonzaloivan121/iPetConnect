@@ -1,6 +1,6 @@
-import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { Language, User } from "src/classes";
-import { DataService, TranslateService } from "src/app/services";
+import { DataService, SessionService, TranslateService } from "src/app/services";
 
 @Component({
     selector: "app-language-select",
@@ -9,29 +9,40 @@ import { DataService, TranslateService } from "src/app/services";
 })
 export class LanguageSelectComponent implements OnInit {
     @Input() user: User;
-    @Output() languageSelectEvent = new EventEmitter<Language>();
 
     selectedLanguageCode: string;
     languages: Language[];
 
     constructor(
         private dataService: DataService,
-        private translateService: TranslateService
+        private translateService: TranslateService,
+        private sessionService: SessionService
     ) {}
 
     ngOnInit(): void {
-        this.dataService.get('language').then((response: any) => {
-            console.log(response)
-            if (response.status === 'success') {
+        this.dataService.get("language").then((response: any) => {
+            console.log(response);
+            if (response.status === "success") {
                 this.languages = response.results as Language[];
             }
         });
 
-        this.selectedLanguageCode = this.translateService.getCurrentLanguage();
+        if (this.sessionService.get('language') !== null) {
+            this.setLanguage(this.sessionService.get("language"));
+        } else {
+            this.setLanguage(this.translateService.getCurrentLanguage());
+        }
     }
 
     selectLanguage(language: Language) {
         this.translateService.use(language.code);
         this.selectedLanguageCode = language.code;
+        this.sessionService.set("language", this.selectedLanguageCode);
+    }
+
+    private setLanguage(languageCode: string) {
+        this.translateService.use(languageCode);
+        this.selectedLanguageCode = languageCode;
+        this.sessionService.set("language", this.selectedLanguageCode);
     }
 }

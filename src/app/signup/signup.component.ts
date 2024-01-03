@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { DataService, SessionService, AppConfigService } from '../services';
-import { User } from '../../classes/user';
+import { DataService, SessionService, AppConfigService } from 'src/app/services';
+import { User } from 'src/classes';
+import { DBConfig } from '../interfaces';
 
 @Component({
     selector: 'app-signup',
@@ -63,7 +64,6 @@ export class SignupComponent implements OnInit {
 
     confirmPasswordValidator(): ValidatorFn {
         return (control: AbstractControl): ValidationErrors | null => {
-            console.log(control.value.password === control.value.confirmPassword)
             return control.value.password === control.value.confirmPassword ? null : { passwordNoMatch: true };
         }
     }
@@ -148,10 +148,34 @@ export class SignupComponent implements OnInit {
 
                 user.id = response.results.insertId;
                 this.sessionService.set('user', JSON.stringify(user));
-                this.location.go('/home');
-                window.location.reload();
+
+                this.generateConfigForUser(user);
             } else {
 
+            }
+        });
+    }
+
+    generateConfigForUser(user: User) {
+        var serviceData = this.configService.data;
+
+        var data: DBConfig = {
+            min_distance: serviceData.selectedMinDistancePossible,
+            max_distance: serviceData.selectedMaxDistancePossible,
+            selected_gender: serviceData.selectedGender,
+            min_age: serviceData.selectedMinAgePossible,
+            max_age: serviceData.selectedMaxAgePossible,
+            search_verified_users: serviceData.onlySearchVerifiedUsers,
+            search_in_distance: serviceData.onlySearchDistanceRange,
+            search_in_age: serviceData.onlySearchAgeRange,
+            search_has_bio: serviceData.onlySearchHasBioUsers,
+            user_id: user.id
+        };
+
+        this.dataService.insert('config', data).then((response: any) => {
+            if (response.status === 'success') {
+                this.location.go("/home");
+                window.location.reload();
             }
         });
     }

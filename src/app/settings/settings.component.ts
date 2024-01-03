@@ -2,14 +2,14 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { AppConfigService, SessionService, DataService, TranslateService } from 'src/app/services';
 import { AppConfig, DBConfig } from 'src/app/interfaces';
-import { noUiSlider } from "nouislider";
+import noUiSlider from "nouislider";
 import { RoleEnum } from 'src/app/enums/enums';
 import { User } from 'src/classes';
 
 @Component({
-    selector: 'app-settings',
-    templateUrl: './settings.component.html',
-    styleUrls: ['./settings.component.css']
+    selector: "app-settings",
+    templateUrl: "./settings.component.html",
+    styleUrls: ["./settings.component.css"],
 })
 export class SettingsComponent implements OnInit, AfterViewInit {
     public data: AppConfig = {};
@@ -24,11 +24,11 @@ export class SettingsComponent implements OnInit, AfterViewInit {
         public dataService: DataService,
         public translateService: TranslateService,
         public location: Location
-    ) { }
+    ) {}
 
     ngOnInit(): void {
-        if (this.sessionService.get('user') !== null) {
-            this.user = JSON.parse(this.sessionService.get('user'));
+        if (this.sessionService.get("user") !== null) {
+            this.user = JSON.parse(this.sessionService.get("user"));
             if (this.user.role_id == RoleEnum.Admin) {
                 this.location.back();
             }
@@ -36,38 +36,62 @@ export class SettingsComponent implements OnInit, AfterViewInit {
             this.location.back();
         }
 
+        this.appConfig.load();
+
         this.data = this.appConfig.data;
     }
 
     ngAfterViewInit() {
-        this.generateDistanceSlider();
-        this.generateAgeSlider();
+        this.dataService.getFrom("config", "user", this.user.id).then((response: any) => {
+            if (response.status === "success" && response.results.length > 0) {
+                let dataFromService: DBConfig = response.results[0] as DBConfig;
+                this.data.onlySearchAgeRange = dataFromService.search_in_age;
+                this.data.onlySearchDistanceRange = dataFromService.search_in_distance;
+                this.data.onlySearchHasBioUsers = dataFromService.search_has_bio;
+                this.data.onlySearchVerifiedUsers = dataFromService.search_verified_users;
+                this.data.selectedGender = dataFromService.selected_gender;
+                this.data.selectedMaxAgePossible = dataFromService.max_age;
+                this.data.selectedMaxDistancePossible = dataFromService.max_distance;
+                this.data.selectedMinAgePossible = dataFromService.min_age;
+                this.data.selectedMinDistancePossible = dataFromService.min_distance;
+            }
+
+            this.generateDistanceSlider();
+            this.generateAgeSlider();
+        });
+        
     }
 
     generateDistanceSlider() {
-        let distanceSlider: any = document.getElementById("input-slider-range-distance");
+        let distanceSlider: any = document.getElementById(
+            "input-slider-range-distance"
+        );
 
         noUiSlider.create(distanceSlider, {
             start: [
                 this.data.selectedMinDistancePossible,
-                this.data.selectedMaxDistancePossible
+                this.data.selectedMaxDistancePossible,
             ],
             connect: true,
             range: {
                 min: this.data.minDistancePossible,
-                max: this.data.maxDistancePossible
-            }
+                max: this.data.maxDistancePossible,
+            },
         });
 
-        distanceSlider.noUiSlider.on('update', (values, handle) => {
+        distanceSlider.noUiSlider.on("update", (values, handle) => {
             if (handle) {
                 // Max handle
-                this.data.selectedMaxDistancePossible = parseInt(values[handle]);
+                this.data.selectedMaxDistancePossible = parseInt(
+                    values[handle]
+                );
             } else {
                 // Min handle
-                this.data.selectedMinDistancePossible = parseInt(values[handle]);
+                this.data.selectedMinDistancePossible = parseInt(
+                    values[handle]
+                );
             }
-        })
+        });
     }
 
     generateAgeSlider() {
@@ -76,16 +100,16 @@ export class SettingsComponent implements OnInit, AfterViewInit {
         noUiSlider.create(ageSlider, {
             start: [
                 this.data.selectedMinAgePossible,
-                this.data.selectedMaxAgePossible
+                this.data.selectedMaxAgePossible,
             ],
             connect: true,
             range: {
                 min: this.data.minAgePossible,
-                max: this.data.maxAgePossible
-            }
+                max: this.data.maxAgePossible,
+            },
         });
 
-        ageSlider.noUiSlider.on('update', (values, handle) => {
+        ageSlider.noUiSlider.on("update", (values, handle) => {
             if (handle) {
                 // Max handle
                 this.data.selectedMaxAgePossible = parseInt(values[handle]);
@@ -93,9 +117,8 @@ export class SettingsComponent implements OnInit, AfterViewInit {
                 // Min handle
                 this.data.selectedMinAgePossible = parseInt(values[handle]);
             }
-        })
+        });
     }
-
 
     update() {
         for (const key in this.data) {
@@ -104,12 +127,10 @@ export class SettingsComponent implements OnInit, AfterViewInit {
 
         let dbData: DBConfig = this.convertDataToDB();
 
-        console.log(dbData)
+        console.log(dbData);
 
-        this.translateService.use(dbData.language);
-
-        this.dataService.updateForUser('config', dbData.user_id, dbData).then(response => {
-            console.log(response)
+        this.dataService.updateForUser("config", dbData.user_id, dbData).then((response) => {
+            console.log(response);
         });
     }
 
@@ -124,8 +145,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
             search_in_distance: this.data.onlySearchDistanceRange,
             search_in_age: this.data.onlySearchAgeRange,
             search_has_bio: this.data.onlySearchHasBioUsers,
-            language: this.data.selectedLanguage,
-            user_id: this.user.id
-        }
+            user_id: this.user.id,
+        };
     }
 }

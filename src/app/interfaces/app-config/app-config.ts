@@ -1,5 +1,4 @@
 export interface AppConfig {
-    selectedLanguage?: string;
     onlySearchVerifiedUsers?: boolean;
     minDistancePossible?: number;
     maxDistancePossible?: number;
@@ -7,7 +6,6 @@ export interface AppConfig {
     selectedMaxDistancePossible?: number;
     onlySearchDistanceRange?: boolean;
     availableGenders?: ["MALES", "FEMALES", "OTHERS", "ALL"];
-    availableLanguages?: ["es", "gb", "pt"];
     selectedGender?: string;
     minAgePossible?: number;
     maxAgePossible?: number;
@@ -27,6 +25,7 @@ export interface DBConfig {
     search_in_distance: boolean;
     search_in_age: boolean;
     search_has_bio: boolean;
-    language: string;
     user_id: number;
+    created_at?: Date;
+    updated_at?: Date;
 }

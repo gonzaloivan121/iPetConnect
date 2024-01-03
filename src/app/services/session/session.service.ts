@@ -7,15 +7,19 @@ export class SessionService {
 
     constructor() { }
 
-    public set(key, value) {
+    public set(key: string, value: string) {
         localStorage.setItem(key, value);
     }
 
-    public get(key) {
+    public get(key: string) {
         return localStorage.getItem(key);
     }
 
-    public clear() {
-        localStorage.clear();
+    public clear(key?: string) {
+        if (key !== undefined) {
+            localStorage.removeItem(key);
+        } else {
+            localStorage.clear();
+        }
     }
 }

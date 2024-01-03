@@ -122,9 +122,11 @@ export class NavbarComponent implements OnInit {
     }
 
     logout() {
-        this.sessionService.clear();
-        this.isLoggedIn = false;
-        this.location.go("/home");
-        window.location.reload();
+        if (this.sessionService.get("user") !== null) {
+            this.sessionService.clear("user");
+            this.isLoggedIn = false;
+            this.location.go("/home");
+            window.location.reload();
+        }
     }
 }
