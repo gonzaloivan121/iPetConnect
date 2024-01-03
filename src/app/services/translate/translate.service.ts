@@ -4,13 +4,16 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({ providedIn: 'root' })
 export class TranslateService {
 
-    data: any = {};
+    private data: any = {};
+    private currentLanguage: string;
 
     constructor(private http: HttpClient) { }
 
     use(lang: string): Promise<{}> {
+        this.currentLanguage = lang;
+
         return new Promise<{}>((resolve) => {
-            const langPath = `./assets/i18n/${lang || 'en-EN'}.json`;
+            const langPath = `./assets/i18n/${lang || 'gb'}.json`;
 
             this.http.get(langPath).subscribe(
                 (response) => {
@@ -26,5 +29,9 @@ export class TranslateService {
 
     get(key: string) {
         return this.data[key] || key;
+    }
+
+    getCurrentLanguage(): string {
+        return this.currentLanguage;
     }
 }

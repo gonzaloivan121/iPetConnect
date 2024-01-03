@@ -68,7 +68,7 @@ export function setupAppConfigServiceFactory(
 export function setupTranslateServiceFactory(
     service: TranslateService
 ): Function {
-    return () => service.use(navigator.language == 'es-ES' ? 'es-ES' : 'en-EN');
+    return () => service.use(navigator.language == 'es-ES' ? 'es' : 'gb');
 }
 
 @NgModule({

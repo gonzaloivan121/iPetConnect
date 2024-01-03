@@ -1,5 +1,5 @@
 {
-    "TITLE": "Title",
+    "TITLE": "Título",
     "APP_DESCRIPTION": "Plataforma líder en el mundo que une a dueños de mascotas, fomentando relaciones felices y duraderas entre ellas.",
     "SLOGAN": "Conectando corazones en un solo desliz",
     "MAP": "Mapa",
@@ -136,7 +136,7 @@
     "SPHYNX": "Esfinge",
     "RAGDOLL": "Ragdoll",
     "MUNCHKIN": "Munchkin",
-    "ABYSSINIAN": "Abisino",
+    "ABYSSINIAN": "Abisinio",
     "TURKISH_ANGORA": "Angora Turco",
     "BENGAL": "Bengala",
     "NORWEGIAN_FOREST": "Bosque de Noruega",
@@ -235,5 +235,6 @@
     "USER_2": "Segundo Usuario",
     "PIGEON": "Paloma",
     "FOLLOW_DRIBBBLE": "Síguenos en Dribbble",
-    "BLOGGER": "Bloguero"
+    "BLOGGER": "Bloguero",
+    "PORTUGUESE": "Portugués"
 }

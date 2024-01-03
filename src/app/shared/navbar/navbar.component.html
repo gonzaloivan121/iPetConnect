@@ -135,8 +135,9 @@
                         <span class="nav-link-inner--text d-lg-none">{{ link.text }}</span>
                     </a>
                 </li>
-                <li class="nav-item d-lg-block ml-lg-4">
+                <li class="nav-item d-lg-block ml-lg-4 mr-0">
                     <app-user-dropdown [user]="user" (logoutEvent)="logout()"></app-user-dropdown>
+                    <app-language-select [user]="user"></app-language-select>
                 </li>
             </ul>
         <!-- END - Panel Derecho -->

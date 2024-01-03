@@ -7,7 +7,7 @@ export interface AppConfig {
     selectedMaxDistancePossible?: number;
     onlySearchDistanceRange?: boolean;
     availableGenders?: ["MALES", "FEMALES", "OTHERS", "ALL"];
-    availableLanguages?: ["es-ES", 'en-EN'];
+    availableLanguages?: ["es", "gb", "pt"];
     selectedGender?: string;
     minAgePossible?: number;
     maxAgePossible?: number;

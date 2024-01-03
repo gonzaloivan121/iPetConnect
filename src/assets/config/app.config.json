@@ -13,8 +13,9 @@
         "ALL"
     ],
     "availableLanguages": [
-        "es-ES",
-        "en-EN"
+        "es",
+        "gb",
+        "pt"
     ],
     "selectedGender": "ALL",
     "minAgePossible": 18,

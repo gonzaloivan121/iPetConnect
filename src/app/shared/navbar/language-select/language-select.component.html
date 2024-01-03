@@ -1,0 +1,16 @@
+<div class="row" ngbDropdown>
+    <div class="col p-0">
+        <li class="nav-item dropdown m-0">
+            <a class="nav-link" data-toggle="dropdown" role="button" style="cursor: pointer;" id="dropdownMenuButton"
+                ngbDropdownToggle>
+                <span class="fi fi-{{ selectedLanguageCode }}"></span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" ngbDropdownMenu>
+                <a *ngFor="let language of languages" [routerLink]="" class="dropdown-item" (click)="selectLanguage(language)">
+                    <span class="fi fi-{{ language.code }}"></span>
+                    {{ language.name | translate }}
+                </a>
+            </div>
+        </li>
+    </div>
+</div>
