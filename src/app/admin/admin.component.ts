@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { SessionService } from '../services';
-import { RoleEnum, AdminViewEnum } from '../enums/enums';
+import { SessionService } from 'src/app/services';
+import { RoleEnum, AdminViewEnum } from 'src/app/enums/enums';
 
 @Component({
     selector: 'app-admin',
