@@ -237,5 +237,10 @@
     "FOLLOW_DRIBBBLE": "Follow us on Dribbble",
     "BLOGGER": "Blogger",
     "PORTUGUESE": "Portuguese",
-    "EDIT_PROFILE": "Edit Profile"
+    "EDIT_PROFILE": "Edit Profile",
+    "GENERAL_INFORMATION": "General information",
+    "SAVE_CHANGES": "Save changes",
+    "CANCEL": "Cancel",
+    "NO_MORE_USERS": "No more users",
+    "NO_MORE_USERS_DESCRIPTION": "Try changing your match settings to adjust search filters such as distance range or age range to see if you find more people."
 }

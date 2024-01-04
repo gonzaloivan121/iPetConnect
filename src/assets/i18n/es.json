@@ -237,5 +237,10 @@
     "FOLLOW_DRIBBBLE": "Síguenos en Dribbble",
     "BLOGGER": "Bloguero",
     "PORTUGUESE": "Portugués",
-    "EDIT_PROFILE": "Editar Perfil"
+    "EDIT_PROFILE": "Editar Perfil",
+    "GENERAL_INFORMATION": "Información general",
+    "SAVE_CHANGES": "Guardar cambios",
+    "CANCEL": "Cancelar",
+    "NO_MORE_USERS": "No hay más usuarios",
+    "NO_MORE_USERS_DESCRIPTION": "Intenta cambiar tus ajustes de match para ajustar los filtros de búsqueda, como el rango de distancia o el rango de edad para ver si encuentras más personas."
 }
