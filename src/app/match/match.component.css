@@ -116,3 +116,68 @@ app-user-card {
 .chat.open {
     transform: translate(0, 0);
 }
+
+.match-container {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-gap: 15px;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.front {
+    z-index: 1;
+}
+
+app-user-card.like,
+app-user-card.dislike {
+    animation-duration: .333s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: both;
+}
+
+app-user-card.like {
+    animation-name: like;
+}
+
+app-user-card.dislike {
+    animation-name: dislike;
+}
+
+app-user-card {
+    transition: transform .333s ease-in-out;
+}
+
+app-user-card:not(:last-child) {
+    transform: scale(0.95);
+}
+
+@keyframes like {
+    from {
+        transform: translateX(0%) rotate(0deg);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(200%) rotate(45deg);
+        opacity: 0;
+    }
+}
+
+@keyframes dislike {
+    from {
+        transform: translateX(0%) rotate(0deg);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(-200%) rotate(-45deg);
+        opacity: 0;
+    }
+}
+
+@media (max-width: 992px) {
+    .match-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
