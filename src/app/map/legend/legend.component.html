@@ -6,10 +6,11 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row m-0">
         <div class="col p-0">
-            <ul class="list-unstyled d-flex flex-wrap justify-content-evenly px-sm m-0">
-                <li class="d-flex flex-column cursor-pointer align-items-center justify-content-center w-50 aspect-ratio-1by1 legend" [ngClass]="{ 'active': icon.active }" *ngFor="let icon of icons" (click)="filterMarkers(icon);">
+            <ul class="list-unstyled px-sm m-0 legend-container">
+                <li class="d-flex flex-column cursor-pointer align-items-center justify-content-center aspect-ratio-1by1 legend"
+                    [ngClass]="{ 'active': icon.active }" *ngFor="let icon of icons" (click)="filterMarkers(icon);">
                     <img src="{{ icon.url }}">
                     {{ icon.type | translate }}
                 </li>

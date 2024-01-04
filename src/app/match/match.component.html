@@ -2,7 +2,7 @@
     <!-- Hero for FREE version -->
     <div class="header"></div>
 
-    <section class="section-shaped limit-height">
+    <section class="section-shaped">
         <!-- Background circles -->
         <div class="shape shape-style-1 shape-primary">
             <span class="span-150"></span>
@@ -16,10 +16,10 @@
             <span class="span-50"></span>
             <span class="span-100"></span>
         </div>
-        <div class="shape-container d-flex h-100 w-100">
-            <div class="d-flex w-100">
+        <div class="container-fluid p-0 h-100">
+            <div class="row m-0 w-100">
                 <!-- START - Main Window -->
-                <div class="d-flex col-4 h-100 bg-white shadow p-0 overflow-hidden">
+                <div class="d-flex col-lg-4 col-12 bg-white shadow p-0 overflow-hidden limit-height front">
                     <div class="w-100">
                         <div class="underline-container">
                             <ul>
@@ -43,7 +43,8 @@
                         <!-- START - Tabs -->
                         <div class="h-100 position-relative">
                             <!-- START - Messages Tab -->
-                            <div *ngIf="chatsLoaded | async" class="h-100 w-100 position-absolute d-flex swipe-animation" [style]="activeTab == matchTabEnum.Messages ? 'transform: translate(0%);' : 'transform: translate(-100%);'">
+                            <div *ngIf="chatsLoaded | async" class="h-100 w-100 position-absolute d-flex swipe-animation"
+                                [style]="activeTab == matchTabEnum.Messages ? 'transform: translate(0%);' : 'transform: translate(-100%);'">
                                 <div *ngIf="chats.length == 0" class="p-3 w-100 d-flex flex-column justify-content-center align-items-center">
                                     <div class="title text-center">
                                         <h4 class="display-4 font-weight-700">{{ "NO_CHATS" | translate }}</h4>
@@ -58,7 +59,8 @@
                             </div>
                             <!-- END - Messages Tab -->
                             <!-- START - Matches Tab -->
-                            <div *ngIf="matchesLoaded | async" class="h-100 w-100 position-absolute d-flex swipe-animation" [style]="activeTab == matchTabEnum.Messages ? 'transform: translate(100%);' : activeTab == matchTabEnum.Matches ? 'transform: translate(0%);' : 'transform: translate(-100%);'">
+                            <div *ngIf="matchesLoaded | async" class="h-100 w-100 position-absolute d-flex swipe-animation"
+                                [style]="activeTab == matchTabEnum.Messages ? 'transform: translate(100%);' : activeTab == matchTabEnum.Matches ? 'transform: translate(0%);' : 'transform: translate(-100%);'">
                                 <div *ngIf="matches.length == 0" class="p-3 w-100 d-flex flex-column justify-content-center align-items-center">
                                     <div class="title text-center">
                                         <h4 class="display-4 font-weight-700">{{ "NO_MATCHES" | translate }}</h4>
@@ -67,13 +69,15 @@
                                         <p class="px-md text-dark">{{ "NO_MATCHES_DESCRIPTION" | translate }}</p>
                                     </div>
                                 </div>
-                                <div *ngIf="matches.length > 0" class="p-3 w-100 scroll custom-flex">
-                                    <app-matches class="flex-grow-1" *ngFor="let match of matches" [match]="match" [user]="user" (viewProfileEvent)="viewProfile($event)" (openChatEvent)="openChatByUser($event)" (undoMatchEvent)="undoMatch($event)"></app-matches>
+                                <div *ngIf="matches.length > 0" class="p-3 w-100 scroll match-container">
+                                    <app-matches *ngFor="let match of matches" [match]="match" [user]="user" (viewProfileEvent)="viewProfile($event)"
+                                        (openChatEvent)="openChatByUser($event)" (undoMatchEvent)="undoMatch($event)"></app-matches>
                                 </div>
                             </div>
                             <!-- END - Matches Tab -->
                             <!-- START - Likes Tab -->
-                            <div class="h-100 w-100 swipe-animation" [style]="activeTab == matchTabEnum.Messages ? 'transform: translate(200%);' : activeTab == matchTabEnum.Matches ? 'transform: translate(100%);' : 'transform: translate(0%);'">
+                            <div class="h-100 w-100 swipe-animation"
+                                [style]="activeTab == matchTabEnum.Messages ? 'transform: translate(200%);' : activeTab == matchTabEnum.Matches ? 'transform: translate(100%);' : 'transform: translate(0%);'">
                                 <div class="underline-container">
                                     <ul>
                                         <li class="" [class.active]="activeSubTab == likesTabEnum.Received">
@@ -99,7 +103,7 @@
                                                 <p class="px-md text-dark">{{ "NO_LIKES_RECEIVED" | translate }}</p>
                                             </div>
                                         </div>
-                                        <div *ngIf="likesReceived.length > 0" class="p-3 w-100 scroll custom-flex">
+                                        <div *ngIf="likesReceived.length > 0" class="p-3 w-100 scroll match-container">
                                             <app-likes class="flex-grow-1" *ngFor="let like of likesReceived" [like]="like" [user]="user"></app-likes>
                                         </div>
                                     </div>
@@ -114,7 +118,7 @@
                                                 <p class="px-md text-dark">{{ "NO_LIKES_GIVEN" | translate }}</p>
                                             </div>
                                         </div>
-                                        <div *ngIf="likesGiven.length > 0" class="p-3 w-100 scroll custom-flex">
+                                        <div *ngIf="likesGiven.length > 0" class="p-3 w-100 scroll match-container">
                                             <app-likes class="flex-grow-1" *ngFor="let like of likesGiven" [like]="like" [user]="user"></app-likes>
                                         </div>
                                     </div>
@@ -128,18 +132,24 @@
                 </div>
                 <!-- END - Main Window -->
                 <!-- START - Chat Window -->
-                <app-chat [chat]="currentChat" [user]="user" [isOpen]="isChatOpen" (closeChatEvent)="closeChat()" (viewProfileEvent)="viewProfile($event)" (deleteChatEvent)="deleteChat($event)" (reportUserEvent)="repotUser($event)" class="container-fluid col-4 h-100 bg-white shadow p-0 overflow-hidden position-absolute chat" [ngClass]="{'open':isChatOpen === true}"></app-chat>
+                <app-chat [chat]="currentChat" [user]="user" [isOpen]="isChatOpen" (closeChatEvent)="closeChat()"
+                    (viewProfileEvent)="viewProfile($event)" (deleteChatEvent)="deleteChat($event)"
+                    (reportUserEvent)="repotUser($event)"
+                    class="container-fluid col-lg-4 col-12 limit-height bg-white shadow p-0 overflow-hidden position-absolute chat front"
+                    [ngClass]="{'open':isChatOpen === true}"></app-chat>
                 <!-- END - Chat Window -->
                 <!-- START - User Cards -->
-                <div *ngIf="usersLoaded | async" class="d-flex col-8 h-100 justify-content-center p-xl">
-                    <div class="position-relative d-flex justify-content-center align-items-center h-100 w-50">
+                <div *ngIf="usersLoaded | async" class="d-flex col-lg-8 col-12 justify-content-center align-items-center p-0 limit-height">
+                    <div class="position-relative d-flex justify-content-center align-items-center h-75 w-50">
                         <app-user-card class="position-absolute h-100 w-100 dummy"
                             [user]="dummyUser"
+                            [isDummy]="true"
                             (likeEvent)="like($event)"
                             (dislikeEvent)="dislike($event)"
                         ></app-user-card>
                         <app-user-card *ngFor="let matchUser of users" class="position-absolute h-100 w-100"
                             [user]="matchUser"
+                            [isDummy]="false"
                             (likeEvent)="like($event)"
                             (dislikeEvent)="dislike($event)"
                         ></app-user-card>

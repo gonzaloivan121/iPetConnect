@@ -76,8 +76,11 @@ export class ChatComponent implements OnInit, OnChanges {
     scrollToBottom(): void {
         setTimeout(() => {
             const el: HTMLElement = document.getElementById('chatElement');
-            console.log(el)
-            el.scrollTop = Math.max(0, el.scrollHeight - el.offsetHeight);
+            el.scrollTo({
+                top: Math.max(0, el.scrollHeight - el.offsetHeight),
+                behavior: 'smooth'
+            });
+            
         }, 200);
     }
 

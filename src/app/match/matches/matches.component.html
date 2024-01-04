@@ -1,11 +1,14 @@
-<div *ngIf="otherUserLoaded | async" ngbDropdown>
-    <button ngbDropdownToggle class="match btn background-image d-flex align-items-end no-caret shadow m-0" type="button" style="width: 9.33vw; background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0), rgba(0,0,0,.75)), url('{{ otherUser.image }}');">
-        <div class="px-3">
+<div *ngIf="otherUserLoaded | async" class="w-100 h-100" ngbDropdown>
+    <button ngbDropdownToggle
+        class="match btn p-2 background-image d-flex justify-content-center align-items-end no-caret shadow m-0 w-100 h-100"
+        type="button"
+        style="background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0), rgba(0,0,0,.75)), url('{{ otherUser.image }}');">
+        <div class="text-wrap">
             <h3 class="m-0 display-4 chat-name text-white">{{ otherUser.name }}</h3>
         </div>
     </button>
 
-    <ul class="my-3" ngbDropdownMenu>
+    <ul ngbDropdownMenu>
         <li>
             <a (click)="viewProfile(otherUser)" class="btn-icon dropdown-item" href="javascript:void(0)">
                 <span class="btn-inner--icon"><i class="ni ni-circle-08"></i></span>
