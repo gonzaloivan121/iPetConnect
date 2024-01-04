@@ -35,8 +35,9 @@ export class MapComponent implements OnInit {
         disableDoubleClickZoom: true,
         maxZoom: this.maxZoom,
         minZoom: this.minZoom,
-        mapId: "2507019de16e1d9f",
+        mapId: environment.googleMapsMapId,
         gestureHandling: "greedy",
+        zoom: this.zoom,
         //disableDefaultUI: true,
     };
     markers: google.maps.Marker[] = [];
@@ -75,6 +76,7 @@ export class MapComponent implements OnInit {
                         lat: position.coords.latitude,
                         lng: position.coords.longitude,
                     });
+                    this.zoom = 15;
                 },
                 () => {
                     this.handleLocationError(
@@ -178,6 +180,8 @@ export class MapComponent implements OnInit {
                     this.firstLoad = false;
                 }
                 break;
+            case "zoomChanged":
+                console.log(this.map.getZoom());
         }
     }
 
@@ -185,7 +189,7 @@ export class MapComponent implements OnInit {
         this.infoWindow.close();
         this.selectedMarker = markerData;
         this.infoWindow.open(marker);
-        this.map.zoom = 15;
+        this.zoom = 15;
         this.center = marker.getPosition();
     }
 
