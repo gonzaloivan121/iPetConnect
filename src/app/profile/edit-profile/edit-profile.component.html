@@ -1,0 +1,117 @@
+<main class="profile-page">
+    <section class="section-profile-cover section-shaped my-0">
+        <!-- Circles background -->
+        <div class="shape shape-style-1 shape-primary alpha-4">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <div class="card card-profile shadow mt--300">
+                <div class="px-4">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-3 order-lg-2">
+                            <div class="card-profile-image">
+                                <a href="javascript:void(0)">
+                                    <img [src]="user.image" class="rounded-circle">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row pt-xl">
+                        <div class="col">
+                            <h2 class="text-uppercase text-center">{{ "GENERAL_INFORMATION" | translate }}</h2>
+                        </div>
+                    </div>
+                    <div class="row p-md">
+                        <div class="col">
+                            <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" role="form">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <label for="#username" class="m-0">{{ 'USERNAME' | translate }}</label>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input id="username" name="username" formControlName="username" type="text" placeholder="{{ 'USERNAME' | translate }}" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <label for="#name" class="m-0">{{ 'NAME' | translate }}</label>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <div class="form-group" [class.focused]="focusName" [class.has-danger]="!name.valid">
+                                            <div class="input-group">
+                                                <input id="name" name="name" formControlName="name" type="text" placeholder="{{ 'NAME' | translate }}"
+                                                    class="form-control" [class.is-invalid]="!name.valid" (focus)="focusName = true" (blur)="focusName = false">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <label for="#email" class="m-0">{{ 'EMAIL' | translate }}</label>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <div class="form-group" [class.focused]="focusEmail" [class.has-danger]="!email.valid">
+                                            <div class="input-group">
+                                                <input id="email" name="email" formControlName="email" type="email" placeholder="{{ 'EMAIL' | translate }}"
+                                                    class="form-control" [class.is-invalid]="!email.valid" (focus)="focusEmail = true" (blur)="focusEmail = false">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <label for="#gender" class="m-0">{{ 'GENDER' | translate }}</label>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <div class="form-group" [class.focused]="focusGender" [class.has-danger]="!gender.valid">
+                                            <div class="input-group">
+                                                <select id="gender" name="gender" formControlName="gender" class="form-control form-select"
+                                                    [class.is-invalid]="!gender.valid" (focus)="focusGender = true" (blur)="focusGender = false">
+                                                    <option value="MALE">{{ "MALE" | translate }}</option>
+                                                    <option value="FEMALE">{{ "FEMALE" | translate }}</option>
+                                                    <option value="OTHER">{{ "OTHER" | translate }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <label for="#bio" class="m-0">{{ 'BIO' | translate }}</label>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <div class="form-group" [class.focused]="focusBio" [class.has-danger]="!bio.valid">
+                                            <div class="input-group">
+                                                <textarea id="bio" name="bio" formControlName="bio" placeholder="{{ 'BIO' | translate }}" class="form-control"
+                                                    [class.is-invalid]="!bio.valid" (focus)="focusBio = true" (blur)="focusBio = false"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3"></div>
+                                    <div class="col-lg-9">
+                                        <button type="submit" class="btn btn-primary btn-block-sm" [disabled]="profileForm.invalid">{{ "SAVE_CHANGES" | translate }}</button>
+                                        <button (click)="onCancel()" class="btn btn-outline-primary btn-block-sm">{{ "CANCEL" | translate }}</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

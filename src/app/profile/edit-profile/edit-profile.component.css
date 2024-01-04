@@ -1,0 +1,6 @@
+.card-profile .card-profile-image img {
+    margin-top: -10em;
+    max-width: 350px !important;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
