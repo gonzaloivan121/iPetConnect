@@ -25,9 +25,9 @@ export class AdminUsersComponent implements OnInit {
 
     ngOnInit() {
         const promise = this.dataService.get('user').then((response: any) => {
-            if (response.status === 'success') {
-                this.users = response.results as User[];
-                this.allUsers = response.results as User[];
+            if (response.success) {
+                this.users = response.result as User[];
+                this.allUsers = response.result as User[];
                 this.collectionSize = this.allUsers.length;
                 this.refresh();
 

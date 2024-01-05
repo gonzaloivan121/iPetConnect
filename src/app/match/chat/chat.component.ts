@@ -119,8 +119,8 @@ export class ChatComponent implements OnInit, OnChanges {
 
     getOtherUser(): Observable<boolean> {
         return from(this.dataService.get('user', this.chat.user1_id == this.user.id ? this.chat.user2_id : this.chat.user1_id).then((response: any) => {
-            if (response.status === 'success') {
-                this.otherUser = response.results[0] as User;
+            if (response.success) {
+                this.otherUser = response.result[0] as User;
             }
         })).pipe(
             map(() => true),

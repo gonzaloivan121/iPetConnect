@@ -25,12 +25,12 @@ export class AdminMarkersComponent implements OnInit {
 
     ngOnInit() {
         const promise = this.dataService.get('marker').then((response: any) => {
-            if (response.status === 'success') {
-                response.results.forEach(marker => {
+            if (response.success) {
+                response.result.forEach(marker => {
                     marker.coordinates = JSON.parse(marker.coordinates);
                 });
-                this.markers = response.results as Marker[];
-                this.allMarkers = response.results as Marker[];
+                this.markers = response.result as Marker[];
+                this.allMarkers = response.result as Marker[];
                 this.collectionSize = this.allMarkers.length;
                 this.refresh();
 

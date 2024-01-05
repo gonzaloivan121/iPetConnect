@@ -28,9 +28,9 @@ export class AdminBreedsComponent implements OnInit {
     
     ngOnInit() {
         const promise = this.dataService.get('breed').then((response: any) => {
-            if (response.status === 'success') {
-                this.breeds = response.results as Breed[];
-                this.allBreeds = response.results as Breed[];
+            if (response.success) {
+                this.breeds = response.result as Breed[];
+                this.allBreeds = response.result as Breed[];
                 this.collectionSize = this.allBreeds.length;
                 this.refresh();
 

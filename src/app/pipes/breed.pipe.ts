@@ -11,9 +11,9 @@ export class BreedNamePipe implements PipeTransform {
 
     transform(id: number): Promise<string> {
         return this.dataService.get('breed', id).then((response: any) => {
-            if (response.status === 'success') {
-                if (response.results.length > 0) {
-                    const breed: Breed = response.results[0];
+            if (response.success) {
+                if (response.result.length > 0) {
+                    const breed: Breed = response.result[0];
                     return breed.name || id.toString();
                 }
             }

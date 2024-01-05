@@ -27,8 +27,8 @@ export class LikesComponent implements OnInit {
 
     getOtherUser(): Observable<boolean> {
         return from(this.dataService.get('user', this.like.user1_id == this.user.id ? this.like.user2_id : this.like.user1_id).then((response: any) => {
-            if (response.status === 'success') {
-                this.otherUser = response.results[0] as User;
+            if (response.success) {
+                this.otherUser = response.result[0] as User;
             }
         })).pipe(
             map(() => true),

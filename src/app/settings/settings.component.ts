@@ -43,8 +43,8 @@ export class SettingsComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit() {
         this.dataService.getFrom("config", "user", this.user.id).then((response: any) => {
-            if (response.status === "success" && response.results.length > 0) {
-                let dataFromService: DBConfig = response.results[0] as DBConfig;
+            if (response.success && response.result.length > 0) {
+                let dataFromService: DBConfig = response.result[0] as DBConfig;
                 this.data.onlySearchAgeRange = dataFromService.search_in_age;
                 this.data.onlySearchDistanceRange = dataFromService.search_in_distance;
                 this.data.onlySearchHasBioUsers = dataFromService.search_has_bio;

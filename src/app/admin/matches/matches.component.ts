@@ -25,9 +25,9 @@ export class AdminMatchesComponent implements OnInit {
     
     ngOnInit() {
         const promise = this.dataService.get('match').then((response: any) => {
-            if (response.status === 'success') {
-                this.matches = response.results as Match[];
-                this.allMatches = response.results as Match[];
+            if (response.success) {
+                this.matches = response.result as Match[];
+                this.allMatches = response.result as Match[];
                 this.collectionSize = this.allMatches.length;
                 this.refresh();
 

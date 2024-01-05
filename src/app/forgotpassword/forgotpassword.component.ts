@@ -41,7 +41,7 @@ export class ForgotpasswordComponent implements OnInit {
 
         this.dataService.password(formData).then((response: any) => {
             console.log(response)
-            /*if (response.status === 'success') {
+            /*if (response.success) {
                 if (response.login) {
                     const userData = response.user;
                 } else {

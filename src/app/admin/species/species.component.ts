@@ -25,9 +25,9 @@ export class AdminSpeciesComponent implements OnInit {
     
     ngOnInit() {
         const promise = this.dataService.get('species').then((response: any) => {
-            if (response.status === 'success') {
-                this.species = response.results as Species[];
-                this.allSpecies = response.results as Species[];
+            if (response.success) {
+                this.species = response.result as Species[];
+                this.allSpecies = response.result as Species[];
                 this.collectionSize = this.allSpecies.length;
                 this.refresh();
 

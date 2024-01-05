@@ -25,9 +25,9 @@ export class AdminLikesComponent implements OnInit {
     
     ngOnInit() {
         const promise = this.dataService.get('like').then((response: any) => {
-            if (response.status === 'success') {
-                this.likes = response.results as Like[];
-                this.allLikes = response.results as Like[];
+            if (response.success) {
+                this.likes = response.result as Like[];
+                this.allLikes = response.result as Like[];
                 this.collectionSize = this.allLikes.length;
                 this.refresh();
 

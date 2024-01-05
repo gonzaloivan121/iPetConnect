@@ -121,8 +121,8 @@ export class MapComponent implements OnInit {
 
     loadMarkersFromDataService() {
         this.dataService.get("marker").then((response: any) => {
-            if (response.status === "success") {
-                let markers = response.results;
+            if (response.success) {
+                let markers = response.result;
                 let bounds = new google.maps.LatLngBounds();
                 let icons = this.generateIcons();
 

@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
         const formData = this.loginForm.value;
 
         this.dataService.login(formData).then((response: any) => {
-            if (response.status === 'success') {
+            if (response.success) {
                 if (response.login) {
                     const userData = response.user;
                     this.sessionService.set('user', JSON.stringify(userData));

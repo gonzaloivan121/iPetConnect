@@ -135,7 +135,7 @@ export class SignupComponent implements OnInit {
         formData.birthday = `${formData.birthday.year}/${formData.birthday.month}/${formData.birthday.day}`;
         
         this.dataService.insert('user', formData).then((response: any) => {
-            if (response.status === 'success') {
+            if (response.success) {
                 const user: User = new User(
                     formData.username,
                     formData.email,
@@ -146,7 +146,7 @@ export class SignupComponent implements OnInit {
                     formData.gender
                 );
 
-                user.id = response.results.insertId;
+                user.id = response.result.insertId;
                 this.sessionService.set('user', JSON.stringify(user));
 
                 this.generateConfigForUser(user);
@@ -173,7 +173,7 @@ export class SignupComponent implements OnInit {
         };
 
         this.dataService.insert('config', data).then((response: any) => {
-            if (response.status === 'success') {
+            if (response.success) {
                 this.location.go("/home");
                 window.location.reload();
             }

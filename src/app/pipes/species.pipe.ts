@@ -11,9 +11,9 @@ export class SpeciesNamePipe implements PipeTransform {
 
     transform(id: number): Promise<string> {
         return this.dataService.get('species', id).then((response: any) => {
-            if (response.status === 'success') {
-                if (response.results.length > 0) {
-                    const species: Species = response.results[0];
+            if (response.success) {
+                if (response.result.length > 0) {
+                    const species: Species = response.result[0];
                     return species.name || id.toString();
                 }
             }

@@ -25,9 +25,9 @@ export class AdminChatsComponent implements OnInit {
     
     ngOnInit() {
         const promise = this.dataService.get('chat').then((response: any) => {
-            if (response.status === 'success') {
-                this.chats = response.results as Chat[];
-                this.allChats = response.results as Chat[];
+            if (response.success) {
+                this.chats = response.result as Chat[];
+                this.allChats = response.result as Chat[];
                 this.collectionSize = this.allChats.length;
                 this.refresh();
 

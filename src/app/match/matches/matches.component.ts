@@ -30,8 +30,8 @@ export class MatchesComponent implements OnInit {
 
     getOtherUser(): Observable<boolean> {
         return from(this.dataService.get('user', this.match.user1_id == this.user.id ? this.match.user2_id : this.match.user1_id).then((response: any) => {
-            if (response.status === 'success') {
-                this.otherUser = response.results[0] as User;
+            if (response.success) {
+                this.otherUser = response.result[0] as User;
             }
         })).pipe(
             map(() => true),

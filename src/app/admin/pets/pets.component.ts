@@ -25,9 +25,9 @@ export class AdminPetsComponent implements OnInit {
 
     ngOnInit() {
         const promise = this.dataService.get('pet').then((response: any) => {
-            if (response.status === 'success') {
-                this.pets = response.results as Pet[];
-                this.allPets = response.results as Pet[];
+            if (response.success) {
+                this.pets = response.result as Pet[];
+                this.allPets = response.result as Pet[];
                 this.collectionSize = this.allPets.length;
                 this.refresh();
 

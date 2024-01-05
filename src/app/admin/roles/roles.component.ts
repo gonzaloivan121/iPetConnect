@@ -25,9 +25,9 @@ export class AdminRolesComponent implements OnInit {
     
     ngOnInit() {
         const promise = this.dataService.get('role').then((response: any) => {
-            if (response.status === 'success') {
-                this.roles = response.results as Role[];
-                this.allRoles = response.results as Role[];
+            if (response.success) {
+                this.roles = response.result as Role[];
+                this.allRoles = response.result as Role[];
                 this.collectionSize = this.allRoles.length;
                 this.refresh();
 

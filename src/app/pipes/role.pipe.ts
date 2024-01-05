@@ -11,9 +11,9 @@ export class RoleNamePipe implements PipeTransform {
 
     transform(id: number): Promise<string> {
         return this.dataService.get('role', id).then((response: any) => {
-            if (response.status === 'success') {
-                if (response.results.length > 0) {
-                    const role: Role = response.results[0];
+            if (response.success) {
+                if (response.result.length > 0) {
+                    const role: Role = response.result[0];
                     return role.name || id.toString();
                 }
             }

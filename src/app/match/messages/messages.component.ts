@@ -33,8 +33,8 @@ export class MessagesComponent implements OnInit {
 
     getOtherUser(): Observable<boolean> {
         return from(this.dataService.get('user', this.chat.user1_id == this.user.id ? this.chat.user2_id : this.chat.user1_id).then((response: any) => {
-            if (response.status === 'success') {
-                const user = response.results[0] as User;
+            if (response.success) {
+                const user = response.result[0] as User;
                 const newUser = new User(user.username, user.email, user.password, user.name, user.role_id, user.birthday, user.gender, user.bio, user.image);
                 newUser.created_at = user.created_at;
                 newUser.updated_at = user.updated_at;
@@ -49,8 +49,8 @@ export class MessagesComponent implements OnInit {
 
     getMessages() {
         return from(this.dataService.getFrom('message', 'chat', this.chat.id).then((response: any) => {
-            if (response.status === 'success') {
-                response.results.forEach((message) => {
+            if (response.success) {
+                response.result.forEach((message) => {
                     const newMessage = new Message(message.chat_id, message.user_id, message.message, message.edited, message.read, message.created_at, message.updated_at);
                     newMessage.id = message.id;
                     this.messages.push(newMessage)

@@ -11,9 +11,9 @@ export class LanguageNamePipe implements PipeTransform {
 
     transform(code: number): Promise<string> {
         return this.dataService.getFrom('language', 'code', code).then((response: any) => {
-            if (response.status === 'success') {
-                if (response.results.length > 0) {
-                    const language: Language = response.results[0];
+            if (response.success) {
+                if (response.result.length > 0) {
+                    const language: Language = response.result[0];
                     return language.name || code.toString();
                 }
             }

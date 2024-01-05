@@ -86,8 +86,8 @@ export class MatchComponent implements OnInit {
             this.dataService
                 .getFrom("chat", "user", this.user.id)
                 .then((response: any) => {
-                    if (response.status === "success") {
-                        this.chats = response.results as Chat[];
+                    if (response.success) {
+                        this.chats = response.result as Chat[];
                     }
                 })
         ).pipe(
@@ -101,8 +101,8 @@ export class MatchComponent implements OnInit {
             this.dataService
                 .getExcluding("user", this.user.id)
                 .then((response: any) => {
-                    if (response.status === "success") {
-                        this.users = response.results as User[];
+                    if (response.success) {
+                        this.users = response.result as User[];
                     }
                 })
         ).pipe(
@@ -116,29 +116,29 @@ export class MatchComponent implements OnInit {
             this.dataService
                 .getFrom("match", "user", this.user.id)
                 .then((response: any) => {
-                    if (response.status === "success") {
-                        this.matches = response.results as Match[];
+                    if (response.success) {
+                        this.matches = response.result as Match[];
 
                         console.log(this.matches);
 
                         // TODO: Quitar, testing
                         /*var ids = [
-                    1, 2, 4, 5, 6, 7,
-                    24, 25, 26, 27, 28,
-                    29, 30, 31, 32, 33,
-                    35, 36, 37, 38, 46,
-                    47, 50, 51
-                ];
+                            1, 2, 4, 5, 6, 7,
+                            24, 25, 26, 27, 28,
+                            29, 30, 31, 32, 33,
+                            35, 36, 37, 38, 46,
+                            47, 50, 51
+                        ];
 
-                // TODO: Quitar, testing
-                for (let i = 0; i < ids.length; i++) {
-                    var newMatch = new Match(ids[i], 45);
-                    newMatch.id = this.matches[0].id + i;
-                    newMatch.created_at = this.matches[0].created_at;
-                    newMatch.updated_at = this.matches[0].updated_at;
+                        // TODO: Quitar, testing
+                        for (let i = 0; i < ids.length; i++) {
+                            var newMatch = new Match(ids[i], 45);
+                            newMatch.id = this.matches[0].id + i;
+                            newMatch.created_at = this.matches[0].created_at;
+                            newMatch.updated_at = this.matches[0].updated_at;
 
-                    this.matches.push(newMatch);
-                }*/
+                            this.matches.push(newMatch);
+                        }*/
                     }
                 })
         ).pipe(
@@ -157,8 +157,8 @@ export class MatchComponent implements OnInit {
             this.dataService
                 .getFrom("like", "user_2", this.user.id)
                 .then((response: any) => {
-                    if (response.status === "success") {
-                        this.likesReceived = response.results as Like[];
+                    if (response.success) {
+                        this.likesReceived = response.result as Like[];
                     }
                 })
         ).pipe(
@@ -172,8 +172,8 @@ export class MatchComponent implements OnInit {
             this.dataService
                 .getFrom("like", "user_1", this.user.id)
                 .then((response: any) => {
-                    if (response.status === "success") {
-                        this.likesGiven = response.results as Like[];
+                    if (response.success) {
+                        this.likesGiven = response.result as Like[];
                     }
                 })
         ).pipe(

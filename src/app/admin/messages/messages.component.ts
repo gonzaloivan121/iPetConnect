@@ -25,9 +25,9 @@ export class AdminMessagesComponent implements OnInit {
     
     ngOnInit() {
         const promise = this.dataService.get('message').then((response: any) => {
-            if (response.status === 'success') {
-                this.messages = response.results as Message[];
-                this.allMessages = response.results as Message[];
+            if (response.success) {
+                this.messages = response.result as Message[];
+                this.allMessages = response.result as Message[];
                 this.collectionSize = this.allMessages.length;
                 this.refresh();
 
