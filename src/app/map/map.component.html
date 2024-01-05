@@ -9,7 +9,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
                         </div>
-                        <input #search class="form-control form-control-alternative" placeholder="{{ 'SEARCH' | translate }}..." type="text" autocomplete="on">
+                        <input #search class="form-control form-control-alternative" placeholder="{{ 'SEARCH' | translate }}..." type="text">
                     </div>
                 </div>
                 <div class="dropdown-divider"></div>
@@ -24,7 +24,7 @@
                         (mapDragend)="eventHandler($event,'mapDragend')" (mapRightclick)="eventHandler($event,'mapRightclick')"
                         (positionChanged)="eventHandler($event,'marker_positionChanged')"
                         (zoomChanged)="eventHandler($event,'zoomChanged')">
-                
+
                         <map-marker #markerElem="mapMarker" *ngFor="let marker of markers" [position]="marker.position"
                             [label]="marker.label" [title]="marker.title" [options]="marker.options" [icon]="marker.icon"
                             [visible]="marker.visible" (mapClick)="openInfo(markerElem, marker.data)">

@@ -242,5 +242,6 @@
     "SAVE_CHANGES": "Save changes",
     "CANCEL": "Cancel",
     "NO_MORE_USERS": "No more users",
-    "NO_MORE_USERS_DESCRIPTION": "Try changing your match settings to adjust search filters such as distance range or age range to see if you find more people."
+    "NO_MORE_USERS_DESCRIPTION": "Try changing your match settings to adjust search filters such as distance range or age range to see if you find more people.",
+    "MARKER_TYPE": "Marker Type"
 }

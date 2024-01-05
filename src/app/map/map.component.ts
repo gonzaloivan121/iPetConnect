@@ -6,8 +6,7 @@ import { environment } from 'src/environments/environment';
 import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { DataService, SessionService } from 'src/app/services';
 import { User } from 'src/classes';
-import { MarkerTypeEnum } from '../enums/enums';
-import { IMarkerResponse } from 'src/app/interfaces'
+import { IMarkerResponse } from 'src/app/interfaces';
 
 @Component({
     selector: "app-map",
@@ -109,7 +108,9 @@ export class MapComponent implements OnInit {
         const anchor = new google.maps.Point(16, 32);
 
         const icons = {
-            RESCUE: { url: iconBase + "marker_rescue.png", size,
+            RESCUE: {
+                url: iconBase + "marker_rescue.png",
+                size,
                 origin,
                 anchor,
             },
@@ -220,7 +221,8 @@ export class MapComponent implements OnInit {
     }
 
     search() {
-        const places: google.maps.places.PlaceResult[] = this.searchBox.getPlaces();
+        const places: google.maps.places.PlaceResult[] =
+            this.searchBox.getPlaces();
 
         if (places.length == 0) return;
 
