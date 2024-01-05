@@ -1,4 +1,4 @@
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -60,6 +60,7 @@ import { TheTeamComponent } from './blog/the-team/the-team.component';
 import { LanguageSelectComponent } from './shared/navbar/language-select/language-select.component';
 import { BlogPostComponent } from './blog/blog-post/blog-post.component';
 import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 export function setupAppConfigServiceFactory(
     service: AppConfigService
@@ -134,7 +135,13 @@ export function setupTranslateServiceFactory(
         HomeModule,
         HttpClientModule,
         HttpClientJsonpModule,
-        GoogleMapsModule
+        GoogleMapsModule,
+        ServiceWorkerModule.register('ngsw-worker.js', {
+          enabled: !isDevMode(),
+          // Register the ServiceWorker as soon as the application is stable
+          // or after 30 seconds (whichever comes first).
+          registrationStrategy: 'registerWhenStable:30000'
+        })
     ],
     providers: [
         TranslateService,
