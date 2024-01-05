@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -20,10 +20,9 @@ export class MapComponent implements OnInit {
     public isLoggedIn: boolean = false;
     public firstLoad: boolean = true;
 
-    @ViewChild("myGoogleMap", { static: false })
-    map!: GoogleMap;
-    @ViewChild(MapInfoWindow, { static: false })
-    infoWindow!: MapInfoWindow;
+    @ViewChild("myGoogleMap", { static: false }) map!: GoogleMap;
+    @ViewChild(MapInfoWindow, { static: false }) infoWindow!: MapInfoWindow;
+    @ViewChild("search", { static: false }) searchBoxElement: ElementRef;
 
     maxZoom = 20;
     minZoom = 5;
@@ -42,6 +41,7 @@ export class MapComponent implements OnInit {
     };
     markers: google.maps.Marker[] = [];
     selectedMarker: MapMarker;
+    searchBox: google.maps.places.SearchBox;
 
     filterCategories: string[] = [];
 
@@ -59,7 +59,7 @@ export class MapComponent implements OnInit {
 
         this.apiLoaded = this.httpClient
             .jsonp(
-                `https://maps.googleapis.com/maps/api/js?key=${environment.googleMapsApiKey}`,
+                `https://maps.googleapis.com/maps/api/js?key=${environment.googleMapsApiKey}&libraries=places`,
                 "callback"
             )
             .pipe(
@@ -76,7 +76,8 @@ export class MapComponent implements OnInit {
                         lat: position.coords.latitude,
                         lng: position.coords.longitude,
                     });
-                    this.zoom = 15;
+
+                    this.setZoom(15);
                 },
                 () => {
                     this.handleLocationError(
@@ -108,12 +109,35 @@ export class MapComponent implements OnInit {
         const anchor = new google.maps.Point(16, 32);
 
         const icons = {
-            RESCUE: { url: iconBase + "marker_rescue.png", size, origin, anchor, },
-            URGENCY: { url: iconBase + "marker_urgency.png", size, origin, anchor, },
-            VETERINARY: { url: iconBase + "marker_veterinary.png", size, origin, anchor, },
+            RESCUE: { url: iconBase + "marker_rescue.png", size,
+                origin,
+                anchor,
+            },
+            URGENCY: {
+                url: iconBase + "marker_urgency.png",
+                size,
+                origin,
+                anchor,
+            },
+            VETERINARY: {
+                url: iconBase + "marker_veterinary.png",
+                size,
+                origin,
+                anchor,
+            },
             CARER: { url: iconBase + "marker_carer.png", size, origin, anchor },
-            ADOPTION: { url: iconBase + "marker_adoption.png", size, origin, anchor, },
-            INFORMATION: { url: iconBase + "marker_information.png", size, origin, anchor, },
+            ADOPTION: {
+                url: iconBase + "marker_adoption.png",
+                size,
+                origin,
+                anchor,
+            },
+            INFORMATION: {
+                url: iconBase + "marker_information.png",
+                size,
+                origin,
+                anchor,
+            },
         };
 
         return icons;
@@ -148,7 +172,7 @@ export class MapComponent implements OnInit {
         googleMarker.setTitle(marker.title);
         googleMarker.setIcon(icons[marker.type]);
         googleMarker.setAnimation(google.maps.Animation.DROP);
-        googleMarker.set('data', marker);
+        googleMarker.set("data", marker);
 
         return googleMarker;
     }
@@ -169,14 +193,7 @@ export class MapComponent implements OnInit {
                 break;
             case "idle":
                 if (this.firstLoad) {
-                    this.setCurrentPosition();
-                    this.loadMarkersFromDataService();
-                    this.map.controls[
-                        google.maps.ControlPosition.TOP_RIGHT
-                    ].push(document.getElementById("go-to-location"));
-                    this.map.controls[
-                        google.maps.ControlPosition.LEFT_BOTTOM
-                    ].push(document.getElementById("add-marker"));
+                    this.initMap();
                     this.firstLoad = false;
                 }
                 break;
@@ -185,12 +202,58 @@ export class MapComponent implements OnInit {
         }
     }
 
+    initMap() {
+        this.setCurrentPosition();
+        this.loadMarkersFromDataService();
+        this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(
+            document.getElementById("go-to-location")
+        );
+        this.searchBox = new google.maps.places.SearchBox(
+            this.searchBoxElement.nativeElement
+        );
+        this.map.googleMap.addListener("bounds_changed", () => {
+            this.searchBox.setBounds(this.map.getBounds());
+        });
+        this.searchBox.addListener("places_changed", () => {
+            this.search();
+        });
+    }
+
+    search() {
+        const places: google.maps.places.PlaceResult[] = this.searchBox.getPlaces();
+
+        if (places.length == 0) return;
+
+        const bounds = new google.maps.LatLngBounds();
+
+        places.forEach((place: google.maps.places.PlaceResult) => {
+            if (!place.geometry || !place.geometry.location) {
+                console.log("Returned place contains no geometry");
+                return;
+            }
+
+            if (place.geometry.viewport) {
+                // Only geocodes have viewport.
+                bounds.union(place.geometry.viewport);
+            } else {
+                bounds.extend(place.geometry.location);
+            }
+
+            this.map.fitBounds(bounds);
+        });
+    }
+
     openInfo(marker: MapMarker, markerData) {
         this.infoWindow.close();
         this.selectedMarker = markerData;
         this.infoWindow.open(marker);
-        this.zoom = 15;
+        this.setZoom(15);
         this.center = marker.getPosition();
+    }
+
+    setZoom(zoom: number) {
+        this.zoom = zoom;
+        this.map.googleMap.setZoom(this.zoom);
     }
 
     closeInfo() {
@@ -250,7 +313,6 @@ export class MapComponent implements OnInit {
                     let marker = this.generateMarker(request, icons);
                     this.markers.push(marker);
                 } else {
-
                 }
             });
     }
@@ -261,7 +323,10 @@ export class MapComponent implements OnInit {
 
     filterMarkers(type: string) {
         if (this.filterCategories.includes(type)) {
-            this.filterCategories.splice(this.filterCategories.indexOf(type), 1);
+            this.filterCategories.splice(
+                this.filterCategories.indexOf(type),
+                1
+            );
         } else {
             this.filterCategories.push(type);
         }
@@ -269,7 +334,10 @@ export class MapComponent implements OnInit {
         var bounds = new google.maps.LatLngBounds();
 
         this.markers.forEach((marker) => {
-            if (this.filterCategories.includes(marker.get('data').type) || this.filterCategories.length == 0) {
+            if (
+                this.filterCategories.includes(marker.get("data").type) ||
+                this.filterCategories.length == 0
+            ) {
                 marker.setVisible(true);
                 bounds.extend(marker.getPosition());
             } else {
