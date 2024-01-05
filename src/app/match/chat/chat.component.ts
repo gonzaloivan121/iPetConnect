@@ -7,9 +7,9 @@ import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms
 import { IMessageRequest, IMessageResponse } from 'src/app/interfaces';
 
 @Component({
-    selector: 'app-chat',
-    templateUrl: './chat.component.html',
-    styleUrls: ['./chat.component.css']
+    selector: "app-chat",
+    templateUrl: "./chat.component.html",
+    styleUrls: ["./chat.component.css"],
 })
 export class ChatComponent implements OnInit, OnChanges {
     messageForm: UntypedFormGroup;
@@ -32,10 +32,9 @@ export class ChatComponent implements OnInit, OnChanges {
     constructor(
         private dataService: DataService,
         private formBuilder: UntypedFormBuilder
-    ) { }
+    ) {}
 
     ngOnChanges(changes: SimpleChanges): void {
-        console.log(changes)
         if (changes.chat) {
             this.chat = changes.chat.currentValue;
         }
@@ -62,30 +61,29 @@ export class ChatComponent implements OnInit, OnChanges {
 
     readMessage(message: Message) {
         message.read = true;
-        this.dataService.update(message.table, message).then(response => {
-            console.log(response)
+        this.dataService.update(message.table, message).then((response) => {
+            console.log(response);
         });
     }
-    
+
     ngOnInit(): void {
         this.messageForm = this.formBuilder.group({
-            message: ["", [Validators.required]]
+            message: ["", [Validators.required]],
         });
     }
 
     scrollToBottom(): void {
         setTimeout(() => {
-            const el: HTMLElement = document.getElementById('chatElement');
+            const el: HTMLElement = document.getElementById("chatElement");
             el.scrollTo({
                 top: Math.max(0, el.scrollHeight - el.offsetHeight),
-                behavior: 'smooth'
+                behavior: "smooth",
             });
-            
         }, 200);
     }
 
     get message() {
-        return this.messageForm.get('message');
+        return this.messageForm.get("message");
     }
 
     onSubmit() {
@@ -94,35 +92,46 @@ export class ChatComponent implements OnInit, OnChanges {
         const data: IMessageRequest = {
             chat_id: this.chat.id,
             user_id: this.user.id,
-            message: formData.message
+            message: formData.message,
         };
 
-        this.dataService.insert(DBTables.Message, data).then((response: IMessageResponse) => {
-            if (response.success) {
-                const message = new Message(
-                    data.chat_id,
-                    data.user_id,
-                    data.message,
-                    false,
-                    false
-                );
+        this.dataService
+            .insert(DBTables.Message, data)
+            .then((response: IMessageResponse) => {
+                if (response.success) {
+                    const message = new Message(
+                        data.chat_id,
+                        data.user_id,
+                        data.message,
+                        false,
+                        false
+                    );
 
-                message.id = response.result?.insertId;
-                message.created_at = new Date(response.created_at);
-                message.updated_at = new Date(response.created_at);
+                    message.id = response.result?.insertId;
+                    message.created_at = new Date(response.created_at);
+                    message.updated_at = new Date(response.created_at);
 
-                this.chat.messages.push(message);
-                this.scrollToBottom();
-            }
-        });
+                    this.chat.messages.push(message);
+                    this.scrollToBottom();
+                }
+            });
     }
 
     getOtherUser(): Observable<boolean> {
-        return from(this.dataService.get('user', this.chat.user1_id == this.user.id ? this.chat.user2_id : this.chat.user1_id).then((response: any) => {
-            if (response.success) {
-                this.otherUser = response.result[0] as User;
-            }
-        })).pipe(
+        return from(
+            this.dataService
+                .get(
+                    "user",
+                    this.chat.user1_id == this.user.id
+                        ? this.chat.user2_id
+                        : this.chat.user1_id
+                )
+                .then((response: any) => {
+                    if (response.success) {
+                        this.otherUser = response.result[0] as User;
+                    }
+                })
+        ).pipe(
             map(() => true),
             catchError(() => of(false))
         );
@@ -149,5 +158,4 @@ export class ChatComponent implements OnInit, OnChanges {
     reportUser() {
         this.reportUserEvent.emit(this.otherUser);
     }
-
 }

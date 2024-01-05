@@ -1,11 +1,10 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { SessionService, DataService } from '../services';
-import { User, Chat, Message, Match, Like } from '../../classes';
-import { RoleEnum, MatchTabEnum, LikesTabEnum } from '../enums/enums';
+import { SessionService, DataService } from 'src/app/services';
+import { User, Chat, Message, Match, Like } from 'src/classes';
+import { RoleEnum, MatchTabEnum, LikesTabEnum } from 'src/app/enums/enums';
 import { Observable, from, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { CardComponent } from './card/card.component';
 
 @Component({
     selector: "app-match",
@@ -111,6 +110,22 @@ export class MatchComponent implements OnInit {
         );
     }
 
+    testMatches() {
+        const ids = [
+            1, 2, 4, 5, 6, 7, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 35, 36,
+            37, 38, 46, 47, 50, 51,
+        ];
+
+        for (let i = 0; i < ids.length; i++) {
+            var newMatch = new Match(ids[i], 45);
+            newMatch.id = this.matches[0].id + i;
+            newMatch.created_at = this.matches[0].created_at;
+            newMatch.updated_at = this.matches[0].updated_at;
+
+            this.matches.push(newMatch);
+        }
+    }
+
     getMatches(): Observable<boolean> {
         return from(
             this.dataService
@@ -122,23 +137,7 @@ export class MatchComponent implements OnInit {
                         console.log(this.matches);
 
                         // TODO: Quitar, testing
-                        /*var ids = [
-                            1, 2, 4, 5, 6, 7,
-                            24, 25, 26, 27, 28,
-                            29, 30, 31, 32, 33,
-                            35, 36, 37, 38, 46,
-                            47, 50, 51
-                        ];
-
-                        // TODO: Quitar, testing
-                        for (let i = 0; i < ids.length; i++) {
-                            var newMatch = new Match(ids[i], 45);
-                            newMatch.id = this.matches[0].id + i;
-                            newMatch.created_at = this.matches[0].created_at;
-                            newMatch.updated_at = this.matches[0].updated_at;
-
-                            this.matches.push(newMatch);
-                        }*/
+                        //this.testMatches();
                     }
                 })
         ).pipe(
