@@ -243,5 +243,22 @@
     "CANCEL": "Cancel",
     "NO_MORE_USERS": "No more users",
     "NO_MORE_USERS_DESCRIPTION": "Try changing your match settings to adjust search filters such as distance range or age range to see if you find more people.",
-    "MARKER_TYPE": "Marker Type"
+    "MARKER_TYPE": "Marker Type",
+    "BUSINESS": "Business",
+    "BUSINESS_DESCRIPTION": "Society has put up so many boundaries and limitations on what's right and wrong that it's almost impossible...",
+    "PREMIUM": "Premium",
+    "PREMIUM_DESCRIPTION": "Colors are good, before somebody tells you you shouldn't like pink because that's for girls.",
+    "FOCUS": "Focus",
+    "FOCUS_DESCRIPTION": "Because it's about motivating the doers. Because I'm here to follow my dreams and inspire other people.",
+    "ANIMALS": "Animals",
+    "ANIMALS_DESCRIPTION": "Explore animal diversity with informative articles, curiosities and exciting stories that celebrate the beauty of the creatures of our planet.",
+    "FEATURES": "Features",
+    "FEATURES_DESCRIPTION": "Explore the latest improvements to our app: new features and updates that optimize your experience to make it more convenient and exciting.",
+    "NEWS": "News",
+    "NEWS_DESCRIPTION": "Discover top news about the animal world, from astonishing discoveries to moving stories that highlight their impact on our environment.",
+    "POSTED_ON": "Posted on",
+    "ACTIVITY_FEED": "Activity feed",
+    "FOLLOW": "Follow",
+    "LATEST_BLOGPOSTS": "Latest Blogposts",
+    "POST": "Post"
 }

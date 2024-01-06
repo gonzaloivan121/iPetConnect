@@ -243,5 +243,22 @@
     "CANCEL": "Cancelar",
     "NO_MORE_USERS": "Não há mais usuários",
     "NO_MORE_USERS_DESCRIPTION": "Tente alterar as configurações de correspondência para ajustar os filtros de pesquisa, como faixa de distância ou faixa etária, para ver se você encontra mais pessoas.",
-    "MARKER_TYPE": "Tipo de Marcador"
+    "MARKER_TYPE": "Tipo de Marcador",
+    "BUSINESS": "Negócios",
+    "BUSINESS_DESCRIPTION": "A sociedade colocou tantos limites e limitações sobre o que é certo e o que é errado que é quase impossível...",
+    "PREMIUM": "Premium",
+    "PREMIUM_DESCRIPTION": "As cores são boas, antes que alguém te diga que você não deve gostar de rosa porque é para meninas.",
+    "FOCUS": "Foco",
+    "FOCUS_DESCRIPTION": "Porque se trata de motivar quem o faz. Porque estou aqui para seguir meus sonhos e inspirar outras pessoas.",
+    "ANIMALS": "Animais",
+    "ANIMALS_DESCRIPTION": "Explore a diversidade animal com artigos informativos, curiosidades e histórias emocionantes que celebram a beleza das criaturas do reino animal do nosso planeta.",
+    "FEATURES": "Funcionalidades",
+    "FEATURES_DESCRIPTION": "Explore as melhorias mais recentes em nosso aplicativo: novos recursos e atualizações que otimizam sua experiência para torná-la mais conveniente e emocionante.",
+    "NEWS": "Notícias",
+    "NEWS_DESCRIPTION": "Descubra as principais notícias sobre o mundo animal, desde descobertas surpreendentes até histórias comoventes que destacam seu impacto no meio ambiente.",
+    "POSTED_ON": "Publicado na",
+    "ACTIVITY_FEED": "Feed de atividade",
+    "FOLLOW": "Seguir",
+    "LATEST_BLOGPOSTS": "Últimas Postagens do Blog",
+    "POST": "Publicar"
 }
