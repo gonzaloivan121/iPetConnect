@@ -109,10 +109,10 @@
                 </li>
                 <!-- END - Map Button -->
                 <!-- START - Pets Button -->
-                <li *ngIf="isLoggedIn && user.role_id == roleEnum.User" class="nav-item">
-                    <a [routerLink]="['/pets']" class="nav-link nav-link-icon" role="button">
+                <li class="nav-item">
+                    <a [routerLink]="['/blog']" class="nav-link nav-link-icon" role="button">
                         <i class="ni ni-collection d-lg-none"></i>
-                        <span class="nav-link-inner--text">{{ "PETS" | translate }}</span>
+                        <span class="nav-link-inner--text">{{ "BLOG" | translate }}</span>
                     </a>
                 </li>
                 <!-- END - Pets Button -->
