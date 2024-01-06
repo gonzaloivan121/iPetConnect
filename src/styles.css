@@ -330,3 +330,9 @@
 .text-wrap {
     white-space: normal !important;
 }
+
+.background-image {
+    background-position: center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+}
