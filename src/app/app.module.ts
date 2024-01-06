@@ -61,6 +61,7 @@ import { LanguageSelectComponent } from './shared/navbar/language-select/languag
 import { BlogPostComponent } from './blog/blog-post/blog-post.component';
 import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { BlogCommentComponent } from './blog/blog-post/blog-comment/blog-comment.component';
 
 export function setupAppConfigServiceFactory(
     service: AppConfigService
@@ -123,6 +124,7 @@ export function setupTranslateServiceFactory(
         LanguageSelectComponent,
         BlogPostComponent,
         EditProfileComponent,
+        BlogCommentComponent,
     ],
     imports: [
         NgbModule,

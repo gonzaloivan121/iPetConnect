@@ -8,3 +8,4 @@ export {
 } from "./requests/requests";
 export { ISocialMediaLink } from './social-media/social-media'
 export { IMapLegendIcon } from './map-legend/map-legend';
+export { IBlogCategory, IBlogPost, IBlogComment } from "./classes/classes";

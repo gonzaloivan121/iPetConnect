@@ -17,6 +17,7 @@ import { BreedNamePipe } from '../pipes/breed.pipe';
 import { SpeciesNamePipe } from '../pipes/species.pipe';
 import { TruncatePipe } from '../pipes/truncate.pipe';
 import { CountUnreadMessagesPipe } from '../pipes/count-unread-messages.pipe';
+import { BlogCategoryPipe } from "../pipes/blog-category.pipe";
 
 @NgModule({
     imports: [
@@ -25,7 +26,7 @@ import { CountUnreadMessagesPipe } from '../pipes/count-unread-messages.pipe';
         FormsModule,
         RouterModule,
         SectionsModule,
-        NgbModule
+        NgbModule,
     ],
     declarations: [
         HomeComponent,
@@ -37,7 +38,8 @@ import { CountUnreadMessagesPipe } from '../pipes/count-unread-messages.pipe';
         BreedNamePipe,
         SpeciesNamePipe,
         TruncatePipe,
-        CountUnreadMessagesPipe
+        CountUnreadMessagesPipe,
+        BlogCategoryPipe,
     ],
     exports: [
         HomeComponent,
@@ -50,8 +52,9 @@ import { CountUnreadMessagesPipe } from '../pipes/count-unread-messages.pipe';
         SpeciesNamePipe,
         TruncatePipe,
         CountUnreadMessagesPipe,
-        DatePipe
+        DatePipe,
+        BlogCategoryPipe,
     ],
-    providers: []
+    providers: [],
 })
-export class HomeModule { }
+export class HomeModule {}
