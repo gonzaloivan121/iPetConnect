@@ -15,7 +15,7 @@ export class CategoriesComponent implements OnInit {
     constructor(private dataService: DataService) {}
 
     ngOnInit(): void {
-        this.dataService.get(DBTables.BlogCategory + "/latest/3").then((response: any) => {
+        this.dataService.get(DBTables.BlogCategory + "/popularity/latest/3").then((response: any) => {
             if (response.success) {
                 this.categories = response.result as IBlogCategory[];
             }

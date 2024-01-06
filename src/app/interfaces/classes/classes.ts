@@ -2,6 +2,7 @@ export interface IBlogCategory {
     id: number;
     name: string;
     description: string;
+    popularity: number;
     image: string;
     created_at: Date;
     updated_at: Date;
