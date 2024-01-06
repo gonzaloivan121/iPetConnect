@@ -199,7 +199,8 @@ export class MapComponent implements OnInit {
                 }
                 break;
             case "zoomChanged":
-                console.log(this.map.getZoom());
+                
+                break;
         }
     }
 

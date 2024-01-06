@@ -202,8 +202,6 @@ export class MatchComponent implements OnInit {
         };
 
         this.deleteCard(user);
-
-        console.log(data);
     }
 
     dislike(user: User): void {
@@ -213,8 +211,6 @@ export class MatchComponent implements OnInit {
         };
 
         this.deleteCard(user);
-
-        console.log(data);
     }
 
     deleteCard(user: User) {
@@ -310,16 +306,15 @@ export class MatchComponent implements OnInit {
         )[0];
 
         if (chatToOpen !== undefined) {
-            console.log(chatToOpen);
             this.openChat(chatToOpen);
         }
     }
 
     likeAnimDone(ev: AnimationEvent) {
-        console.log(ev);
+        console.log("likeAnimDone", ev);
     }
 
     dislikeAnimDone(ev: AnimationEvent) {
-        console.log(ev);
+        console.log("dislikeAnimDone", ev);
     }
 }

@@ -37,6 +37,6 @@ export class LikesComponent implements OnInit {
     }
 
     viewProfile(user: User) {
-        console.log(user)
+        console.log("viewProfile", user);
     }
 }

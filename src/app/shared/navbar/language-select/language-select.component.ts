@@ -21,7 +21,6 @@ export class LanguageSelectComponent implements OnInit {
 
     ngOnInit(): void {
         this.dataService.get("language").then((response: any) => {
-            console.log(response);
             if (response.success) {
                 this.languages = response.result as Language[];
             }

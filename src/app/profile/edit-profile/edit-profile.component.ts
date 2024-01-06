@@ -28,7 +28,6 @@ export class EditProfileComponent implements OnInit {
     ngOnInit(): void {
         if (this.sessionService.get("user") !== null) {
             this.user = JSON.parse(this.sessionService.get("user"));
-            console.log(this.user);
         } else {
             this.location.back();
         }
@@ -73,7 +72,6 @@ export class EditProfileComponent implements OnInit {
         this.user.bio = formData.bio;
 
         this.dataService.update(DBTables.User, this.user).then((response: any) => {
-            console.log(response);
             if (response.success) {
                 this.sessionService.set('user', JSON.stringify(this.user));
             } else {

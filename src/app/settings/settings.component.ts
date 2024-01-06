@@ -127,10 +127,8 @@ export class SettingsComponent implements OnInit, AfterViewInit {
 
         let dbData: DBConfig = this.convertDataToDB();
 
-        console.log(dbData);
-
         this.dataService.updateForUser("config", dbData.user_id, dbData).then((response) => {
-            console.log(response);
+            console.log("update", response);
         });
     }
 

@@ -53,21 +53,18 @@ export class AdminBreedsComponent implements OnInit {
     details(breed: Breed) {
         if (this.isEditing || this.isDeleting) return;
 
-        console.log('details')
-        console.log(breed)
+        console.log("details", breed)
     }
 
     edit(breed: Breed) {
         this.isEditing = true;
 
-        console.log('edit')
-        console.log(breed)
+        console.log("edit", breed)
     }
 
     confirmDelete(breed: Breed) {
         this.isDeleting = true;
         
-        console.log('delete')
-        console.log(breed)
+        console.log("delete", breed);
     }
 }

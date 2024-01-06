@@ -43,9 +43,7 @@ export class LegendComponent {
         },
     ];
 
-    constructor() {
-        console.log(this.icons, "started legend");
-    }
+    constructor() {}
 
     filterMarkers(icon: IMapLegendIcon) {
         icon.active = !icon.active;

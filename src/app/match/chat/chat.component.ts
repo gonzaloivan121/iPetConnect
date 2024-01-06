@@ -62,7 +62,7 @@ export class ChatComponent implements OnInit, OnChanges {
     readMessage(message: Message) {
         message.read = true;
         this.dataService.update(message.table, message).then((response) => {
-            console.log(response);
+            console.log("readMessage", response);
         });
     }
 
