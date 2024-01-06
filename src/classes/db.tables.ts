@@ -4,6 +4,7 @@ export class DBTables {
     public static BlogPost: string = 'blog_post';
     public static Breed: string = 'breed';
     public static Chat: string = 'chat';
+    public static Config: string = 'config';
     public static Language: string = 'language';
     public static Like: string = 'like';
     public static Marker: string = 'marker';
