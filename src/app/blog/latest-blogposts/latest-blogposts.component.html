@@ -1,12 +1,13 @@
 <section>
     <section class="blogs-4">
         <div class="container-fluid">
-            <h2 class="title mb-4">Latest Blogposts</h2><br>
+            <h2 class="title mb-4">{{ "LATEST_BLOGPOSTS" | translate }}</h2>
+            <br>
             <div class="row">
                 <div class="col-lg-3">
                     <div data-animation="zooming" class="card card-blog card-background">
-                        <div class="full-background" style="background-image: url('assets/img/sections/athena.jpg');">
-                        </div><a href="javascript:;">
+                        <div class="full-background" style="background-image: url('assets/img/sections/athena.jpg');"></div>
+                        <a [routerLink]="['/blog/post', 1]" href="javascript:;">
                             <div class="card-body">
                                 <div class="content-bottom">
                                     <h6 class="card-category text-white opacity-8"> Stellar Partnership </h6>
@@ -18,8 +19,8 @@
                 </div>
                 <div class="col-lg-3">
                     <div data-animation="zooming" class="card card-blog card-background">
-                        <div class="full-background" style="background-image: url('assets/img/sections/thomas.jpg');">
-                        </div><a href="javascript:;">
+                        <div class="full-background" style="background-image: url('assets/img/sections/thomas.jpg');"></div>
+                        <a [routerLink]="['/blog/post', 2]" href="javascript:;">
                             <div class="card-body">
                                 <div class="content-bottom">
                                     <h6 class="card-category text-white opacity-8"> Digital Currency </h6>
