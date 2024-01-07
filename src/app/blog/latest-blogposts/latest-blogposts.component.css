@@ -49,19 +49,16 @@
     position: relative;
     z-index: 2;
     min-height: 330px;
-    padding-top: 60px;
-    padding-bottom: 60px;
 }
 
 .card-background[data-animation=zooming] .card-body {
-    padding-bottom: 30px;
     margin: initial;
     height: 100%;
+    display: flex;
+    align-items: flex-end;
 }
 
 .card-background .card-body .content-bottom {
-    position: absolute;
-    bottom: 10px;
     text-align: left;
 }
 
