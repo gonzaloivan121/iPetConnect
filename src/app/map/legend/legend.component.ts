@@ -4,7 +4,6 @@ import { catchError, map } from "rxjs/operators";
 import { IMapLegendIcon } from 'src/app/interfaces';
 import { DataService, SessionService } from 'src/app/services';
 import { DBTables, Marker, User } from 'src/classes';
-import { FavouriteMarker } from 'src/classes';
 
 @Component({
     selector: "app-map-legend",
