@@ -7,6 +7,15 @@
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
+  "lang": "en",
+  "categories": [
+    "pets",
+    "animals",
+    "match",
+    "care",
+    "affection",
+    "love"
+  ],
   "icons": [
     {
       "src": "assets/icons/iPetConnect/icon-72x72.png",
@@ -79,32 +88,50 @@
     {
       "src": "assets/screenshots/screenshot_home.png",
       "type": "image/png",
-      "sizes": "1864x1359"
+      "sizes": "1864x1359",
+      "form_factor": "narrow"
     },
     {
       "src": "assets/screenshots/screenshot_map.png",
       "type": "image/png",
-      "sizes": "1864x1359"
+      "sizes": "1864x1359",
+      "form_factor": "narrow"
     },
     {
       "src": "assets/screenshots/screenshot_match.png",
       "type": "image/png",
-      "sizes": "1864x1359"
+      "sizes": "1864x1359",
+      "form_factor": "narrow"
     },
     {
       "src": "assets/screenshots/screenshot_blog.png",
       "type": "image/png",
-      "sizes": "1864x3090"
+      "sizes": "1864x3090",
+      "form_factor": "narrow"
     },
     {
       "src": "assets/screenshots/screenshot_blog_post.png",
       "type": "image/png",
-      "sizes": "1864x3730"
+      "sizes": "1864x3730",
+      "form_factor": "narrow"
     },
     {
       "src": "assets/screenshots/screenshot_settings.png",
       "type": "image/png",
-      "sizes": "1864x1451"
+      "sizes": "1864x1451",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "assets/screenshots/screenshot_home_wide.png",
+      "type": "image/png",
+      "sizes": "1879x939",
+      "form_factor": "wide"
+    },
+    {
+      "src": "assets/screenshots/screenshot_map_wide.png",
+      "type": "image/png",
+      "sizes": "1879x939",
+      "form_factor": "wide"
     }
   ]
 }
