@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
-
-interface IEmail {
-    email: string;
-    name: string;
-    message: string;
-}
+import { environment } from 'src/environments/environment';
+import { IEmail } from 'src/app/interfaces';
 
 @Injectable({
     providedIn: 'root'
