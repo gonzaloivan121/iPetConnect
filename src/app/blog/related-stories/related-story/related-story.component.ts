@@ -2,40 +2,34 @@ import { Component, Input, OnInit } from "@angular/core";
 import { Observable, from, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import { DataService } from "src/app/services";
-import { DBTables } from "src/classes";
 import { IBlogPost } from "src/app/interfaces";
+import { DBTables, User } from "src/classes";
 
 @Component({
-    selector: "app-related-stories",
-    templateUrl: "./related-stories.component.html",
-    styleUrls: ["./related-stories.component.css"],
+    selector: "app-related-story",
+    templateUrl: "./related-story.component.html",
+    styleUrls: ["./related-story.component.css"],
 })
-export class RelatedStoriesComponent implements OnInit {
-    @Input() categoryId: number;
-    @Input() postId: number;
+export class RelatedStoryComponent implements OnInit {
+    @Input() post: IBlogPost;
 
-    public postsLoaded: Observable<boolean>;
+    public userLoaded: Observable<boolean>;
 
-    public posts: IBlogPost[] = [];
+    public user: User;
 
     constructor(private dataService: DataService) {}
 
     ngOnInit(): void {
-        this.postsLoaded = this.loadRelatedPosts();
+        this.userLoaded = this.loadUser();
     }
 
-    loadRelatedPosts(): Observable<boolean> {
+    loadUser(): Observable<boolean> {
         return from(
             this.dataService
-                .getFromExcluding(
-                    DBTables.BlogPost,
-                    DBTables.BlogCategory,
-                    this.categoryId,
-                    this.postId
-                )
+                .get(DBTables.User, this.post.user_id)
                 .then((response: any) => {
                     if (response.success) {
-                        this.posts = response.result as IBlogPost[];
+                        this.user = response.result[0] as User;
                     } else {
                         console.error(response.message);
                     }

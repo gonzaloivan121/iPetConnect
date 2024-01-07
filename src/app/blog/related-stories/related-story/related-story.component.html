@@ -1,0 +1,30 @@
+<div class="card card-blog card-plain blog-horizontal mb-5">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card-image shadow w-100 h-100">
+                <a [routerLink]="['/blog/post', post.id]">
+                    <div class="background-image img rounded w-100 h-100"
+                        style="background-image: url('{{ post.image }}');"></div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="card-body">
+                <h3 class="card-title">
+                    <a [routerLink]="['/blog/post', post.id]">{{ post.title }}</a>
+                </h3>
+                <p class="card-description">
+                    {{ post.description }}...
+                    <a [routerLink]="['/blog/post', post.id]">{{ "READ_MORE" | translate }}</a>
+                </p>
+                <div *ngIf="userLoaded | async" class="author">
+                    <div class="background-image avatar img-raised" style="background-image: url('{{ user.image }}');"></div>
+                    <div class="text">
+                        <span class="name">{{ user.name }}</span>
+                        <div class="meta">{{ "POSTED_ON" | translate }} {{ post.created_at | date: 'longDate' }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

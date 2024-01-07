@@ -11,6 +11,7 @@ export interface IBlogCategory {
 export interface IBlogPost {
     id: number;
     title: string;
+    description: string;
     content: string;
     image: string;
     popularity: number;
