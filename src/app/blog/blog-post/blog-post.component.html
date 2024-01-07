@@ -34,7 +34,7 @@
                 <div class="row">
                     <div  class="col-md-8 ml-auto mr-auto">
                         <h6 class="category">{{ post.category_id | blogCategory | async | translate }}</h6>
-                        <div [innerHTML]="post.content"></div>
+                        <div [innerHTML]="post.content" class="blog-post"></div>
                     </div>
                 </div>
             </div>
