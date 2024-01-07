@@ -8,17 +8,20 @@
                 </div>
                 <div class="card card-raised card-form-horizontal">
                     <div class="card-body">
-                        <form novalidate="" action="" method="" class="ng-untouched ng-pristine ng-valid">
+                        <form [formGroup]="newsletterForm" (ngSubmit)="onSubmit()" role="form">
                             <div class="row">
                                 <div class="col-sm-8">
                                     <div class="input-group">
-                                        <div class="input-group-prepend"><span class="input-group-text"><i
-                                                    class="ni ni-email-83"></i></span></div><input
-                                            placeholder="Your Email..." type="email" class="form-control">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="ni ni-email-83"></i>
+                                            </span>
+                                        </div>
+                                        <input placeholder="{{ 'YOUR_EMAIL' | translate }}..." type="email" name="email" formControlName="email" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
-                                    <button type="button" class="btn btn-primary btn-block">{{ "SUBSCRIBE" | translate }}</button>
+                                    <button [disabled]="newsletterForm.invalid" type="submit" class="btn btn-primary btn-block">{{ "SUBSCRIBE" | translate }}</button>
                                 </div>
                             </div>
                         </form>
