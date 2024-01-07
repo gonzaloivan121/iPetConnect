@@ -44,3 +44,8 @@
     background-color: var(--default);
     color: white;
 }
+
+.accordion-button {
+    all: unset;
+    cursor: pointer;
+}

@@ -1,20 +1,64 @@
-<div class="container">
-    <div class="row p-sm">
-        <div class="col">
-            <div class="text-center">
-                <span class="display-4">{{ "MARKER_TYPE" | translate }}</span>
+<div ngbAccordion [closeOthers]="true">
+    <div ngbAccordionItem [collapsed]="false">
+        <div ngbAccordionHeader class="text-center py-sm">
+            <button ngbAccordionButton>
+                <span class="display-4">{{ "MARKER_TYPES" | translate }}</span>
+            </button>
+        </div>
+        
+        <div ngbAccordionCollapse>
+            <div ngbAccordionBody class="px-md">
+                <ng-template>
+                    <ul class="list-unstyled m-0 legend-container">
+                        <li class="d-flex flex-column cursor-pointer align-items-center justify-content-center aspect-ratio-1by1 legend"
+                            [ngClass]="{ 'active': icon.active }" *ngFor="let icon of icons" (click)="filterMarkers(icon);">
+                            <img src="{{ icon.url }}">
+                            {{ icon.type | translate }}
+                        </li>
+                    </ul>
+                </ng-template>
             </div>
         </div>
     </div>
-    <div class="row m-0">
-        <div class="col p-0">
-            <ul class="list-unstyled px-sm m-0 legend-container">
-                <li class="d-flex flex-column cursor-pointer align-items-center justify-content-center aspect-ratio-1by1 legend"
-                    [ngClass]="{ 'active': icon.active }" *ngFor="let icon of icons" (click)="filterMarkers(icon);">
-                    <img src="{{ icon.url }}">
-                    {{ icon.type | translate }}
-                </li>
-            </ul>
+
+    <div *ngIf="user" class="dropdown-divider"></div>
+
+    <div *ngIf="user" ngbAccordionItem [collapsed]="false">
+        <div ngbAccordionHeader class="text-center py-sm">
+            <button ngbAccordionButton>
+                <span class="display-4">{{ "FAVOURITE_MARKERS" | translate }}</span>
+            </button>
+        </div>
+    
+        <div ngbAccordionCollapse>
+            <div ngbAccordionBody>
+                <ng-template>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">{{ "TYPE" | translate }}</th>
+                                <th scope="col">{{ "TITLE" | translate }}</th>
+                                <th scope="col">{{ "GO" | translate }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let marker of markers">
+                                <td>
+                                    <img [src]="marker.type | markerIcon" [alt]="marker.type | translate" class="me-2" [ngbTooltip]="marker.type | translate">
+                                </td>
+                                <td>{{ marker.title }}</td>
+                                <td>
+                                    <button (click)="goToMarker(marker)" class="btn btn-icon-only btn-secondary">
+                                        <i class="ni ni-pin-3"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-template>
+            </div>
         </div>
     </div>
+
+    <div class="dropdown-divider"></div>
 </div>

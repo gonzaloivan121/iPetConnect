@@ -3,7 +3,7 @@
 <div class="position-relative">
     <div class="container-fluid p-0">
         <div class="row w-100 m-0">
-            <div class="col-lg-3 p-0">
+            <div class="col-lg-3 p-0 limit-height">
                 <div class="form-group m-0 p-4">
                     <div class="input-group input-group-alternative">
                         <div class="input-group-prepend">
@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <div class="dropdown-divider"></div>
-                <app-map-legend (filterMarkersEvent)="filterMarkers($event)"></app-map-legend>
+                <app-map-legend (filterMarkersEvent)="filterMarkers($event)" (goToMarkerEvent)="goToMarker($event)"></app-map-legend>
             </div>
 
             <div class="col-lg-9 p-0">
@@ -35,12 +35,6 @@
                                 (editEvent)="editMarker($event)" (deleteEvent)="deleteMarker($event)"
                                 (favouriteEvent)="favouriteMarker($event)"></app-info>
                         </map-info-window>
-                
-                        <button class="btn btn-icon btn-primary btn-circle" type="button" id="add-marker">
-                            <span class="btn-inner--icon">
-                                <i class="ni ni-fat-add"></i>
-                            </span>
-                        </button>
                 
                         <button type="button" id="go-to-location" class="custom-map-control-button" (click)="setCurrentPosition()">
                             {{ 'GO_TO_LOCATION' | translate }}

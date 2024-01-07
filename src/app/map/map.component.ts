@@ -1,11 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { Observable, from, of } from "rxjs";
+import { catchError, map } from "rxjs/operators";
 import { environment } from 'src/environments/environment';
 import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { DataService, SessionService } from 'src/app/services';
-import { User } from 'src/classes';
+import { DBTables, Marker, User } from 'src/classes';
 import { IMarkerResponse } from 'src/app/interfaces';
 
 @Component({
@@ -15,6 +15,8 @@ import { IMarkerResponse } from 'src/app/interfaces';
 })
 export class MapComponent implements OnInit {
     public apiLoaded: Observable<boolean>;
+    public markersLoaded: Observable<boolean>;
+
     public user: User;
     public isLoggedIn: boolean = false;
     public firstLoad: boolean = true;
@@ -144,23 +146,28 @@ export class MapComponent implements OnInit {
         return icons;
     }
 
-    loadMarkersFromDataService() {
-        this.dataService.get("marker").then((response: any) => {
-            if (response.success) {
-                let markers = response.result;
-                let bounds = new google.maps.LatLngBounds();
-                let icons = this.generateIcons();
+    loadMarkersFromDataService(): Observable<boolean> {
+        return from(
+            this.dataService.get(DBTables.Marker).then((response: any) => {
+                if (response.success) {
+                    let markers = response.result;
+                    let bounds = new google.maps.LatLngBounds();
+                    let icons = this.generateIcons();
 
-                markers.forEach((markerObj) => {
-                    let marker = this.generateMarker(markerObj, icons);
-                    this.markers.push(marker);
-                    bounds.extend(markerObj.coordinates);
-                });
+                    markers.forEach((markerObj) => {
+                        let marker = this.generateMarker(markerObj, icons);
+                        this.markers.push(marker);
+                        bounds.extend(markerObj.coordinates);
+                    });
 
-                this.center = bounds.getCenter();
-                this.map.fitBounds(bounds);
-            }
-        });
+                    this.center = bounds.getCenter();
+                    this.map.fitBounds(bounds);
+                }
+            })
+        ).pipe(
+            map(() => true),
+            catchError(() => of(false))
+        );
     }
 
     generateMarker(marker, icons) {
@@ -199,14 +206,13 @@ export class MapComponent implements OnInit {
                 }
                 break;
             case "zoomChanged":
-                
                 break;
         }
     }
 
     initMap() {
         this.setCurrentPosition();
-        this.loadMarkersFromDataService();
+        this.markersLoaded = this.loadMarkersFromDataService();
         this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(
             document.getElementById("go-to-location")
         );
@@ -352,5 +358,11 @@ export class MapComponent implements OnInit {
             this.center = bounds.getCenter();
             this.map.fitBounds(bounds);
         }
+    }
+
+    goToMarker(marker: Marker) {
+        const gMarker = this.markers.filter((gm) => gm.get("data").id === marker.id)[0];
+        this.setZoom(17);
+        this.center = gMarker.getPosition();
     }
 }
