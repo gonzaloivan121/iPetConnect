@@ -63,6 +63,7 @@ import { EditProfileComponent } from './profile/edit-profile/edit-profile.compon
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { BlogCommentComponent } from './blog/blog-post/blog-comment/blog-comment.component';
 import { MarkerIconPipe } from './pipes/marker-icon.pipe';
+import { NewVersionCheckerComponent } from './new-version-checker/new-version-checker.component';
 
 export function setupAppConfigServiceFactory(
     service: AppConfigService
@@ -127,6 +128,7 @@ export function setupTranslateServiceFactory(
         EditProfileComponent,
         BlogCommentComponent,
         MarkerIconPipe,
+        NewVersionCheckerComponent,
     ],
     imports: [
         NgbModule,

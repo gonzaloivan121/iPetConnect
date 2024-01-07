@@ -1,0 +1,7 @@
+.new-version-checker-container {
+    border-radius: 5px;
+    right: 0.25rem;
+    top: 72px;
+    z-index: 10;
+    position: fixed;
+}

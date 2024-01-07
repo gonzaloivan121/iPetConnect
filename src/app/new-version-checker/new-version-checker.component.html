@@ -1,0 +1,13 @@
+<div *ngIf="newVersionCheckerService.isNewVersionAvailable">
+    <div class="shadow d-flex align-items-center new-version-checker-container p-2 m-2 bg-white">
+        <div class="p-2">
+            <button type="button" class="btn btn-primary btn-icon-only" (click)="applyUpdate()">
+                <i class="ni ni-curved-next"></i>
+            </button>
+        </div>
+        <div class="new-version-checker-info text-dark">
+            <div class="m-0 lead">{{ "UPDATE_CHECKER_TITLE" | translate }}</div>
+            <div class="">{{ "UPDATE_CHECKER_INFORMATION" | translate }}</div>
+        </div>
+    </div>
+</div>
