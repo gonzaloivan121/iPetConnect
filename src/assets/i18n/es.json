@@ -270,5 +270,7 @@
     "SUBSCRIBE_TO_OUR_NEWSLETTER": "Suscríbete a nuestra Newsletter",
     "SUBSCRIBE_TO_OUR_NEWSLETTER_DESCRIPTION": "Únete a nuestra Newsletter y recibe noticias en tu bandeja de entrada todas las semanas! Nosotros también odiamos el spam, así que no te preocupes por esto.",
     "SUBSCRIBE": "Suscribirse",
-    "YOUR_EMAIL": "Tu Email"
+    "YOUR_EMAIL": "Tu Email",
+    "UPDATE_CHECKER_TITLE": "Actualización disponible",
+    "UPDATE_CHECKER_INFORMATION": "Pulsa el botón para actualizar iPetConnect"
 }
