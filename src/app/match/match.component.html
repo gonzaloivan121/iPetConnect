@@ -140,7 +140,7 @@
                 <!-- END - Chat Window -->
                 <!-- START - User Cards -->
                 <div *ngIf="usersLoaded | async" class="d-flex col-lg-8 col-12 justify-content-center align-items-center p-0 limit-height">
-                    <div class="position-relative d-flex justify-content-center align-items-center h-75 w-50">
+                    <div class="position-relative d-flex justify-content-center align-items-center match-cards-container">
                         <app-user-card class="position-absolute h-100 w-100 dummy"
                             [user]="dummyUser"
                             [isDummy]="true"

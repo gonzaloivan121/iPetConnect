@@ -4,8 +4,8 @@
             <div class="page-header-image" style="background-image: url('{{ post.image }}');"></div>
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-10 mx-auto text-center">
-                        <h2 class="display-2 text-white">{{ post.title }}</h2>
+                    <div class="col-lg-10 pt-lg mx-auto text-center">
+                        <h2 class="text-white">{{ post.title }}</h2>
                     </div>
                 </div>
                 <div class="row">
@@ -75,12 +75,12 @@
                                     <div class="avatar avatar-lg rounded-circle background-image mb-4" style="background-image: url('{{ user.image }}');"></div>
                                     <div class="media-body">
                                         <form [formGroup]="commentForm" (ngSubmit)="onSubmit()" role="form">
-                                            <div class="form-group col-12" [ngClass]="{ 'focused': focusEmail === true }">
+                                            <div class="form-group" [ngClass]="{ 'focused': focusEmail === true }">
                                                 <textarea id="comment" name="comment" formControlName="comment"
                                                     class="form-control"
                                                     placeholder="{{ 'TYPE_A_MESSAGE' | translate }}..."></textarea>
                                             </div>
-                                            <div class="form-group col-12">
+                                            <div class="form-group">
                                                 <button [disabled]="commentForm.invalid" class="btn btn-primary btn-block" type="submit">
                                                     {{ "POST" | translate }}
                                                 </button>

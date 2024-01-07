@@ -275,6 +275,7 @@
     width: 100%;
     background-size: cover;
     background-position: 50% 50%;
+    aspect-ratio: 1/1;
 }
 
 .card-blog.card-plain .card-body {
@@ -339,6 +340,16 @@
 
 .blog-post p {
     margin-bottom: 2rem !important;
+    font-weight: 400 !important;
+}
+
+.blog-post ol,
+.blog-post ul {
+    margin-bottom: 2rem;
+}
+
+.blog-post li {
+    margin-bottom: 0.75rem;
 }
 
 .pac-logo::after {

@@ -124,6 +124,11 @@ app-user-card {
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
 }
 
+.match-cards-container {
+    width: 50%;
+    height: 75%;
+}
+
 .front {
     z-index: 1;
 }
@@ -179,5 +184,9 @@ app-user-card:not(:last-child) {
 @media (max-width: 992px) {
     .match-container {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .match-cards-container {
+        width: 75%;
     }
 }
