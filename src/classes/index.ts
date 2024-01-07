@@ -11,3 +11,4 @@ export { Like } from './like';
 export { Match } from './match';
 export { DBTables } from './db.tables';
 export { BlogPost } from './blog-post';
+export { FavouriteMarker } from './favourite-marker';

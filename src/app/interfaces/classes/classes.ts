@@ -29,3 +29,21 @@ export interface IBlogComment {
     created_at?: Date;
     updated_at?: Date;
 }
+
+export interface ITeamMember {
+    id: number;
+    name: string;
+    position: string;
+    aptitudes: {
+        business: string;
+        leisure: string;
+        personal: string;
+    };
+    image: string;
+    socialMedia?: {
+        instagram?: string;
+        twitter?: string;
+        facebook?: string;
+        threads?: string;
+    }
+}
