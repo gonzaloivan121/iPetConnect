@@ -244,6 +244,7 @@
     "NO_MORE_USERS": "Não há mais usuários",
     "NO_MORE_USERS_DESCRIPTION": "Tente alterar as configurações de correspondência para ajustar os filtros de pesquisa, como faixa de distância ou faixa etária, para ver se você encontra mais pessoas.",
     "MARKER_TYPE": "Tipo de Marcador",
+    "MARKER_TYPES": "Tipos de Marcadores",
     "BUSINESS": "Negócios",
     "BUSINESS_DESCRIPTION": "A sociedade colocou tantos limites e limitações sobre o que é certo e o que é errado que é quase impossível...",
     "PREMIUM": "Premium",
@@ -260,5 +261,13 @@
     "ACTIVITY_FEED": "Feed de atividade",
     "FOLLOW": "Seguir",
     "LATEST_BLOGPOSTS": "Últimas Postagens do Blog",
-    "POST": "Publicar"
+    "POST": "Publicar",
+    "THE_TEAM": "A Equipe",
+    "THE_TEAM_DESCRIPTION": "Equipa jovem, simpática e dinâmica no desenvolvimento de aplicações. Inovamos com vitalidade e frescor em cada projeto.",
+    "WELCOME_TO_IPETCONNECT": "Bem-vindo ao mundo do iPetConnect!",
+    "FAVOURITE_MARKERS": "Marcadores Favoritos",
+    "GO": "Ir",
+    "SUBSCRIBE_TO_OUR_NEWSLETTER": "Assine a nossa Newsletter",
+    "SUBSCRIBE_TO_OUR_NEWSLETTER_DESCRIPTION": "Cadastre-se em nossa Newsletter e receba novidades em sua caixa de entrada toda semana! Também odiamos spam, então não se preocupe com isso.",
+    "SUBSCRIBE": "Subscrever"
 }
