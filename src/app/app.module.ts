@@ -2,7 +2,7 @@ import { NgModule, APP_INITIALIZER, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbAccordionModule } from "@ng-bootstrap/ng-bootstrap";
 import { RouterModule } from '@angular/router';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { AppRoutingModule } from './app.routing';
@@ -62,6 +62,7 @@ import { BlogPostComponent } from './blog/blog-post/blog-post.component';
 import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { BlogCommentComponent } from './blog/blog-post/blog-comment/blog-comment.component';
+import { MarkerIconPipe } from './pipes/marker-icon.pipe';
 
 export function setupAppConfigServiceFactory(
     service: AppConfigService
@@ -125,9 +126,11 @@ export function setupTranslateServiceFactory(
         BlogPostComponent,
         EditProfileComponent,
         BlogCommentComponent,
+        MarkerIconPipe,
     ],
     imports: [
         NgbModule,
+        NgbAccordionModule,
         BrowserModule,
         BrowserAnimationsModule,
         FormsModule,
