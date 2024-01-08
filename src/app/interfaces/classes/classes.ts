@@ -31,6 +31,13 @@ export interface IBlogComment {
     updated_at?: Date;
 }
 
+export interface IBlogTag {
+    id?: number;
+    name: string;
+    created_at?: Date;
+    updated_at?: Date;
+}
+
 export interface ITeamMember {
     id: number;
     name: string;

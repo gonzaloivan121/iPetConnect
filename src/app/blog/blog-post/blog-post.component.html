@@ -40,6 +40,15 @@
             </div>
         </section>
 
+        <div *ngIf="postTagsLoaded | async" class="container">
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto">
+                    <small>{{ "TAGS" | translate }}: </small>
+                    <a *ngFor="let tag of postTags" [routerLink]="['/blog/tag', tag.id]" class="badge badge-secondary ml-1">{{ tag.name | translate }}</a>
+                </div>
+            </div>
+        </div>
+
         <section class="section section-blog-info">
             <div class="container">
                 <div class="row">
