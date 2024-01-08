@@ -11,15 +11,20 @@
             <span></span>
         </div>
     </section>
-    <section class="section">
+    <section class="section edit-profile">
         <div class="container">
             <div class="card card-profile shadow mt--300">
                 <div class="px-4">
                     <div class="row justify-content-center">
                         <div class="col-lg-3 order-lg-2">
                             <div class="card-profile-image">
-                                <a href="javascript:void(0)">
-                                    <img [src]="user.image" class="rounded-circle">
+                                <a (click)="fileUpload.click()" class="image-upload" href="javascript:void(0)">
+                                    <img #profileImage [src]="user.image" class="rounded-circle">
+                                    <div class="upload-button-container">
+                                        <button class="btn btn-icon-only rounded-circle w-100 h-100">
+                                            <i class="ni ni-ruler-pencil"></i>
+                                        </button>
+                                    </div>
                                 </a>
                             </div>
                         </div>
@@ -32,6 +37,7 @@
                     <div class="row py-lg p-lg-md px-sm-sm">
                         <div class="col">
                             <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" role="form">
+                                <input type="file" name="image" class="file-input" (change)="onFileSelected($event)" #fileUpload>
                                 <div class="row">
                                     <div class="col-lg-3">
                                         <label for="#username" class="m-0">{{ 'USERNAME' | translate }}</label>

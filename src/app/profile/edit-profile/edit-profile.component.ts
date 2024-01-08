@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { Location } from "@angular/common";
 import { DataService, SessionService } from "src/app/services";
 import { DBTables, User } from "src/classes";
@@ -17,6 +17,11 @@ export class EditProfileComponent implements OnInit {
     focusEmail: boolean = false;
     focusGender: boolean = false;
     focusBio: boolean = false;
+
+    selectedFile?: FileList;
+    currentFile?: File;
+
+    @ViewChild("profileImage") profileImage: ElementRef;
 
     constructor(
         private sessionService: SessionService,
@@ -70,21 +75,52 @@ export class EditProfileComponent implements OnInit {
         this.user.email = formData.email;
         this.user.gender = formData.gender;
         this.user.bio = formData.bio;
+        this.user.image = this.profileImage.nativeElement.src;
 
-        this.dataService.update(DBTables.User, this.user).then((response: any) => {
-            if (response.success) {
-                this.sessionService.set('user', JSON.stringify(this.user));
-            } else {
-                console.error(response.message);
-            }
-        }).catch(error => {
-            console.error(error);
-        });
+        this.dataService
+            .update(DBTables.User, this.user)
+            .then((response: any) => {
+                if (response.success) {
+                    this.sessionService.set("user", JSON.stringify(this.user));
+                } else {
+                    console.error(response.message);
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
 
-        console.table(this.user)
+        console.table(this.user);
     }
 
     onCancel() {
         this.location.back();
+    }
+
+    uploadImage() {
+        console.log("upload");
+    }
+
+    onFileSelected(event: any): void {
+        this.selectedFile = event.target.files;
+
+        if (this.selectedFile) {
+            const file: File | null = this.selectedFile.item(0);
+
+            if (file) {
+                var preview = "";
+                this.currentFile = file;
+
+                const reader = new FileReader();
+
+                reader.onload = (e: any) => {
+                    console.log(e.target.result);
+                    preview = e.target.result;
+                    this.profileImage.nativeElement.src = preview;
+                };
+
+                reader.readAsDataURL(this.currentFile);
+            }
+        }
     }
 }
