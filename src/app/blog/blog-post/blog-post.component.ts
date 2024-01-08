@@ -176,6 +176,8 @@ export class BlogPostComponent implements OnInit, OnDestroy {
     }
 
     likeComment(comment: IBlogComment) {
+        if (this.user === undefined) return;
+        
         comment.likes++;
         this.dataService
             .update(DBTables.BlogComment, comment)
