@@ -32,3 +32,33 @@
     height: calc(100vh - 72px);
     overflow: auto;
 }
+
+.toggle-sidebar {
+    background: none rgb(255, 255, 255);
+    border: 0px;
+    margin: 10px;
+    padding: 0px;
+    text-transform: none;
+    appearance: none;
+    position: absolute;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 2px;
+    height: 40px;
+    width: 40px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+    overflow: hidden;
+}
+
+@media (max-width: 992px) {
+    .sidebar {
+        position: absolute;
+        z-index: 1;
+        transition: transform .2s ease-in-out;
+        transform: translate(-100%, 0);
+    }
+
+    .sidebar.open {
+        transform: translate(0%, 0);
+    }
+}

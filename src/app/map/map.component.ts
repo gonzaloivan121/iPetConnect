@@ -46,6 +46,8 @@ export class MapComponent implements OnInit {
 
     filterCategories: string[] = [];
 
+    public isSidebarOpen: boolean = false;
+
     constructor(
         private httpClient: HttpClient,
         private dataService: DataService,
@@ -216,6 +218,9 @@ export class MapComponent implements OnInit {
         this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(
             document.getElementById("go-to-location")
         );
+        this.map.controls[google.maps.ControlPosition.LEFT_TOP].push(
+            document.getElementById("toggle-sidebar")
+        );
         this.searchBox = new google.maps.places.SearchBox(
             this.searchBoxElement.nativeElement
         );
@@ -364,5 +369,9 @@ export class MapComponent implements OnInit {
         const gMarker = this.markers.filter((gm) => gm.get("data").id === marker.id)[0];
         this.setZoom(17);
         this.center = gMarker.getPosition();
+    }
+
+    toggleSidebar() {
+        this.isSidebarOpen = !this.isSidebarOpen;
     }
 }

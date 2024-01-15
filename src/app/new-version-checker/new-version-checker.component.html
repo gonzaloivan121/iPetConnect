@@ -1,4 +1,4 @@
-<div *ngIf="newVersionCheckerService.isNewVersionAvailable">
+<div *ngIf="newVersionCheckerService.isNewVersionAvailable | async">
     <div class="shadow d-flex align-items-center new-version-checker-container p-2 m-2 bg-white">
         <div class="p-2">
             <button type="button" class="btn btn-primary btn-icon-only" (click)="applyUpdate()">

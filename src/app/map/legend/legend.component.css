@@ -20,6 +20,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
+    grid-gap: 1rem;
 }
 
 .aspect-ratio-1by1 {
@@ -30,7 +31,7 @@
     border: 2px solid transparent;
     border-radius: 10%;
     transition: .2s ease-in-out;
-    margin: 2em;
+    margin: 1rem;
 }
 
 .legend img {

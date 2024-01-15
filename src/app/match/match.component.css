@@ -189,4 +189,15 @@ app-user-card:not(:last-child) {
     .match-cards-container {
         width: 75%;
     }
+
+    .sidebar {
+        position: absolute;
+        z-index: 1;
+        transition: transform .2s ease-in-out;
+        transform: translate(-100%, 0);
+    }
+
+    .sidebar.open {
+        transform: translate(0%, 0);
+    }
 }
