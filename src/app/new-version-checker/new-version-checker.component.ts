@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { NewVersionCheckerService } from "src/app/services/new-version-checker.service";
+import { NewVersionCheckerService } from "src/app/services";
 
 @Component({
     selector: "app-new-version-checker",
