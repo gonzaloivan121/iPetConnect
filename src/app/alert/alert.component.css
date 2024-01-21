@@ -1,0 +1,6 @@
+.alerts-container {
+    position: fixed;
+    bottom: 0;
+    right: 1rem;
+    width: 50rem;
+}

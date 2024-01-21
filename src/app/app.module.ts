@@ -65,6 +65,7 @@ import { BlogCommentComponent } from './blog/blog-post/blog-comment/blog-comment
 import { MarkerIconPipe } from './pipes/marker-icon.pipe';
 import { NewVersionCheckerComponent } from './new-version-checker/new-version-checker.component';
 import { RelatedStoryComponent } from './blog/related-stories/related-story/related-story.component';
+import { AlertComponent } from './alert/alert.component';
 
 export function setupAppConfigServiceFactory(
     service: AppConfigService
@@ -131,6 +132,7 @@ export function setupTranslateServiceFactory(
         MarkerIconPipe,
         NewVersionCheckerComponent,
         RelatedStoryComponent,
+        AlertComponent,
     ],
     imports: [
         NgbModule,
