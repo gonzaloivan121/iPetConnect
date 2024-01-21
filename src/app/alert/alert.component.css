@@ -3,4 +3,11 @@
     bottom: 0;
     right: 1rem;
     width: 50rem;
+    z-index: 999;
+}
+
+@media (max-width: 992px) {
+    .alerts-container {
+        width: calc(100% - 2rem);
+    }
 }
