@@ -1,16 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
-import { EmailService, TranslateService } from '../services';
+import { EmailService, TranslateService, AlertService } from "src/app/services";
 import { NgbAlert, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
-
-export interface IAlert {
-    type: string;
-    strong?: string;
-    message: string;
-    icon?: string;
-    dismissible: boolean;
-    dismissAfter: number;
-}
 
 @Component({
     selector: 'app-privacy',
@@ -18,27 +9,16 @@ export interface IAlert {
     styleUrls: ['./privacy.component.css']
 })
 export class PrivacyComponent {
-
-    alert: IAlert = {
-        type: 'success',
-        message: '',
-        dismissible: true,
-        icon: '',
-        dismissAfter: 5
-    }
-
     contactUsForm: UntypedFormGroup;
 
     emailFocused: boolean = false;
     nameFocused: boolean = false;
-    isContactAlertOpen: boolean = false;
-
-    @ViewChild('contactAlert', { static: false }) contactAlert: NgbAlert;
 
     constructor(
         private formBuilder: UntypedFormBuilder,
         private emailService: EmailService,
-        private translateService: TranslateService
+        private translateService: TranslateService,
+        private alertService: AlertService
     ) { }
 
     ngOnInit() {
@@ -65,7 +45,18 @@ export class PrivacyComponent {
         const formData = this.contactUsForm.value;
 
         this.emailService.Send(formData).then((response: any) => {
-            this.showAlert(response.success, true, this.translateService.get(response.message), response.icon);
+            if (response.success) {
+                this.alertService.openSuccess(
+                    this.translateService.get(response.message)
+                );
+            } else {
+                this.alertService.openWarning(
+                    this.translateService.get(response.message)
+                );
+            }
+        }).catch((error) => {
+            console.error(error);
+            this.alertService.openDanger("There ahs been an error!");
         });
     }
 
@@ -76,23 +67,4 @@ export class PrivacyComponent {
             inline: "nearest"
         });
     }
-
-    showAlert(success: boolean, dismissible: boolean, message: string, icon: string, dismissAfter: number = 5) {
-        this.alert = {
-            type: success ? 'success' : 'danger',
-            message,
-            dismissible,
-            icon,
-            dismissAfter
-        }
-
-        this.isContactAlertOpen = true;
-
-        setTimeout(() => {
-            if (this.isContactAlertOpen) {
-                this.contactAlert.close();
-            }
-        }, this.alert.dismissAfter * 1000);
-    }
-
 }

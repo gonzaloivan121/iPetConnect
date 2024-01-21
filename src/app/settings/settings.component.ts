@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { AppConfigService, SessionService, DataService, TranslateService } from 'src/app/services';
+import { AppConfigService, SessionService, DataService, TranslateService, AlertService } from 'src/app/services';
 import { AppConfig, DBConfig } from 'src/app/interfaces';
 import noUiSlider from "nouislider";
 import { RoleEnum } from 'src/app/enums/enums';
@@ -23,7 +23,8 @@ export class SettingsComponent implements OnInit, AfterViewInit {
         public sessionService: SessionService,
         public dataService: DataService,
         public translateService: TranslateService,
-        public location: Location
+        public location: Location,
+        private alertService: AlertService,
     ) {}
 
     ngOnInit(): void {
@@ -127,8 +128,15 @@ export class SettingsComponent implements OnInit, AfterViewInit {
 
         let dbData: DBConfig = this.convertDataToDB();
 
-        this.dataService.updateForUser("config", dbData.user_id, dbData).then((response) => {
-            console.log("update", response);
+        this.dataService.updateForUser("config", dbData.user_id, dbData).then((response: any) => {
+            if (response.success) {
+                this.alertService.openSuccess(response.message);
+            } else {
+                this.alertService.openWarning(response.message);
+            }
+        }).catch((error) => {
+            console.error(error);
+            this.alertService.openDanger("There has been an error!");
         });
     }
 

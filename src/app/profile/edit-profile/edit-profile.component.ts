@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { Location } from "@angular/common";
-import { DataService, SessionService } from "src/app/services";
+import { DataService, SessionService, AlertService } from "src/app/services";
 import { DBTables, User } from "src/classes";
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 
@@ -27,7 +27,8 @@ export class EditProfileComponent implements OnInit {
         private sessionService: SessionService,
         private location: Location,
         private formBuilder: UntypedFormBuilder,
-        private dataService: DataService
+        private dataService: DataService,
+        private alertService: AlertService,
     ) {}
 
     ngOnInit(): void {
@@ -82,15 +83,18 @@ export class EditProfileComponent implements OnInit {
             .then((response: any) => {
                 if (response.success) {
                     this.sessionService.set("user", JSON.stringify(this.user));
+                    this.alertService.openSuccess(
+                        "User info updated successfully!"
+                    );
                 } else {
                     console.error(response.message);
+                    this.alertService.openWarning(response.message);
                 }
             })
             .catch((error) => {
                 console.error(error);
+                this.alertService.openDanger("There has been an error!");
             });
-
-        console.table(this.user);
     }
 
     onCancel() {

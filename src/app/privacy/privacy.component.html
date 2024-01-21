@@ -316,14 +316,4 @@
         </div>
     </section>
     <!-- END - Contact Us -->
-
-    <ngb-alert #contactAlert *ngIf="isContactAlertOpen" [type]="alert.type" [dismissible]="alert.dismissible" (closed)="isContactAlertOpen = false" class="position-fixed w-25 right-3 bottom-0" style="z-index: 10;">
-        <ng-container *ngIf="alert.icon">
-            <div class="alert-inner--icon">
-                <i class="{{ alert.icon }}"></i>
-            </div>
-        </ng-container>
-        <span class="alert-inner--text"> <strong>{{ alert.strong }} </strong>{{ alert.message }}</span>
-    </ngb-alert>
-    
 </main>
