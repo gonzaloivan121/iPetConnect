@@ -5,3 +5,10 @@
     z-index: 10;
     position: fixed;
 }
+
+@media (max-width: 992px) {
+    .new-version-checker-container {
+        width: calc(100% - 1rem);
+        right: 0;
+    }
+}
