@@ -3,7 +3,7 @@
   "short_name": "iPetConnect",
   "description": "The world's leading platform that unites pet owners, fostering happy and lasting relationships between them.",
   "theme_color": "#172b4d",
-  "background_color": "#fafafa",
+  "background_color": "#172b4d",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
