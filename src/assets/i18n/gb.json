@@ -280,5 +280,20 @@
     "PHILOSOPHY_DESCRIPTION": "Exploring Animal Wisdom: Philosophical reflections on nature, behavior, and the connection between humans and animals in our world.",
     "GERMAN": "German",
     "FRENCH": "French",
-    "NO_FAVOURITE_MARKERS": "You don't have favorite markers"
+    "NO_FAVOURITE_MARKERS": "You don't have favorite markers",
+    "CONTACT_TO_CHANGE": "Contact us to change this information.",
+    "VIDEOGAMES": "Video Games",
+    "VIDEOGAME": "Video Game",
+    "GAMES": "Games",
+    "GAME": "Game",
+    "ANIMAL": "Animal",
+    "CONSERVATION": "Conservation",
+    "WILDLIFE": "Wildlife",
+    "HUMANITY": "Humanity",
+    "EXPLORATION": "Exploration",
+    "PLANET": "Planet",
+    "EMOTIONAL": "Emotional",
+    "ENVIRONMENT": "Environment",
+    "FUTURE": "Future",
+    "TAGS": "Tags"
 }

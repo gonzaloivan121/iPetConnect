@@ -280,5 +280,20 @@
     "PHILOSOPHY_DESCRIPTION": "Explorer la sagesse animale : réflexions philosophiques sur la nature, le comportement et la connexion entre les humains et les animaux dans notre monde.",
     "GERMAN": "Allemand",
     "FRENCH": "Français",
-    "NO_FAVOURITE_MARKERS": "Vous n'avez pas de favoris"
+    "NO_FAVOURITE_MARKERS": "Vous n'avez pas de favoris",
+    "CONTACT_TO_CHANGE": "Contactez-nous pour modifier ces informations.",
+    "VIDEOGAMES": "Jeux vidéo",
+    "VIDEOGAME": "Jeu vidéo",
+    "GAMES": "Jeux",
+    "GAME": "Jeu",
+    "ANIMAL": "Animal",
+    "CONSERVATION": "Conservation",
+    "WILDLIFE": "Faune sauvage",
+    "HUMANITY": "Humanité",
+    "EXPLORATION": "Exploration",
+    "PLANET": "Planète",
+    "EMOTIONAL": "Émotionnel",
+    "ENVIRONMENT": "Environnement",
+    "FUTURE": "Avenir",
+    "TAGS": "Mots clés"
 }
