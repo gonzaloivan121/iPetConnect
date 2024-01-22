@@ -9,7 +9,7 @@ export class TextareaAutosizeDirective implements OnInit {
 
     constructor(
         private elementRef: ElementRef
-    ) { }
+    ) {}
 
     @HostListener(':input')
     onInput() {
@@ -18,6 +18,7 @@ export class TextareaAutosizeDirective implements OnInit {
 
     ngOnInit() {
         this.initialHeight = this.elementRef.nativeElement.style.height;
+        this.resize();
     }
 
     resize() {

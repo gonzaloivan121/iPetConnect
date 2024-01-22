@@ -85,7 +85,7 @@
                                     <div class="media-body">
                                         <form [formGroup]="commentForm" (ngSubmit)="onSubmit()" role="form">
                                             <div class="form-group" [ngClass]="{ 'focused': focusEmail === true }">
-                                                <textarea id="comment" name="comment" formControlName="comment"
+                                                <textarea autosize id="comment" name="comment" formControlName="comment"
                                                     class="form-control"
                                                     placeholder="{{ 'TYPE_A_MESSAGE' | translate }}..."></textarea>
                                             </div>

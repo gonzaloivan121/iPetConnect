@@ -100,7 +100,7 @@
                                     <div class="col-lg-9">
                                         <div class="form-group" [class.focused]="focusBio" [class.has-danger]="!bio.valid">
                                             <div class="input-group">
-                                                <textarea id="bio" name="bio" formControlName="bio" placeholder="{{ 'BIO' | translate }}" class="form-control"
+                                                <textarea autosize id="bio" name="bio" formControlName="bio" placeholder="{{ 'BIO' | translate }}" class="form-control"
                                                     [class.is-invalid]="!bio.valid" (focus)="focusBio = true" (blur)="focusBio = false"></textarea>
                                             </div>
                                         </div>
