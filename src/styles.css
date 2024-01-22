@@ -352,6 +352,10 @@
     margin-bottom: 0.75rem;
 }
 
+.blog-post video {
+    width: 100%;
+}
+
 .pac-logo::after {
     display: none;
 }
