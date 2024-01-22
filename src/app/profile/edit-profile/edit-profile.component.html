@@ -37,7 +37,7 @@
                     <div class="row py-lg p-lg-md px-sm-sm">
                         <div class="col">
                             <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" role="form">
-                                <input type="file" name="image" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+                                <input type="file" accept="image/png, image/jpeg" name="image" class="file-input" (change)="onFileSelected($event)" #fileUpload>
                                 <div class="row">
                                     <div class="col-lg-3">
                                         <label for="#username" class="m-0">{{ 'USERNAME' | translate }}</label>
