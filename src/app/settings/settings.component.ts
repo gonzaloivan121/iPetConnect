@@ -30,15 +30,21 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     ngOnInit(): void {
         if (this.sessionService.get("user") !== null) {
             this.user = JSON.parse(this.sessionService.get("user"));
-            if (this.user.role_id == RoleEnum.Admin) {
+
+            if (this.user.role_id != RoleEnum.User) {
                 this.location.back();
             }
+
+            this.getData();
         } else {
             this.location.back();
         }
 
-        this.appConfig.load();
+        
+    }
 
+    getData() {
+        this.appConfig.load();
         this.data = this.appConfig.data;
     }
 

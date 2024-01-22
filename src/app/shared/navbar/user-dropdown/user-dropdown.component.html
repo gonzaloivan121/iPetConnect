@@ -8,7 +8,10 @@
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" ngbDropdownMenu>
                 <a *ngIf="user.role_id == roleEnum.Admin" [routerLink]="['/admin']" class="dropdown-item" role="button">{{ "ADMIN" | translate }}</a>
                 <a *ngIf="user.role_id == roleEnum.User || user.role_id == roleEnum.Blogger" [routerLink]="['/profile']" class="dropdown-item" role="button">{{ "PROFILE" | translate }}</a>
-                <a *ngIf="user.role_id == roleEnum.User || user.role_id == roleEnum.Blogger" [routerLink]="['/settings']" class="dropdown-item" role="button">{{ "SETTINGS" | translate }}</a>
+                <a *ngIf="user.role_id == roleEnum.User" [routerLink]="['/settings']" class="dropdown-item" role="button">{{ "SETTINGS" | translate }}</a>
+                <div *ngIf="user.role_id == roleEnum.Blogger" class="dropdown-divider"></div>
+                <a *ngIf="user.role_id == roleEnum.Blogger" [routerLink]="['/blog/publish']" class="dropdown-item" role="button">{{ "PUBLISH" | translate }}</a>
+                <a *ngIf="user.role_id == roleEnum.Blogger" [routerLink]="['/blog/manage']" class="dropdown-item" role="button">{{ "MANAGE" | translate }}</a>
                 <div class="dropdown-divider"></div>
                 <a (click)="logout()" class="dropdown-item" style="cursor: pointer;" role="button">{{ "LOG_OUT" | translate }}</a>
             </div>

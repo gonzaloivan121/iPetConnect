@@ -53,7 +53,7 @@ export class MatchComponent implements OnInit {
         if (this.sessionService.get("user") !== null) {
             this.user = JSON.parse(this.sessionService.get("user"));
 
-            if (this.user.role_id == RoleEnum.Admin) {
+            if (this.user.role_id != RoleEnum.User) {
                 this.location.back();
             }
 

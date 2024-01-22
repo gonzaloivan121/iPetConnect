@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { Observable } from "rxjs";
+import { RoleEnum } from 'src/app/enums/enums';
 import { IMapLegendIcon } from 'src/app/interfaces';
 import { Marker, User } from 'src/classes';
 
@@ -14,6 +15,10 @@ export class LegendComponent {
 
     @Output() filterMarkersEvent = new EventEmitter<string>();
     @Output() goToMarkerEvent = new EventEmitter<Marker>();
+
+    public get roleEnum(): typeof RoleEnum {
+        return RoleEnum;
+    }
 
     iconBase = "./assets/img/markers/";
     icons: IMapLegendIcon[] = [
