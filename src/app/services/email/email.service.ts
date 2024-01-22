@@ -11,16 +11,17 @@ export class EmailService {
     constructor(private http: HttpClient) {}
 
     private async post(url: string, data: IEmail) {
-        const token = '';
+        const token = "";
 
-        const result = this.http.post(url, {
-            body: data,
-            responseType: 'json',
-            observe: 'body',
-            headers: {
-                Authorization: 'Bearer ' + token
+        const result = this.http.post(url, data,
+            {
+                headers: {
+                    Authorization: "Bearer " + token,
+                },
+                responseType: "json",
+                observe: "body"
             }
-        });
+        );
         return new Promise((resolve, reject) => {
             result.subscribe(resolve, reject);
         })
