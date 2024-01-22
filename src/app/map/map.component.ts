@@ -4,7 +4,7 @@ import { Observable, from, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import { environment } from 'src/environments/environment';
 import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
-import { DataService, SessionService } from 'src/app/services';
+import { DataService, SessionService, AlertService } from 'src/app/services';
 import { DBTables, Marker, User } from 'src/classes';
 import { IMarkerResponse } from 'src/app/interfaces';
 
@@ -16,10 +16,14 @@ import { IMarkerResponse } from 'src/app/interfaces';
 export class MapComponent implements OnInit {
     public apiLoaded: Observable<boolean>;
     public markersLoaded: Observable<boolean>;
+    public favouriteMarkersLoaded: Observable<boolean>;
 
     public user: User;
     public isLoggedIn: boolean = false;
     public firstLoad: boolean = true;
+    public showGoToLocationButton: boolean = false;
+
+    public favouriteMarkers: Marker[] = [];
 
     @ViewChild("myGoogleMap", { static: false }) map!: GoogleMap;
     @ViewChild(MapInfoWindow, { static: false }) infoWindow!: MapInfoWindow;
@@ -41,7 +45,7 @@ export class MapComponent implements OnInit {
         //disableDefaultUI: true,
     };
     markers: google.maps.Marker[] = [];
-    selectedMarker: MapMarker;
+    selectedMarker: Marker;
     searchBox: google.maps.places.SearchBox;
 
     filterCategories: string[] = [];
@@ -51,7 +55,8 @@ export class MapComponent implements OnInit {
     constructor(
         private httpClient: HttpClient,
         private dataService: DataService,
-        private sessionService: SessionService
+        private sessionService: SessionService,
+        private alertService: AlertService
     ) {}
 
     ngOnInit(): void {
@@ -69,6 +74,10 @@ export class MapComponent implements OnInit {
                 map(() => true),
                 catchError(() => of(false))
             );
+
+        if (this.user) {
+            this.favouriteMarkersLoaded = this.loadFavouriteMarkers();
+        }
     }
 
     setCurrentPosition() {
@@ -81,28 +90,9 @@ export class MapComponent implements OnInit {
                     });
 
                     this.setZoom(15);
-                },
-                () => {
-                    this.handleLocationError(
-                        true,
-                        this.map.googleMap.getCenter()
-                    );
                 }
             );
-        } else {
-            // Browser doesn't support Geolocation
-            this.handleLocationError(false, this.map.googleMap.getCenter());
         }
-    }
-
-    handleLocationError(browserHasGeolocation: boolean, position) {
-        this.infoWindow.infoWindow.setPosition(position);
-        this.infoWindow.infoWindow.setContent(
-            browserHasGeolocation
-                ? "Error: El servicio de Geolocalización ha fallado."
-                : "Error: Tu navegador no soporta el servicio de Geolocalización."
-        );
-        this.infoWindow.open();
     }
 
     generateIcons() {
@@ -211,9 +201,9 @@ export class MapComponent implements OnInit {
                 break;
         }
     }
-
     initMap() {
         this.setCurrentPosition();
+
         this.markersLoaded = this.loadMarkersFromDataService();
         this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(
             document.getElementById("go-to-location")
@@ -274,16 +264,36 @@ export class MapComponent implements OnInit {
         this.infoWindow.close();
     }
 
-    editMarker(marker) {
+    editMarker(marker: Marker) {
         console.log("edit from map", marker);
     }
 
-    deleteMarker(marker) {
+    deleteMarker(marker: Marker) {
         console.log("delete from map", marker);
     }
 
-    favouriteMarker(marker) {
+    favouriteMarker(marker: Marker) {
         console.log("favourite from map", marker);
+
+        const data = {
+            user_id: this.user.id,
+            marker_id: marker.id,
+        };
+
+        this.dataService
+            .insert(DBTables.FavouriteMarker, data)
+            .then((response: any) => {
+                if (response.success) {
+                    this.alertService.openSuccess(response.message);
+                    this.favouriteMarkers.push(marker);
+                } else {
+                    this.alertService.openWarning(response.message);
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+                this.alertService.openDanger("There has been an error.");
+            });
     }
 
     createTestMarker(latLng) {
@@ -366,12 +376,32 @@ export class MapComponent implements OnInit {
     }
 
     goToMarker(marker: Marker) {
-        const gMarker = this.markers.filter((gm) => gm.get("data").id === marker.id)[0];
+        const gMarker = this.markers.filter(
+            (gm) => gm.get("data").id === marker.id
+        )[0];
         this.setZoom(17);
         this.center = gMarker.getPosition();
     }
 
     toggleSidebar() {
         this.isSidebarOpen = !this.isSidebarOpen;
+    }
+
+    loadFavouriteMarkers(): Observable<boolean> {
+        return from(
+            this.dataService
+                .getFrom(DBTables.FavouriteMarker, DBTables.User, this.user.id)
+                .then((response: any) => {
+                    if (response.success) {
+                        this.favouriteMarkers = response.result as Marker[];
+                    } else {
+                        console.error(response.message);
+                    }
+                })
+                .catch((error) => console.error(error))
+        ).pipe(
+            map(() => true),
+            catchError(() => of(false))
+        );
     }
 }

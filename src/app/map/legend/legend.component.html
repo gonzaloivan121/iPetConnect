@@ -33,7 +33,7 @@
         <div ngbAccordionCollapse>
             <div ngbAccordionBody>
                 <ng-template>
-                    <table class="table table-striped">
+                    <table *ngIf="favouriteMarkers.length > 0" class="table table-striped">
                         <thead>
                             <tr>
                                 <th scope="col">{{ "TYPE" | translate }}</th>
@@ -42,7 +42,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let marker of markers">
+                            <tr *ngFor="let marker of favouriteMarkers">
                                 <td>
                                     <img [src]="marker.type | markerIcon" [alt]="marker.type | translate" class="me-2" [ngbTooltip]="marker.type | translate">
                                 </td>
@@ -55,6 +55,10 @@
                             </tr>
                         </tbody>
                     </table>
+
+                    <div *ngIf="favouriteMarkers.length == 0">
+                        <p class="text-center lead">{{ "NO_FAVOURITE_MARKERS" | translate }}</p>
+                    </div>
                 </ng-template>
             </div>
         </div>

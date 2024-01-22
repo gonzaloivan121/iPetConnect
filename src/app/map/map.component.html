@@ -22,7 +22,7 @@
                 </div>
                 
                 <div class="dropdown-divider"></div>
-                <app-map-legend (filterMarkersEvent)="filterMarkers($event)" (goToMarkerEvent)="goToMarker($event)"></app-map-legend>
+                <app-map-legend [favouriteMarkers]="favouriteMarkers" [user]="user" (filterMarkersEvent)="filterMarkers($event)" (goToMarkerEvent)="goToMarker($event)"></app-map-legend>
             </div>
 
             <div class="col-lg-9 p-0">

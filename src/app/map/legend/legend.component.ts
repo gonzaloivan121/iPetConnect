@@ -1,23 +1,19 @@
-import { Component, Output, EventEmitter, OnInit } from '@angular/core';
-import { Observable, from, of } from "rxjs";
-import { catchError, map } from "rxjs/operators";
+import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Observable } from "rxjs";
 import { IMapLegendIcon } from 'src/app/interfaces';
-import { DataService, SessionService } from 'src/app/services';
-import { DBTables, Marker, User } from 'src/classes';
+import { Marker, User } from 'src/classes';
 
 @Component({
     selector: "app-map-legend",
     templateUrl: "./legend.component.html",
     styleUrls: ["./legend.component.css"],
 })
-export class LegendComponent implements OnInit {
-    public markersLoaded: Observable<boolean>;
+export class LegendComponent {
+    @Input() public favouriteMarkers: Marker[] = [];
+    @Input() public user: User;
 
     @Output() filterMarkersEvent = new EventEmitter<string>();
     @Output() goToMarkerEvent = new EventEmitter<Marker>();
-
-    markers: Marker[] = [];
-    user: User;
 
     iconBase = "./assets/img/markers/";
     icons: IMapLegendIcon[] = [
@@ -53,38 +49,7 @@ export class LegendComponent implements OnInit {
         },
     ];
 
-    constructor(
-        private dataService: DataService,
-        private sessionService: SessionService
-    ) {}
-
-    ngOnInit(): void {
-        if (this.sessionService.get("user") !== null) {
-            this.user = JSON.parse(this.sessionService.get("user"));
-        }
-
-        if (this.user) {
-            this.markersLoaded = this.loadFavouriteMarkers();
-        }
-    }
-
-    loadFavouriteMarkers(): Observable<boolean> {
-        return from(
-            this.dataService
-                .getFrom(DBTables.FavouriteMarker, DBTables.User, this.user.id)
-                .then((response: any) => {
-                    if (response.success) {
-                        this.markers = response.result as Marker[];
-                    } else {
-                        console.error(response.message)
-                    }
-                })
-                .catch((error) => console.error(error))
-        ).pipe(
-            map(() => true),
-            catchError(() => of(false))
-        );
-    }
+    constructor() {}
 
     filterMarkers(icon: IMapLegendIcon) {
         icon.active = !icon.active;

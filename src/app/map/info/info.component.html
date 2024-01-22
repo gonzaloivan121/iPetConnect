@@ -55,10 +55,17 @@
                                 <span class="btn-inner--text">{{ "DELETE_MARKER" | translate }}</span>
                             </a>
                         </li>
-                        <li>
+                        <li *ngIf="!isMarkerFavourite">
                             <a *ngIf="user.role_id == roleEnum.User && user.id != marker.user_id" (click)="favouriteMarker()" class="btn-icon dropdown-item" href="javascript:void(0)">
                                 <span class="btn-inner--icon"><i class="ni ni-favourite-28"></i></span>
                                 <span class="btn-inner--text">{{ "ADD_TO_FAVOURITES" | translate }}</span>
+                            </a>
+                        </li>
+                        <li *ngIf="isMarkerFavourite">
+                            <a *ngIf="user.role_id == roleEnum.User && user.id != marker.user_id" (click)="unfavouriteMarker()"
+                                class="btn-icon dropdown-item" href="javascript:void(0)">
+                                <span class="btn-inner--icon"><i class="ni ni-favourite-28"></i></span>
+                                <span class="btn-inner--text">{{ "REMOVE_FROM_FAVOURITES" | translate }}</span>
                             </a>
                         </li>
                     </ul>
