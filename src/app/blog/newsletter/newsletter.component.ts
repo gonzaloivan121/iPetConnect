@@ -1,4 +1,4 @@
-import { EmailService } from 'src/app/services';
+import { EmailService, AlertService } from 'src/app/services';
 import { Component, OnInit } from "@angular/core";
 import { UntypedFormGroup, UntypedFormBuilder, Validators } from "@angular/forms";
 import { IEmail } from "src/app/interfaces";
@@ -15,7 +15,8 @@ export class NewsletterComponent implements OnInit {
 
     constructor(
         private formBuilder: UntypedFormBuilder,
-        private emailService: EmailService
+        private emailService: EmailService,
+        private alertService: AlertService,
     ) {}
 
     ngOnInit(): void {
@@ -38,7 +39,14 @@ export class NewsletterComponent implements OnInit {
         };
 
         this.emailService.Send(data).then((response: any) => {
-            console.log(response);
+            if (response.success) {
+                this.alertService.openSuccess(response.message);
+            } else {
+                this.alertService.openWarning(response.message);
+            }
+        }).catch((error) => {
+            console.error(error);
+            this.alertService.openDanger("There has been an error!");
         })
     }
 }
