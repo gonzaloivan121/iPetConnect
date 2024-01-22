@@ -23,3 +23,7 @@
 .file-input {
     display: none;
 }
+
+.input-group-text.disabled {
+    background-color: #e9ecef !important;
+}

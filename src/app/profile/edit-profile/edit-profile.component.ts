@@ -14,7 +14,6 @@ export class EditProfileComponent implements OnInit {
     user: User;
 
     focusName: boolean = false;
-    focusEmail: boolean = false;
     focusGender: boolean = false;
     focusBio: boolean = false;
 
@@ -40,13 +39,14 @@ export class EditProfileComponent implements OnInit {
 
         this.profileForm = this.formBuilder.group({
             username: [this.user.username, [Validators.required]],
-            name: [this.user.name, [Validators.required]],
             email: [this.user.email, [Validators.required, Validators.email]],
+            name: [this.user.name, [Validators.required]],
             gender: [this.user.gender, [Validators.required]],
             bio: [this.user.bio, [Validators.required]],
         });
 
         this.username.disable();
+        this.email.disable();
     }
 
     get username() {
@@ -73,7 +73,6 @@ export class EditProfileComponent implements OnInit {
         const formData: User = this.profileForm.value;
 
         this.user.name = formData.name;
-        this.user.email = formData.email;
         this.user.gender = formData.gender;
         this.user.bio = formData.bio;
         this.user.image = this.profileImage.nativeElement.src;

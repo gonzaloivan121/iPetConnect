@@ -36,20 +36,44 @@
                     </div>
                     <div class="row py-lg p-lg-md px-sm-sm">
                         <div class="col">
+                            <!-- START - Form -->
                             <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" role="form">
                                 <input type="file" accept="image/png, image/jpeg" name="image" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+                                <!-- START - Username -->
                                 <div class="row">
                                     <div class="col-lg-3">
                                         <label for="#username" class="m-0">{{ 'USERNAME' | translate }}</label>
                                     </div>
                                     <div class="col-lg-9">
                                         <div class="form-group">
-                                            <div class="input-group">
+                                            <div class="input-group" placement="top" ngbTooltip="{{ 'CONTACT_TO_CHANGE' | translate }}">
                                                 <input id="username" name="username" formControlName="username" type="text" placeholder="{{ 'USERNAME' | translate }}" class="form-control">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text disabled">?</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <!-- END - Username -->
+                                <!-- START - Email -->
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <label for="#email" class="m-0">{{ 'EMAIL' | translate }}</label>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <div class="form-group">
+                                            <div class="input-group" placement="top" ngbTooltip="{{ 'CONTACT_TO_CHANGE' | translate }}">
+                                                <input id="email" name="email" formControlName="email" type="email" placeholder="{{ 'EMAIL' | translate }}" class="form-control">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text disabled">?</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END - Email -->
+                                <!-- START - Name -->
                                 <div class="row">
                                     <div class="col-lg-3">
                                         <label for="#name" class="m-0">{{ 'NAME' | translate }}</label>
@@ -63,19 +87,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-lg-3">
-                                        <label for="#email" class="m-0">{{ 'EMAIL' | translate }}</label>
-                                    </div>
-                                    <div class="col-lg-9">
-                                        <div class="form-group" [class.focused]="focusEmail" [class.has-danger]="!email.valid">
-                                            <div class="input-group">
-                                                <input id="email" name="email" formControlName="email" type="email" placeholder="{{ 'EMAIL' | translate }}"
-                                                    class="form-control" [class.is-invalid]="!email.valid" (focus)="focusEmail = true" (blur)="focusEmail = false">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <!-- END - Name -->
+                                <!-- START - Gender -->
                                 <div class="row">
                                     <div class="col-lg-3">
                                         <label for="#gender" class="m-0">{{ 'GENDER' | translate }}</label>
@@ -93,6 +106,8 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- END - Gender -->
+                                <!-- START - Bio -->
                                 <div class="row">
                                     <div class="col-lg-3">
                                         <label for="#bio" class="m-0">{{ 'BIO' | translate }}</label>
@@ -106,6 +121,8 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- END - Bio -->
+                                <!-- START - Buttons -->
                                 <div class="row">
                                     <div class="col-lg-3"></div>
                                     <div class="col-lg-9">
@@ -113,7 +130,9 @@
                                         <button type="button" (click)="onCancel()" class="btn btn-outline-primary btn-block-sm">{{ "CANCEL" | translate }}</button>
                                     </div>
                                 </div>
+                                <!-- END - Buttons -->
                             </form>
+                            <!-- END - Form -->
                         </div>
                     </div>
                 </div>
