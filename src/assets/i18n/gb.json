@@ -279,5 +279,6 @@
     "PHILOSOPHY": "Philosophy",
     "PHILOSOPHY_DESCRIPTION": "Exploring Animal Wisdom: Philosophical reflections on nature, behavior, and the connection between humans and animals in our world.",
     "GERMAN": "German",
-    "FRENCH": "French"
+    "FRENCH": "French",
+    "NO_FAVOURITE_MARKERS": "You don't have favorite markers"
 }

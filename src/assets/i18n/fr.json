@@ -279,5 +279,6 @@
     "PHILOSOPHY": "Philosophie",
     "PHILOSOPHY_DESCRIPTION": "Explorer la sagesse animale : réflexions philosophiques sur la nature, le comportement et la connexion entre les humains et les animaux dans notre monde.",
     "GERMAN": "Allemand",
-    "FRENCH": "Français"
+    "FRENCH": "Français",
+    "NO_FAVOURITE_MARKERS": "Vous n'avez pas de favoris"
 }
