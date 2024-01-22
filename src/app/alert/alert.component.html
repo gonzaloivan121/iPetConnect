@@ -7,7 +7,7 @@
                     <i [class]="alert.icon"></i>
                 </div>
             </ng-container>
-            <span class="alert-inner--text"> <strong>{{ alert.strong }} </strong>{{ alert.message }}</span>
+            <span class="alert-inner--text"> <strong>{{ alert.strong | translate }} </strong>{{ alert.message | translate }}</span>
         </ngb-alert>
     </div>
 </div>
