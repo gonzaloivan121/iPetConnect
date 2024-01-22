@@ -13,8 +13,6 @@ import { User } from 'src/classes';
 })
 export class SettingsComponent implements OnInit, AfterViewInit {
     public data: AppConfig = {};
-    public minDistance: number;
-    public maxDistance: number;
 
     public user: User;
 
@@ -39,8 +37,6 @@ export class SettingsComponent implements OnInit, AfterViewInit {
         } else {
             this.location.back();
         }
-
-        
     }
 
     getData() {
