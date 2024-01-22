@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { User, Match } from 'src/classes';
-import { DataService, SessionService } from 'src/app/services';
+import { User, Match, DBTables } from 'src/classes';
+import { DataService } from 'src/app/services';
 import { Observable, from, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
@@ -29,11 +29,20 @@ export class MatchesComponent implements OnInit {
     }
 
     getOtherUser(): Observable<boolean> {
-        return from(this.dataService.get('user', this.match.user1_id == this.user.id ? this.match.user2_id : this.match.user1_id).then((response: any) => {
-            if (response.success) {
-                this.otherUser = response.result[0] as User;
-            }
-        })).pipe(
+        return from(
+            this.dataService
+                .get(
+                    DBTables.User,
+                    this.match.user1_id == this.user.id
+                        ? this.match.user2_id
+                        : this.match.user1_id
+                )
+                .then((response: any) => {
+                    if (response.success) {
+                        this.otherUser = response.result[0] as User;
+                    }
+                })
+        ).pipe(
             map(() => true),
             catchError(() => of(false))
         );

@@ -134,7 +134,9 @@ app-user-card {
 }
 
 app-user-card.like,
-app-user-card.dislike {
+app-user-card.dislike,
+app-user-card.open,
+app-user-card.closed {
     animation-duration: .333s;
     animation-iteration-count: 1;
     animation-timing-function: ease-in-out;
@@ -149,12 +151,22 @@ app-user-card.dislike {
     animation-name: dislike;
 }
 
+app-user-card.open {
+    animation-name: open;
+}
+
+app-user-card.closed {
+    animation-name: closed;
+}
+
 app-user-card {
-    transition: transform .333s ease-in-out;
+    transition:
+        transform .333s ease-in-out,
+        opacity .333s ease-in-out;
 }
 
 app-user-card:not(:last-child) {
-    transform: scale(0.95);
+    transform: scale(0.95) !important;
 }
 
 @keyframes like {
@@ -177,6 +189,31 @@ app-user-card:not(:last-child) {
 
     to {
         transform: translateX(-200%) rotate(-45deg);
+        opacity: 0;
+    }
+}
+
+@keyframes open {
+    from {
+        transform: translateY(-200%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes closed {
+    from {
+        transform: translateY(0%);
+        opacity: 1;
+        
+    }
+
+    to {
+        transform: translateY(-200%);
         opacity: 0;
     }
 }

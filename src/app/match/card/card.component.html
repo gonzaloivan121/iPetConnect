@@ -1,11 +1,17 @@
 <div class="card h-100 w-100 custom-card">
     <div class="p-0 h-100 custom-card-component">
-        <div *ngIf="!isDummy" class="background-image bg-image shadow h-50 w-100" style="background-image: url('{{ user.image }}')"></div>
+        <div *ngIf="!isDummy" class="background-image bg-image shadow h-50 w-100" style="background-image: url('{{ user.image }}')">
+            <button *ngIf="isMatch" (click)="closeProfile()" class="btn btn-secondary rounded-circle btn-icon-only settings">
+                <span class="btn-inner--text">✖</span>
+            </button>
+        </div>
+
         <div *ngIf="isDummy" class="background-image bg-image shadow h-50 w-100" style="background-image: url('assets/img/ipetconnect_background.jpg')">
             <button [routerLink]="['/settings']" class="btn btn-secondary rounded-circle btn-icon-only settings">
                 <i class="ni ni-settings-gear-65"></i>
             </button>
         </div>
+
         <div class="h-50 container p-4 position-relative">
             <a *ngIf="!isDummy" (click)="info()" class="info-link" href="javascript:void(0)">
                 <div class="info-img-container d-flex justify-content-center align-items-center bg-primary">
@@ -47,7 +53,7 @@
             </div>
         </div>
 
-        <div *ngIf="!isDummy" class="buttons-container w-100 d-flex justify-content-evenly position-absolute text-center">
+        <div *ngIf="!isDummy && !isMatch" class="buttons-container w-100 d-flex justify-content-evenly position-absolute text-center">
             <button (click)="dislike()" class="btn btn-danger m-0 d-flex justify-content-center align-items-center info-img-container dislike">
                 <div class="d-flex justify-content-center align-items-center text-white image-container display-4">
                     <span class="btn-inner--text">✖</span>

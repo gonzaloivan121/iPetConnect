@@ -88,7 +88,7 @@ export class MatchComponent implements OnInit {
     getUsers(): Observable<boolean> {
         return from(
             this.dataService
-                .getExcluding(DBTables.User, this.user.id)
+                .getFrom(DBTables.User, DBTables.Match, this.user.id)
                 .then((response: any) => {
                     if (response.success) {
                         this.filterUsersByConfig(response.result as User[]);
@@ -115,18 +115,28 @@ export class MatchComponent implements OnInit {
                             var isGender: boolean = false;
                             var isAge: boolean = false;
 
-                            if ( config.selected_gender == "ALL" ||
-                                (config.selected_gender == "MALES" && user.gender == "MALE") ||
-                                (config.selected_gender == "FEMALES" && user.gender == "FEMALE") ||
-                                (config.selected_gender == "OTHERS" && user.gender == "OTHER")
+                            if (
+                                config.selected_gender == "ALL" ||
+                                (config.selected_gender == "MALES" &&
+                                    user.gender == "MALE") ||
+                                (config.selected_gender == "FEMALES" &&
+                                    user.gender == "FEMALE") ||
+                                (config.selected_gender == "OTHERS" &&
+                                    user.gender == "OTHER")
                             ) {
                                 isGender = true;
                             }
 
                             var birthday: Date = new Date(user.birthday);
-                            var diffInYears = this.differenceInYears(birthday, new Date());
+                            var diffInYears = this.differenceInYears(
+                                birthday,
+                                new Date()
+                            );
 
-                            if (diffInYears >= config.min_age && diffInYears < config.max_age) {
+                            if (
+                                diffInYears >= config.min_age &&
+                                diffInYears < config.max_age
+                            ) {
                                 isAge = true;
                             }
 
@@ -150,7 +160,7 @@ export class MatchComponent implements OnInit {
 
     differenceInYears(date1: Date, date2: Date): number {
         var diff = (date2.getTime() - date1.getTime()) / 1000;
-        diff /= (60 * 60 * 24);
+        diff /= 60 * 60 * 24;
         return Math.abs(Math.round(diff / 365.25));
     }
 
@@ -177,11 +187,6 @@ export class MatchComponent implements OnInit {
                 .then((response: any) => {
                     if (response.success) {
                         this.matches = response.result as Match[];
-
-                        console.log(this.matches);
-
-                        // TODO: Quitar, testing
-                        //this.testMatches();
                     }
                 })
         ).pipe(
@@ -328,6 +333,14 @@ export class MatchComponent implements OnInit {
 
     viewProfile(user: User) {
         console.log("viewProfile", user);
+        this.users.push(user);
+    }
+
+    closeProfile(user: User) {
+        console.log("closeProfile", user);
+        setTimeout(() => {
+            this.users.splice(this.users.indexOf(user), 1);
+        }, 333);
     }
 
     deleteChat(chat: Chat) {

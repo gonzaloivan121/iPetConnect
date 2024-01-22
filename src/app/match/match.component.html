@@ -104,7 +104,7 @@
                                             </div>
                                         </div>
                                         <div *ngIf="likesReceived.length > 0" class="p-3 w-100 scroll match-container">
-                                            <app-likes class="flex-grow-1" *ngFor="let like of likesReceived" [like]="like" [user]="user"></app-likes>
+                                            <app-likes class="flex-grow-1" *ngFor="let like of likesReceived" [like]="like" [user]="user" (viewProfileEvent)="viewProfile($event)"></app-likes>
                                         </div>
                                     </div>
                                     <!-- END - Received Tab -->
@@ -119,7 +119,7 @@
                                             </div>
                                         </div>
                                         <div *ngIf="likesGiven.length > 0" class="p-3 w-100 scroll match-container">
-                                            <app-likes class="flex-grow-1" *ngFor="let like of likesGiven" [like]="like" [user]="user"></app-likes>
+                                            <app-likes class="flex-grow-1" *ngFor="let like of likesGiven" [like]="like" [user]="user" (viewProfileEvent)="viewProfile($event)"></app-likes>
                                         </div>
                                     </div>
                                     <!-- END - Given Tab -->
@@ -141,17 +141,17 @@
                 <!-- START - User Cards -->
                 <div *ngIf="usersLoaded | async" class="d-flex col-lg-8 col-12 justify-content-center align-items-center p-0 limit-height">
                     <div class="position-relative d-flex justify-content-center align-items-center match-cards-container">
-                        <app-user-card class="position-absolute h-100 w-100 dummy"
-                            [user]="dummyUser"
-                            [isDummy]="true"
-                            (likeEvent)="like($event)"
-                            (dislikeEvent)="dislike($event)"
-                        ></app-user-card>
+                        <!-- START - Dummy User Card -->
+                        <app-user-card class="position-absolute h-100 w-100 dummy" [isDummy]="true"></app-user-card>
+                        <!-- END - Dummy User Card -->
+
                         <app-user-card *ngFor="let matchUser of users" class="position-absolute h-100 w-100"
                             [user]="matchUser"
+                            [currentUser]="user"
                             [isDummy]="false"
                             (likeEvent)="like($event)"
                             (dislikeEvent)="dislike($event)"
+                            (closeEvent)="closeProfile($event)"
                         ></app-user-card>
                     </div>
                 </div>
