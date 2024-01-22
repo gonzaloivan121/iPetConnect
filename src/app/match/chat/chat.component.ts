@@ -113,6 +113,7 @@ export class ChatComponent implements OnInit, OnChanges {
 
                     this.chat.messages.push(message);
                     this.scrollToBottom();
+                    this.message.reset();
                 }
             });
     }
