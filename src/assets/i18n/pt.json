@@ -295,5 +295,9 @@
     "EMOTIONAL": "Emocional",
     "ENVIRONMENT": "Ambiente",
     "FUTURE": "Futuro",
-    "TAGS": "Tags"
+    "TAGS": "Tags",
+    "PUBLISH_BLOG_POST": "Publicar Entrada de Blog",
+    "MANAGE_BLOG_POSTS": "Gerenciar Postagens do Blog",
+    "PUBLISH": "Publicar",
+    "MANAGE": "Gerenciar"
 }
