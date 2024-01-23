@@ -50,7 +50,8 @@ export class MapComponent implements OnInit {
 
     filterCategories: string[] = [];
 
-    public isSidebarOpen: boolean = false;
+    isSidebarOpen: boolean = false;
+    isSearchbarFocused: boolean = false;
 
     constructor(
         private httpClient: HttpClient,
@@ -82,16 +83,14 @@ export class MapComponent implements OnInit {
 
     setCurrentPosition() {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    this.center = new google.maps.LatLng({
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude,
-                    });
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.center = new google.maps.LatLng({
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                });
 
-                    this.setZoom(15);
-                }
-            );
+                this.setZoom(15);
+            });
         }
     }
 

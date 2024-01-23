@@ -7,11 +7,14 @@
             <div class="col-lg-3 p-0 limit-height bg-white sidebar" [class.open]="isSidebarOpen">
                 <div class="row p-4 m-0">
                     <div class="col-10 col-lg-12 form-group m-0 p-0">
-                        <div class="input-group input-group-alternative">
+                        <div class="input-group input-group-alternative" [ngClass]="{ 'focused': isSearchbarFocused }">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="ni ni-zoom-split-in"></i></span>
                             </div>
-                            <input #search class="form-control form-control-alternative" placeholder="{{ 'SEARCH' | translate }}..." type="text">
+                            <input #search class="form-control form-control-alternative" placeholder="{{ 'SEARCH' | translate }}..." type="text" (focus)="isSearchbarFocused = true" (blur)="isSearchbarFocused = false">
+                            <div *ngIf="search.value !== ''" class="input-group-append cursor-pointer" (click)="search.value = ''">
+                                <span class="input-group-text">×</span>
+                            </div>
                         </div>
                     </div>
                     <div class="col-2 p-0 pl-4 d-lg-none">
