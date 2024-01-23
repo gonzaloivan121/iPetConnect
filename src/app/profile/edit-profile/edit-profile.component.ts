@@ -117,7 +117,6 @@ export class EditProfileComponent implements OnInit {
                 const reader = new FileReader();
 
                 reader.onload = (e: any) => {
-                    console.log(e.target.result);
                     preview = e.target.result;
                     this.profileImage.nativeElement.src = preview;
                 };

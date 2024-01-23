@@ -51,7 +51,6 @@ export class CardComponent implements OnInit {
             .then((response: any) => {
                 if (response.success) {
                     if (response.result.length > 0) {
-                        console.log(response.result)
                         this.isMatch = true;
                     }
                 } else {

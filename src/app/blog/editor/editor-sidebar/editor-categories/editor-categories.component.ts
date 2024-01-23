@@ -30,7 +30,6 @@ export class EditorCategoriesComponent implements OnInit {
             this.dataService
                 .get(DBTables.BlogCategory)
                 .then((response: any) => {
-                    console.log(response);
                     if (response.success) {
                         this.categories = response.result as IBlogCategory[];
                     } else {

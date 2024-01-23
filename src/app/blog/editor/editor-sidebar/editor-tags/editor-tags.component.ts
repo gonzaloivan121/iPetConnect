@@ -39,7 +39,6 @@ export class EditorTagsComponent implements OnInit {
             this.dataService
                 .get(DBTables.BlogTag)
                 .then((response: any) => {
-                    console.log(response);
                     if (response.success) {
                         this.tags = response.result as IBlogTag[];
                     } else {

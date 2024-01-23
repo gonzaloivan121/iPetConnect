@@ -178,8 +178,6 @@ export class MapComponent implements OnInit {
     }
 
     eventHandler(event: any, name: string) {
-        console.log(event, name);
-
         switch (name) {
             case "mapDblclick":
                 if (!this.user) return;
@@ -232,7 +230,7 @@ export class MapComponent implements OnInit {
 
         places.forEach((place: google.maps.places.PlaceResult) => {
             if (!place.geometry || !place.geometry.location) {
-                console.log("Returned place contains no geometry");
+                console.warn("Returned place contains no geometry");
                 return;
             }
 

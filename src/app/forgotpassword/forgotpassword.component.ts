@@ -41,14 +41,13 @@ export class ForgotpasswordComponent implements OnInit {
         const formData = this.passwordForm.value;
 
         this.dataService.password(formData).then((response: any) => {
-            console.log(response);
             if (response.success) {
                 this.alertService.openSuccess(response.message);
             } else {
                 this.alertService.openWarning(response.message);
             }
         }).catch((error) => {
-            console.log(error);
+            console.error(error);
             this.alertService.openDanger("There has been an error.");
         });
     }

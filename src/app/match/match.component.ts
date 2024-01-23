@@ -332,12 +332,10 @@ export class MatchComponent implements OnInit {
     }
 
     viewProfile(user: User) {
-        console.log("viewProfile", user);
         this.users.push(user);
     }
 
     closeProfile(user: User) {
-        console.log("closeProfile", user);
         setTimeout(() => {
             this.users.splice(this.users.indexOf(user), 1);
         }, 333);

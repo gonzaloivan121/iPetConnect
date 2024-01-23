@@ -29,7 +29,6 @@ export class InfoComponent implements OnInit {
         setTimeout(() => {
             if (this.user) {
                 this.dataService.getBothFrom(DBTables.FavouriteMarker, DBTables.User + "/" + DBTables.Marker, this.user.id, this.marker.id).then((response: any) => {
-                    console.log(response)
                     if (response.success) {
                         if (response.result.length > 0) {
                             this.isMarkerFavourite = true;
