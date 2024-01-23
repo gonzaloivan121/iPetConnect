@@ -1,15 +1,15 @@
 <section class="editor-header">
     <div class="row m-0">
-        <div class="col-lg-2 p-3 m-0 d-flex justify-content-center align-items-center border-right">
+        <div class="col-xl-2 col-md-2 p-4 m-0 d-flex justify-content-center align-items-center border-sm-bottom border-right">
             <i class="ni ni-collection pr-3"></i>
             <h4 class="m-0 display-4">{{ "BLOG_POST" | translate }}</h4>
         </div>
-        <div class="col-lg-6 p-3 m-0 d-flex align-items-center border-bottom">
+        <div class="col-xl-6 col-md-4 p-4 m-0 d-flex align-items-center border-bottom">
             <div class="input-group">
                 <input #title type="text" id="title" name="title" class="form-control" placeholder="{{ 'POST_TITLE' | translate }}" (input)="changeTitle(title.value)">
             </div>
         </div>
-        <div class="col-lg-4 p-4 m-0 border-bottom">
+        <div class="col-xl-4 col-md-6 p-4 m-0 border-bottom">
             <div class="row">
                 <div class="col-lg-4 col-6">
                     <button class="btn btn-outline-default btn-block" (click)="preview(previewModal)" [disabled]="!isValidForPreview">{{ "PREVIEW" | translate }}</button>
