@@ -1,16 +1,18 @@
-import { Injectable, NgZone } from "@angular/core";
+import { Injectable, NgZone, OnInit } from "@angular/core";
 import { SwUpdate } from "@angular/service-worker";
 import { Subscription, interval } from "rxjs";
 
 @Injectable({
     providedIn: "root",
 })
-export class NewVersionCheckerService {
+export class NewVersionCheckerService implements OnInit {
     isNewVersionAvailable: boolean = false;
     intervalSource = interval(15 * 60 * 1000); // Every 15 minutes
     intervalSubscription: Subscription;
 
-    constructor(private swUpdate: SwUpdate, private zone: NgZone) {
+    constructor(private swUpdate: SwUpdate, private zone: NgZone) {}
+
+    ngOnInit(): void {
         this.checkForUpdate();
     }
 
