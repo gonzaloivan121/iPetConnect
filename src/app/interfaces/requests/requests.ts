@@ -1,3 +1,5 @@
+import { IBlogPost } from "../classes/classes";
+
 export interface IMessageRequest {
     chat_id: number;
     user_id: number;
@@ -20,10 +22,26 @@ export interface IMarkerResponse {
     created_at?: string;
 }
 
+export interface IBlogPostRequest {
+    title: string;
+    description: string;
+    content: string;
+    image: string;
+    category_id: number;
+    user_id: number;
+}
+
 export interface IBlogPostResponse {
     success: boolean;
     message?: string;
-    result?: any;
+    result?: IBlogPost[];
+    created_at?: string;
+}
+
+export interface IBlogPostInsertResponse {
+    success: boolean;
+    message: string;
+    result?: IResponseResult;
     created_at?: string;
 }
 

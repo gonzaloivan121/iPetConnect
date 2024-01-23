@@ -19,6 +19,7 @@ import { AdminComponent } from './admin/admin.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { BlogPostComponent } from './blog/blog-post/blog-post.component';
+import { EditorComponent } from './blog/editor/editor.component';
 
 const routes: Routes = [
     { path: 'home',             component: HomeComponent },
@@ -33,6 +34,7 @@ const routes: Routes = [
     { path: 'admin',            component: AdminComponent },
     { path: 'settings',         component: SettingsComponent },
     { path: 'blog',             component: BlogComponent },
+    { path: 'blog/editor',      component: EditorComponent },
     { path: 'blog/post', redirectTo: 'blog', pathMatch: 'full' },
     { path: 'blog/post/:id',    component: BlogPostComponent },
     { path: 'privacy',          component: PrivacyComponent },

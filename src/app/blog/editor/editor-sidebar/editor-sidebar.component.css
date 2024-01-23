@@ -1,0 +1,14 @@
+.post-thumbnail {
+    aspect-ratio: 4/3;
+    border-radius: 15px;
+    border: 2px solid;
+}
+
+.accordion-button {
+    all: unset;
+    cursor: pointer;
+}
+
+.post-description {
+    min-height: 100px;
+}

@@ -1,0 +1,61 @@
+<button class="btn background-image post-thumbnail shadow w-100 m-0 p-0"
+    style="background-image: url('assets/img/ipetconnect_background.jpg')"></button>
+
+<div ngbAccordion [closeOthers]="true">
+    <div class="py-4" ngbAccordionItem [collapsed]="true" [destroyOnHide]="false">
+        <div ngbAccordionHeader>
+            <button ngbAccordionButton type="button" class="btn btn-icon">
+                <i class="ni ni-folder-17 px-2 m-0"></i>
+                <span class="btn-inner--text display-4">{{ "CATEGORIES" | translate }}</span>
+            </button>
+        </div>
+
+        <div ngbAccordionCollapse>
+            <div ngbAccordionBody>
+                <app-editor-categories (categorySelectedEvent)="selectCategory($event)"></app-editor-categories>
+            </div>
+        </div>
+    </div>
+
+    <div class="dropdown-divider m-0"></div>
+
+    <div class="py-4" ngbAccordionItem [collapsed]="true" [destroyOnHide]="false">
+        <div ngbAccordionHeader>
+            <button ngbAccordionButton type="button" class="btn btn-icon">
+                <i class="ni ni-tag px-2 m-0"></i>
+                <span class="btn-inner--text display-4">{{ "TAGS" | translate }}</span>
+            </button>
+        </div>
+
+        <div ngbAccordionCollapse>
+            <div ngbAccordionBody>
+                <ng-template>
+                    <app-editor-tags (tagAddedEvent)="addTag($event)" (tagRemovedEvent)="removeTag($event)"></app-editor-tags>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+
+    <div class="dropdown-divider m-0"></div>
+
+    <div class="py-4" ngbAccordionItem [collapsed]="true" [destroyOnHide]="false">
+        <div ngbAccordionHeader>
+            <button ngbAccordionButton type="button" class="btn btn-icon">
+                <i class="ni ni-caps-small px-2 m-0"></i>
+                <span class="btn-inner--text display-4">{{ "DESCRIPTION" | translate }}</span>
+            </button>
+        </div>
+    
+        <div ngbAccordionCollapse>
+            <div ngbAccordionBody>
+                <ng-template>
+                    <div class="input-group pt-4">
+                        <textarea autosize #description class="form-control post-description" name="description" placeholder="{{ 'TYPE_A_DESCRIPTION' | translate }}..." (input)="updateDescription(description)"></textarea>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+
+    <div class="dropdown-divider m-0"></div>
+</div>

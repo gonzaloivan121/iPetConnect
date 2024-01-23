@@ -1,4 +1,4 @@
-<div *ngIf="postLoaded | async">
+<div *ngIf="(postLoaded | async) || isPreview">
     <div class="wrapper">
         <div class="page-header header-filter">
             <div class="page-header-image" style="background-image: url('{{ post.image }}');"></div>
@@ -40,16 +40,16 @@
             </div>
         </section>
 
-        <div *ngIf="postTagsLoaded | async" class="container">
+        <div *ngIf="(tagsLoaded | async) || isPreview" class="container">
             <div class="row">
                 <div class="col-md-8 ml-auto mr-auto">
                     <small>{{ "TAGS" | translate }}: </small>
-                    <a *ngFor="let tag of postTags" [routerLink]="['/blog/tag', tag.id]" class="badge badge-secondary ml-1">{{ tag.name | translate }}</a>
+                    <a *ngFor="let tag of tags" [routerLink]="['/blog/tag', tag.id]" class="badge badge-secondary ml-1">{{ tag.name | translate }}</a>
                 </div>
             </div>
         </div>
 
-        <section class="section section-blog-info">
+        <section *ngIf="!isPreview" class="section section-blog-info">
             <div class="container">
                 <div class="row">
                     <div class="col-md-8 mx-auto">
@@ -59,7 +59,7 @@
                             </div>
                             <div *ngIf="postUserLoaded | async" class="card-header bg-white d-flex align-items-center">
                                 <div class="d-flex align-items-center">
-                                    <div class="avatar background-image" style="background-image: url('{{ postUser.image }}');"></div>
+                                    <div class="avatar shadow background-image" style="background-image: url('{{ postUser.image }}');"></div>
                                     <div class="mx-3">
                                         <p class="text-dark font-weight-600 text-sm m-0">{{ postUser.name }}</p>
                                         <small class="d-block text-muted">{{ post.created_at | date: 'longDate' }}</small>
@@ -81,7 +81,7 @@
                                 </div>
 
                                 <div *ngIf="user" class="media align-items-center mt-5">
-                                    <div class="avatar avatar-lg rounded-circle background-image mb-4" style="background-image: url('{{ user.image }}');"></div>
+                                    <div class="avatar avatar-lg shadow rounded-circle background-image mb-4" style="background-image: url('{{ user.image }}');"></div>
                                     <div class="media-body">
                                         <form [formGroup]="commentForm" (ngSubmit)="onSubmit()" role="form">
                                             <div class="form-group" [ngClass]="{ 'focused': focusEmail === true }">

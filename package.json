@@ -32,6 +32,7 @@
     "jw-bootstrap-switch-ng2": "2.0.5",
     "moment": "^2.29.1",
     "ng2-nouislider": "2.0.0",
+    "ngx-editor": "^16.0.1",
     "nouislider": "15.7.1",
     "rxjs": "^7.5.5",
     "zone.js": "~0.13.3"

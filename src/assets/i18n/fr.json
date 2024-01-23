@@ -299,5 +299,16 @@
     "PUBLISH_BLOG_POST": "Publier une Entrée de Blog",
     "MANAGE_BLOG_POSTS": "Gérer les Articles de Blog",
     "PUBLISH": "Publier",
-    "MANAGE": "Gérer"
+    "MANAGE": "Gérer",
+    "CATEGORY": "Catégorie",
+    "CATEGORIES": "Catégories",
+    "BLOG_POST": "Publication",
+    "POST_TITLE": "Titre de la publication",
+    "EXIT": "Sortir",
+    "PREVIEW": "Aperçu",
+    "TYPE_HERE": "Ecris ici",
+    "SEARCH_TAG": "Rechercher une étiquette",
+    "TYPE_A_DESCRIPTION": "Écrivez une description",
+    "SAVE": "Enregistrer",
+    "EDITOR": "Éditeur"
 }

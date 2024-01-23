@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Observable, Subscription, from, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
@@ -14,16 +14,18 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms
 })
 export class BlogPostComponent implements OnInit, OnDestroy {
     routeSubscription: Subscription;
-    post: IBlogPost;
     user?: User;
     postUser: User;
     postComments: IBlogComment[];
-    postTags: IBlogTag[];
+
+    @Input() post: IBlogPost;
+    @Input() tags: IBlogTag[];
+    @Input() isPreview: boolean = false;
 
     public postLoaded: Observable<boolean>;
     public postUserLoaded: Observable<boolean>;
     public postCommentsLoaded: Observable<boolean>;
-    public postTagsLoaded: Observable<boolean>;
+    public tagsLoaded: Observable<boolean>;
 
     public commentForm: UntypedFormGroup;
     public isCommentFocused: boolean = false;
@@ -40,16 +42,20 @@ export class BlogPostComponent implements OnInit, OnDestroy {
             this.user = JSON.parse(this.sessionService.get("user"));
         }
 
+        this.commentForm = this.formBuilder.group({
+            comment: ["", [Validators.required]],
+        });
+
+        if (this.isPreview) {
+            return;
+        }
+
         this.routeSubscription = this.route.params.subscribe(
             (params: { id: number }) => {
                 const id = params.id;
                 this.postLoaded = this.loadPost(id);
             }
         );
-
-        this.commentForm = this.formBuilder.group({
-            comment: ["", [Validators.required]],
-        });
     }
 
     get comment() {
@@ -102,7 +108,7 @@ export class BlogPostComponent implements OnInit, OnDestroy {
                             this.postCommentsLoaded = this.loadPostComments(
                                 this.post.id
                             );
-                            this.postTagsLoaded = this.loadPostTags(
+                            this.tagsLoaded = this.loadPostTags(
                                 this.post.id
                             );
                         } else {
@@ -162,8 +168,7 @@ export class BlogPostComponent implements OnInit, OnDestroy {
                 .getFrom(DBTables.BlogTag, DBTables.BlogPost, id)
                 .then((response: any) => {
                     if (response.success) {
-                        this.postTags = response.result as IBlogTag[];
-                        console.log(this.postTags);
+                        this.tags = response.result as IBlogTag[];
                     } else {
                         console.error(response.message);
                     }
@@ -177,7 +182,7 @@ export class BlogPostComponent implements OnInit, OnDestroy {
 
     likeComment(comment: IBlogComment) {
         if (this.user === undefined) return;
-        
+
         comment.likes++;
         this.dataService
             .update(DBTables.BlogComment, comment)
@@ -192,6 +197,10 @@ export class BlogPostComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
+        if (this.isPreview) {
+            return;
+        }
+
         this.routeSubscription.unsubscribe();
     }
 }

@@ -15,12 +15,16 @@ export class HomeComponent implements OnInit {
 
     isLoggedIn: boolean = false;
     isAdmin: boolean = false;
+    isBlogger: boolean = false;
+    isUser: boolean = false;
 
     ngOnInit() {
         if (this.sessionService.get("user") !== null) {
             this.isLoggedIn = true;
             var user: User = JSON.parse(this.sessionService.get("user"));
             this.isAdmin = user.role_id === RoleEnum.Admin;
+            this.isBlogger = user.role_id === RoleEnum.Blogger;
+            this.isUser = user.role_id === RoleEnum.User;
         }
     }
 }

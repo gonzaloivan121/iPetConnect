@@ -1,6 +1,6 @@
 <nav id="navbar-main"
-    class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom headroom--top headroom--pinned" [class.admin]="isAdmin()" [class.map]="isMap()" [class.match]="isMatch()">
-    <div [class]="isAdmin() ? 'container-fluid' : 'container'">
+    class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom headroom--top headroom--pinned" [class.admin]="isAdmin()" [class.map]="isMap()" [class.match]="isMatch()" [class.editor]="isEditor()">
+    <div [class]="isAdmin() || isEditor() ? 'container-fluid' : 'container'">
         <a class="mr-lg-5" [routerLink]="['/home']">
             <!-- START - Logo SVG -->
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"

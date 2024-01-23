@@ -1,0 +1,6 @@
+<div *ngIf="categoriesLoaded | async">
+    <div *ngFor="let category of categories" class="custom-control custom-radio m-3">
+        <input name="category" class="custom-control-input" id="category-{{ category.id }}" type="radio" (input)="selectCategory(category)">
+        <label class="custom-control-label" for="category-{{ category.id }}">{{ category.name | translate }}</label>
+    </div>
+</div>

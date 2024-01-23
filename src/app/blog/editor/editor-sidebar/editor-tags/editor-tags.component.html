@@ -1,0 +1,23 @@
+<div class="tags-container p-2 pb-3">
+    <button *ngFor="let selectedTag of selectedTags" class="btn btn-sm btn-default badge badge-pill badge-lg m-1" (click)="removeTag(selectedTag)">
+        <span>{{ selectedTag.name | translate }}</span>
+        <span class="pl-2">✖</span>
+    </button>
+</div>
+
+<ng-template #rt let-tag="result" let-t="term">
+    <ngb-highlight [result]="tag.name | translate" [term]="t"></ngb-highlight>
+</ng-template>
+
+<div class="input-group" [ngClass]="{ 'focused': isFocused }">
+    <div class="input-group-prepend">
+        <span class="input-group-text">
+            <i class="ni ni-zoom-split-in"></i>
+        </span>
+    </div>
+    <input #tagInput id="typeahead-template" type="text" class="form-control" placeholder="{{ 'SEARCH_TAG' | translate }}" [ngbTypeahead]="search"
+    [resultTemplate]="rt" [inputFormatter]="formatter" (selectItem)="addTag($event)" (focus)="isFocused = true" (blur)="isFocused = false" />
+    <div *ngIf="tagInput.value !== ''" class="input-group-append">
+        <span class="input-group-text cursor-pointer" (click)="tagInput.value = ''">×</span>
+    </div>
+</div>

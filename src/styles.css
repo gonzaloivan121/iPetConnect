@@ -373,3 +373,26 @@
     transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     font-family: "Open Sans", sans-serif;
 }
+
+.blog-post .NgxEditor__Content {
+    min-height: 100vh !important;
+    padding: 1rem !important;
+}
+
+.NgxEditor__MenuItem {
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+}
+
+.NgxEditor__MenuBar {
+    padding: 0.25rem !important;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+    background-color: var(--default) !important;
+}
+
+.visually-hidden {
+    display: none;
+}

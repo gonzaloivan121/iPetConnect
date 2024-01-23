@@ -4,7 +4,9 @@ export {
     IMessageResponse,
     IResponseResult,
     IMarkerResponse,
+    IBlogPostRequest,
     IBlogPostResponse,
+    IBlogPostInsertResponse,
 } from "./requests/requests";
 export { ISocialMediaLink } from './social-media/social-media'
 export { IMapLegendIcon } from './map-legend/map-legend';

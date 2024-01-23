@@ -1,0 +1,54 @@
+<section class="editor-header">
+    <div class="row m-0">
+        <div class="col-lg-2 p-3 m-0 d-flex justify-content-center align-items-center border-right">
+            <i class="ni ni-collection pr-3"></i>
+            <h4 class="m-0 display-4">{{ "BLOG_POST" | translate }}</h4>
+        </div>
+        <div class="col-lg-6 p-3 m-0 d-flex align-items-center border-bottom">
+            <div class="input-group">
+                <input #title type="text" id="title" name="title" class="form-control" placeholder="{{ 'POST_TITLE' | translate }}" (input)="changeTitle(title.value)">
+            </div>
+        </div>
+        <div class="col-lg-4 p-4 m-0 border-bottom">
+            <div class="row">
+                <div class="col-lg-4 col-6">
+                    <button class="btn btn-outline-default btn-block" (click)="preview(previewModal)" [disabled]="!isValidForPreview">{{ "PREVIEW" | translate }}</button>
+                </div>
+                <div class="col-lg-4 col-6">
+                    <button class="btn btn-outline-default btn-block" (click)="save()" [disabled]="!isValidForSaving">{{ "SAVE" | translate }}</button>
+                </div>
+                <div class="col-lg-4 col-12 mt-3 m-lg-0">
+                    <button class="btn btn-default btn-block badge-pill" (click)="publish()" [disabled]="!isValidForPublishing">{{ "PUBLISH" | translate }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="p-4">
+    <div class="row">
+        <div class="col-md-3">
+            <app-editor-sidebar (categorySelectedEvent)="selectCategory($event)" (tagAddedEvent)="addTag($event)"
+                (tagRemovedEvent)="removeTag($event)" (descriptionChangedEvent)="changeDescription($event)"></app-editor-sidebar>
+        </div>
+
+        <div class="col-md-8 ml-auto mr-auto">
+            <div class="NgxEditor__Wrapper shadow blog-post">
+                <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
+                <ngx-editor [editor]="editor" [(ngModel)]="content" [placeholder]="('TYPE_HERE' | translate) + '...'" (ngModelChange)="checkValidity()"></ngx-editor>
+            </div>
+        </div>
+    </div>
+</section>
+
+<ng-template #previewModal let-modal>
+    <div class="modal-header">
+        <h6 class="modal-title">{{ "PREVIEW" | translate }}</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'CLOSE' | translate }}" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body p-0">
+        <app-blog-post [tags]="tags" [post]="previewPost" [isPreview]="true"></app-blog-post>
+    </div>
+</ng-template>

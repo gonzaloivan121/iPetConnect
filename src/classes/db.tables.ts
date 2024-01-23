@@ -3,6 +3,7 @@ export class DBTables {
     public static BlogComment: string = "blog_comment";
     public static BlogPost: string = "blog_post";
     public static BlogTag: string = "blog_tag";
+    public static BlogPostTag: string = "blog_post_tag";
     public static Breed: string = "breed";
     public static Chat: string = "chat";
     public static Config: string = "config";
