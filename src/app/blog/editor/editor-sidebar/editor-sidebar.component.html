@@ -4,9 +4,12 @@
 <div ngbAccordion [closeOthers]="true">
     <div class="py-4" ngbAccordionItem [collapsed]="true" [destroyOnHide]="false">
         <div ngbAccordionHeader>
-            <button ngbAccordionButton type="button" class="btn btn-icon">
-                <i class="ni ni-folder-17 px-2 m-0"></i>
-                <span class="btn-inner--text display-4">{{ "CATEGORIES" | translate }}</span>
+            <button ngbAccordionButton type="button" class="btn btn-icon w-100 d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <i class="ni ni-folder-17 px-2 m-0"></i>
+                    <span class="btn-inner--text display-4">{{ "CATEGORIES" | translate }}</span>
+                </div>
+                <i class="ni ni-bold-down px-2 m-0 arrow"></i>
             </button>
         </div>
 
@@ -21,9 +24,12 @@
 
     <div class="py-4" ngbAccordionItem [collapsed]="true" [destroyOnHide]="false">
         <div ngbAccordionHeader>
-            <button ngbAccordionButton type="button" class="btn btn-icon">
-                <i class="ni ni-tag px-2 m-0"></i>
-                <span class="btn-inner--text display-4">{{ "TAGS" | translate }}</span>
+            <button ngbAccordionButton type="button" class="btn btn-icon w-100 d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <i class="ni ni-tag px-2 m-0"></i>
+                    <span class="btn-inner--text display-4">{{ "TAGS" | translate }}</span>
+                </div>
+                <i class="ni ni-bold-down px-2 m-0 arrow"></i>
             </button>
         </div>
 
@@ -40,9 +46,12 @@
 
     <div class="py-4" ngbAccordionItem [collapsed]="true" [destroyOnHide]="false">
         <div ngbAccordionHeader>
-            <button ngbAccordionButton type="button" class="btn btn-icon">
-                <i class="ni ni-caps-small px-2 m-0"></i>
-                <span class="btn-inner--text display-4">{{ "DESCRIPTION" | translate }}</span>
+            <button ngbAccordionButton type="button" class="btn btn-icon w-100 d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <i class="ni ni-caps-small px-2 m-0"></i>
+                    <span class="btn-inner--text display-4">{{ "DESCRIPTION" | translate }}</span>
+                </div>
+                <i class="ni ni-bold-down px-2 m-0 arrow"></i>
             </button>
         </div>
     

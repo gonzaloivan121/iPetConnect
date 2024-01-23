@@ -12,3 +12,15 @@
 .post-description {
     min-height: 100px;
 }
+
+.arrow {
+    transition: rotate .333s ease-in-out;
+}
+
+.accordion-header.collapsed .arrow {
+    rotate: 0deg;
+}
+
+.accordion-header .arrow {
+    rotate: 180deg;
+}
