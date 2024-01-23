@@ -53,6 +53,18 @@
     transition: .2s ease-in-out;
 }
 
+.underline-container .line.sidebar-selection {
+    width: 50%;
+}
+
+.underline-container .line.sidebar-open {
+    margin-left: 0%;
+}
+
+.underline-container .line.sidebar-closed {
+    margin-left: 50%;
+}
+
 .underline-container .line.messages-selected {
     margin-left: 0%;
 }

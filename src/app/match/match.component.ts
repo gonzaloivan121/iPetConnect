@@ -41,7 +41,7 @@ export class MatchComponent implements OnInit {
         return LikesTabEnum;
     }
 
-    public isTest: boolean = false;
+    isSidebarOpen: boolean = true;
 
     constructor(
         public location: Location,
@@ -55,6 +55,10 @@ export class MatchComponent implements OnInit {
 
             if (this.user.role_id != RoleEnum.User) {
                 this.location.back();
+            }
+
+            if (this.sessionService.get("matchSidebarOpen") !== null) {
+                this.isSidebarOpen = JSON.parse(this.sessionService.get("matchSidebarOpen"));
             }
 
             this.getData();
@@ -333,6 +337,10 @@ export class MatchComponent implements OnInit {
 
     viewProfile(user: User) {
         this.users.push(user);
+        if (this.isSidebarOpen) {
+            this.closeChat();
+            this.toggleSidebar(false);
+        }
     }
 
     closeProfile(user: User) {
@@ -371,5 +379,10 @@ export class MatchComponent implements OnInit {
 
     dislikeAnimDone(ev: AnimationEvent) {
         console.log("dislikeAnimDone", ev);
+    }
+
+    toggleSidebar(isOpen: boolean) {
+        this.isSidebarOpen = isOpen;
+        this.sessionService.set("matchSidebarOpen", JSON.stringify(isOpen));
     }
 }

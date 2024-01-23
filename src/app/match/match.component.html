@@ -19,7 +19,7 @@
         <div class="container-fluid p-0 h-100">
             <div class="row m-0 w-100">
                 <!-- START - Main Window -->
-                <div class="d-flex col-lg-4 col-12 bg-white shadow p-0 overflow-hidden limit-height front">
+                <div class="d-flex col-lg-4 col-12 bg-white shadow p-0 overflow-hidden limit-height front sidebar" [class.open]="isSidebarOpen">
                     <div class="w-100">
                         <div class="underline-container">
                             <ul>
@@ -131,6 +131,25 @@
                     </div>
                 </div>
                 <!-- END - Main Window -->
+                <!-- START - Mobile Buttons -->
+                <div class="position-absolute w-100 bottom-0 bg-white shadow front d-lg-none">
+                    <div class="underline-container">
+                        <ul>
+                            <li [class.active]="isSidebarOpen">
+                                <a class="text-dark" (click)="toggleSidebar(true)" href="javascript:void(0)">
+                                    {{ 'MESSAGES' | translate }}
+                                </a>
+                            </li>
+                            <li [class.active]="!isSidebarOpen">
+                                <a class="text-dark" (click)="toggleSidebar(false)" href="javascript:void(0)">
+                                    {{ 'MATCHES' | translate }}
+                                </a>
+                            </li>
+                        </ul>
+                        <hr class="line sidebar-selection" [class.sidebar-open]="isSidebarOpen" [class.sidebar-closed]="!isSidebarOpen">
+                    </div>
+                </div>
+                <!-- END - Mobile Buttons -->
                 <!-- START - Chat Window -->
                 <app-chat [chat]="currentChat" [user]="user" [isOpen]="isChatOpen" (closeChatEvent)="closeChat()"
                     (viewProfileEvent)="viewProfile($event)" (deleteChatEvent)="deleteChat($event)"
