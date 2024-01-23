@@ -24,8 +24,15 @@ export interface IBlogPost {
 export interface IBlogComment {
     id?: number;
     content: string;
-    likes: number;
     post_id: number;
+    user_id: number;
+    created_at?: Date;
+    updated_at?: Date;
+}
+
+export interface IBlogCommentUserLike {
+    id?: number;
+    comment_id: number;
     user_id: number;
     created_at?: Date;
     updated_at?: Date;

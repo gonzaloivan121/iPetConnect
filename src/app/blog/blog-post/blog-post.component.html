@@ -65,7 +65,7 @@
                                         <small class="d-block text-muted">{{ post.created_at | date: 'longDate' }}</small>
                                     </div>
                                 </div>
-                                <div *ngIf="user" class="text-right ml-auto">
+                                <div *ngIf="user && user.id !== postUser.id" class="text-right ml-auto">
                                     <button type="button" class="btn btn-sm btn-primary btn-icon">
                                         <span class="btn-inner--icon icon-big">
                                             <i class="ni ni-fat-add"></i>
@@ -77,7 +77,7 @@
 
                             <div class="card-body">
                                 <div *ngIf="postCommentsLoaded | async">
-                                    <app-blog-comment *ngFor="let comment of postComments" [comment]="comment" (likeCommentEvent)="likeComment($event)"></app-blog-comment>
+                                    <app-blog-comment *ngFor="let comment of postComments" [comment]="comment" [user]="user"></app-blog-comment>
                                 </div>
 
                                 <div *ngIf="user" class="media align-items-center mt-5">

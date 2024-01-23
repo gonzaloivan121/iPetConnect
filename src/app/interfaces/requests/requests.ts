@@ -45,6 +45,13 @@ export interface IBlogPostInsertResponse {
     created_at?: string;
 }
 
+export interface IInsertResponse {
+    success: boolean;
+    message: string;
+    result?: IResponseResult;
+    created_at?: string;
+}
+
 export interface IResponseResult {
     affectedRows: number;
     changedRows: number;

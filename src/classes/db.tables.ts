@@ -1,6 +1,7 @@
 export class DBTables {
     public static BlogCategory: string = "blog_category";
     public static BlogComment: string = "blog_comment";
+    public static BlogCommentUserLike: string = "blog_comment_user_like";
     public static BlogPost: string = "blog_post";
     public static BlogTag: string = "blog_tag";
     public static BlogPostTag: string = "blog_post_tag";

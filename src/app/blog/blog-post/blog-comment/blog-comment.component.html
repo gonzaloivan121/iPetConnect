@@ -1,17 +1,21 @@
-<div *ngIf="userLoaded | async" class="media media-comment">
+<div *ngIf="commentUserLoaded | async" class="media media-comment">
     <div class="media-comment-avatar rounded-circle background-image"
-        style="background-image: url('{{ user.image }}');"></div>
+        style="background-image: url('{{ commentUser.image }}');"></div>
     <div class="media-body">
         <div class="media-comment-text">
             <div class="mb-2">
-                <span class="h5">{{ user.name }}</span>
+                <span class="h5">{{ commentUser.name }}</span>
                 <p class="float-right m-0">{{ comment.created_at | date: 'longDate' }}</p>
             </div>
             <p class="text-sm lh-160">{{ comment.content }}</p>
-            <div class="icon-actions">
-                <a (click)="likeComment()" class="like active">
+            <div *ngIf="likesLoaded | async" class="icon-actions">
+                <a *ngIf="!userLiked" (click)="likeComment()" class="like" [ngClass]="{ 'cursor-pointer': user !== undefined }">
                     <i class="ni ni-like-2"></i>
-                    <span class="text-muted">{{ comment.likes }} {{ comment.likes == 1 ? "like" : "likes" }}</span>
+                    <span class="text-muted">{{ likes.length }} {{ likes.length == 1 ? "like" : "likes" }}</span>
+                </a>
+                <a *ngIf="userLiked" (click)="dislikeComment()" class="like active" [ngClass]="{ 'cursor-pointer': user !== undefined }">
+                    <i class="ni ni-like-2"></i>
+                    <span class="text-muted">{{ likes.length }} {{ likes.length == 1 ? "like" : "likes" }}</span>
                 </a>
             </div>
         </div>

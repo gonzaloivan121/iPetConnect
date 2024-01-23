@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Observable, Subscription, from, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
-import { DataService, SessionService } from "src/app/services";
+import { DataService, SessionService, AlertService } from "src/app/services";
 import { DBTables, User } from "src/classes";
 import { IBlogPostResponse, IBlogPost, IBlogComment, IBlogTag } from "src/app/interfaces";
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
@@ -34,7 +34,8 @@ export class BlogPostComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute,
         private dataService: DataService,
         private sessionService: SessionService,
-        private formBuilder: UntypedFormBuilder
+        private formBuilder: UntypedFormBuilder,
+        private alertService: AlertService,
     ) {}
 
     ngOnInit(): void {
@@ -68,7 +69,6 @@ export class BlogPostComponent implements OnInit, OnDestroy {
             content: formData.comment,
             post_id: this.post.id,
             user_id: this.user.id,
-            likes: 0,
         };
 
         this.insertComment(data);
@@ -150,7 +150,6 @@ export class BlogPostComponent implements OnInit, OnDestroy {
                 .then((response: any) => {
                     if (response.success) {
                         this.postComments = response.result as IBlogComment[];
-                        console.log(this.postComments);
                     } else {
                         console.error(response.message);
                     }
@@ -178,22 +177,6 @@ export class BlogPostComponent implements OnInit, OnDestroy {
             map(() => true),
             catchError(() => of(false))
         );
-    }
-
-    likeComment(comment: IBlogComment) {
-        if (this.user === undefined) return;
-
-        comment.likes++;
-        this.dataService
-            .update(DBTables.BlogComment, comment)
-            .then((response: any) => {
-                console.log(response);
-
-                if (response.success) {
-                } else {
-                }
-            })
-            .catch((error) => console.error(error));
     }
 
     ngOnDestroy(): void {
