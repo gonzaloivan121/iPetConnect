@@ -310,5 +310,6 @@
     "SEARCH_TAG": "Search a tag",
     "TYPE_A_DESCRIPTION": "Type a description",
     "SAVE": "Save",
-    "EDITOR": "Editor"
+    "EDITOR": "Editor",
+    "UNPUBLISH": "Unpublish"
 }

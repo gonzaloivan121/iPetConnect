@@ -310,5 +310,6 @@
     "SEARCH_TAG": "Procure uma etiqueta",
     "TYPE_A_DESCRIPTION": "Escreva uma descrição",
     "SAVE": "Salvar",
-    "EDITOR": "Editor"
+    "EDITOR": "Editor",
+    "UNPUBLISH": "Despublicar"
 }

@@ -310,5 +310,6 @@
     "SEARCH_TAG": "Suchen Sie nach einem Tag",
     "TYPE_A_DESCRIPTION": "Schreibe eine Beschreibung",
     "SAVE": "Speichern",
-    "EDITOR": "Editor"
+    "EDITOR": "Editor",
+    "UNPUBLISH": "Veröffentlichung aufheben"
 }

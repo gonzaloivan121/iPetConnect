@@ -310,5 +310,6 @@
     "SEARCH_TAG": "Rechercher une étiquette",
     "TYPE_A_DESCRIPTION": "Écrivez une description",
     "SAVE": "Enregistrer",
-    "EDITOR": "Éditeur"
+    "EDITOR": "Éditeur",
+    "UNPUBLISH": "Annuler la publication"
 }
