@@ -71,6 +71,7 @@ import { EditorComponent } from "./blog/editor/editor.component";
 import { EditorSidebarComponent } from './blog/editor/editor-sidebar/editor-sidebar.component';
 import { EditorCategoriesComponent } from './blog/editor/editor-sidebar/editor-categories/editor-categories.component';
 import { EditorTagsComponent } from './blog/editor/editor-sidebar/editor-tags/editor-tags.component';
+import { DateAgoPipe } from './pipes/date-ago.pipe';
 
 export function setupAppConfigServiceFactory(
     service: AppConfigService
@@ -142,6 +143,7 @@ export function setupTranslateServiceFactory(
         EditorSidebarComponent,
         EditorCategoriesComponent,
         EditorTagsComponent,
+        DateAgoPipe,
     ],
     imports: [
         NgbModule,
