@@ -77,7 +77,7 @@ export class MatchComponent implements OnInit {
     getChats(): Observable<boolean> {
         return from(
             this.dataService
-                .getFrom("chat", "user", this.user.id)
+                .getFrom(DBTables.Chat, DBTables.User, this.user.id)
                 .then((response: any) => {
                     if (response.success) {
                         this.chats = response.result as Chat[];
@@ -187,7 +187,7 @@ export class MatchComponent implements OnInit {
     getMatches(): Observable<boolean> {
         return from(
             this.dataService
-                .getFrom("match", "user", this.user.id)
+                .getFrom(DBTables.Match, DBTables.User, this.user.id)
                 .then((response: any) => {
                     if (response.success) {
                         this.matches = response.result as Match[];
@@ -207,7 +207,7 @@ export class MatchComponent implements OnInit {
     getLikesReceived(): Observable<boolean> {
         return from(
             this.dataService
-                .getFrom("like", "user_2", this.user.id)
+                .getFrom(DBTables.Like, "user_2", this.user.id)
                 .then((response: any) => {
                     if (response.success) {
                         this.likesReceived = response.result as Like[];
@@ -222,7 +222,7 @@ export class MatchComponent implements OnInit {
     getLikesGiven(): Observable<boolean> {
         return from(
             this.dataService
-                .getFrom("like", "user_1", this.user.id)
+                .getFrom(DBTables.Like, "user_1", this.user.id)
                 .then((response: any) => {
                     if (response.success) {
                         this.likesGiven = response.result as Like[];
