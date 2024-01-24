@@ -39,7 +39,7 @@ export class BlogPostComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit(): void {
-        if (this.sessionService.get("user")) {
+        if (this.sessionService.get("user") !== null) {
             this.user = JSON.parse(this.sessionService.get("user"));
         }
 
