@@ -9,22 +9,13 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="floating-box bg-default">
+                    <div class="floating-box bg-default w-100">
                         <div class="box text-center">
-                            <div class="icon icon-shape bg-primary icon-xl rounded-circle text-white"><i
-                                    class="ni ni-spaceship"></i></div>
+                            <div class="icon icon-shape bg-primary icon-xl rounded-circle text-white">
+                                <i class="ni ni-spaceship"></i>
+                            </div>
                         </div>
-                        <blockquote class="text-center mt-4">
-                            <p class="mb-0 text-white">{{ "POSTED_ON" | translate }} {{ post.created_at | date: 'longDate' }}</p>
-                            <footer class="blockquote-footer text-white">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                        </blockquote>
-                        <h2 class="lead text-white p-5"> As a result of growing greenhouse gas emissions, climate models
-                            predict that our planet will get significantly warmer, that ecosystems will be changed or
-                            destroyed, and that enormous human and economic costs will be incurred. These scenarios
-                            aren't
-                            guaranteed, but avoiding them will be very hard. We're trying to take small steps to
-                            mitigate
-                            our impact. </h2>
+                        <p class="lead text-white p-5">{{ post.description }}</p>
                     </div>
                 </div>
             </div>
