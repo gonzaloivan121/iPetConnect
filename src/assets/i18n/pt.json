@@ -311,5 +311,20 @@
     "TYPE_A_DESCRIPTION": "Escreva uma descrição",
     "SAVE": "Salvar",
     "EDITOR": "Editor",
-    "UNPUBLISH": "Despublicar"
+    "UNPUBLISH": "Despublicar",
+    "YEAR": "Ano",
+    "YEARS": "Anos",
+    "MONTH": "Mês",
+    "MONTHS": "Meses",
+    "WEEK": "Semana",
+    "WEEKS": "Semanas",
+    "DAY": "Dia",
+    "DAYS": "Dias",
+    "HOUR": "Hora",
+    "HOURS": "Horas",
+    "MINUTE": "Minuto",
+    "MINUTES": "Minutos",
+    "SECOND": "Segundo",
+    "SECONDs": "Segundos",
+    "VIEW_ALL_COMMENTS": "Ver todos os comentários"
 }

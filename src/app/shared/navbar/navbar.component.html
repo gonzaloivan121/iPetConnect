@@ -1,5 +1,5 @@
 <nav id="navbar-main"
-    class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom headroom--top headroom--pinned" [class.admin]="isAdmin()" [class.map]="isMap()" [class.match]="isMatch()" [class.editor]="isEditor()">
+    class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom headroom--top headroom--pinned" [class.admin]="isAdmin()" [class.map]="isMap()" [class.match]="isMatch()" [class.editor]="isEditor()" [class.pets]="isPets()">
     <div [class]="isAdmin() || isEditor() ? 'container-fluid' : 'container'">
         <a class="mr-lg-5" [routerLink]="['/home']">
             <!-- START - Logo SVG -->
@@ -84,6 +84,14 @@
             </div>
             <!-- START - Panel Izquierdo -->
             <ul class="navbar-nav align-items-lg-center">
+                <!-- START - Pets Button -->
+                <li *ngIf="isLoggedIn && user.role_id == roleEnum.User" class="nav-item">
+                    <a [routerLink]="['/pets']" class="nav-link nav-link-icon" role="button">
+                        <i class="ni ni-planet d-lg-none"></i>
+                        <span class="nav-link-inner--text">{{ "PETS" | translate }}</span>
+                    </a>
+                </li>
+                <!-- END - Pets Button -->
                 <!-- START - Match Button -->
                 <li *ngIf="isLoggedIn && user.role_id == roleEnum.User" class="nav-item">
                     <a [routerLink]="['/match']" class="nav-link nav-link-icon" role="button">

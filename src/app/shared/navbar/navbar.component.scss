@@ -1,5 +1,9 @@
-.admin, .map, .match, .editor {
-    background-color: #172b4d !important;
+.admin,
+.map,
+.match,
+.editor,
+.pets {
+    background-color: var(--default) !important;
 }
 
 nav {

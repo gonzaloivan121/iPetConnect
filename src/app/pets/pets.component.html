@@ -1,0 +1,8 @@
+<div class="header"></div>
+<div class="container">
+    <div class="row">
+        <div *ngIf="petPostsLoaded | async" class="col-md-8 mx-auto">
+            <app-pet-post *ngFor="let post of petPosts; index as i;" [post]="post" [user]="user" [isLast]="i === petPosts.length - 1"></app-pet-post>
+        </div>
+    </div>
+</div>

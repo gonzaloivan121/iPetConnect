@@ -17,6 +17,7 @@ export {
     IBlogComment,
     IBlogCommentUserLike,
     IBlogTag,
+    IPetPost,
     ITeamMember,
 } from "./classes/classes";
 export { IEmail } from "./email/email";

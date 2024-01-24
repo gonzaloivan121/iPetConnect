@@ -62,3 +62,27 @@ export interface ITeamMember {
         threads?: string;
     }
 }
+
+export interface IPet {
+    id?: number;
+    name: string;
+    species_id: number;
+    breed_id: number;
+    gender: string;
+    color?: string;
+    image?: string;
+    user_id: number;
+    created_at?: Date;
+    updated_at?: Date;
+}
+
+export interface IPetPost {
+    id?: number;
+    title: string;
+    description: string;
+    image?: string;
+    pet_id: number;
+    user_id: number;
+    created_at?: Date;
+    updated_at?: Date;
+}

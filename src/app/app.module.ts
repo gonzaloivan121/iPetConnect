@@ -71,6 +71,8 @@ import { EditorComponent } from "./blog/editor/editor.component";
 import { EditorSidebarComponent } from './blog/editor/editor-sidebar/editor-sidebar.component';
 import { EditorCategoriesComponent } from './blog/editor/editor-sidebar/editor-categories/editor-categories.component';
 import { EditorTagsComponent } from './blog/editor/editor-sidebar/editor-tags/editor-tags.component';
+import { PetsComponent } from './pets/pets.component';
+import { PetPostComponent } from './pets/pet-post/pet-post.component';
 import { DateAgoPipe } from './pipes/date-ago.pipe';
 
 export function setupAppConfigServiceFactory(
@@ -143,6 +145,8 @@ export function setupTranslateServiceFactory(
         EditorSidebarComponent,
         EditorCategoriesComponent,
         EditorTagsComponent,
+        PetsComponent,
+        PetPostComponent,
         DateAgoPipe,
     ],
     imports: [

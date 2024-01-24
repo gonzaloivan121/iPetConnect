@@ -121,6 +121,15 @@ export class NavbarComponent implements OnInit {
         }
     }
 
+    isPets() {
+        var titlee = this.location.prepareExternalUrl(this.location.path());
+        if (titlee === "#/pets") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     isDocumentation() {
         var titlee = this.location.prepareExternalUrl(this.location.path());
         if (titlee === "#/documentation") {
