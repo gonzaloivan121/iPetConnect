@@ -1,11 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { Location } from "@angular/common";
 import { DataService, SessionService } from 'src/app/services';
-import { DBTables, User } from 'src/classes';
+import { DBTables } from 'src/classes';
 import { RoleEnum } from "src/app/enums/enums";
 import { Observable, from, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
-import { IPetPost } from "src/app/interfaces";
+import { IPetPost, IUser } from "src/app/interfaces";
 
 @Component({
     selector: "app-pets",
@@ -13,7 +13,7 @@ import { IPetPost } from "src/app/interfaces";
     styleUrls: ["./pets.component.css"],
 })
 export class PetsComponent implements OnInit {
-    user: User;
+    user: IUser;
     petPosts: IPetPost[];
 
     public petPostsLoaded: Observable<boolean>;
@@ -21,7 +21,7 @@ export class PetsComponent implements OnInit {
     constructor(
         private sessionService: SessionService,
         private dataService: DataService,
-        private location: Location,
+        private location: Location
     ) {}
 
     ngOnInit(): void {
@@ -47,11 +47,14 @@ export class PetsComponent implements OnInit {
                 .get(DBTables.PetPost)
                 .then((response: any) => {
                     if (response.success) {
-                        this.petPosts = (response.result as IPetPost[]).reverse();
+                        this.petPosts = (
+                            response.result as IPetPost[]
+                        ).reverse();
                     } else {
                         console.warn(response.message);
                     }
-                }).catch((error) => {
+                })
+                .catch((error) => {
                     console.error(error);
                 })
         ).pipe(

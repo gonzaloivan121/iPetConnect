@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from "@angular/core";
 import { Observable, from, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import { DataService } from "src/app/services";
-import { IBlogPost } from "src/app/interfaces";
-import { DBTables, User } from "src/classes";
+import { IBlogPost, IUser } from "src/app/interfaces";
+import { DBTables } from "src/classes";
 
 @Component({
     selector: "app-related-story",
@@ -15,7 +15,7 @@ export class RelatedStoryComponent implements OnInit {
 
     public userLoaded: Observable<boolean>;
 
-    public user: User;
+    public user: IUser;
 
     constructor(private dataService: DataService) {}
 
@@ -29,7 +29,7 @@ export class RelatedStoryComponent implements OnInit {
                 .get(DBTables.User, this.post.user_id)
                 .then((response: any) => {
                     if (response.success) {
-                        this.user = response.result[0] as User;
+                        this.user = response.result[0] as IUser;
                     } else {
                         console.error(response.message);
                     }

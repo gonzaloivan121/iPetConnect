@@ -5,8 +5,8 @@ import { catchError, map } from "rxjs/operators";
 import { environment } from 'src/environments/environment';
 import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { DataService, SessionService, AlertService } from 'src/app/services';
-import { DBTables, Marker, User } from 'src/classes';
-import { IMarkerResponse } from 'src/app/interfaces';
+import { DBTables } from 'src/classes';
+import { IMarkerResponse, IMarker, IUser } from 'src/app/interfaces';
 
 @Component({
     selector: "app-map",
@@ -18,12 +18,12 @@ export class MapComponent implements OnInit {
     public markersLoaded: Observable<boolean>;
     public favouriteMarkersLoaded: Observable<boolean>;
 
-    public user: User;
+    public user: IUser;
     public isLoggedIn: boolean = false;
     public firstLoad: boolean = true;
     public showGoToLocationButton: boolean = false;
 
-    public favouriteMarkers: Marker[] = [];
+    public favouriteMarkers: IMarker[] = [];
 
     @ViewChild("myGoogleMap", { static: false }) map!: GoogleMap;
     @ViewChild(MapInfoWindow, { static: false }) infoWindow!: MapInfoWindow;
@@ -45,7 +45,7 @@ export class MapComponent implements OnInit {
         //disableDefaultUI: true,
     };
     markers: google.maps.Marker[] = [];
-    selectedMarker: Marker;
+    selectedMarker: IMarker;
     searchBox: google.maps.places.SearchBox;
 
     filterCategories: string[] = [];
@@ -261,15 +261,15 @@ export class MapComponent implements OnInit {
         this.infoWindow.close();
     }
 
-    editMarker(marker: Marker) {
+    editMarker(marker: IMarker) {
         console.log("edit from map", marker);
     }
 
-    deleteMarker(marker: Marker) {
+    deleteMarker(marker: IMarker) {
         console.log("delete from map", marker);
     }
 
-    favouriteMarker(marker: Marker) {
+    favouriteMarker(marker: IMarker) {
         console.log("favourite from map", marker);
 
         const data = {
@@ -326,7 +326,7 @@ export class MapComponent implements OnInit {
         };
 
         this.dataService
-            .insert("marker", request)
+            .insert(DBTables.Marker, request)
             .then((response: IMarkerResponse) => {
                 if (response.success) {
                     request.id = response.result.insertId;
@@ -372,7 +372,7 @@ export class MapComponent implements OnInit {
         }
     }
 
-    goToMarker(marker: Marker) {
+    goToMarker(marker: IMarker) {
         const gMarker = this.markers.filter(
             (gm) => gm.get("data").id === marker.id
         )[0];
@@ -390,7 +390,7 @@ export class MapComponent implements OnInit {
                 .getFrom(DBTables.FavouriteMarker, DBTables.User, this.user.id)
                 .then((response: any) => {
                     if (response.success) {
-                        this.favouriteMarkers = response.result as Marker[];
+                        this.favouriteMarkers = response.result as IMarker[];
                     } else {
                         console.error(response.message);
                     }

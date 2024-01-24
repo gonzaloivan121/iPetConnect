@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { User } from 'src/classes';
 import { RoleEnum } from 'src/app/enums/enums';
+import { IUser } from 'src/app/interfaces';
 
 @Component({
     selector: 'app-user-dropdown',
@@ -9,7 +9,7 @@ import { RoleEnum } from 'src/app/enums/enums';
 })
 export class UserDropdownComponent implements OnInit {
 
-    @Input() user?: User;
+    @Input() user?: IUser;
 
     @Output() logoutEvent = new EventEmitter<void>();
 

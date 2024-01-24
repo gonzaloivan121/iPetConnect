@@ -1,29 +1,27 @@
 import { Component, Input, Output, EventEmitter, ElementRef, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services';
-import { DBTables, User } from 'src/classes';
+import { DBTables } from 'src/classes';
+import { IUser } from 'src/app/interfaces';
 
 @Component({
-    selector: 'app-user-card',
-    templateUrl: './card.component.html',
-    styleUrls: ['./card.component.css']
+    selector: "app-user-card",
+    templateUrl: "./card.component.html",
+    styleUrls: ["./card.component.css"],
 })
 export class CardComponent implements OnInit {
-    @Input() user?: User;
-    @Input() currentUser?: User;
+    @Input() user?: IUser;
+    @Input() currentUser?: IUser;
     @Input() isDummy: boolean;
 
-    @Output() likeEvent = new EventEmitter<User>();
-    @Output() dislikeEvent = new EventEmitter<User>();
-    @Output() closeEvent = new EventEmitter<User>();
+    @Output() likeEvent = new EventEmitter<IUser>();
+    @Output() dislikeEvent = new EventEmitter<IUser>();
+    @Output() closeEvent = new EventEmitter<IUser>();
 
     public isMatch: boolean;
 
     private htmlElement: HTMLElement;
 
-    constructor(
-        elem: ElementRef,
-        private dataService: DataService
-    ) {
+    constructor(elem: ElementRef, private dataService: DataService) {
         this.htmlElement = elem.nativeElement;
     }
 
@@ -54,7 +52,6 @@ export class CardComponent implements OnInit {
                         this.isMatch = true;
                     }
                 } else {
-
                 }
             })
             .catch((error) => {
@@ -72,9 +69,7 @@ export class CardComponent implements OnInit {
         this.htmlElement.classList.add("dislike");
     }
 
-    info(): void {
-        
-    }
+    info(): void {}
 
     closeProfile(): void {
         this.closeEvent.emit(this.user);

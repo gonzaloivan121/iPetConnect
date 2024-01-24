@@ -1,4 +1,4 @@
-export { AppConfig, DBConfig } from './app-config/app-config';
+export { AppConfig } from './app-config/app-config';
 export {
     IMessageRequest,
     IMessageResponse,
@@ -13,11 +13,26 @@ export { ISocialMediaLink } from './social-media/social-media'
 export { IMapLegendIcon } from './map-legend/map-legend';
 export {
     IBlogCategory,
-    IBlogPost,
     IBlogComment,
     IBlogCommentUserLike,
+    IBlogPost,
+    IBlogPostTag,
     IBlogTag,
+    IBreed,
+    IChat,
+    IConfig,
+    IFavouriteMarker,
+    ILanguage,
+    ILike,
+    IMarker,
+    IMatch,
+    IMessage,
+    IPasswordResets,
+    IPet,
     IPetPost,
+    IRole,
+    ISpecies,
+    IUser,
     ITeamMember,
 } from "./classes/classes";
 export { IEmail } from "./email/email";

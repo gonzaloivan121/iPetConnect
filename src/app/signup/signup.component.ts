@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { UntypedFormGroup, UntypedFormBuilder, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { DataService, SessionService, AppConfigService } from 'src/app/services';
-import { User } from 'src/classes';
-import { DBConfig } from '../interfaces';
+import { DBTables } from 'src/classes';
+import { IConfig, IUser } from 'src/app/interfaces';
 
 @Component({
     selector: 'app-signup',
@@ -133,33 +133,39 @@ export class SignupComponent implements OnInit {
     onSubmit() {
         const formData = this.signupForm.value;
         formData.birthday = `${formData.birthday.year}/${formData.birthday.month}/${formData.birthday.day}`;
+        formData.birthday = new Date(formData.birthday);
         
-        this.dataService.insert('user', formData).then((response: any) => {
+        this.dataService.insert(DBTables.User, formData).then((response: any) => {
             if (response.success) {
-                const user: User = new User(
-                    formData.username,
-                    formData.email,
-                    formData.password,
-                    formData.name,
-                    formData.role_id,
-                    formData.birthday,
-                    formData.gender
-                );
+                const user: IUser = {
+                    id: response.result.insertId,
+                    username: formData.username,
+                    email: formData.email,
+                    password: response.hash,
+                    name: formData.name,
+                    role_id: formData.role_id,
+                    birthday: formData.birthday,
+                    gender: formData.gender,
+                    image: "assets/img/ipetconnect_background.jpg",
+                    created_at: response.created_at,
+                    updated_at: response.created_at,
+                };
 
-                user.id = response.result.insertId;
                 this.sessionService.set('user', JSON.stringify(user));
 
                 this.generateConfigForUser(user);
             } else {
-
+                console.warn(response.message);
             }
+        }).catch((error) => {
+            console.error(error);
         });
     }
 
-    generateConfigForUser(user: User) {
+    generateConfigForUser(user: IUser) {
         var serviceData = this.configService.data;
 
-        var data: DBConfig = {
+        var data: IConfig = {
             min_distance: serviceData.selectedMinDistancePossible,
             max_distance: serviceData.selectedMaxDistancePossible,
             selected_gender: serviceData.selectedGender,
@@ -172,11 +178,13 @@ export class SignupComponent implements OnInit {
             user_id: user.id
         };
 
-        this.dataService.insert('config', data).then((response: any) => {
+        this.dataService.insert(DBTables.Config, data).then((response: any) => {
             if (response.success) {
                 this.location.go("/home");
                 window.location.reload();
             }
+        }).catch((error) => {
+            console.error(error);
         });
     }
 

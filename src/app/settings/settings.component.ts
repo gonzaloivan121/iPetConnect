@@ -1,10 +1,10 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { AppConfigService, SessionService, DataService, TranslateService, AlertService } from 'src/app/services';
-import { AppConfig, DBConfig } from 'src/app/interfaces';
+import { AppConfig, IConfig, IUser } from 'src/app/interfaces';
 import noUiSlider from "nouislider";
 import { RoleEnum } from 'src/app/enums/enums';
-import { User } from 'src/classes';
+import { DBTables } from 'src/classes';
 
 @Component({
     selector: "app-settings",
@@ -14,7 +14,7 @@ import { User } from 'src/classes';
 export class SettingsComponent implements OnInit, AfterViewInit {
     public data: AppConfig = {};
 
-    public user: User;
+    public user: IUser;
 
     constructor(
         public appConfig: AppConfigService,
@@ -22,7 +22,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
         public dataService: DataService,
         public translateService: TranslateService,
         public location: Location,
-        private alertService: AlertService,
+        private alertService: AlertService
     ) {}
 
     ngOnInit(): void {
@@ -45,24 +45,32 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        this.dataService.getFrom("config", "user", this.user.id).then((response: any) => {
-            if (response.success && response.result.length > 0) {
-                let dataFromService: DBConfig = response.result[0] as DBConfig;
-                this.data.onlySearchAgeRange = dataFromService.search_in_age;
-                this.data.onlySearchDistanceRange = dataFromService.search_in_distance;
-                this.data.onlySearchHasBioUsers = dataFromService.search_has_bio;
-                this.data.onlySearchVerifiedUsers = dataFromService.search_verified_users;
-                this.data.selectedGender = dataFromService.selected_gender;
-                this.data.selectedMaxAgePossible = dataFromService.max_age;
-                this.data.selectedMaxDistancePossible = dataFromService.max_distance;
-                this.data.selectedMinAgePossible = dataFromService.min_age;
-                this.data.selectedMinDistancePossible = dataFromService.min_distance;
-            }
+        this.dataService
+            .getFrom(DBTables.Config, DBTables.User, this.user.id)
+            .then((response: any) => {
+                if (response.success && response.result.length > 0) {
+                    let dataFromService: IConfig = response
+                        .result[0] as IConfig;
+                    this.data.onlySearchAgeRange =
+                        dataFromService.search_in_age;
+                    this.data.onlySearchDistanceRange =
+                        dataFromService.search_in_distance;
+                    this.data.onlySearchHasBioUsers =
+                        dataFromService.search_has_bio;
+                    this.data.onlySearchVerifiedUsers =
+                        dataFromService.search_verified_users;
+                    this.data.selectedGender = dataFromService.selected_gender;
+                    this.data.selectedMaxAgePossible = dataFromService.max_age;
+                    this.data.selectedMaxDistancePossible =
+                        dataFromService.max_distance;
+                    this.data.selectedMinAgePossible = dataFromService.min_age;
+                    this.data.selectedMinDistancePossible =
+                        dataFromService.min_distance;
+                }
 
-            this.generateDistanceSlider();
-            this.generateAgeSlider();
-        });
-        
+                this.generateDistanceSlider();
+                this.generateAgeSlider();
+            });
     }
 
     generateDistanceSlider() {
@@ -128,21 +136,24 @@ export class SettingsComponent implements OnInit, AfterViewInit {
             this.appConfig.write(key, this.data[key]);
         }
 
-        let dbData: DBConfig = this.convertDataToDB();
+        let dbData: IConfig = this.convertDataToDB();
 
-        this.dataService.updateForUser("config", dbData.user_id, dbData).then((response: any) => {
-            if (response.success) {
-                this.alertService.openSuccess(response.message);
-            } else {
-                this.alertService.openWarning(response.message);
-            }
-        }).catch((error) => {
-            console.error(error);
-            this.alertService.openDanger("There has been an error!");
-        });
+        this.dataService
+            .updateForUser(DBTables.Config, dbData.user_id, dbData)
+            .then((response: any) => {
+                if (response.success) {
+                    this.alertService.openSuccess(response.message);
+                } else {
+                    this.alertService.openWarning(response.message);
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+                this.alertService.openDanger("There has been an error!");
+            });
     }
 
-    convertDataToDB(): DBConfig {
+    convertDataToDB(): IConfig {
         return {
             min_distance: this.data.selectedMinDistancePossible,
             max_distance: this.data.selectedMaxDistancePossible,

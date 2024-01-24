@@ -1,8 +1,6 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { Observable } from "rxjs";
 import { RoleEnum } from 'src/app/enums/enums';
-import { IMapLegendIcon } from 'src/app/interfaces';
-import { Marker, User } from 'src/classes';
+import { IMapLegendIcon, IMarker, IUser } from 'src/app/interfaces';
 
 @Component({
     selector: "app-map-legend",
@@ -10,11 +8,11 @@ import { Marker, User } from 'src/classes';
     styleUrls: ["./legend.component.css"],
 })
 export class LegendComponent {
-    @Input() public favouriteMarkers: Marker[] = [];
-    @Input() public user: User;
+    @Input() public favouriteMarkers: IMarker[] = [];
+    @Input() public user: IUser;
 
     @Output() filterMarkersEvent = new EventEmitter<string>();
-    @Output() goToMarkerEvent = new EventEmitter<Marker>();
+    @Output() goToMarkerEvent = new EventEmitter<IMarker>();
 
     public get roleEnum(): typeof RoleEnum {
         return RoleEnum;
@@ -61,7 +59,7 @@ export class LegendComponent {
         this.filterMarkersEvent.emit(icon.type);
     }
 
-    goToMarker(marker: Marker) {
+    goToMarker(marker: IMarker) {
         this.goToMarkerEvent.emit(marker);
     }
 }

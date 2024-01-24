@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { Location, PopStateEvent } from '@angular/common';
 import { SessionService } from 'src/app/services';
-import { User } from 'src/classes';
 import { RoleEnum } from 'src/app/enums/enums';
-import { ISocialMediaLink } from 'src/app/interfaces'
+import { ISocialMediaLink, IUser } from 'src/app/interfaces'
 
 @Component({
     selector: "app-navbar",
@@ -18,7 +17,7 @@ export class NavbarComponent implements OnInit {
     private lastPoppedUrl: string;
     private yScrollStack: number[] = [];
 
-    public user: User;
+    public user: IUser;
 
     public get roleEnum(): typeof RoleEnum {
         return RoleEnum;
@@ -56,6 +55,7 @@ export class NavbarComponent implements OnInit {
             this.isLoggedIn = true;
             this.user = JSON.parse(this.sessionService.get("user"));
         }
+
         this.router.events.subscribe((event) => {
             this.isCollapsed = true;
             if (event instanceof NavigationStart) {
@@ -71,72 +71,54 @@ export class NavbarComponent implements OnInit {
                 }
             }
         });
+
         this.location.subscribe((ev: PopStateEvent) => {
             this.lastPoppedUrl = ev.url;
         });
     }
 
-    isHome() {
-        var titlee = this.location.prepareExternalUrl(this.location.path());
-        if (titlee === "#/home") {
-            return true;
-        } else {
-            return false;
-        }
+    private getPath(): string {
+        return this.router.url;
     }
 
-    isAdmin() {
-        var titlee = this.location.prepareExternalUrl(this.location.path());
-        if (titlee === "#/admin") {
-            return true;
-        } else {
-            return false;
-        }
+    public isHome(): boolean {
+        return this.getPath() === "/home" || this.getPath() === "/";
     }
 
-    isMap() {
-        var titlee = this.location.prepareExternalUrl(this.location.path());
-        if (titlee === "#/map") {
-            return true;
-        } else {
-            return false;
-        }
+    public isAdmin(): boolean {
+        return this.getPath() === "/admin";
     }
 
-    isMatch() {
-        var titlee = this.location.prepareExternalUrl(this.location.path());
-        if (titlee === "#/match") {
-            return true;
-        } else {
-            return false;
-        }
+    public isBlog(): boolean {
+        return this.getPath() === "/blog";
     }
 
-    isEditor() {
-        var titlee = this.location.prepareExternalUrl(this.location.path());
-        if (titlee === "#/blog/editor") {
-            return true;
-        } else {
-            return false;
-        }
+    public isProfile(): boolean {
+        return this.getPath() === "/profile";
     }
 
-    isPets() {
-        var titlee = this.location.prepareExternalUrl(this.location.path());
-        if (titlee === "#/pets") {
-            return true;
-        } else {
-            return false;
-        }
+    public isRegister(): boolean {
+        return this.getPath() === "/register";
     }
 
-    isDocumentation() {
-        var titlee = this.location.prepareExternalUrl(this.location.path());
-        if (titlee === "#/documentation") {
-            return true;
-        } else {
-            return false;
-        }
+    public isLogin(): boolean {
+        return this.getPath() === "/login";
+    }
+
+    public isMatch(): boolean {
+        return this.getPath() === "/match";
+    }
+
+    public isMap(): boolean {
+        return this.getPath() === "/map";
+    }
+
+    public isEditor(): boolean {
+        return this.getPath() === "/blog/editor";
+    }
+
+    public isPets(): boolean {
+        return this.getPath() === "/pets";
     }
 
     logout() {

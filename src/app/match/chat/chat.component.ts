@@ -1,10 +1,10 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { User, Chat, Message, DBTables } from 'src/classes';
+import { DBTables } from 'src/classes';
 import { DataService } from 'src/app/services';
 import { Observable, from, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
-import { IMessageRequest, IMessageResponse } from 'src/app/interfaces';
+import { IMessageRequest, IMessageResponse, IUser, IChat, IMessage } from 'src/app/interfaces';
 
 @Component({
     selector: "app-chat",
@@ -14,18 +14,18 @@ import { IMessageRequest, IMessageResponse } from 'src/app/interfaces';
 export class ChatComponent implements OnInit, OnChanges {
     messageForm: UntypedFormGroup;
 
-    @Input() chat: Chat;
-    @Input() user: User;
-    @Input() match: User;
+    @Input() chat: IChat;
+    @Input() user: IUser;
+    @Input() match: IUser;
     @Input() isOpen: boolean;
 
-    public otherUser: User;
+    public otherUser: IUser;
     public otherUserLoaded: Observable<boolean>;
 
     @Output() closeChatEvent = new EventEmitter<void>();
-    @Output() viewProfileEvent = new EventEmitter<User>();
-    @Output() deleteChatEvent = new EventEmitter<Chat>();
-    @Output() reportUserEvent = new EventEmitter<User>();
+    @Output() viewProfileEvent = new EventEmitter<IUser>();
+    @Output() deleteChatEvent = new EventEmitter<IChat>();
+    @Output() reportUserEvent = new EventEmitter<IUser>();
 
     focusMessage: boolean;
 
@@ -59,9 +59,9 @@ export class ChatComponent implements OnInit, OnChanges {
         }
     }
 
-    readMessage(message: Message) {
+    readMessage(message: IMessage) {
         message.read = true;
-        this.dataService.update(message.table, message).then((response) => {
+        this.dataService.update(DBTables.Message, message).then((response) => {
             console.log("readMessage", response);
         });
     }
@@ -99,17 +99,17 @@ export class ChatComponent implements OnInit, OnChanges {
             .insert(DBTables.Message, data)
             .then((response: IMessageResponse) => {
                 if (response.success) {
-                    const message = new Message(
-                        data.chat_id,
-                        data.user_id,
-                        data.message,
-                        false,
-                        false
-                    );
 
-                    message.id = response.result?.insertId;
-                    message.created_at = new Date(response.created_at);
-                    message.updated_at = new Date(response.created_at);
+                    const message: IMessage = {
+                        id: response.result?.insertId,
+                        chat_id: data.chat_id,
+                        user_id: data.user_id,
+                        message: data.message,
+                        edited: false,
+                        read: false,
+                        created_at: new Date(response.created_at),
+                        updated_at: new Date(response.created_at),
+                    };
 
                     this.chat.messages.push(message);
                     this.scrollToBottom();
@@ -122,14 +122,14 @@ export class ChatComponent implements OnInit, OnChanges {
         return from(
             this.dataService
                 .get(
-                    "user",
+                    DBTables.User,
                     this.chat.user1_id == this.user.id
                         ? this.chat.user2_id
                         : this.chat.user1_id
                 )
                 .then((response: any) => {
                     if (response.success) {
-                        this.otherUser = response.result[0] as User;
+                        this.otherUser = response.result[0] as IUser;
                     }
                 })
         ).pipe(

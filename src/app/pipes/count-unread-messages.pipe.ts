@@ -1,13 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Message } from 'src/classes';
+import { IMessage } from 'src/app/interfaces';
 
 @Pipe({
-    name: 'countUnreadMessages'
+    name: "countUnreadMessages",
 })
 export class CountUnreadMessagesPipe implements PipeTransform {
-
-    transform(messages: Message[], userId: number): number {
-        return messages.filter((message) => message.read == false && message.user_id == userId).length;
+    transform(messages: IMessage[], userId: number): number {
+        return messages.filter(
+            (message) => message.read == false && message.user_id == userId
+        ).length;
     }
-
 }

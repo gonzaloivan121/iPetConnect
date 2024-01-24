@@ -3,8 +3,8 @@ import { ActivatedRoute } from "@angular/router";
 import { Observable, Subscription, from, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import { DataService, SessionService, AlertService } from "src/app/services";
-import { DBTables, User } from "src/classes";
-import { IBlogPostResponse, IBlogPost, IBlogComment, IBlogTag } from "src/app/interfaces";
+import { DBTables } from "src/classes";
+import { IBlogPostResponse, IBlogPost, IBlogComment, IBlogTag, IUser } from "src/app/interfaces";
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 
 @Component({
@@ -14,8 +14,8 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms
 })
 export class BlogPostComponent implements OnInit, OnDestroy {
     routeSubscription: Subscription;
-    user?: User;
-    postUser: User;
+    user?: IUser;
+    postUser: IUser;
     postComments: IBlogComment[];
 
     @Input() post: IBlogPost;
@@ -35,7 +35,7 @@ export class BlogPostComponent implements OnInit, OnDestroy {
         private dataService: DataService,
         private sessionService: SessionService,
         private formBuilder: UntypedFormBuilder,
-        private alertService: AlertService,
+        private alertService: AlertService
     ) {}
 
     ngOnInit(): void {
@@ -108,9 +108,7 @@ export class BlogPostComponent implements OnInit, OnDestroy {
                             this.postCommentsLoaded = this.loadPostComments(
                                 this.post.id
                             );
-                            this.tagsLoaded = this.loadPostTags(
-                                this.post.id
-                            );
+                            this.tagsLoaded = this.loadPostTags(this.post.id);
                         } else {
                             console.warn("Empty data!");
                         }
@@ -131,7 +129,7 @@ export class BlogPostComponent implements OnInit, OnDestroy {
                 .get(DBTables.User, id)
                 .then((response: any) => {
                     if (response.success) {
-                        this.postUser = response.result[0] as User;
+                        this.postUser = response.result[0] as IUser;
                     } else {
                         console.error(response.message);
                     }

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { SessionService, DataService } from 'src/app/services';
-import { User, Chat, Message, Match, Like, DBTables } from 'src/classes';
+import { DBTables } from 'src/classes';
 import { RoleEnum, MatchTabEnum, LikesTabEnum } from 'src/app/enums/enums';
 import { Observable, from, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { DBConfig } from 'src/app/interfaces';
+import { IConfig, IUser, IChat, IMessage, IMatch, ILike } from 'src/app/interfaces';
 
 @Component({
     selector: "app-match",
@@ -13,7 +13,7 @@ import { DBConfig } from 'src/app/interfaces';
     styleUrls: ["./match.component.css"],
 })
 export class MatchComponent implements OnInit {
-    public user: User;
+    public user: IUser;
 
     public chatsLoaded: Observable<boolean>;
     public usersLoaded: Observable<boolean>;
@@ -21,17 +21,17 @@ export class MatchComponent implements OnInit {
     public likesReceivedLoaded: Observable<boolean>;
     public likesGivenLoaded: Observable<boolean>;
 
-    public users: User[] = [];
-    public chats: Chat[] = [];
-    public matches: Match[] = [];
-    public likesReceived: Like[] = [];
-    public likesGiven: Like[] = [];
+    public users: IUser[] = [];
+    public chats: IChat[] = [];
+    public matches: IMatch[] = [];
+    public likesReceived: ILike[] = [];
+    public likesGiven: ILike[] = [];
 
     public activeTab: MatchTabEnum = MatchTabEnum.Messages;
     public activeSubTab: LikesTabEnum = LikesTabEnum.Received;
 
     public isChatOpen: boolean = false;
-    public currentChat: Chat;
+    public currentChat: IChat;
 
     public get matchTabEnum(): typeof MatchTabEnum {
         return MatchTabEnum;
@@ -58,7 +58,9 @@ export class MatchComponent implements OnInit {
             }
 
             if (this.sessionService.get("matchSidebarOpen") !== null) {
-                this.isSidebarOpen = JSON.parse(this.sessionService.get("matchSidebarOpen"));
+                this.isSidebarOpen = JSON.parse(
+                    this.sessionService.get("matchSidebarOpen")
+                );
             }
 
             this.getData();
@@ -80,7 +82,7 @@ export class MatchComponent implements OnInit {
                 .getFrom(DBTables.Chat, DBTables.User, this.user.id)
                 .then((response: any) => {
                     if (response.success) {
-                        this.chats = response.result as Chat[];
+                        this.chats = response.result as IChat[];
                     }
                 })
         ).pipe(
@@ -95,7 +97,7 @@ export class MatchComponent implements OnInit {
                 .getFrom(DBTables.User, DBTables.Match, this.user.id)
                 .then((response: any) => {
                     if (response.success) {
-                        this.filterUsersByConfig(response.result as User[]);
+                        this.filterUsersByConfig(response.result as IUser[]);
                     } else {
                         console.error(response.message);
                     }
@@ -107,13 +109,13 @@ export class MatchComponent implements OnInit {
         );
     }
 
-    filterUsersByConfig(users: User[]): Observable<boolean> {
+    filterUsersByConfig(users: IUser[]): Observable<boolean> {
         return from(
             this.dataService
                 .getFrom(DBTables.Config, DBTables.User, this.user.id)
                 .then((response: any) => {
                     if (response.success) {
-                        const config = response.result[0] as DBConfig;
+                        const config = response.result[0] as IConfig;
 
                         this.users = users.filter((user) => {
                             var isGender: boolean = false;
@@ -175,10 +177,13 @@ export class MatchComponent implements OnInit {
         ];
 
         for (let i = 0; i < ids.length; i++) {
-            var newMatch = new Match(ids[i], 45);
-            newMatch.id = this.matches[0].id + i;
-            newMatch.created_at = this.matches[0].created_at;
-            newMatch.updated_at = this.matches[0].updated_at;
+            var newMatch: IMatch = {
+                id: this.matches[0].id + i,
+                user1_id: ids[i],
+                user2_id: 45,
+                created_at: this.matches[0].created_at,
+                updated_at: this.matches[0].updated_at,
+            };
 
             this.matches.push(newMatch);
         }
@@ -190,7 +195,7 @@ export class MatchComponent implements OnInit {
                 .getFrom(DBTables.Match, DBTables.User, this.user.id)
                 .then((response: any) => {
                     if (response.success) {
-                        this.matches = response.result as Match[];
+                        this.matches = response.result as IMatch[];
                     }
                 })
         ).pipe(
@@ -210,7 +215,7 @@ export class MatchComponent implements OnInit {
                 .getFrom(DBTables.Like, "user_2", this.user.id)
                 .then((response: any) => {
                     if (response.success) {
-                        this.likesReceived = response.result as Like[];
+                        this.likesReceived = response.result as ILike[];
                     }
                 })
         ).pipe(
@@ -225,7 +230,7 @@ export class MatchComponent implements OnInit {
                 .getFrom(DBTables.Like, "user_1", this.user.id)
                 .then((response: any) => {
                     if (response.success) {
-                        this.likesGiven = response.result as Like[];
+                        this.likesGiven = response.result as ILike[];
                     }
                 })
         ).pipe(
@@ -248,8 +253,8 @@ export class MatchComponent implements OnInit {
 
     refresh(): void {}
 
-    like(user: User): void {
-        const data = {
+    like(user: IUser): void {
+        const data: ILike = {
             user1_id: this.user.id,
             user2_id: user.id,
         };
@@ -257,8 +262,8 @@ export class MatchComponent implements OnInit {
         this.deleteCard(user);
     }
 
-    dislike(user: User): void {
-        const data = {
+    dislike(user: IUser): void {
+        const data: ILike = {
             user1_id: this.user.id,
             user2_id: user.id,
         };
@@ -266,30 +271,34 @@ export class MatchComponent implements OnInit {
         this.deleteCard(user);
     }
 
-    deleteCard(user: User) {
+    deleteCard(user: IUser) {
         setTimeout(() => {
-            this.users = this.users.filter((u: User) => u.id !== user.id);
+            this.users = this.users.filter((u: IUser) => u.id !== user.id);
         }, 333);
     }
 
     addTestChat(): void {
-        const messages: Message[] = [];
+        const messages: IMessage[] = [];
         const chat_id = this.random(1, 100);
 
         for (let i = 0; i < this.random(1, 5); i++) {
-            messages.push(
-                new Message(
-                    chat_id,
-                    this.random(0, 1) == 0 ? 45 : 12,
-                    `Message ${this.random(0, 100)}`,
-                    false,
-                    false
-                )
-            );
+            const message: IMessage = {
+                chat_id: chat_id,
+                user_id: this.random(0, 1) == 0 ? 45 : 12,
+                message: `Message ${this.random(0, 100)}`,
+                edited: false,
+                read: false,
+            };
+
+            messages.push(message);
         }
 
-        const chat = new Chat(45, 12, messages);
-        chat.id = chat_id;
+        const chat: IChat = {
+            id: chat_id,
+            user1_id: 45,
+            user2_id: 12,
+            messages: messages
+        };
 
         this.chats.push(chat);
     }
@@ -299,7 +308,12 @@ export class MatchComponent implements OnInit {
     }
 
     addTestMatch(): void {
-        this.matches.push(new Match(45, 3));
+        const match: IMatch = {
+            user1_id: 45,
+            user2_id: 3
+        };
+
+        this.matches.push(match);
     }
 
     removeTestMatch(): void {
@@ -307,7 +321,11 @@ export class MatchComponent implements OnInit {
     }
 
     addTestReceivedLike(): void {
-        this.likesReceived.push(new Like(45, 3));
+        const like: ILike = {
+            user1_id: 45,
+            user2_id: 3
+        };
+        this.likesReceived.push(like);
     }
 
     removeTestReceivedLike(): void {
@@ -315,7 +333,11 @@ export class MatchComponent implements OnInit {
     }
 
     addTestGivenLike(): void {
-        this.likesGiven.push(new Like(45, 3));
+        const like: ILike = {
+            user1_id: 45,
+            user2_id: 3,
+        };
+        this.likesGiven.push(like);
     }
 
     removeTestGivenLike(): void {
@@ -326,7 +348,7 @@ export class MatchComponent implements OnInit {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
-    openChat(chat: Chat) {
+    openChat(chat: IChat) {
         this.currentChat = chat;
         this.isChatOpen = true;
     }
@@ -335,7 +357,7 @@ export class MatchComponent implements OnInit {
         this.isChatOpen = false;
     }
 
-    viewProfile(user: User) {
+    viewProfile(user: IUser) {
         this.users.push(user);
         if (this.isSidebarOpen) {
             this.closeChat();
@@ -343,25 +365,25 @@ export class MatchComponent implements OnInit {
         }
     }
 
-    closeProfile(user: User) {
+    closeProfile(user: IUser) {
         setTimeout(() => {
             this.users.splice(this.users.indexOf(user), 1);
         }, 333);
     }
 
-    deleteChat(chat: Chat) {
+    deleteChat(chat: IChat) {
         console.log("deleteChat", chat);
     }
 
-    repotUser(user: User) {
+    repotUser(user: IUser) {
         console.log("reportUser", user);
     }
 
-    undoMatch(user: User) {
+    undoMatch(user: IUser) {
         console.log("undoMatch", user);
     }
 
-    openChatByUser(user: User) {
+    openChatByUser(user: IUser) {
         console.log("openChatByUser", user);
 
         var chatToOpen = this.chats.filter(

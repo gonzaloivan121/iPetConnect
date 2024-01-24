@@ -3,9 +3,9 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Editor, Toolbar } from "ngx-editor";
 import { schema } from "ngx-editor/schema";
 import { RoleEnum } from "src/app/enums/enums";
-import { IBlogCategory, IBlogPost, IBlogPostRequest, IBlogPostInsertResponse, IBlogTag } from "src/app/interfaces";
+import { IBlogCategory, IBlogPost, IBlogPostRequest, IBlogPostInsertResponse, IBlogTag, IUser } from "src/app/interfaces";
 import { SessionService, DataService, AlertService } from "src/app/services";
-import { DBTables, User } from "src/classes";
+import { DBTables } from "src/classes";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
@@ -21,7 +21,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     content: string = "";
     image: string = "assets/img/ipetconnect_background.jpg";
 
-    user: User;
+    user: IUser;
     previewPost: IBlogPost;
 
     isValidForPublishing: boolean = false;
@@ -182,9 +182,7 @@ export class EditorComponent implements OnInit, OnDestroy {
 
     checkPreviewValidity() {
         this.isValidForPreview =
-            this.category !== null &&
-            this.tags.length > 0 &&
-            this.image !== "";
+            this.category !== null && this.tags.length > 0 && this.image !== "";
     }
 
     checkSavingValidity() {
@@ -212,13 +210,11 @@ export class EditorComponent implements OnInit, OnDestroy {
             category_id: this.category.id,
             user_id: this.user.id,
             created_at: new Date(),
-            updated_at: new Date()
+            updated_at: new Date(),
         };
 
         this.modalService.open(content, { fullscreen: true });
     }
 
-    save() {
-
-    }
+    save() {}
 }

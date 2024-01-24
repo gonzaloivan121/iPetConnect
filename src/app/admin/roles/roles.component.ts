@@ -1,33 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services';
-import { Role } from 'src/classes';
+import { IRole } from 'src/app/interfaces';
 import { from, Observable } from 'rxjs';
+import { DBTables } from 'src/classes';
 
 @Component({
-    selector: 'app-admin-roles',
-    templateUrl: './roles.component.html',
-    styleUrls: ['./roles.component.css']
+    selector: "app-admin-roles",
+    templateUrl: "./roles.component.html",
+    styleUrls: ["./roles.component.css"],
 })
 export class AdminRolesComponent implements OnInit {
-    public roles: Role[];
-    public allRoles: Role[];
+    public roles: IRole[];
+    public allRoles: IRole[];
 
     public hasLoaded: Observable<boolean>;
-    
-    public searchText = '';
+
+    public searchText = "";
     public page: number = 1;
     public pageSize: number = 10;
     public collectionSize: number;
 
-    constructor(
-        private dataService: DataService
-    ) { }
-    
+    constructor(private dataService: DataService) {}
+
     ngOnInit() {
-        const promise = this.dataService.get('role').then((response: any) => {
+        const promise = this.dataService.get(DBTables.Role).then((response: any) => {
             if (response.success) {
-                this.roles = response.result as Role[];
-                this.allRoles = response.result as Role[];
+                this.roles = response.result as IRole[];
+                this.allRoles = response.result as IRole[];
                 this.collectionSize = this.allRoles.length;
                 this.refresh();
 
@@ -35,16 +34,17 @@ export class AdminRolesComponent implements OnInit {
             } else {
                 return false;
             }
-        })
+        });
 
         this.hasLoaded = from(promise);
     }
 
     refresh() {
-        this.roles = this.allRoles.map((role, i) => ({ id: i + 1, ...role })).slice(
-            (this.page - 1) * this.pageSize,
-            (this.page - 1) * this.pageSize + this.pageSize,
-        ) as Role[];
+        this.roles = this.allRoles
+            .map((role, i) => ({ id: i + 1, ...role }))
+            .slice(
+                (this.page - 1) * this.pageSize,
+                (this.page - 1) * this.pageSize + this.pageSize
+            ) as IRole[];
     }
-
 }

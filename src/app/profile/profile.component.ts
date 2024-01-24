@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { SessionService, DataService } from '../services';
-import { User } from '../../classes';
-import { RoleEnum } from '../enums/enums';
+import { SessionService } from 'src/app/services';
+import { RoleEnum } from 'src/app/enums/enums';
+import { IUser } from 'src/app/interfaces';
 
 @Component({
     selector: 'app-profile',
@@ -11,7 +11,7 @@ import { RoleEnum } from '../enums/enums';
 })
 
 export class ProfileComponent implements OnInit {
-    public user: User;
+    public user: IUser;
 
     constructor(
         public location: Location,

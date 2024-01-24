@@ -1,13 +1,13 @@
-<footer class="footer"
-    [class.bg-default]="getPath() == '/blog'"
-    [class.bg-white]="getPath() != '/blog'"
+<footer *ngIf="!isMatch() && !isMap()" class="footer"
+    [class.bg-default]="isBlog()"
+    [class.bg-white]="!isBlog()"
 >
     <div class="container">
         <div class="row row-grid align-items-center"
-            [ngClass]="{'my-md': getPath()!=='/profile' && getPath()!=='/register' && getPath()!=='/login' && getPath()!=='/blog', 'mb-5': getPath()==='/profile' || getPath()==='/register' || getPath()==='/login' || getPath()==='/blog'}">
+            [ngClass]="{'my-md': !isProfile() && !isRegister() && !isLogin() && !isBlog(), 'mb-5': isProfile() || isRegister() || isLogin() || isBlog() }">
             <div class="col-lg-6">
                 <h4 class="text-primary font-weight-light mb-2">{{ "SLOGAN" | translate }}</h4>
-                <h5 [class.text-white]="getPath() == '/blog'" class="mb-0 font-weight-light">{{ "APP_DESCRIPTION" | translate }}</h5>
+                <h5 [class.text-white]="isBlog()" class="mb-0 font-weight-light">{{ "APP_DESCRIPTION" | translate }}</h5>
             </div>
             <div class="col-lg-6 text-lg-center btn-wrapper">
                 <a *ngFor="let link of links" target="_blank" href="{{ link.link }}"

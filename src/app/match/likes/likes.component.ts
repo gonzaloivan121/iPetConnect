@@ -1,8 +1,9 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { User, Like, DBTables } from 'src/classes';
+import { DBTables } from 'src/classes';
 import { DataService } from 'src/app/services';
 import { Observable, from, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { ILike, IUser } from 'src/app/interfaces';
 
 @Component({
     selector: "app-likes",
@@ -10,17 +11,15 @@ import { catchError, map } from 'rxjs/operators';
     styleUrls: ["./likes.component.css"],
 })
 export class LikesComponent implements OnInit {
-    @Input() like: Like;
-    @Input() user: User;
-    otherUser: User;
+    @Input() like: ILike;
+    @Input() user: IUser;
+    otherUser: IUser;
 
     public otherUserLoaded: Observable<boolean>;
 
-    @Output() viewProfileEvent = new EventEmitter<User>();
+    @Output() viewProfileEvent = new EventEmitter<IUser>();
 
-    constructor(
-        private dataService: DataService
-    ) {}
+    constructor(private dataService: DataService) {}
 
     ngOnInit(): void {
         this.otherUserLoaded = this.getOtherUser();
@@ -37,7 +36,7 @@ export class LikesComponent implements OnInit {
                 )
                 .then((response: any) => {
                     if (response.success) {
-                        this.otherUser = response.result[0] as User;
+                        this.otherUser = response.result[0] as IUser;
                     }
                 })
         ).pipe(
@@ -46,7 +45,7 @@ export class LikesComponent implements OnInit {
         );
     }
 
-    viewProfile(user: User) {
+    viewProfile(user: IUser) {
         this.viewProfileEvent.emit(user);
     }
 }

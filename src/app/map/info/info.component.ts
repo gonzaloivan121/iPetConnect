@@ -1,7 +1,8 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { RoleEnum } from 'src/app/enums/enums';
-import { DBTables, Marker, User } from 'src/classes';
+import { DBTables } from 'src/classes';
 import { DataService } from 'src/app/services';
+import { IMarker, IUser } from "src/app/interfaces";
 
 @Component({
     selector: "app-info",
@@ -9,15 +10,15 @@ import { DataService } from 'src/app/services';
     styleUrls: ["./info.component.css"],
 })
 export class InfoComponent implements OnInit {
-    @Input() user?: User;
-    @Input() marker: Marker;
+    @Input() user?: IUser;
+    @Input() marker: IMarker;
 
     public isMarkerFavourite: boolean = false;
 
     @Output() closeEvent = new EventEmitter<void>();
-    @Output() editEvent = new EventEmitter<any>();
-    @Output() deleteEvent = new EventEmitter<any>();
-    @Output() favouriteEvent = new EventEmitter<any>();
+    @Output() editEvent = new EventEmitter<IMarker>();
+    @Output() deleteEvent = new EventEmitter<IMarker>();
+    @Output() favouriteEvent = new EventEmitter<IMarker>();
 
     public get roleEnum(): typeof RoleEnum {
         return RoleEnum;
@@ -28,19 +29,26 @@ export class InfoComponent implements OnInit {
     ngOnInit(): void {
         setTimeout(() => {
             if (this.user) {
-                this.dataService.getBothFrom(DBTables.FavouriteMarker, DBTables.User + "/" + DBTables.Marker, this.user.id, this.marker.id).then((response: any) => {
-                    if (response.success) {
-                        if (response.result.length > 0) {
-                            this.isMarkerFavourite = true;
+                this.dataService
+                    .getBothFrom(
+                        DBTables.FavouriteMarker,
+                        DBTables.User + "/" + DBTables.Marker,
+                        this.user.id,
+                        this.marker.id
+                    )
+                    .then((response: any) => {
+                        if (response.success) {
+                            if (response.result.length > 0) {
+                                this.isMarkerFavourite = true;
+                            } else {
+                                this.isMarkerFavourite = false;
+                            }
                         } else {
-                            this.isMarkerFavourite = false;
                         }
-                    } else {
-    
-                    }
-                }).catch((error) => {
-                    console.error(error);
-                });
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
             }
         }, 500);
     }

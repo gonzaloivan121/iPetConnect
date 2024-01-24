@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { Language, User } from "src/classes";
 import { DataService, SessionService, TranslateService } from "src/app/services";
+import { ILanguage, IUser } from "src/app/interfaces";
+import { DBTables } from "src/classes";
 
 @Component({
     selector: "app-language-select",
@@ -8,10 +9,10 @@ import { DataService, SessionService, TranslateService } from "src/app/services"
     styleUrls: ["./language-select.component.css"],
 })
 export class LanguageSelectComponent implements OnInit {
-    @Input() user: User;
+    @Input() user: IUser;
 
     selectedLanguageCode: string;
-    languages: Language[];
+    languages: ILanguage[];
 
     constructor(
         private dataService: DataService,
@@ -20,20 +21,20 @@ export class LanguageSelectComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.dataService.get("language").then((response: any) => {
+        this.dataService.get(DBTables.Language).then((response: any) => {
             if (response.success) {
-                this.languages = response.result as Language[];
+                this.languages = response.result as ILanguage[];
             }
         });
 
-        if (this.sessionService.get('language') !== null) {
+        if (this.sessionService.get("language") !== null) {
             this.setLanguage(this.sessionService.get("language"));
         } else {
             this.setLanguage(this.translateService.getCurrentLanguage());
         }
     }
 
-    selectLanguage(language: Language) {
+    selectLanguage(language: ILanguage) {
         this.translateService.use(language.code);
         this.selectedLanguageCode = language.code;
         this.sessionService.set("language", this.selectedLanguageCode);

@@ -1,8 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { Location } from "@angular/common";
 import { DataService, SessionService, AlertService } from "src/app/services";
-import { DBTables, User } from "src/classes";
+import { DBTables } from "src/classes";
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
+import { IUser } from "src/app/interfaces";
 
 @Component({
     selector: "app-edit-profile",
@@ -11,7 +12,7 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms
 })
 export class EditProfileComponent implements OnInit {
     profileForm: UntypedFormGroup;
-    user: User;
+    user: IUser;
 
     focusName: boolean = false;
     focusGender: boolean = false;
@@ -70,7 +71,7 @@ export class EditProfileComponent implements OnInit {
     }
 
     onSubmit() {
-        const formData: User = this.profileForm.value;
+        const formData: IUser = this.profileForm.value;
 
         this.user.name = formData.name;
         this.user.gender = formData.gender;

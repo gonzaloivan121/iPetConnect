@@ -14,6 +14,7 @@ export class DBTables {
     public static Marker: string = "marker";
     public static Match: string = "match";
     public static Message: string = "message";
+    public static PasswordResets: string = "password_resets";
     public static Pet: string = "pet";
     public static PetPost: string = "pet_post";
     public static Role: string = "role";

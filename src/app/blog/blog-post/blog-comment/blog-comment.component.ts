@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
-import { IBlogComment, IBlogCommentUserLike, IInsertResponse } from "src/app/interfaces";
+import { IBlogComment, IBlogCommentUserLike, IInsertResponse, IUser } from "src/app/interfaces";
 import { AlertService, DataService } from "src/app/services";
-import { DBTables, User } from "src/classes";
+import { DBTables } from "src/classes";
 import { Observable, from, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 
@@ -12,9 +12,9 @@ import { catchError, map } from "rxjs/operators";
 })
 export class BlogCommentComponent implements OnInit {
     @Input() comment: IBlogComment;
-    @Input() user?: User;
+    @Input() user?: IUser;
 
-    public commentUser: User;
+    public commentUser: IUser;
     public commentUserLoaded: Observable<boolean>;
 
     public likes: IBlogCommentUserLike[] = [];
@@ -24,7 +24,7 @@ export class BlogCommentComponent implements OnInit {
 
     constructor(
         private dataService: DataService,
-        private alertService: AlertService,
+        private alertService: AlertService
     ) {}
 
     ngOnInit(): void {
@@ -38,7 +38,7 @@ export class BlogCommentComponent implements OnInit {
                 .get(DBTables.User, this.comment.user_id)
                 .then((response: any) => {
                     if (response.success) {
-                        this.commentUser = response.result[0] as User;
+                        this.commentUser = response.result[0] as IUser;
                     } else {
                         console.warn(response.message);
                     }
@@ -114,7 +114,10 @@ export class BlogCommentComponent implements OnInit {
     dislikeComment() {
         if (this.user === undefined) return;
 
-        const like = this.likes.filter((l) => l.comment_id === this.comment.id && l.user_id === this.user.id)[0];
+        const like = this.likes.filter(
+            (l) =>
+                l.comment_id === this.comment.id && l.user_id === this.user.id
+        )[0];
         if (like === undefined) return;
 
         this.dataService

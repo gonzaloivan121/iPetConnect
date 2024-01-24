@@ -1,28 +1,27 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { User, Match, DBTables } from 'src/classes';
+import { DBTables } from 'src/classes';
 import { DataService } from 'src/app/services';
 import { Observable, from, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { IUser, IMatch } from 'src/app/interfaces'
 
 @Component({
-    selector: 'app-matches',
-    templateUrl: './matches.component.html',
-    styleUrls: ['./matches.component.css']
+    selector: "app-matches",
+    templateUrl: "./matches.component.html",
+    styleUrls: ["./matches.component.css"],
 })
 export class MatchesComponent implements OnInit {
-    @Input() match: Match;
-    @Input() user: User;
-    otherUser: User;
+    @Input() match: IMatch;
+    @Input() user: IUser;
+    otherUser: IUser;
 
     public otherUserLoaded: Observable<boolean>;
 
-    @Output() viewProfileEvent = new EventEmitter<User>();
-    @Output() openChatEvent = new EventEmitter<User>();
-    @Output() undoMatchEvent = new EventEmitter<User>();
+    @Output() viewProfileEvent = new EventEmitter<IUser>();
+    @Output() openChatEvent = new EventEmitter<IUser>();
+    @Output() undoMatchEvent = new EventEmitter<IUser>();
 
-    constructor(
-        private dataService: DataService
-    ) { }
+    constructor(private dataService: DataService) {}
 
     ngOnInit() {
         this.otherUserLoaded = this.getOtherUser();
@@ -39,7 +38,7 @@ export class MatchesComponent implements OnInit {
                 )
                 .then((response: any) => {
                     if (response.success) {
-                        this.otherUser = response.result[0] as User;
+                        this.otherUser = response.result[0] as IUser;
                     }
                 })
         ).pipe(
@@ -48,16 +47,15 @@ export class MatchesComponent implements OnInit {
         );
     }
 
-    viewProfile(user: User) {
+    viewProfile(user: IUser) {
         this.viewProfileEvent.emit(user);
     }
 
-    openChat(user: User) {
+    openChat(user: IUser) {
         this.openChatEvent.emit(user);
     }
 
-    undoMatch(user: User) {
+    undoMatch(user: IUser) {
         this.undoMatchEvent.emit(user);
     }
-
 }

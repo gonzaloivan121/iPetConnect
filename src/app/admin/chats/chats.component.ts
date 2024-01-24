@@ -1,33 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services';
-import { Chat } from 'src/classes';
 import { from, Observable } from 'rxjs';
+import { IChat } from 'src/app/interfaces';
+import { DBTables } from 'src/classes';
 
 @Component({
-    selector: 'app-admin-chats',
-    templateUrl: './chats.component.html',
-    styleUrls: ['./chats.component.css']
+    selector: "app-admin-chats",
+    templateUrl: "./chats.component.html",
+    styleUrls: ["./chats.component.css"],
 })
 export class AdminChatsComponent implements OnInit {
-    public chats: Chat[];
-    public allChats: Chat[];
+    public chats: IChat[];
+    public allChats: IChat[];
 
     public hasLoaded: Observable<boolean>;
-    
-    public searchText = '';
+
+    public searchText = "";
     public page: number = 1;
     public pageSize: number = 10;
     public collectionSize: number;
 
-    constructor(
-        private dataService: DataService
-    ) { }
-    
+    constructor(private dataService: DataService) {}
+
     ngOnInit() {
-        const promise = this.dataService.get('chat').then((response: any) => {
+        const promise = this.dataService.get(DBTables.Chat).then((response: any) => {
             if (response.success) {
-                this.chats = response.result as Chat[];
-                this.allChats = response.result as Chat[];
+                this.chats = response.result as IChat[];
+                this.allChats = response.result as IChat[];
                 this.collectionSize = this.allChats.length;
                 this.refresh();
 
@@ -35,16 +34,17 @@ export class AdminChatsComponent implements OnInit {
             } else {
                 return false;
             }
-        })
+        });
 
         this.hasLoaded = from(promise);
     }
 
     refresh() {
-        this.chats = this.allChats.map((chat, i) => ({ id: i + 1, ...chat })).slice(
-            (this.page - 1) * this.pageSize,
-            (this.page - 1) * this.pageSize + this.pageSize,
-        ) as Chat[];
+        this.chats = this.allChats
+            .map((chat, i) => ({ id: i + 1, ...chat }))
+            .slice(
+                (this.page - 1) * this.pageSize,
+                (this.page - 1) * this.pageSize + this.pageSize
+            ) as IChat[];
     }
-
 }
