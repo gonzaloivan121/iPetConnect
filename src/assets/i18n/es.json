@@ -336,6 +336,6 @@
     "ARE_YOU_SURE_YOU_WANT_TO_DELETE_CHAT": "¿Estás seguro de que deseas eliminar este chat?",
     "ARE_YOU_SURE_YOU_WANT_TO_REPORT_USER_1": "¿Estás seguro de que deseas reportar a este usuario? El informe será anónimo, por lo que tu información permanecerá protegida, pero obtendremos información del usuario al que estás reportando.",
     "ARE_YOU_SURE_YOU_WANT_TO_REPORT_USER_2": "Si estás seguro, por favor, rellena en el siguiente campo de texto la información que creas necesaria para poder procesar el informe.",
-    "REPORT_REASON": "Razón de la denuncia"
-
+    "REPORT_REASON": "Razón de la denuncia",
+    "ARE_YOU_SURE_YOU_WANT_TO_UNDO_MATCH": "¿Estás seguro de que deseas deshacer este match?"
 }

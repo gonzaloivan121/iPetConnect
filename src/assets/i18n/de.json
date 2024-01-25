@@ -336,5 +336,6 @@
     "ARE_YOU_SURE_YOU_WANT_TO_DELETE_CHAT": "Möchtest du diesen Chat wirklich löschen?",
     "ARE_YOU_SURE_YOU_WANT_TO_REPORT_USER_1": "Sind Sie sicher, dass Sie diesen Benutzer melden möchten? Die Meldung erfolgt anonym, sodass Ihre Daten geschützt bleiben. Wir erhalten jedoch Informationen von dem Benutzer, an den Sie die Meldung senden.",
     "ARE_YOU_SURE_YOU_WANT_TO_REPORT_USER_2": "Wenn Sie sicher sind, füllen Sie bitte das folgende Textfeld mit den Informationen aus, die Ihrer Meinung nach für die Bearbeitung der Meldung notwendig sind.",
-    "REPORT_REASON": "Grund für den bericht"
+    "REPORT_REASON": "Grund für den bericht",
+    "ARE_YOU_SURE_YOU_WANT_TO_UNDO_MATCH": "Sind Sie sicher, dass Sie diesen Abgleich rückgängig machen möchten?"
 }

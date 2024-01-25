@@ -336,5 +336,6 @@
     "ARE_YOU_SURE_YOU_WANT_TO_DELETE_CHAT": "Are you sure you want to delete this chat?",
     "ARE_YOU_SURE_YOU_WANT_TO_REPORT_USER_1": "Are you sure you want to report this user? The report will be anonymous, so your information will remain protected, but we will get information from the user you are reporting.",
     "ARE_YOU_SURE_YOU_WANT_TO_REPORT_USER_2": "If you are sure, please fill in the following text field with the information that you think is necessary to process the report.",
-    "REPORT_REASON": "Reason for the report"
+    "REPORT_REASON": "Reason for the report",
+    "ARE_YOU_SURE_YOU_WANT_TO_UNDO_MATCH": "Are you sure you want to undo this match?"
 }
