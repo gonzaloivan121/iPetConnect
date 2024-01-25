@@ -1,5 +1,18 @@
-<button class="btn background-image post-thumbnail shadow w-100 m-0 p-0"
-    style="background-image: url('assets/img/ipetconnect_background.jpg')"></button>
+<input #fileInput type="file" accept="image/png, image/jpeg" name="image" class="d-none" (change)="onFileSelected($event.target.files)">
+
+<div class="position-relative">
+    <button class="btn bg-default background-image post-thumbnail shadow w-100 m-0 p-0" style="background-image: url('{{ image }}');" (click)="fileInput.click()">
+        <div *ngIf="image === ''">
+            <i class="ni ni-image image-icon text-white m-0 pb-4"></i>
+            <h4 class="post-thumbnail-text text-white m-0">{{ "NO_IMAGE" | translate }}</h4>
+            <p class="post-thumbnail-text text-white m-0">{{ "ADD_POST_IMAGE" | translate }}</p>
+        </div>
+    </button>
+    
+    <button *ngIf="image !== ''" class="btn btn-secondary rounded-circle btn-icon-only position-absolute right-0 m-3" (click)="clearImage(); fileInput.value = null">
+        <span class="btn-inner--icon">✖</span>
+    </button>
+</div>
 
 <div ngbAccordion [closeOthers]="true">
     <div class="py-4" ngbAccordionItem [collapsed]="true" [destroyOnHide]="false">

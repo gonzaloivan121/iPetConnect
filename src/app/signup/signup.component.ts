@@ -134,6 +134,7 @@ export class SignupComponent implements OnInit {
         const formData = this.signupForm.value;
         formData.birthday = `${formData.birthday.year}/${formData.birthday.month}/${formData.birthday.day}`;
         formData.birthday = new Date(formData.birthday);
+        formData.image = "assets/img/ipetconnect_background.jpg";
         
         this.dataService.insert(DBTables.User, formData).then((response: any) => {
             if (response.success) {
@@ -146,7 +147,7 @@ export class SignupComponent implements OnInit {
                     role_id: formData.role_id,
                     birthday: formData.birthday,
                     gender: formData.gender,
-                    image: "assets/img/ipetconnect_background.jpg",
+                    image: formData.image,
                     created_at: response.created_at,
                     updated_at: response.created_at,
                 };

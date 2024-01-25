@@ -19,7 +19,7 @@
                         <div class="col-lg-3 order-lg-2">
                             <div class="card-profile-image">
                                 <a (click)="fileUpload.click()" class="image-upload" href="javascript:void(0)">
-                                    <img #profileImage [src]="user.image" class="rounded-circle">
+                                    <img [src]="user.image" class="rounded-circle">
                                     <div class="upload-button-container">
                                         <button class="btn btn-icon-only rounded-circle w-100 h-100">
                                             <i class="ni ni-ruler-pencil"></i>
@@ -38,7 +38,7 @@
                         <div class="col">
                             <!-- START - Form -->
                             <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" role="form">
-                                <input type="file" accept="image/png, image/jpeg" name="image" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+                                <input type="file" accept="image/png, image/jpeg" name="image" class="file-input" (change)="onFileSelected($event.target.files)" #fileUpload>
                                 <!-- START - Username -->
                                 <div class="row">
                                     <div class="col-lg-3">

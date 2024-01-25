@@ -19,7 +19,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     title: string = "";
     description: string = "";
     content: string = "";
-    image: string = "assets/img/ipetconnect_background.jpg";
+    image: string = "";
 
     user: IUser;
     previewPost: IBlogPost;
@@ -160,6 +160,12 @@ export class EditorComponent implements OnInit, OnDestroy {
 
     changeTitle(title: string) {
         this.title = title;
+
+        this.checkValidity();
+    }
+
+    changeImage(image: string) {
+        this.image = image;
 
         this.checkValidity();
     }

@@ -4,6 +4,14 @@
     border: 2px solid;
 }
 
+.image-icon {
+    font-size: 3rem;
+}
+
+.post-thumbnail-text {
+    text-transform: none !important;
+}
+
 .accordion-button {
     all: unset;
     cursor: pointer;

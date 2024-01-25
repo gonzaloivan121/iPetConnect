@@ -18,17 +18,12 @@ export class EditProfileComponent implements OnInit {
     focusGender: boolean = false;
     focusBio: boolean = false;
 
-    selectedFile?: FileList;
-    currentFile?: File;
-
-    @ViewChild("profileImage") profileImage: ElementRef;
-
     constructor(
         private sessionService: SessionService,
         private location: Location,
         private formBuilder: UntypedFormBuilder,
         private dataService: DataService,
-        private alertService: AlertService,
+        private alertService: AlertService
     ) {}
 
     ngOnInit(): void {
@@ -76,7 +71,6 @@ export class EditProfileComponent implements OnInit {
         this.user.name = formData.name;
         this.user.gender = formData.gender;
         this.user.bio = formData.bio;
-        this.user.image = this.profileImage.nativeElement.src;
 
         this.dataService
             .update(DBTables.User, this.user)
@@ -105,25 +99,19 @@ export class EditProfileComponent implements OnInit {
         console.log("upload");
     }
 
-    onFileSelected(event: any): void {
-        this.selectedFile = event.target.files;
+    onFileSelected(files: FileList): void {
+        if (files.length <= 0) return;
 
-        if (this.selectedFile) {
-            const file: File | null = this.selectedFile.item(0);
+        const file: File | null = files.item(0);
 
-            if (file) {
-                var preview = "";
-                this.currentFile = file;
+        if (!file) return;
 
-                const reader = new FileReader();
+        const reader = new FileReader();
 
-                reader.onload = (e: any) => {
-                    preview = e.target.result;
-                    this.profileImage.nativeElement.src = preview;
-                };
+        reader.onload = (e: ProgressEvent<FileReader>) => {
+            this.user.image = e.target.result.toString();
+        };
 
-                reader.readAsDataURL(this.currentFile);
-            }
-        }
+        reader.readAsDataURL(file);
     }
 }
