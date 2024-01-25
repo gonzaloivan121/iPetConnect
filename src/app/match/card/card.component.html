@@ -2,7 +2,7 @@
     <div class="p-0 h-100 custom-card-component">
         <div *ngIf="!isDummy" class="background-image bg-image shadow h-50 w-100" style="background-image: url('{{ user.image }}')">
             <button *ngIf="isMatch" (click)="closeProfile()" class="btn btn-secondary rounded-circle btn-icon-only settings">
-                <span class="btn-inner--text">✖</span>
+                <span class="btn-inner--icon">✖</span>
             </button>
         </div>
 
@@ -56,7 +56,7 @@
         <div *ngIf="!isDummy && !isMatch" class="buttons-container w-100 d-flex justify-content-evenly position-absolute text-center">
             <button (click)="dislike()" class="btn btn-danger m-0 d-flex justify-content-center align-items-center info-img-container dislike">
                 <div class="d-flex justify-content-center align-items-center text-white image-container display-4">
-                    <span class="btn-inner--text">✖</span>
+                    <span class="btn-inner--icon">✖</span>
                 </div>
             </button>
             <button (click)="like()" class="btn btn-success m-0 d-flex justify-content-center align-items-center info-img-container like">

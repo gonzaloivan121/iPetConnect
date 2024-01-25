@@ -39,7 +39,7 @@
             </div>
             <div class="w-100 position-absolute p-3 d-flex justify-content-between">
                 <div class="" ngbDropdown>
-                    <button *ngIf="user && user.role_id != roleEnum.Blogger" class="btn btn-icon m-0 rounded-circle aspect-ratio-1by1" type="button" id="contextMenuDropdown" ngbDropdownToggle>
+                    <button *ngIf="user && user.role_id != roleEnum.Blogger" class="btn btn-icon-only m-0 rounded-circle aspect-ratio-1by1" type="button" id="contextMenuDropdown" ngbDropdownToggle>
                         <span class="btn-inner--icon"><i class="ni ni-bullet-list-67"></i></span>
                     </button>
                     <ul *ngIf="user" class="my-3" aria-labelledby="contextMenuDropdown" ngbDropdownMenu>
@@ -70,8 +70,8 @@
                         </li>
                     </ul>
                 </div>
-                <button (click)="closeInfo()" class="btn m-0 rounded-circle aspect-ratio-1by1" type="button">
-                    <span class="btn-inner--text">✖</span>
+                <button (click)="closeInfo()" class="btn btn-icon-only m-0 rounded-circle aspect-ratio-1by1" type="button">
+                    <span class="btn-inner--icon">✖</span>
                 </button>
             </div>
         </div>
