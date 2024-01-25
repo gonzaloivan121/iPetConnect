@@ -331,5 +331,6 @@
     "ADD_POST_IMAGE": "Adicione uma imagem para a postagem",
     "CREATE_MARKER": "Criar Marcador",
     "ADD_MARKER_IMAGE": "Adicione uma imagem para o marcador",
-    "CREATE": "Criar"
+    "CREATE": "Criar",
+    "ARE_YOU_SURE_YOU_WANT_TO_DELETE_MARKER": "Tem certeza de que deseja excluir este marcador?"
 }

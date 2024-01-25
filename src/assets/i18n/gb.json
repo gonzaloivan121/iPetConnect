@@ -331,5 +331,6 @@
     "ADD_POST_IMAGE": "Add an image for the post",
     "CREATE_MARKER": "Create Marker",
     "ADD_MARKER_IMAGE": "Add an image for the marker",
-    "CREATE": "Create"
+    "CREATE": "Create",
+    "ARE_YOU_SURE_YOU_WANT_TO_DELETE_MARKER": "Are you sure you want to delete this marker?"
 }

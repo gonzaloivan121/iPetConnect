@@ -331,5 +331,6 @@
     "ADD_POST_IMAGE": "Ajouter une image pour la publication",
     "CREATE_MARKER": "Créer un Signet",
     "ADD_MARKER_IMAGE": "Ajouter une image pour le signet",
-    "CREATE": "Créer"
+    "CREATE": "Créer",
+    "ARE_YOU_SURE_YOU_WANT_TO_DELETE_MARKER": "Êtes vous sûr de vouloir supprimer ce marque-page?"
 }

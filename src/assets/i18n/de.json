@@ -331,5 +331,6 @@
     "ADD_POST_IMAGE": "Fügen sie ein bild für den beitrag hinzu",
     "CREATE_MARKER": "Lesezeichen Erstelle",
     "ADD_MARKER_IMAGE": "Fügen sie ein bild für das lesezeichen hinzu",
-    "CREATE": "Erstellen"
+    "CREATE": "Erstellen",
+    "ARE_YOU_SURE_YOU_WANT_TO_DELETE_MARKER": "Möchten sie dieses lesezeichen wirklich löschen?"
 }
