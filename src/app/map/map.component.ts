@@ -6,7 +6,8 @@ import { environment } from 'src/environments/environment';
 import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { DataService, SessionService, AlertService } from 'src/app/services';
 import { DBTables } from 'src/classes';
-import { IMarkerResponse, IMarker, IUser } from 'src/app/interfaces';
+import { IMarkerResponse, IMarker, IUser, IFavouriteMarker, ICoordinates } from 'src/app/interfaces';
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
     selector: "app-map",
@@ -28,6 +29,12 @@ export class MapComponent implements OnInit {
     @ViewChild("myGoogleMap", { static: false }) map!: GoogleMap;
     @ViewChild(MapInfoWindow, { static: false }) infoWindow!: MapInfoWindow;
     @ViewChild("search", { static: false }) searchBoxElement: ElementRef;
+    @ViewChild("createMarkerContent", { static: false })
+    createMarkerContent: ElementRef;
+    @ViewChild("editMarkerContent", { static: false })
+    editMarkerContent: ElementRef;
+    @ViewChild("deleteMarkerContent", { static: false })
+    deleteMarkerContent: ElementRef;
 
     maxZoom = 20;
     minZoom = 5;
@@ -53,11 +60,14 @@ export class MapComponent implements OnInit {
     isSidebarOpen: boolean = false;
     isSearchbarFocused: boolean = false;
 
+    createMarkerCoordinates: ICoordinates;
+
     constructor(
         private httpClient: HttpClient,
         private dataService: DataService,
         private sessionService: SessionService,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private modalService: NgbModal
     ) {}
 
     ngOnInit(): void {
@@ -141,7 +151,7 @@ export class MapComponent implements OnInit {
         return from(
             this.dataService.get(DBTables.Marker).then((response: any) => {
                 if (response.success) {
-                    let markers = response.result;
+                    let markers = response.result as IMarker[];
                     let bounds = new google.maps.LatLngBounds();
                     let icons = this.generateIcons();
 
@@ -181,12 +191,12 @@ export class MapComponent implements OnInit {
             case "mapDblclick":
                 if (!this.user) return;
 
-                const coordinates = {
+                this.createMarkerCoordinates = {
                     lat: event.latLng.lat(),
                     lng: event.latLng.lng(),
                 };
 
-                this.createTestMarker(coordinates);
+                this.openMarkerModal(this.createMarkerContent);
                 break;
             case "idle":
                 if (this.firstLoad) {
@@ -198,6 +208,7 @@ export class MapComponent implements OnInit {
                 break;
         }
     }
+
     initMap() {
         this.setCurrentPosition();
 
@@ -244,7 +255,7 @@ export class MapComponent implements OnInit {
         });
     }
 
-    openInfo(marker: MapMarker, markerData) {
+    openInfo(marker: MapMarker, markerData: IMarker) {
         this.infoWindow.close();
         this.selectedMarker = markerData;
         this.infoWindow.open(marker);
@@ -262,16 +273,16 @@ export class MapComponent implements OnInit {
     }
 
     editMarker(marker: IMarker) {
-        console.log("edit from map", marker);
+        this.selectedMarker = marker;
+        this.openMarkerModal(this.editMarkerContent);
     }
 
     deleteMarker(marker: IMarker) {
-        console.log("delete from map", marker);
+        this.selectedMarker = marker;
+        this.openMarkerModal(this.deleteMarkerContent);
     }
 
     favouriteMarker(marker: IMarker) {
-        console.log("favourite from map", marker);
-
         const data = {
             user_id: this.user.id,
             marker_id: marker.id,
@@ -293,53 +304,48 @@ export class MapComponent implements OnInit {
             });
     }
 
-    createTestMarker(latLng) {
-        const types = [
-            "RESCUE",
-            "URGENCY",
-            "VETERINARY",
-            "CARER",
-            "ADOPTION",
-            "INFORMATION",
-        ];
-        const species = [1, 2, 3, 4];
-        const breeds = {
-            "1": [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 38],
-            "2": [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 39, 40],
-            "3": [31, 32, 33, 34, 35, 36, 37],
-            "4": [25, 26, 27, 28, 29, 30],
-        };
-
-        const species_id = this.random(species);
-
-        const request = {
-            id: null,
-            species_id: species_id,
-            breed_id: this.random(breeds[species_id]),
-            user_id: this.user.id,
-            title: "Random ",
-            description: "Random... ",
-            type: this.random(types),
-            color: "Test color",
-            coordinates: JSON.stringify(latLng),
-            image: null,
-        };
+    unfavouriteMarker(marker: IMarker) {
+        console.log("unfavourite from map", marker);
 
         this.dataService
-            .insert(DBTables.Marker, request)
-            .then((response: IMarkerResponse) => {
+            .getBothFrom(
+                DBTables.FavouriteMarker,
+                DBTables.User + "/" + DBTables.Marker,
+                this.user.id,
+                marker.id
+            )
+            .then((response: any) => {
                 if (response.success) {
-                    request.id = response.result.insertId;
-                    let icons = this.generateIcons();
-                    let marker = this.generateMarker(request, icons);
-                    this.markers.push(marker);
+                    const favouriteMarker = response
+                        .result[0] as IFavouriteMarker;
+                    this.deleteFavouriteMarker(favouriteMarker, marker);
                 } else {
+                    console.warn(response.message);
                 }
+            })
+            .catch((error) => {
+                console.error(error);
             });
     }
 
-    random(arr: Array<number | string>): number | string {
-        return arr[Math.floor(Math.random() * arr.length)];
+    deleteFavouriteMarker(favouriteMarker: IFavouriteMarker, marker: IMarker) {
+        this.dataService
+            .delete(DBTables.FavouriteMarker, favouriteMarker)
+            .then((response: any) => {
+                if (response.success) {
+                    this.alertService.openSuccess(response.message);
+                    this.favouriteMarkers.splice(
+                        this.favouriteMarkers.indexOf(marker),
+                        1
+                    );
+                } else {
+                    this.alertService.openWarning(response.message);
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+                this.alertService.openDanger("There has been an error.");
+            });
     }
 
     filterMarkers(type: string) {
@@ -400,5 +406,87 @@ export class MapComponent implements OnInit {
             map(() => true),
             catchError(() => of(false))
         );
+    }
+
+    openMarkerModal(content) {
+        this.modalService.open(content, { centered: true });
+    }
+
+    createMarker(marker: IMarker, closeEvent: any) {
+        marker.user_id = this.user.id;
+        marker.coordinates = this.createMarkerCoordinates;
+
+        const request: any = marker;
+        request.coordinates = JSON.stringify(this.createMarkerCoordinates);
+
+        this.dataService
+            .insert(DBTables.Marker, request)
+            .then((response: IMarkerResponse) => {
+                if (response.success) {
+                    marker.id = response.result.insertId;
+                    marker.created_at = new Date(response.created_at);
+                    marker.updated_at = new Date(response.created_at);
+
+                    let icons = this.generateIcons();
+                    let mapMarker = this.generateMarker(marker, icons);
+                    this.markers.push(mapMarker);
+
+                    closeEvent("Marker created");
+                } else {
+                    console.warn(response.message);
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
+    handleEditMarker(marker, closeEvent: any) {
+        const request: any = Object.assign({}, marker);
+        request.coordinates = JSON.stringify({
+            lat: marker.coordinates.lat(),
+            lng: marker.coordinates.lng(),
+        });
+
+        console.log(request);
+
+        this.dataService
+            .update(DBTables.Marker, request)
+            .then((response: IMarkerResponse) => {
+                if (response.success) {
+                    let icons = this.generateIcons();
+                    const markerToEdit = this.markers.filter(
+                        (m) => (m.get("data") as IMarker).id === marker.id
+                    )[0];
+                    markerToEdit.setTitle(marker.title);
+                    markerToEdit.setIcon(icons[marker.type]);
+                    markerToEdit.set("data", marker);
+                    this.selectedMarker = marker;
+
+                    closeEvent("Marker edited");
+                } else {
+                    console.warn(response.message);
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
+    handleDeleteMarker(closeEvent: any) {
+        this.dataService.delete(DBTables.Marker, this.selectedMarker).then((response: any) => {
+            if (response.success) {
+                const markerToDelete = this.markers.filter(
+                    (m) => (m.get("data") as IMarker).id === this.selectedMarker.id
+                )[0];
+                this.infoWindow.close();
+                this.markers.splice(this.markers.indexOf(markerToDelete), 1);
+                this.selectedMarker = null;
+                
+                closeEvent("Marker deleted");
+            } else {
+                console.warn(response.message);
+            }
+        }).catch((error) => console.error(error));
     }
 }

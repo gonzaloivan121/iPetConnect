@@ -1,0 +1,17 @@
+.description {
+    min-height: 6rem;
+}
+
+.thumbnail {
+    aspect-ratio: 16/9;
+    border-radius: 15px;
+    border: 2px solid;
+}
+
+.image-icon {
+    font-size: 3rem;
+}
+
+.thumbnail-text {
+    text-transform: none !important;
+}

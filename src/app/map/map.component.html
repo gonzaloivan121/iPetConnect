@@ -1,9 +1,57 @@
 <div class="header"></div>
 
+<ng-template #createMarkerContent let-modal>
+    <div class="modal-header align-items-center">
+        <h4 class="modal-title">{{ "CREATE_MARKER" | translate }}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'CLOSE' | translate }}"
+            (click)="modal.dismiss('Cross click')">
+            <span class="btn-inner--icon">✖</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-create-marker (closeModalEvent)="modal.dismiss('Cancel click')"
+            (createMarkerEvent)="createMarker($event, modal.dismiss)"></app-create-marker>
+    </div>
+</ng-template>
+
+<ng-template #editMarkerContent let-modal>
+    <div class="modal-header align-items-center">
+        <h4 class="modal-title">{{ "EDIT_MARKER" | translate }}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'CLOSE' | translate }}"
+            (click)="modal.dismiss('Cross click')">
+            <span class="btn-inner--icon">✖</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-edit-marker [marker]="selectedMarker" (closeModalEvent)="modal.dismiss('Cancel click')"
+            (editMarkerEvent)="handleEditMarker($event, modal.dismiss)"></app-edit-marker>
+    </div>
+</ng-template>
+
+<ng-template #deleteMarkerContent let-modal>
+    <div class="modal-header align-items-center">
+        <h4 class="modal-title">{{ "DELETE_MARKER" | translate }}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'CLOSE' | translate }}"
+            (click)="modal.dismiss('Cross click')">
+            <span class="btn-inner--icon">✖</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <label>{{ "ARE_YOU_SURE_YOU_WANT_TO_DELETE" | translate }}</label>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-block btn-default" (click)="modal.dismiss('No button click')">
+            {{ "NO" | translate }}
+        </button>
+        <button class="btn btn-block btn-danger m-0" (click)="handleDeleteMarker(modal.dismiss)">
+            {{ "YES" | translate }}
+        </button>
+    </div>
+</ng-template>
+
 <div class="position-relative">
     <div class="container-fluid p-0">
         <div class="row w-100 m-0">
-
             <div class="col-lg-3 p-0 limit-height bg-white sidebar" [class.open]="isSidebarOpen">
                 <div class="row p-4 m-0">
                     <div class="col-10 col-lg-12 form-group m-0 p-0">
@@ -45,7 +93,7 @@
                         <map-info-window>
                             <app-info [marker]="selectedMarker" [user]="user" (closeEvent)="closeInfo()"
                                 (editEvent)="editMarker($event)" (deleteEvent)="deleteMarker($event)"
-                                (favouriteEvent)="favouriteMarker($event)"></app-info>
+                                (favouriteEvent)="favouriteMarker($event)" (unfavouriteEvent)="unfavouriteMarker($event)"></app-info>
                         </map-info-window>
                 
                         <button type="button" id="go-to-location" class="custom-map-control-button" (click)="setCurrentPosition()">

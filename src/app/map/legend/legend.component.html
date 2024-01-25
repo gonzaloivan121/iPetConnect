@@ -1,5 +1,5 @@
 <div ngbAccordion [closeOthers]="true">
-    <div ngbAccordionItem [collapsed]="false">
+    <div ngbAccordionItem [collapsed]="false" [destroyOnHide]="false">
         <div ngbAccordionHeader class="text-center py-sm">
             <button ngbAccordionButton>
                 <span class="display-4">{{ "MARKER_TYPES" | translate }}</span>
@@ -23,7 +23,7 @@
 
     <div *ngIf="user && user.role_id != roleEnum.Blogger" class="dropdown-divider"></div>
 
-    <div *ngIf="user && user.role_id != roleEnum.Blogger" ngbAccordionItem [collapsed]="false">
+    <div *ngIf="user && user.role_id != roleEnum.Blogger" ngbAccordionItem [collapsed]="false" [destroyOnHide]="false">
         <div ngbAccordionHeader class="text-center py-sm">
             <button ngbAccordionButton>
                 <span class="display-4">{{ "FAVOURITE_MARKERS" | translate }}</span>

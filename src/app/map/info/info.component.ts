@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
 import { RoleEnum } from 'src/app/enums/enums';
 import { DBTables } from 'src/classes';
 import { DataService } from 'src/app/services';
@@ -9,9 +9,9 @@ import { IMarker, IUser } from "src/app/interfaces";
     templateUrl: "./info.component.html",
     styleUrls: ["./info.component.css"],
 })
-export class InfoComponent implements OnInit {
+export class InfoComponent implements OnChanges {
     @Input() user?: IUser;
-    @Input() marker: IMarker;
+    @Input() marker?: IMarker;
 
     public isMarkerFavourite: boolean = false;
 
@@ -19,6 +19,7 @@ export class InfoComponent implements OnInit {
     @Output() editEvent = new EventEmitter<IMarker>();
     @Output() deleteEvent = new EventEmitter<IMarker>();
     @Output() favouriteEvent = new EventEmitter<IMarker>();
+    @Output() unfavouriteEvent = new EventEmitter<IMarker>();
 
     public get roleEnum(): typeof RoleEnum {
         return RoleEnum;
@@ -26,46 +27,56 @@ export class InfoComponent implements OnInit {
 
     constructor(private dataService: DataService) {}
 
-    ngOnInit(): void {
-        setTimeout(() => {
-            if (this.user) {
-                this.dataService
-                    .getBothFrom(
-                        DBTables.FavouriteMarker,
-                        DBTables.User + "/" + DBTables.Marker,
-                        this.user.id,
-                        this.marker.id
-                    )
-                    .then((response: any) => {
-                        if (response.success) {
-                            if (response.result.length > 0) {
-                                this.isMarkerFavourite = true;
-                            } else {
-                                this.isMarkerFavourite = false;
-                            }
-                        } else {
-                        }
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                    });
-            }
-        }, 500);
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.marker.currentValue !== undefined) {
+            this.checkIfMarkerIsFavourite();
+        }
     }
 
-    closeInfo() {
+    checkIfMarkerIsFavourite(): void {
+        if (this.user && this.marker) {
+            this.dataService
+                .getBothFrom(
+                    DBTables.FavouriteMarker,
+                    DBTables.User + "/" + DBTables.Marker,
+                    this.user.id,
+                    this.marker.id
+                )
+                .then((response: any) => {
+                    if (response.success) {
+                        if (response.result.length > 0) {
+                            this.isMarkerFavourite = true;
+                        } else {
+                            this.isMarkerFavourite = false;
+                        }
+                    } else {
+                    }
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+    }
+
+    closeInfo(): void {
         this.closeEvent.emit();
     }
 
-    editMarker() {
+    editMarker(): void {
         this.editEvent.emit(this.marker);
     }
 
-    deleteMarker() {
+    deleteMarker(): void {
         this.deleteEvent.emit(this.marker);
     }
 
-    favouriteMarker() {
+    favouriteMarker(): void {
+        this.isMarkerFavourite = true;
         this.favouriteEvent.emit(this.marker);
+    }
+
+    unfavouriteMarker(): void {
+        this.isMarkerFavourite = false;
+        this.unfavouriteEvent.emit(this.marker);
     }
 }

@@ -74,6 +74,8 @@ import { EditorTagsComponent } from './blog/editor/editor-sidebar/editor-tags/ed
 import { PetsComponent } from './pets/pets.component';
 import { PetPostComponent } from './pets/pet-post/pet-post.component';
 import { DateAgoPipe } from './pipes/date-ago.pipe';
+import { CreateMarkerComponent } from './map/create-marker/create-marker.component';
+import { EditMarkerComponent } from './map/edit-marker/edit-marker.component';
 
 export function setupAppConfigServiceFactory(
     service: AppConfigService
@@ -148,6 +150,8 @@ export function setupTranslateServiceFactory(
         PetsComponent,
         PetPostComponent,
         DateAgoPipe,
+        CreateMarkerComponent,
+        EditMarkerComponent,
     ],
     imports: [
         NgbModule,
