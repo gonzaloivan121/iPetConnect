@@ -35,16 +35,14 @@ export class ChatComponent implements OnInit, OnChanges {
     ) {}
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (changes.chat) {
-            this.chat = changes.chat.currentValue;
-        }
-
-        if (changes.isOpen && changes.isOpen.currentValue === true) {
-            this.scrollToBottom();
+        if (this.isOpen && this.chat.messages && this.chat.messages.length > 0) {
+            setTimeout(() => {
+                this.scrollToBottom();
+            }, 200);
             this.readMessages();
         }
 
-        if (this.chat !== undefined) {
+        if (this.chat) {
             this.otherUserLoaded = this.getOtherUser();
         }
     }
@@ -73,13 +71,11 @@ export class ChatComponent implements OnInit, OnChanges {
     }
 
     scrollToBottom(): void {
-        setTimeout(() => {
-            const el: HTMLElement = document.getElementById("chatElement");
-            el.scrollTo({
-                top: Math.max(0, el.scrollHeight - el.offsetHeight),
-                behavior: "smooth",
-            });
-        }, 200);
+        const el: HTMLElement = document.getElementById("chatElement");
+        el.scrollTo({
+            top: Math.max(0, el.scrollHeight - el.offsetHeight),
+            behavior: "smooth",
+        });
     }
 
     get message() {
@@ -99,7 +95,6 @@ export class ChatComponent implements OnInit, OnChanges {
             .insert(DBTables.Message, data)
             .then((response: IMessageResponse) => {
                 if (response.success) {
-
                     const message: IMessage = {
                         id: response.result?.insertId,
                         chat_id: data.chat_id,
@@ -111,8 +106,14 @@ export class ChatComponent implements OnInit, OnChanges {
                         updated_at: new Date(response.created_at),
                     };
 
+                    if (!this.chat.messages) {
+                        this.chat.messages = [];
+                    }
+
                     this.chat.messages.push(message);
-                    this.scrollToBottom();
+                    setTimeout(() => {
+                        this.scrollToBottom();
+                    }, 200);
                     this.message.reset();
                 }
             });

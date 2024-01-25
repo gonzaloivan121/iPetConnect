@@ -203,6 +203,14 @@ export interface IUser {
     updated_at?: Date;
 }
 
+export interface IUserReport {
+    id?: number;
+    reason: string;
+    user_id: number;
+    created_at?: Date;
+    updated_at?: Date;
+}
+
 export interface ITeamMember {
     id: number;
     name: string;

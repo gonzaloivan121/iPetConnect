@@ -33,6 +33,7 @@ export {
     IRole,
     ISpecies,
     IUser,
+    IUserReport,
     ITeamMember,
     ICoordinates
 } from "./classes/classes";

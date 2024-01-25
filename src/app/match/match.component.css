@@ -145,6 +145,10 @@ app-user-card {
     z-index: 1;
 }
 
+.report-reason {
+    min-height: 6rem;
+}
+
 app-user-card.like,
 app-user-card.dislike,
 app-user-card.open,

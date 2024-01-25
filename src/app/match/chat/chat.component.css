@@ -48,3 +48,7 @@
     resize: none;
     border-radius: 0;
 }
+
+.back-to-bottom {
+    margin: -3.5rem;
+}

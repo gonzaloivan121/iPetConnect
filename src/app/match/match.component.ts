@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
-import { SessionService, DataService } from 'src/app/services';
+import { SessionService, DataService, AlertService } from 'src/app/services';
 import { DBTables } from 'src/classes';
 import { RoleEnum, MatchTabEnum, LikesTabEnum } from 'src/app/enums/enums';
 import { Observable, from, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { IConfig, IUser, IChat, IMessage, IMatch, ILike } from 'src/app/interfaces';
+import { IConfig, IUser, IChat, IMatch, ILike, IUserReport } from 'src/app/interfaces';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: "app-match",
@@ -43,10 +44,24 @@ export class MatchComponent implements OnInit {
 
     isSidebarOpen: boolean = true;
 
+    @ViewChild("deleteChatContent", { static: false })
+    deleteChatContent: ElementRef;
+
+    @ViewChild("reportUserContent", { static: false })
+    reportUserContent: ElementRef;
+
+    @ViewChild("undoMatchContainer", { static: false })
+    undoMatchContainer: ElementRef;
+
+    currentUserSelectedToReport: IUser;
+    currentUserSelectedToUndoMatch: IUser;
+
     constructor(
         public location: Location,
         private sessionService: SessionService,
-        private dataService: DataService
+        private dataService: DataService,
+        private modalService: NgbModal,
+        private alertService: AlertService
     ) {}
 
     ngOnInit() {
@@ -170,25 +185,6 @@ export class MatchComponent implements OnInit {
         return Math.abs(Math.round(diff / 365.25));
     }
 
-    testMatches() {
-        const ids = [
-            1, 2, 4, 5, 6, 7, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 35, 36,
-            37, 38, 46, 47, 50, 51,
-        ];
-
-        for (let i = 0; i < ids.length; i++) {
-            var newMatch: IMatch = {
-                id: this.matches[0].id + i,
-                user1_id: ids[i],
-                user2_id: 45,
-                created_at: this.matches[0].created_at,
-                updated_at: this.matches[0].updated_at,
-            };
-
-            this.matches.push(newMatch);
-        }
-    }
-
     getMatches(): Observable<boolean> {
         return from(
             this.dataService
@@ -277,84 +273,26 @@ export class MatchComponent implements OnInit {
         }, 333);
     }
 
-    addTestChat(): void {
-        const messages: IMessage[] = [];
-        const chat_id = this.random(1, 100);
-
-        for (let i = 0; i < this.random(1, 5); i++) {
-            const message: IMessage = {
-                chat_id: chat_id,
-                user_id: this.random(0, 1) == 0 ? 45 : 12,
-                message: `Message ${this.random(0, 100)}`,
-                edited: false,
-                read: false,
-            };
-
-            messages.push(message);
-        }
-
-        const chat: IChat = {
-            id: chat_id,
-            user1_id: 45,
-            user2_id: 12,
-            messages: messages
-        };
-
-        this.chats.push(chat);
-    }
-
-    removeTestChat(): void {
-        this.chats.pop();
-    }
-
-    addTestMatch(): void {
-        const match: IMatch = {
-            user1_id: 45,
-            user2_id: 3
-        };
-
-        this.matches.push(match);
-    }
-
-    removeTestMatch(): void {
-        this.matches.pop();
-    }
-
-    addTestReceivedLike(): void {
-        const like: ILike = {
-            user1_id: 45,
-            user2_id: 3
-        };
-        this.likesReceived.push(like);
-    }
-
-    removeTestReceivedLike(): void {
-        this.likesReceived.pop();
-    }
-
-    addTestGivenLike(): void {
-        const like: ILike = {
-            user1_id: 45,
-            user2_id: 3,
-        };
-        this.likesGiven.push(like);
-    }
-
-    removeTestGivenLike(): void {
-        this.likesGiven.pop();
-    }
-
-    random(min: number, max: number): number {
-        return Math.floor(Math.random() * (max - min + 1) + min);
-    }
-
     openChat(chat: IChat) {
         this.currentChat = chat;
         this.isChatOpen = true;
     }
 
     closeChat() {
+        if (this.willDeleteChatOnClose()) {
+            this.handleDeleteChat();
+        }
+
         this.isChatOpen = false;
+    }
+
+    willDeleteChatOnClose(): boolean {
+        return (
+            this.currentChat &&
+            (!this.currentChat.messages ||
+                (this.currentChat.messages &&
+                    this.currentChat.messages.length === 0))
+        );
     }
 
     viewProfile(user: IUser) {
@@ -372,27 +310,138 @@ export class MatchComponent implements OnInit {
     }
 
     deleteChat(chat: IChat) {
-        console.log("deleteChat", chat);
+        this.openModal(this.deleteChatContent);
+    }
+
+    handleDeleteChat(closeEvent?: any) {
+        this.dataService
+            .delete(DBTables.Chat, this.currentChat)
+            .then((response: any) => {
+                if (response.success) {
+                    this.chats.splice(this.chats.indexOf(this.currentChat), 1);
+                    this.currentChat = null;
+
+                    if (closeEvent) {
+                        closeEvent("Chat deleted");
+                        this.closeChat();
+                        this.alertService.openSuccess(response.message);
+                    }
+                } else {
+                    this.alertService.openWarning(response.message);
+                }
+            })
+            .catch((error) => console.error(error));
     }
 
     repotUser(user: IUser) {
-        console.log("reportUser", user);
+        this.currentUserSelectedToReport = user;
+        this.openModal(this.reportUserContent);
+    }
+
+    handleReportUser(reason: string, closeEvent: any) {
+        const data: IUserReport = {
+            user_id: this.currentUserSelectedToReport.id,
+            reason: reason,
+        };
+
+        this.dataService
+            .insert(DBTables.UserReport, data)
+            .then((response: any) => {
+                if (response.success) {
+                    this.alertService.openSuccess(response.message);
+                    this.currentUserSelectedToReport = null;
+                    closeEvent("User Reported");
+                } else {
+                    this.alertService.openWarning(response.message);
+                }
+            })
+            .catch((error) => console.error(error));
     }
 
     undoMatch(user: IUser) {
-        console.log("undoMatch", user);
+        this.currentUserSelectedToUndoMatch = user;
+        this.openModal(this.undoMatchContainer);
+    }
+
+    handleUndoMatch(closeEvent: any) {
+        const match: IMatch = this.matches.filter(
+            (m) =>
+                (m.user1_id === this.user.id &&
+                    m.user2_id === this.currentUserSelectedToUndoMatch.id) ||
+                (m.user2_id === this.user.id &&
+                    m.user1_id === this.currentUserSelectedToUndoMatch.id)
+        )[0];
+
+        if (!match) {
+            return;
+        }
+
+        this.dataService
+            .delete(DBTables.Match, match)
+            .then((response: any) => {
+                if (response.success) {
+                    this.alertService.openSuccess(response.message);
+                    this.matches.splice(this.matches.indexOf(match), 1);
+                    const chat: IChat = this.chats.filter(
+                        (m) =>
+                            (m.user1_id === this.user.id &&
+                                m.user2_id ===
+                                    this.currentUserSelectedToUndoMatch.id) ||
+                            (m.user2_id === this.user.id &&
+                                m.user1_id ===
+                                    this.currentUserSelectedToUndoMatch.id)
+                    )[0];
+                    
+                    this.currentUserSelectedToUndoMatch = null;
+
+                    if (chat) {
+                        this.currentChat = chat;
+                        this.handleDeleteChat();
+                    }
+
+                    closeEvent("Match Undone");
+                } else {
+                    this.alertService.openWarning(response.message);
+                }
+            })
+            .catch((error) => console.error(error));
     }
 
     openChatByUser(user: IUser) {
-        console.log("openChatByUser", user);
-
         var chatToOpen = this.chats.filter(
             (chat) => chat.user1_id == user.id || chat.user2_id == user.id
         )[0];
 
         if (chatToOpen !== undefined) {
             this.openChat(chatToOpen);
+        } else {
+            this.createChat(user);
         }
+    }
+
+    createChat(user: IUser) {
+        const chat: IChat = {
+            user1_id: this.user.id,
+            user2_id: user.id,
+        };
+
+        this.dataService
+            .insert(DBTables.Chat, chat)
+            .then((response: any) => {
+                if (response.success) {
+                    chat.id = response.result.insertId;
+                    chat.created_at = response.created_at;
+                    chat.updated_at = response.created_at;
+                    chat.messages = [];
+
+                    this.chats.push(chat);
+
+                    this.openChat(chat);
+                } else {
+                    console.warn(response.message);
+                }
+            })
+            .catch((error) => console.error(error));
     }
 
     likeAnimDone(ev: AnimationEvent) {
@@ -406,5 +455,9 @@ export class MatchComponent implements OnInit {
     toggleSidebar(isOpen: boolean) {
         this.isSidebarOpen = isOpen;
         this.sessionService.set("matchSidebarOpen", JSON.stringify(isOpen));
+    }
+
+    openModal(content) {
+        this.modalService.open(content, { centered: true });
     }
 }

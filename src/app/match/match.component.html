@@ -1,6 +1,70 @@
 <main>
-    <!-- Hero for FREE version -->
     <div class="header"></div>
+
+    <ng-template #deleteChatContent let-modal>
+        <div class="modal-header align-items-center">
+            <h4 class="modal-title">{{ "DELETE_CHAT" | translate }}</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'CLOSE' | translate }}"
+                (click)="modal.dismiss('Cross click')">
+                <span class="btn-inner--icon">✖</span>
+            </button>
+        </div>
+        <div class="modal-body text-center">
+            <label class="m-4">{{ "ARE_YOU_SURE_YOU_WANT_TO_DELETE_CHAT" | translate }}</label>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-block btn-default" (click)="modal.dismiss('No button click')">
+                {{ "NO" | translate }}
+            </button>
+            <button class="btn btn-block btn-danger m-0" (click)="handleDeleteChat(modal.dismiss)">
+                {{ "YES" | translate }}
+            </button>
+        </div>
+    </ng-template>
+
+    <ng-template #reportUserContent let-modal>
+        <div class="modal-header align-items-center">
+            <h4 class="modal-title">{{ "REPORT_USER" | translate }}</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'CLOSE' | translate }}"
+                (click)="modal.dismiss('Cross click')">
+                <span class="btn-inner--icon">✖</span>
+            </button>
+        </div>
+        <div class="modal-body text-justified">
+            <label class="mb-3">{{ "ARE_YOU_SURE_YOU_WANT_TO_REPORT_USER_1" | translate }}</label>
+            <label class="mb-4">{{ "ARE_YOU_SURE_YOU_WANT_TO_REPORT_USER_2" | translate }}</label>
+            <textarea #reportReason name="reason" id="reason" autosize class="form-control report-reason" [ngClass]="{ 'is-invalid': reportReason.value === '' }" placeholder="{{ 'REPORT_REASON' | translate }}"></textarea>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-block btn-default" (click)="modal.dismiss('No button click')">
+                {{ "NO" | translate }}
+            </button>
+            <button class="btn btn-block btn-danger m-0" (click)="handleReportUser(reportReason.value, modal.dismiss)" [disabled]="reportReason.value === ''">
+                {{ "YES" | translate }}
+            </button>
+        </div>
+    </ng-template>
+
+    <ng-template #undoMatchContainer let-modal>
+        <div class="modal-header align-items-center">
+            <h4 class="modal-title">{{ "UNDO_MATCH" | translate }}</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'CLOSE' | translate }}"
+                (click)="modal.dismiss('Cross click')">
+                <span class="btn-inner--icon">✖</span>
+            </button>
+        </div>
+        <div class="modal-body text-center">
+            <label class="m-4">{{ "ARE_YOU_SURE_YOU_WANT_TO_UNDO_MATCH" | translate }}</label>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-block btn-default" (click)="modal.dismiss('No button click')">
+                {{ "NO" | translate }}
+            </button>
+            <button class="btn btn-block btn-danger m-0" (click)="handleUndoMatch(modal.dismiss)">
+                {{ "YES" | translate }}
+            </button>
+        </div>
+    </ng-template>
 
     <section class="section-shaped">
         <!-- Background circles -->
@@ -155,7 +219,7 @@
                     (viewProfileEvent)="viewProfile($event)" (deleteChatEvent)="deleteChat($event)"
                     (reportUserEvent)="repotUser($event)"
                     class="container-fluid col-lg-4 col-12 limit-height bg-white shadow p-0 overflow-hidden position-absolute chat front"
-                    [ngClass]="{'open':isChatOpen === true}"></app-chat>
+                    [ngClass]="{ 'open': isChatOpen }"></app-chat>
                 <!-- END - Chat Window -->
                 <!-- START - User Cards -->
                 <div *ngIf="usersLoaded | async" class="d-flex col-lg-8 col-12 justify-content-center align-items-center p-0 limit-height">

@@ -58,6 +58,8 @@ export class MessagesComponent implements OnInit {
                         response.result.forEach((message: IMessage) => {
                             this.messages.push(message);
                         });
+
+                        this.setChatMessages();
                     }
                 })
         ).pipe(
@@ -66,8 +68,12 @@ export class MessagesComponent implements OnInit {
         );
     }
 
-    openChat() {
+    setChatMessages() {
         this.chat.messages = this.messages;
+    }
+
+    openChat() {
+        this.setChatMessages();
         this.openChatEvent.emit(this.chat);
     }
 

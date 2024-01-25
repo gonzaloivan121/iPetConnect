@@ -67,7 +67,7 @@ export class MapComponent implements OnInit {
         private dataService: DataService,
         private sessionService: SessionService,
         private alertService: AlertService,
-        private modalService: NgbModal
+        private modalService: NgbModal,
     ) {}
 
     ngOnInit(): void {

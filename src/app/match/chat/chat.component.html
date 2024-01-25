@@ -43,15 +43,17 @@
     <!-- START - Chat Body -->
     <div class="d-flex px-4 pb-4 flex-grow-1" style="max-height: 88.7%;">
         <div class="h-100 w-100 rounded-edges overflow-hidden">
-            <div #chatElement id="chatElement" class="px-5 chat-container shadow">
+            <div #chatElement id="chatElement" class="px-5 chat-container shadow position-relative">
                 <ul class="w-100 h-100 m-0 list-unstyled p-0 d-flex flex-column">
                     <app-message *ngFor="let message of chat?.messages" [message]="message" [user]="user" [otherUser]="otherUser"></app-message>
                 </ul>
-            </div>
-            <div class="position-absolute back-to-top">
-                <button type="button" class="btn btn-primary btn-icon btn-circle p-0 m-4">
-                    <span class="btn-inner--icon"><i class="ni ni-send"></i></span>
-                </button>
+                <div *ngIf="false" class="position-absolute right-0 bottom-0">
+                    <div class="position-fixed back-to-bottom">
+                        <button type="button" class="btn btn-primary btn-icon-only rounded-circle" (click)="scrollToBottom()">
+                            <span class="btn-inner--icon"><i class="ni ni-bold-down"></i></span>
+                        </button>
+                    </div>
+                </div>
             </div>
             <div class="p-0 input-container shadow">
                 <form [formGroup]="messageForm" (ngSubmit)="onSubmit()" role="form" class="w-100 h-100 d-flex">

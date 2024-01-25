@@ -224,7 +224,7 @@
     "NO_LIKES_RECEIVED": "Parece que aún no le has gustado a nadie con quien no hayas hecho match aún, ¿Por qué no añades más información a tu perfil?",
     "NO_LIKES_GIVEN": "Parece que aún no le has dado me gusta a nadie con quien no hayas hecho match aún, ¿Por qué no juegas un rato al match a ver si encuentras a alguien?",
     "DELETE_CHAT": "Eliminar chat",
-    "REPORT_USER": "Denunciar usuario",
+    "REPORT_USER": "Reportar usuario",
     "NO_CHATS": "Sin chats",
     "NO_CHATS_DESCRIPTION": "Parece que aún no has hablado con nadie, ¿por qué no comienzas una conversación?",
     "NO_MATCHES": "Sin matches",
@@ -332,5 +332,10 @@
     "CREATE_MARKER": "Crear Marcador",
     "ADD_MARKER_IMAGE": "Añade una imágen para el marcador",
     "CREATE": "Crear",
-    "ARE_YOU_SURE_YOU_WANT_TO_DELETE_MARKER": "¿Estás seguro de que deseas eliminar este marcador?"
+    "ARE_YOU_SURE_YOU_WANT_TO_DELETE_MARKER": "¿Estás seguro de que deseas eliminar este marcador?",
+    "ARE_YOU_SURE_YOU_WANT_TO_DELETE_CHAT": "¿Estás seguro de que deseas eliminar este chat?",
+    "ARE_YOU_SURE_YOU_WANT_TO_REPORT_USER_1": "¿Estás seguro de que deseas reportar a este usuario? El informe será anónimo, por lo que tu información permanecerá protegida, pero obtendremos información del usuario al que estás reportando.",
+    "ARE_YOU_SURE_YOU_WANT_TO_REPORT_USER_2": "Si estás seguro, por favor, rellena en el siguiente campo de texto la información que creas necesaria para poder procesar el informe.",
+    "REPORT_REASON": "Razón de la denuncia"
+
 }
