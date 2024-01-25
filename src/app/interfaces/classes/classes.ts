@@ -112,16 +112,15 @@ export interface ILike {
 
 export interface IMarker {
     id?: number;
+    species_id?: number;
+    breed_id?: number;
     user_id: number;
     title: string;
     description: string;
     type: string;
-    coordinates: { lat: number, lng: number };
     color?: string;
-    image?: string;
-    species_id?: number;
-    breed_id?: number
-    user2_id?: number;
+    coordinates: ICoordinates;
+    image: string;
     created_at?: Date;
     updated_at?: Date;
 }
@@ -220,4 +219,9 @@ export interface ITeamMember {
         facebook?: string;
         threads?: string;
     }
+}
+
+export interface ICoordinates {
+    lat: number,
+    lng: number
 }

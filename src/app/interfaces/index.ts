@@ -34,6 +34,7 @@ export {
     ISpecies,
     IUser,
     ITeamMember,
+    ICoordinates
 } from "./classes/classes";
 export { IEmail } from "./email/email";
 export { IAlert } from "./alert/alert";
