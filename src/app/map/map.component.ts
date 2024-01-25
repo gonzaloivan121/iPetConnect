@@ -210,8 +210,6 @@ export class MapComponent implements OnInit {
     }
 
     initMap() {
-        this.setCurrentPosition();
-
         this.markersLoaded = this.loadMarkersFromDataService();
         this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(
             document.getElementById("go-to-location")
