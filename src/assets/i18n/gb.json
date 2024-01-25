@@ -325,6 +325,11 @@
     "MINUTE": "Minute",
     "MINUTES": "Minutes",
     "SECOND": "Second",
-    "SECONDs": "Seconds",
-    "VIEW_ALL_COMMENTS": "View all comments"
+    "SECONDS": "Seconds",
+    "VIEW_ALL_COMMENTS": "View all comments",
+    "NO_IMAGE": "No Image",
+    "ADD_POST_IMAGE": "Add an image for the post",
+    "CREATE_MARKER": "Create Marker",
+    "ADD_MARKER_IMAGE": "Add an image for the marker",
+    "CREATE": "Create"
 }

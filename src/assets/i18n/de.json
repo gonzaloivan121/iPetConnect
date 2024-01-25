@@ -325,6 +325,11 @@
     "MINUTE": "Minute",
     "MINUTES": "Minuten",
     "SECOND": "Sekunde",
-    "SECONDs": "Sekunden",
-    "VIEW_ALL_COMMENTS": "Alle kommentare anzeigen"
+    "SECONDS": "Sekunden",
+    "VIEW_ALL_COMMENTS": "Alle kommentare anzeigen",
+    "NO_IMAGE": "Ohne Bild",
+    "ADD_POST_IMAGE": "Fügen sie ein bild für den beitrag hinzu",
+    "CREATE_MARKER": "Lesezeichen Erstelle",
+    "ADD_MARKER_IMAGE": "Fügen sie ein bild für das lesezeichen hinzu",
+    "CREATE": "Erstellen"
 }
