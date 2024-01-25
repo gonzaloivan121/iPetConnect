@@ -4,7 +4,7 @@ import { IBreed, IMarker, ISpecies } from "src/app/interfaces";
 import { Observable, from, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import { AlertService, DataService } from "src/app/services";
-import { DBTables } from "src/classes";
+import { DBTables, MarkerType } from "src/classes";
 
 @Component({
     selector: "app-create-marker",
@@ -190,8 +190,30 @@ export class CreateMarkerComponent implements OnInit, OnChanges {
 
     clearSpeciesField() {
         this.species_id.setValue("");
-        this.breed_id.setValue("");
-
+        this.clearBreedField();
         this.onSpeciesSelected();
+    }
+
+    willHideSpecies() {
+        return (
+            this.type.value === MarkerType.Veterinary
+        );
+    }
+
+    willHideBreeds() {
+        return (
+            this.type.value === MarkerType.Veterinary ||
+            this.type.value === MarkerType.Carer
+        );
+    }
+
+    onTypeChange() {
+        if (this.willHideSpecies()) {
+            this.clearSpeciesField();
+        }
+
+        if (this.willHideBreeds()) {
+            this.clearBreedField();
+        }
     }
 }

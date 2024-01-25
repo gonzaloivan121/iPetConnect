@@ -33,7 +33,7 @@
         <div class="input-group mb-3">
             <select id="type" name="type" formControlName="type" class="form-control form-select"
                 [ngClass]="{ 'is-invalid': (!type?.valid && (type?.dirty || type?.touched) && type.errors?.required) }"
-                (focus)="focusType = true" (blur)="focusType = false">
+                (focus)="focusType = true" (blur)="focusType = false" (change)="onTypeChange()">
                 <option value="" disabled selected>{{ "TYPE" | translate }}</option>
                 <option *ngFor="let valueStr of typeValues" [value]="valueStr">{{ valueStr | translate }}</option>
             </select>
@@ -41,7 +41,7 @@
     </div>
     <!-- END - Type -->
     <!-- START - Species -->
-    <div class="form-group" [ngClass]="{ 'focused': focusSpecies }">
+    <div *ngIf="!willHideSpecies()" class="form-group" [ngClass]="{ 'focused': focusSpecies }">
         <div class="input-group mb-3">
             <select id="species_id" name="species_id" formControlName="species_id" class="form-control form-select"
                 [ngClass]="{ 'is-invalid': (!species_id?.valid && (species_id?.dirty || species_id?.touched) && species_id.errors?.required) }"
@@ -56,7 +56,7 @@
     </div>
     <!-- END - Species -->
     <!-- START - Breed -->
-    <div class="form-group" [ngClass]="{ 'focused': focusBreed }">
+    <div *ngIf="!willHideBreeds()" class="form-group" [ngClass]="{ 'focused': focusBreed }">
         <div class="input-group mb-3">
             <select id="breed_id" name="breed_id" formControlName="breed_id" class="form-control form-select"
                 [ngClass]="{ 'is-invalid': (!breed_id?.valid && (breed_id?.dirty || breed_id?.touched) && breed_id.errors?.required) }"
