@@ -337,5 +337,10 @@
     "ARE_YOU_SURE_YOU_WANT_TO_REPORT_USER_1": "Sind Sie sicher, dass Sie diesen Benutzer melden möchten? Die Meldung erfolgt anonym, sodass Ihre Daten geschützt bleiben. Wir erhalten jedoch Informationen von dem Benutzer, an den Sie die Meldung senden.",
     "ARE_YOU_SURE_YOU_WANT_TO_REPORT_USER_2": "Wenn Sie sicher sind, füllen Sie bitte das folgende Textfeld mit den Informationen aus, die Ihrer Meinung nach für die Bearbeitung der Meldung notwendig sind.",
     "REPORT_REASON": "Grund für den bericht",
-    "ARE_YOU_SURE_YOU_WANT_TO_UNDO_MATCH": "Sind Sie sicher, dass Sie diesen Abgleich rückgängig machen möchten?"
+    "ARE_YOU_SURE_YOU_WANT_TO_UNDO_MATCH": "Sind Sie sicher, dass Sie diesen Abgleich rückgängig machen möchten?",
+    "DELETE_LIKE": "Like löschen",
+    "ARE_YOU_SURE_YOU_WANT_TO_DELETE_LIKE": "Sind sie sicher, dass sie dieses like löschen möchten?",
+    "ITS_A_MATCH": "Es ist ein match!",
+    "YOU_HAVE_NEW_MATCH_WHAT_DO_YOU_WANT_TO_DO": "Du hast ein neues match, was möchtest du tun?",
+    "CLOSE": "Schließen"
 }

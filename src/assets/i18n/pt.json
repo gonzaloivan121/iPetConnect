@@ -337,5 +337,10 @@
     "ARE_YOU_SURE_YOU_WANT_TO_REPORT_USER_1": "Tem certeza de que deseja denunciar este usuário? A denúncia será anônima, portanto suas informações permanecerão protegidas, mas obteremos informações do usuário a quem você está denunciando.",
     "ARE_YOU_SURE_YOU_WANT_TO_REPORT_USER_2": "Se tiver certeza, preencha o seguinte campo de texto com as informações que você acha necessárias para processar o relatório.",
     "REPORT_REASON": "Razão do relatório",
-    "ARE_YOU_SURE_YOU_WANT_TO_UNDO_MATCH": "Tem certeza de que deseja desfazer esse match?"
+    "ARE_YOU_SURE_YOU_WANT_TO_UNDO_MATCH": "Tem certeza de que deseja desfazer esse match?",
+    "DELETE_LIKE": "Excluir like",
+    "ARE_YOU_SURE_YOU_WANT_TO_DELETE_LIKE": "Tem certeza de que deseja excluir este like?",
+    "ITS_A_MATCH": "É um match!",
+    "YOU_HAVE_NEW_MATCH_WHAT_DO_YOU_WANT_TO_DO": "Você tem um novo match, o que você quer fazer?",
+    "CLOSE": "Fechar"
 }
