@@ -15,5 +15,11 @@
                 <span class="btn-inner--text">{{ "VIEW_PROFILE" | translate }}</span>
             </a>
         </li>
+        <li *ngIf="isGiven">
+            <a (click)="deleteLike(otherUser)" class="btn-icon dropdown-item" href="javascript:void(0)">
+                <span class="btn-inner--icon"><i class="ni ni-spaceship"></i></span>
+                <span class="btn-inner--text">{{ "DELETE_LIKE" | translate }}</span>
+            </a>
+        </li>
     </ul>
 </div>

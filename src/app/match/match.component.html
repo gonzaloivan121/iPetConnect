@@ -66,6 +66,51 @@
         </div>
     </ng-template>
 
+    <ng-template #matchContainer let-modal>
+        <div class="modal-header align-items-center">
+            <h4 class="modal-title">{{ "ITS_A_MATCH" | translate }}</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'CLOSE' | translate }}"
+                (click)="modal.dismiss('Cross click')">
+                <span class="btn-inner--icon">✖</span>
+            </button>
+        </div>
+        <div class="modal-body text-center">
+            <label class="m-4">{{ "YOU_HAVE_NEW_MATCH_WHAT_DO_YOU_WANT_TO_DO" | translate }}</label>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-block btn-default" (click)="modal.dismiss('No button click')">
+                {{ "CLOSE" | translate }}
+            </button>
+            <button class="btn btn-default" (click)="openChatByUser(currentUserSelected); modal.dismiss('Open Chat click')">
+                {{ "OPEN_CHAT" | translate }}
+            </button>
+            <button class="btn btn-default" (click)="undoMatch(currentUserSelected); modal.dismiss('Undo Match click')">
+                {{ "UNDO_MATCH" | translate }}
+            </button>
+        </div>
+    </ng-template>
+
+    <ng-template #deleteLikeContainer let-modal>
+        <div class="modal-header align-items-center">
+            <h4 class="modal-title">{{ "DELETE_LIKE" | translate }}</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'CLOSE' | translate }}"
+                (click)="modal.dismiss('Cross click')">
+                <span class="btn-inner--icon">✖</span>
+            </button>
+        </div>
+        <div class="modal-body text-center">
+            <label class="m-4">{{ "ARE_YOU_SURE_YOU_WANT_TO_DELETE_LIKE" | translate }}</label>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-block btn-default" (click)="modal.dismiss('No button click')">
+                {{ "NO" | translate }}
+            </button>
+            <button class="btn btn-block btn-danger m-0" (click)="handleDeleteLike(modal.dismiss)">
+                {{ "YES" | translate }}
+            </button>
+        </div>
+    </ng-template>
+
     <section class="section-shaped">
         <!-- Background circles -->
         <div class="shape shape-style-1 shape-primary">
@@ -168,7 +213,7 @@
                                             </div>
                                         </div>
                                         <div *ngIf="likesReceived.length > 0" class="p-3 w-100 scroll match-container">
-                                            <app-likes class="flex-grow-1" *ngFor="let like of likesReceived" [like]="like" [user]="user" (viewProfileEvent)="viewProfile($event)"></app-likes>
+                                            <app-likes class="flex-grow-1" *ngFor="let like of likesReceived" [like]="like" [user]="user" [isGiven]="false" (viewProfileEvent)="viewProfile($event)" (deleteLikeEvent)="deleteLikeModal($event)"></app-likes>
                                         </div>
                                     </div>
                                     <!-- END - Received Tab -->
@@ -183,7 +228,7 @@
                                             </div>
                                         </div>
                                         <div *ngIf="likesGiven.length > 0" class="p-3 w-100 scroll match-container">
-                                            <app-likes class="flex-grow-1" *ngFor="let like of likesGiven" [like]="like" [user]="user" (viewProfileEvent)="viewProfile($event)"></app-likes>
+                                            <app-likes class="flex-grow-1" *ngFor="let like of likesGiven" [like]="like" [user]="user" [isGiven]="true" (viewProfileEvent)="viewProfile($event)" (deleteLikeEvent)="deleteLikeModal($event)"></app-likes>
                                         </div>
                                     </div>
                                     <!-- END - Given Tab -->

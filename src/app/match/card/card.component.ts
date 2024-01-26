@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, ElementRef, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services';
 import { DBTables } from 'src/classes';
-import { IUser } from 'src/app/interfaces';
+import { IUser, ILike } from 'src/app/interfaces';
 
 @Component({
     selector: "app-user-card",
@@ -18,6 +18,7 @@ export class CardComponent implements OnInit {
     @Output() closeEvent = new EventEmitter<IUser>();
 
     public isMatch: boolean;
+    public isLikeGiven: boolean;
 
     private htmlElement: HTMLElement;
 
@@ -27,6 +28,7 @@ export class CardComponent implements OnInit {
 
     ngOnInit(): void {
         this.checkMatch();
+        this.checkLikeGiven();
         this.htmlElement.classList.add("open");
 
         setTimeout(() => {
@@ -52,6 +54,33 @@ export class CardComponent implements OnInit {
                         this.isMatch = true;
                     }
                 } else {
+                    console.warn(response.message);
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
+    private checkLikeGiven() {
+        if (!this.currentUser || !this.user) {
+            return;
+        }
+
+        this.dataService
+            .getBothFrom(
+                DBTables.Like,
+                DBTables.User,
+                this.currentUser.id,
+                this.user.id
+            )
+            .then((response: any) => {
+                if (response.success) {
+                    if ((response.result[0] as ILike).user1_id === this.currentUser.id) {
+                        this.isLikeGiven = true;
+                    }
+                } else {
+                    console.warn(response.message);
                 }
             })
             .catch((error) => {

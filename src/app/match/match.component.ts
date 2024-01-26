@@ -5,7 +5,7 @@ import { DBTables } from 'src/classes';
 import { RoleEnum, MatchTabEnum, LikesTabEnum } from 'src/app/enums/enums';
 import { Observable, from, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { IConfig, IUser, IChat, IMatch, ILike, IUserReport } from 'src/app/interfaces';
+import { IConfig, IUser, IChat, IMatch, ILike, IUserReport, IInsertResponse } from 'src/app/interfaces';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -53,8 +53,18 @@ export class MatchComponent implements OnInit {
     @ViewChild("undoMatchContainer", { static: false })
     undoMatchContainer: ElementRef;
 
+    @ViewChild("matchContainer", { static: false })
+    matchContainer: ElementRef;
+
+    @ViewChild("deleteLikeContainer", { static: false })
+    deleteLikeContainer: ElementRef;
+
     currentUserSelectedToReport: IUser;
     currentUserSelectedToUndoMatch: IUser;
+    currentUserSelected: IUser;
+
+    currentLikeSelectedToDelete: ILike;
+    currentUserToDeleteLike: IUser;
 
     constructor(
         public location: Location,
@@ -255,7 +265,144 @@ export class MatchComponent implements OnInit {
             user2_id: user.id,
         };
 
-        this.deleteCard(user);
+        if (
+            this.likesGiven.find(
+                (like) =>
+                    like.user1_id === data.user1_id &&
+                    like.user2_id === data.user2_id
+            )
+        ) {
+            return;
+        }
+
+        this.dataService
+            .insert(DBTables.Like, data)
+            .then((response: IInsertResponse) => {
+                if (response.success) {
+                    const like: ILike = {
+                        id: response.result.insertId,
+                        user1_id: data.user1_id,
+                        user2_id: data.user2_id,
+                        created_at: new Date(response.created_at),
+                        updated_at: new Date(response.created_at),
+                    };
+
+                    this.likesGiven.push(like);
+
+                    this.deleteCard(user, () => {
+                        this.checkIfMatch(user);
+                    });
+                } else {
+                    console.warn(response.message);
+                }
+            })
+            .catch((error) => console.error(error));
+    }
+
+    checkIfMatch(user: IUser) {
+        this.dataService
+            .getBothFrom(DBTables.Like, DBTables.User, this.user.id, user.id)
+            .then((response: any) => {
+                if (response.success) {
+                    if (response.result.length == 2) {
+                        this.handleMatch(user, {
+                            like1: response.result[0] as ILike,
+                            like2: response.result[1] as ILike,
+                        });
+                    }
+                } else {
+                    console.warn(response.message);
+                }
+            })
+            .catch((error) => console.error(error));
+    }
+
+    handleMatch(user: IUser, likes: { like1: ILike; like2: ILike }) {
+        const data: IMatch = {
+            user1_id: this.user.id,
+            user2_id: user.id,
+        };
+
+        this.dataService
+            .insert(DBTables.Match, data)
+            .then((response: IInsertResponse) => {
+                if (response.success) {
+                    this.deleteLike(likes.like1);
+                    this.deleteLike(likes.like2);
+
+                    const match: IMatch = {
+                        id: response.result.insertId,
+                        user1_id: data.user1_id,
+                        user2_id: data.user2_id,
+                        created_at: new Date(response.created_at),
+                        updated_at: new Date(response.created_at),
+                    };
+
+                    this.currentUserSelected = user;
+                    this.createMatch(match);
+                } else {
+                    console.warn(response.message);
+                }
+            })
+            .catch((error) => console.error(error));
+    }
+
+    deleteLike(like: ILike) {
+        this.dataService
+            .delete(DBTables.Like, like)
+            .then((response: any) => {
+                if (response.success) {
+                    this.likesGiven.splice(this.likesGiven.indexOf(like), 1);
+                    this.likesReceived.splice(
+                        this.likesReceived.indexOf(like),
+                        1
+                    );
+                } else {
+                    console.warn(response.message);
+                }
+            })
+            .catch((error) => console.error(error));
+    }
+
+    deleteLikeModal(likeAndUser: { like: ILike; user: IUser }) {
+        this.currentLikeSelectedToDelete = likeAndUser.like;
+        this.currentUserToDeleteLike = likeAndUser.user;
+
+        this.openModal(this.deleteLikeContainer);
+    }
+
+    handleDeleteLike(closeEvent?: Function) {
+        this.dataService
+            .delete(DBTables.Like, this.currentLikeSelectedToDelete)
+            .then((response: any) => {
+                if (response.success) {
+                    this.likesGiven.splice(
+                        this.likesGiven.indexOf(
+                            this.currentLikeSelectedToDelete
+                        ),
+                        1
+                    );
+
+                    this.users.push(
+                        Object.assign({}, this.currentUserToDeleteLike)
+                    );
+
+                    this.currentLikeSelectedToDelete = null;
+                    this.currentUserToDeleteLike = null
+
+                    if (closeEvent) {
+                        closeEvent("Like deleted");
+                    }
+                } else {
+                    console.warn(response.message);
+                }
+            })
+            .catch((error) => console.error(error));
+    }
+
+    createMatch(match: IMatch) {
+        this.matches.push(match);
+        this.openModal(this.matchContainer);
     }
 
     dislike(user: IUser): void {
@@ -267,9 +414,13 @@ export class MatchComponent implements OnInit {
         this.deleteCard(user);
     }
 
-    deleteCard(user: IUser) {
+    deleteCard(user: IUser, callback?: Function) {
         setTimeout(() => {
             this.users = this.users.filter((u: IUser) => u.id !== user.id);
+
+            if (callback) {
+                callback();
+            }
         }, 333);
     }
 
@@ -391,7 +542,7 @@ export class MatchComponent implements OnInit {
                                 m.user1_id ===
                                     this.currentUserSelectedToUndoMatch.id)
                     )[0];
-                    
+
                     this.currentUserSelectedToUndoMatch = null;
 
                     if (chat) {

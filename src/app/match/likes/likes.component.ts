@@ -13,11 +13,14 @@ import { ILike, IUser } from 'src/app/interfaces';
 export class LikesComponent implements OnInit {
     @Input() like: ILike;
     @Input() user: IUser;
+    @Input() isGiven: boolean;
+
     otherUser: IUser;
 
     public otherUserLoaded: Observable<boolean>;
 
     @Output() viewProfileEvent = new EventEmitter<IUser>();
+    @Output() deleteLikeEvent = new EventEmitter<{ like: ILike, user: IUser }>();
 
     constructor(private dataService: DataService) {}
 
@@ -47,5 +50,9 @@ export class LikesComponent implements OnInit {
 
     viewProfile(user: IUser) {
         this.viewProfileEvent.emit(user);
+    }
+
+    deleteLike(user: IUser) {
+        this.deleteLikeEvent.emit({like: this.like, user: user});
     }
 }
