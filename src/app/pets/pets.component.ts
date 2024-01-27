@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Location } from "@angular/common";
-import { DataService, SessionService } from 'src/app/services';
+import { DataService, NavigationService, SessionService } from 'src/app/services';
 import { DBTables } from 'src/classes';
-import { RoleEnum } from "src/app/enums/enums";
+import { Page, RoleEnum } from "src/app/enums/enums";
 import { Observable, from, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import { IPetPost, IUser } from "src/app/interfaces";
@@ -21,8 +21,11 @@ export class PetsComponent implements OnInit {
     constructor(
         private sessionService: SessionService,
         private dataService: DataService,
-        private location: Location
-    ) {}
+        private location: Location,
+        private navigationService: NavigationService
+    ) {
+        this.navigationService.set(Page.Pets);
+    }
 
     ngOnInit(): void {
         if (this.sessionService.get("user") !== null) {

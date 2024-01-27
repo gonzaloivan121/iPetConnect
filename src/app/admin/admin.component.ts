@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { SessionService } from 'src/app/services';
-import { RoleEnum, AdminViewEnum } from 'src/app/enums/enums';
+import { RoleEnum, AdminViewEnum, Page } from 'src/app/enums/enums';
+import { NavigationService } from 'src/app/services';
 
 @Component({
     selector: 'app-admin',
@@ -19,8 +20,10 @@ export class AdminComponent implements OnInit {
 
     constructor(
         private sessionService: SessionService,
-        private location: Location
-    ) { }
+        private navigationService: NavigationService,
+    ) {
+        this.navigationService.set(Page.Admin);
+    }
 
     ngOnInit() {
         if (this.sessionService.get('user') !== null) {

@@ -1,12 +1,12 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
-import { EmailService, TranslateService, AlertService } from "src/app/services";
-import { NgbAlert, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { EmailService, TranslateService, AlertService, NavigationService } from "src/app/services";
+import { Page } from 'src/app/enums/enums';
 
 @Component({
-    selector: 'app-privacy',
-    templateUrl: './privacy.component.html',
-    styleUrls: ['./privacy.component.css']
+    selector: "app-privacy",
+    templateUrl: "./privacy.component.html",
+    styleUrls: ["./privacy.component.css"],
 })
 export class PrivacyComponent {
     contactUsForm: UntypedFormGroup;
@@ -18,8 +18,11 @@ export class PrivacyComponent {
         private formBuilder: UntypedFormBuilder,
         private emailService: EmailService,
         private translateService: TranslateService,
-        private alertService: AlertService
-    ) { }
+        private alertService: AlertService,
+        private navigationService: NavigationService,
+    ) {
+        this.navigationService.set(Page.Privacy);
+    }
 
     ngOnInit() {
         this.contactUsForm = this.formBuilder.group({
@@ -30,41 +33,44 @@ export class PrivacyComponent {
     }
 
     get name() {
-        return this.contactUsForm.get('name');
+        return this.contactUsForm.get("name");
     }
 
     get email() {
-        return this.contactUsForm.get('email');
+        return this.contactUsForm.get("email");
     }
 
     get message() {
-        return this.contactUsForm.get('message');
+        return this.contactUsForm.get("message");
     }
 
     onSubmit() {
         const formData = this.contactUsForm.value;
 
-        this.emailService.Send(formData).then((response: any) => {
-            if (response.success) {
-                this.alertService.openSuccess(
-                    this.translateService.get(response.message)
-                );
-            } else {
-                this.alertService.openWarning(
-                    this.translateService.get(response.message)
-                );
-            }
-        }).catch((error) => {
-            console.error(error);
-            this.alertService.openDanger("There ahs been an error!");
-        });
+        this.emailService
+            .Send(formData)
+            .then((response: any) => {
+                if (response.success) {
+                    this.alertService.openSuccess(
+                        this.translateService.get(response.message)
+                    );
+                } else {
+                    this.alertService.openWarning(
+                        this.translateService.get(response.message)
+                    );
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+                this.alertService.openDanger("There ahs been an error!");
+            });
     }
 
     scrollTo(element: HTMLElement) {
         element.scrollIntoView({
             behavior: "smooth",
             block: "start",
-            inline: "nearest"
+            inline: "nearest",
         });
     }
 }

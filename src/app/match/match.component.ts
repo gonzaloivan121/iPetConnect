@@ -1,8 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
-import { SessionService, DataService, AlertService } from 'src/app/services';
+import { SessionService, DataService, AlertService, NavigationService } from 'src/app/services';
 import { DBTables } from 'src/classes';
-import { RoleEnum, MatchTabEnum, LikesTabEnum } from 'src/app/enums/enums';
+import { RoleEnum, MatchTabEnum, LikesTabEnum, Page } from 'src/app/enums/enums';
 import { Observable, from, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { IConfig, IUser, IChat, IMatch, ILike, IUserReport, IInsertResponse } from 'src/app/interfaces';
@@ -71,8 +71,11 @@ export class MatchComponent implements OnInit {
         private sessionService: SessionService,
         private dataService: DataService,
         private modalService: NgbModal,
-        private alertService: AlertService
-    ) {}
+        private alertService: AlertService,
+        private navigationService: NavigationService
+    ) {
+        this.navigationService.set(Page.Match);
+    }
 
     ngOnInit() {
         if (this.sessionService.get("user") !== null) {
@@ -388,7 +391,7 @@ export class MatchComponent implements OnInit {
                     );
 
                     this.currentLikeSelectedToDelete = null;
-                    this.currentUserToDeleteLike = null
+                    this.currentUserToDeleteLike = null;
 
                     if (closeEvent) {
                         closeEvent("Like deleted");

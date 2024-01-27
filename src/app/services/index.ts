@@ -5,3 +5,4 @@ export { TranslateService } from './translate/translate.service';
 export { EmailService } from './email/email.service';
 export { NewVersionCheckerService } from "./new-version-checker/new-version-checker.service";
 export { AlertService } from './alert/alert.service';
+export { NavigationService } from './navigation/navigation.service';

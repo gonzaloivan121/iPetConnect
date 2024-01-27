@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from "@angular/core";
+import { NavigationService } from "src/app/services";
+import { Page } from "src/app/enums/enums";
 
 @Component({
-  selector: 'app-blog',
-  templateUrl: './blog.component.html',
-  styleUrls: ['./blog.component.css']
+    selector: "app-blog",
+    templateUrl: "./blog.component.html",
+    styleUrls: ["./blog.component.css"],
 })
-export class BlogComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class BlogComponent {
+    constructor(private navigationService: NavigationService) {
+        this.navigationService.set(Page.Blog);
+    }
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ISocialMediaLink } from 'src/app/interfaces'
+import { Page } from 'src/app/enums/enums';
+import { ISocialMediaLink } from 'src/app/interfaces';
+import { NavigationService } from 'src/app/services';
 
 @Component({
     selector: "app-footer",
@@ -31,51 +33,50 @@ export class FooterComponent implements OnInit {
         },
     ];
 
-    constructor(private router: Router) {}
+    constructor(
+        private router: Router,
+        private navigationService: NavigationService
+    ) {}
 
     ngOnInit(): void {}
 
-    private getPath(): string {
-        return this.router.url;
-    }
-
     public isHome(): boolean {
-        return this.getPath() === "/home" || this.getPath() === "/";
+        return this.navigationService.is(Page.Home);
     }
 
     public isAdmin(): boolean {
-        return this.getPath() === "/admin";
+        return this.navigationService.is(Page.Admin);
     }
 
     public isBlog(): boolean {
-        return this.getPath() === "/blog";
+        return this.navigationService.is(Page.Blog);
     }
 
     public isProfile(): boolean {
-        return this.getPath() === "/profile";
+        return this.navigationService.is(Page.Profile);
     }
 
     public isRegister(): boolean {
-        return this.getPath() === "/register";
+        return this.navigationService.is(Page.Register);
     }
 
     public isLogin(): boolean {
-        return this.getPath() === "/login";
+        return this.navigationService.is(Page.Login);
     }
 
     public isMatch(): boolean {
-        return this.getPath() === "/match";
+        return this.navigationService.is(Page.Match);
     }
 
     public isMap(): boolean {
-        return this.getPath() === "/map";
+        return this.navigationService.is(Page.Map);
     }
 
     public isEditor(): boolean {
-        return this.getPath() === "/blog/editor";
+        return this.navigationService.is(Page.BlogEditor);
     }
 
     public isPets(): boolean {
-        return this.getPath() === "/pets";
+        return this.navigationService.is(Page.Pets);
     }
 }

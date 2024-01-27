@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { UntypedFormGroup, UntypedFormBuilder, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { DataService, SessionService, AppConfigService } from 'src/app/services';
+import { DataService, SessionService, AppConfigService, NavigationService } from 'src/app/services';
 import { DBTables } from 'src/classes';
 import { IConfig, IUser } from 'src/app/interfaces';
+import { Page } from 'src/app/enums/enums';
 
 @Component({
     selector: 'app-signup',
@@ -40,8 +41,11 @@ export class SignupComponent implements OnInit {
         private formBuilder: UntypedFormBuilder,
         private dataService: DataService,
         private sessionService: SessionService,
-        private configService: AppConfigService
-    ) { }
+        private configService: AppConfigService,
+        private navigationService: NavigationService
+    ) {
+        this.navigationService.set(Page.Register);
+    }
 
     ngOnInit() {
         if (this.sessionService.get('user') !== null) {

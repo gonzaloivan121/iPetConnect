@@ -1,9 +1,9 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { AppConfigService, SessionService, DataService, TranslateService, AlertService } from 'src/app/services';
+import { AppConfigService, SessionService, DataService, TranslateService, AlertService, NavigationService } from 'src/app/services';
 import { AppConfig, IConfig, IUser } from 'src/app/interfaces';
 import noUiSlider from "nouislider";
-import { RoleEnum } from 'src/app/enums/enums';
+import { Page, RoleEnum } from 'src/app/enums/enums';
 import { DBTables } from 'src/classes';
 
 @Component({
@@ -17,13 +17,16 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     public user: IUser;
 
     constructor(
-        public appConfig: AppConfigService,
-        public sessionService: SessionService,
-        public dataService: DataService,
-        public translateService: TranslateService,
-        public location: Location,
-        private alertService: AlertService
-    ) {}
+        private appConfig: AppConfigService,
+        private sessionService: SessionService,
+        private dataService: DataService,
+        private translateService: TranslateService,
+        private location: Location,
+        private alertService: AlertService,
+        private navigationService: NavigationService
+    ) {
+        this.navigationService.set(Page.Settings);
+    }
 
     ngOnInit(): void {
         if (this.sessionService.get("user") !== null) {

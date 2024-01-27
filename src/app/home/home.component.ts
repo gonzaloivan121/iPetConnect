@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SessionService } from 'src/app/services';
-import { RoleEnum } from 'src/app/enums/enums';
+import { SessionService, NavigationService } from "src/app/services";
+import { RoleEnum, Page } from 'src/app/enums/enums';
 import { IUser } from 'src/app/interfaces';
 
 @Component({
@@ -10,8 +10,11 @@ import { IUser } from 'src/app/interfaces';
 })
 export class HomeComponent implements OnInit {
     constructor(
-        private sessionService: SessionService
-    ) {}
+        private sessionService: SessionService,
+        private navigationService: NavigationService,
+    ) {
+        this.navigationService.set(Page.Home);
+    }
 
     isLoggedIn: boolean = false;
     isAdmin: boolean = false;

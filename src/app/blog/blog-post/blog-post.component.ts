@@ -2,10 +2,11 @@ import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Observable, Subscription, from, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
-import { DataService, SessionService, AlertService } from "src/app/services";
+import { DataService, SessionService, AlertService, NavigationService } from "src/app/services";
 import { DBTables } from "src/classes";
 import { IBlogPostResponse, IBlogPost, IBlogComment, IBlogTag, IUser } from "src/app/interfaces";
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
+import { Page } from "src/app/enums/enums";
 
 @Component({
     selector: "app-blog-post",
@@ -35,8 +36,11 @@ export class BlogPostComponent implements OnInit, OnDestroy {
         private dataService: DataService,
         private sessionService: SessionService,
         private formBuilder: UntypedFormBuilder,
-        private alertService: AlertService
-    ) {}
+        private alertService: AlertService,
+        private navigationService: NavigationService
+    ) {
+        this.navigationService.set(Page.BlogPost);
+    }
 
     ngOnInit(): void {
         if (this.sessionService.get("user") !== null) {

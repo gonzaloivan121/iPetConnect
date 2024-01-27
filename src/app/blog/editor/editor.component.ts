@@ -2,9 +2,9 @@ import { Location } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Editor, Toolbar } from "ngx-editor";
 import { schema } from "ngx-editor/schema";
-import { RoleEnum } from "src/app/enums/enums";
+import { Page, RoleEnum } from "src/app/enums/enums";
 import { IBlogCategory, IBlogPost, IBlogPostRequest, IBlogPostInsertResponse, IBlogTag, IUser } from "src/app/interfaces";
-import { SessionService, DataService, AlertService } from "src/app/services";
+import { SessionService, DataService, AlertService, NavigationService } from "src/app/services";
 import { DBTables } from "src/classes";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
@@ -47,8 +47,11 @@ export class EditorComponent implements OnInit, OnDestroy {
         private sessionService: SessionService,
         private dataService: DataService,
         private alertService: AlertService,
-        private modalService: NgbModal
-    ) {}
+        private modalService: NgbModal,
+        private navigationService: NavigationService,
+    ) {
+        this.navigationService.set(Page.BlogEditor);
+    }
 
     ngOnInit(): void {
         if (this.sessionService.get("user") !== null) {

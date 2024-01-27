@@ -37,3 +37,21 @@ export enum LikesTabEnum {
     Received = 1,
     Given = 2,
 }
+
+export enum Page {
+    Home,
+    Admin,
+    Map,
+    Login,
+    Register,
+    Blog,
+    BlogEditor,
+    BlogPost,
+    Privacy,
+    Pets,
+    Match,
+    Settings,
+    ForgotPassword,
+    NotFound,
+    Profile,
+};

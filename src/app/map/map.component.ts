@@ -4,10 +4,11 @@ import { Observable, from, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import { environment } from 'src/environments/environment';
 import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
-import { DataService, SessionService, AlertService } from 'src/app/services';
+import { DataService, SessionService, AlertService, NavigationService } from 'src/app/services';
 import { DBTables } from 'src/classes';
 import { IMarkerResponse, IMarker, IUser, IFavouriteMarker, ICoordinates } from 'src/app/interfaces';
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { Page } from 'src/app/enums/enums';
 
 @Component({
     selector: "app-map",
@@ -68,7 +69,10 @@ export class MapComponent implements OnInit {
         private sessionService: SessionService,
         private alertService: AlertService,
         private modalService: NgbModal,
-    ) {}
+        private navigationService: NavigationService,
+    ) {
+        this.navigationService.set(Page.Map);
+    }
 
     ngOnInit(): void {
         if (this.sessionService.get("user") !== null) {
@@ -472,19 +476,27 @@ export class MapComponent implements OnInit {
     }
 
     handleDeleteMarker(closeEvent: any) {
-        this.dataService.delete(DBTables.Marker, this.selectedMarker).then((response: any) => {
-            if (response.success) {
-                const markerToDelete = this.markers.filter(
-                    (m) => (m.get("data") as IMarker).id === this.selectedMarker.id
-                )[0];
-                this.infoWindow.close();
-                this.markers.splice(this.markers.indexOf(markerToDelete), 1);
-                this.selectedMarker = null;
-                
-                closeEvent("Marker deleted");
-            } else {
-                console.warn(response.message);
-            }
-        }).catch((error) => console.error(error));
+        this.dataService
+            .delete(DBTables.Marker, this.selectedMarker)
+            .then((response: any) => {
+                if (response.success) {
+                    const markerToDelete = this.markers.filter(
+                        (m) =>
+                            (m.get("data") as IMarker).id ===
+                            this.selectedMarker.id
+                    )[0];
+                    this.infoWindow.close();
+                    this.markers.splice(
+                        this.markers.indexOf(markerToDelete),
+                        1
+                    );
+                    this.selectedMarker = null;
+
+                    closeEvent("Marker deleted");
+                } else {
+                    console.warn(response.message);
+                }
+            })
+            .catch((error) => console.error(error));
     }
 }
