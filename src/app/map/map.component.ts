@@ -386,6 +386,7 @@ export class MapComponent implements OnInit {
         )[0];
         this.setZoom(17);
         this.center = gMarker.getPosition();
+        this.isSidebarOpen = false;
     }
 
     toggleSidebar() {
