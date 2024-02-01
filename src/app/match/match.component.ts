@@ -546,6 +546,10 @@ export class MatchComponent implements OnInit {
                                     this.currentUserSelectedToUndoMatch.id)
                     )[0];
 
+                    this.users.push(
+                        Object.assign({}, this.currentUserSelectedToUndoMatch)
+                    );
+
                     this.currentUserSelectedToUndoMatch = null;
 
                     if (chat) {
