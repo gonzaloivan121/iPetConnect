@@ -27,7 +27,7 @@ export class EditProfileComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        if (this.sessionService.get("user") !== null) {
+        if (this.sessionService.exists("user")) {
             this.user = JSON.parse(this.sessionService.get("user"));
         } else {
             this.location.back();

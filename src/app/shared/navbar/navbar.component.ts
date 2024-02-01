@@ -52,7 +52,7 @@ export class NavbarComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        if (this.sessionService.get("user") !== null) {
+        if (this.sessionService.exists("user")) {
             this.isLoggedIn = true;
             this.user = JSON.parse(this.sessionService.get("user"));
         }
@@ -119,7 +119,7 @@ export class NavbarComponent implements OnInit {
     }
 
     logout() {
-        if (this.sessionService.get("user") !== null) {
+        if (this.sessionService.exists("user")) {
             this.sessionService.clear("user");
             this.isLoggedIn = false;
             this.location.go("/home");

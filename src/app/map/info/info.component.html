@@ -76,9 +76,27 @@
             </div>
         </div>
         <div class="content d-flex flex-column text-center p-4 h-50">
-            <h3 class="display-4">{{ marker.title }}</h3>
+            <h3 class="display-4 m-0">{{ marker.title }}</h3>
+            <div *ngIf="marker.species_id || marker.breed_id" class="row mt-3">
+                <div *ngIf="marker.species_id" class="col">
+                    <span>
+                        <strong>
+                            {{ marker.species_id | speciesName | async | translate }}
+                        </strong>
+                    </span>
+                </div>
+                <div *ngIf="marker.breed_id" class="col">
+                    <span>
+                        <strong>
+                            {{ marker.breed_id | breedName | async | translate }}
+                        </strong>
+                    </span>
+                </div>
+            </div>
             <div>
-                <p class="text-justify"><strong>{{ marker.description }}</strong></p>
+                <p class="my-3 text-justify text-break">
+                    <strong>{{ marker.description }}</strong>
+                </p>
             </div>
         </div>
     </div>

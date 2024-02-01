@@ -26,7 +26,7 @@ export class ForgotpasswordComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (this.sessionService.get("user") !== null) {
+        if (this.sessionService.exists("user")) {
             this.location.go("/home");
             window.location.reload();
         }

@@ -27,7 +27,7 @@ export class LanguageSelectComponent implements OnInit {
             }
         });
 
-        if (this.sessionService.get("language") !== null) {
+        if (this.sessionService.exists("language")) {
             this.setLanguage(this.sessionService.get("language"));
         } else {
             this.setLanguage(this.translateService.getCurrentLanguage());

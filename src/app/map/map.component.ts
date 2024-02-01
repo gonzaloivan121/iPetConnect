@@ -75,7 +75,7 @@ export class MapComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (this.sessionService.get("user") !== null) {
+        if (this.sessionService.exists("user")) {
             this.isLoggedIn = true;
             this.user = JSON.parse(this.sessionService.get("user"));
         }

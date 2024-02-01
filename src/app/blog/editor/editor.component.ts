@@ -54,7 +54,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        if (this.sessionService.get("user") !== null) {
+        if (this.sessionService.exists("user")) {
             this.user = JSON.parse(this.sessionService.get("user"));
             if (this.user.role_id != RoleEnum.Blogger) {
                 this.location.back();

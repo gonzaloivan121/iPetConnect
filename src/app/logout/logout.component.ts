@@ -14,7 +14,7 @@ export class LogoutComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        if (this.sessionService.get('user') !== null) {
+        if (this.sessionService.exists("user")) {
             this.sessionService.clear();
             this.location.go('/home');
             window.location.reload();

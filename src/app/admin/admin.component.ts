@@ -26,8 +26,8 @@ export class AdminComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (this.sessionService.get('user') !== null) {
-            this.user = JSON.parse(this.sessionService.get('user'));
+        if (this.sessionService.exists("user")) {
+            this.user = JSON.parse(this.sessionService.get("user"));
             if (this.user.role_id != RoleEnum.Admin) {
                 this.location.back();
             }

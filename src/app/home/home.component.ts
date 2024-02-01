@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
     isUser: boolean = false;
 
     ngOnInit() {
-        if (this.sessionService.get("user") !== null) {
+        if (this.sessionService.exists("user")) {
             this.isLoggedIn = true;
             var user: IUser = JSON.parse(this.sessionService.get("user"));
             this.isAdmin = user.role_id === RoleEnum.Admin;

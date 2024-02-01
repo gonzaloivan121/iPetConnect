@@ -56,7 +56,7 @@ export class SignupComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (this.sessionService.get("user") !== null) {
+        if (this.sessionService.exists("user")) {
             this.location.go("/home");
             window.location.reload();
         }

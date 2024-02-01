@@ -78,14 +78,14 @@ export class MatchComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (this.sessionService.get("user") !== null) {
+        if (this.sessionService.exists("user")) {
             this.user = JSON.parse(this.sessionService.get("user"));
 
             if (this.user.role_id != RoleEnum.User) {
                 this.location.back();
             }
 
-            if (this.sessionService.get("matchSidebarOpen") !== null) {
+            if (this.sessionService.exists("matchSidebarOpen")) {
                 this.isSidebarOpen = JSON.parse(
                     this.sessionService.get("matchSidebarOpen")
                 );

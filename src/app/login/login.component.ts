@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (this.sessionService.get("user") !== null) {
+        if (this.sessionService.exists("user")) {
             this.location.go("/home");
             window.location.reload();
         }
@@ -63,6 +63,7 @@ export class LoginComponent implements OnInit {
                             "user",
                             JSON.stringify(userData)
                         );
+                        this.sessionService.set("remember", formData.remember);
                         this.location.go("/home");
                         window.location.reload();
                     } else {
