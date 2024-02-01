@@ -53,7 +53,7 @@ export class EditMarkerComponent implements OnInit, OnChanges {
 
     ngOnInit(): void {
         this.editMarkerForm = this.formBuilder.group({
-            id: [this.marker.id],
+            id: [this.marker.id, [Validators.required]],
             species_id: [this.marker.species_id ?? ""],
             breed_id: [this.marker.breed_id ?? ""],
             user_id: [this.marker.user_id, [Validators.required]],
@@ -126,10 +126,6 @@ export class EditMarkerComponent implements OnInit, OnChanges {
         return this.editMarkerForm.get("breed_id");
     }
 
-    get user_id() {
-        return this.editMarkerForm.get("user_id");
-    }
-
     get title() {
         return this.editMarkerForm.get("title");
     }
@@ -142,24 +138,12 @@ export class EditMarkerComponent implements OnInit, OnChanges {
         return this.editMarkerForm.get("type");
     }
 
-    get color() {
-        return this.editMarkerForm.get("color");
-    }
-
     get coordinates() {
         return this.editMarkerForm.get("coordinates");
     }
 
     get image() {
         return this.editMarkerForm.get("image");
-    }
-
-    get created_at() {
-        return this.editMarkerForm.get("created_at");
-    }
-
-    get updated_at() {
-        return this.editMarkerForm.get("updated_at");
     }
 
     onSubmit() {
