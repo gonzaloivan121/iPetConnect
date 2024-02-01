@@ -76,6 +76,7 @@ import { PetPostComponent } from './pets/pet-post/pet-post.component';
 import { DateAgoPipe } from './pipes/date-ago.pipe';
 import { CreateMarkerComponent } from './map/create-marker/create-marker.component';
 import { EditMarkerComponent } from './map/edit-marker/edit-marker.component';
+import { OrderByMessagesPipe } from './pipes/order-by-messages.pipe';
 
 export function setupAppConfigServiceFactory(
     service: AppConfigService
@@ -152,6 +153,7 @@ export function setupTranslateServiceFactory(
         DateAgoPipe,
         CreateMarkerComponent,
         EditMarkerComponent,
+        OrderByMessagesPipe,
     ],
     imports: [
         NgbModule,
