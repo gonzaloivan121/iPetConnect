@@ -640,12 +640,6 @@ export class MatchComponent implements OnInit {
             }
         }
 
-        for (let like of this.likesReceived) {
-            if (like.user1_id === user.id || like.user2_id === user.id) {
-                isLike = true;
-            }
-        }
-
         return isLike;
     }
 }
