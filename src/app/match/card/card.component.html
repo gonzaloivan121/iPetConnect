@@ -1,7 +1,7 @@
 <div class="card h-100 w-100 custom-card">
     <div class="p-0 h-100 custom-card-component">
         <div *ngIf="!isDummy" class="background-image bg-image shadow h-50 w-100" style="background-image: url('{{ user.image }}')">
-            <button *ngIf="isMatch || isLikeGiven" (click)="closeProfile()" class="btn btn-secondary rounded-circle btn-icon-only settings">
+            <button *ngIf="isMatch || isLike" (click)="closeProfile()" class="btn btn-secondary rounded-circle btn-icon-only settings">
                 <span class="btn-inner--icon">✖</span>
             </button>
         </div>
