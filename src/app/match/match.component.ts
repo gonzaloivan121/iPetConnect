@@ -614,4 +614,34 @@ export class MatchComponent implements OnInit {
     openModal(content) {
         this.modalService.open(content, { centered: true });
     }
+
+    isMatch(user: IUser): boolean {
+        var isMatch: boolean = false;
+
+        for (let match of this.matches) {
+            if (match.user1_id === user.id || match.user2_id === user.id) {
+                isMatch = true;
+            }
+        }
+
+        return isMatch;
+    }
+
+    isLike(user: IUser): boolean {
+        var isLike: boolean = false;
+
+        for (let like of this.likesGiven) {
+            if (like.user1_id === user.id || like.user2_id === user.id) {
+                isLike = true;
+            }
+        }
+
+        for (let like of this.likesReceived) {
+            if (like.user1_id === user.id || like.user2_id === user.id) {
+                isLike = true;
+            }
+        }
+
+        return isLike;
+    }
 }

@@ -52,13 +52,13 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <p class="lead">{{ "NO_MORE_USERS_DESCRIPTION" | translate }}</p>
+                        <p class="lead text-justify">{{ "NO_MORE_USERS_DESCRIPTION" | translate }}</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div *ngIf="!isDummy && !isMatch && !isLikeGiven" class="buttons-container w-100 d-flex justify-content-evenly position-absolute text-center">
+        <div *ngIf="!isDummy && !isMatch && !isLike" class="buttons-container w-100 d-flex justify-content-evenly position-absolute text-center">
             <button (click)="dislike()" class="btn btn-danger m-0 d-flex justify-content-center align-items-center info-img-container dislike">
                 <div class="d-flex justify-content-center align-items-center text-white image-container display-4">
                     <span class="btn-inner--icon">✖</span>
