@@ -344,5 +344,7 @@
     "YOU_HAVE_NEW_MATCH_WHAT_DO_YOU_WANT_TO_DO": "У вас новый матч, что вы хотите сделать?",
     "CLOSE": "Закрывать",
     "COMING_SOON": "Вскоре...",
-    "SHOW_LESS": "Смотрите меньше"
+    "SHOW_LESS": "Смотрите меньше",
+    "IMPERSONATE": "Олицетворять",
+    "IMPERSONATE_USER": "Выдавать себя за пользователя"
 }

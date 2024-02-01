@@ -7,6 +7,7 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" ngbDropdownMenu>
                 <a *ngIf="user.role_id == roleEnum.Admin" [routerLink]="['/admin']" class="dropdown-item" role="button">{{ "ADMIN" | translate }}</a>
+                <a *ngIf="user.role_id == roleEnum.Admin" href="javascript:void(0)" class="dropdown-item" role="button" (click)="impersonate()">{{ "IMPERSONATE" | translate }}</a>
                 <a *ngIf="user.role_id == roleEnum.User || user.role_id == roleEnum.Blogger" [routerLink]="['/profile']" class="dropdown-item" role="button">{{ "PROFILE" | translate }}</a>
                 <a *ngIf="user.role_id == roleEnum.User" [routerLink]="['/settings']" class="dropdown-item" role="button">{{ "SETTINGS" | translate }}</a>
                 <div *ngIf="user.role_id == roleEnum.Blogger" class="dropdown-divider"></div>

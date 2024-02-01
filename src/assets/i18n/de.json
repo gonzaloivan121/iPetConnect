@@ -344,5 +344,7 @@
     "YOU_HAVE_NEW_MATCH_WHAT_DO_YOU_WANT_TO_DO": "Du hast ein neues match, was möchtest du tun?",
     "CLOSE": "Schließen",
     "COMING_SOON": "Demnächst...",
-    "SHOW_LESS": "Zeige weniger"
+    "SHOW_LESS": "Zeige weniger",
+    "IMPERSONATE": "Imitieren",
+    "IMPERSONATE_USER": "Sich als Benutzer ausgeben"
 }

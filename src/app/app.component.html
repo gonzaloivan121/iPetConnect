@@ -1,7 +1,28 @@
-<app-navbar></app-navbar>
+<app-navbar (impersonateEvent)="openImpersonateModal()"></app-navbar>
 <app-new-version-checker></app-new-version-checker>
 <div [@routeAnimations]="getRouteAnimationData()">
     <router-outlet></router-outlet>
 </div>
 <app-footer></app-footer>
 <app-alert></app-alert>
+
+<ng-template #impersonateContent let-modal>
+    <div class="modal-header align-items-center">
+        <h4 class="modal-title">{{ "IMPERSONATE_USER" | translate }}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'CLOSE' | translate }}"
+            (click)="modal.dismiss('Cross click')">
+            <span class="btn-inner--icon">✖</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-impersonate (closeModalEvent)="modal.dismiss('Cancel click')" (userSelectedEvent)="selectUser($event)"></app-impersonate>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-block btn-outline-default" (click)="modal.dismiss('Cancel button click')">
+            {{ "CANCEL" | translate }}
+        </button>
+        <button class="btn btn-block btn-default m-0" (click)="impersonate(modal.dismiss)" [disabled]="selectedUserToImpersonate === null">
+            {{ "IMPERSONATE" | translate }}
+        </button>
+    </div>
+</ng-template>

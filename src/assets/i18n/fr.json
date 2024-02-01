@@ -344,5 +344,7 @@
     "YOU_HAVE_NEW_MATCH_WHAT_DO_YOU_WANT_TO_DO": "Vous avez un nouveau match, que voulez-vous faire?",
     "CLOSE": "Fermer",
     "COMING_SOON": "À venir...",
-    "SHOW_LESS": "Voir moins"
+    "SHOW_LESS": "Voir moins",
+    "IMPERSONATE": "Emprunter identité",
+    "IMPERSONATE_USER": "Emprunter l’identité d’un utilisateur"
 }

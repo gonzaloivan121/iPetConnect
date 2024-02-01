@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { Location, PopStateEvent } from '@angular/common';
 import { NavigationService, SessionService } from 'src/app/services';
@@ -43,6 +43,8 @@ export class NavbarComponent implements OnInit {
             text: "Twitter",
         },
     ];
+
+    @Output() impersonateEvent = new EventEmitter<void>();
 
     constructor(
         public location: Location,
@@ -118,12 +120,16 @@ export class NavbarComponent implements OnInit {
         return this.navigationService.is(Page.Pets);
     }
 
-    logout() {
+    logout(): void {
         if (this.sessionService.exists("user")) {
             this.sessionService.clear("user");
             this.isLoggedIn = false;
             this.location.go("/home");
             window.location.reload();
         }
+    }
+
+    impersonate(): void {
+        this.impersonateEvent.emit();
     }
 }

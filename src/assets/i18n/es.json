@@ -335,7 +335,7 @@
     "ARE_YOU_SURE_YOU_WANT_TO_DELETE_MARKER": "¿Estás seguro de que deseas eliminar este marcador?",
     "ARE_YOU_SURE_YOU_WANT_TO_DELETE_CHAT": "¿Estás seguro de que deseas eliminar este chat?",
     "ARE_YOU_SURE_YOU_WANT_TO_REPORT_USER_1": "¿Estás seguro de que deseas reportar a este usuario? El informe será anónimo, por lo que tu información permanecerá protegida, pero obtendremos información del usuario al que estás reportando.",
-    "ARE_YOU_SURE_YOU_WANT_TO_REPORT_USER_2": "Si estás seguro, por favor, rellena en el siguiente campo de texto la información que creas necesaria para poder procesar el informe.",
+    "ARE_YOU_SURE_YOU_WANT_TO_REPORT_USER_2": "Si estás seguro, por favor, rellena el siguiente campo de texto con la información que creas necesaria para poder procesar el informe.",
     "REPORT_REASON": "Razón de la denuncia",
     "ARE_YOU_SURE_YOU_WANT_TO_UNDO_MATCH": "¿Estás seguro de que deseas deshacer este match?",
     "DELETE_LIKE": "Eliminar like",
@@ -344,5 +344,7 @@
     "YOU_HAVE_NEW_MATCH_WHAT_DO_YOU_WANT_TO_DO": "Tienes un nuevo match, ¿qué quieres hacer?",
     "CLOSE": "Cerrar",
     "COMING_SOON": "Próximamente...",
-    "SHOW_LESS": "Ver menos"
+    "SHOW_LESS": "Ver menos",
+    "IMPERSONATE": "Suplantar",
+    "IMPERSONATE_USER": "Suplantar usuario"
 }

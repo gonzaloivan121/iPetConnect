@@ -78,6 +78,7 @@ import { DateAgoPipe } from './pipes/date-ago.pipe';
 import { CreateMarkerComponent } from './map/create-marker/create-marker.component';
 import { EditMarkerComponent } from './map/edit-marker/edit-marker.component';
 import { OrderByMessagesPipe } from './pipes/order-by-messages.pipe';
+import { ImpersonateComponent } from './impersonate/impersonate.component';
 
 export function setupAppConfigServiceFactory(
     service: AppConfigService
@@ -155,6 +156,7 @@ export function setupTranslateServiceFactory(
         CreateMarkerComponent,
         EditMarkerComponent,
         OrderByMessagesPipe,
+        ImpersonateComponent,
     ],
     imports: [
         NgbModule,
