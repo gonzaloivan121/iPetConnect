@@ -163,7 +163,7 @@
                                     </div>
                                 </div>
                                 <div *ngIf="chats.length > 0" class="py-3 w-100 scroll">
-                                    <app-messages *ngFor="let chat of chats | orderByMessages" [chat]="chat" [user]="user" (openChatEvent)="openChat($event)"></app-messages>
+                                    <app-messages *ngFor="let chat of chats" [chat]="chat" [user]="user" (openChatEvent)="openChat($event)"></app-messages>
                                 </div>
                             </div>
                             <!-- END - Messages Tab -->

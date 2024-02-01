@@ -111,12 +111,19 @@ export class ChatComponent implements OnInit, OnChanges {
                     }
 
                     this.chat.messages.push(message);
+
+                    this.updateChat();
+
                     setTimeout(() => {
                         this.scrollToBottom();
                     }, 200);
                     this.message.reset();
                 }
             });
+    }
+
+    updateChat() {
+        this.dataService.update(DBTables.Chat, this.chat).catch((error) => console.error(error));
     }
 
     getOtherUser(): Observable<boolean> {
