@@ -131,7 +131,7 @@
                                             <input type="text" id="birthday" name="birthday" formControlName="birthday"
                                                 class="form-control datepicker"
                                                 placeholder="{{ 'BIRTHDAY' | translate }}" ngbDatepicker
-                                                #d="ngbDatepicker" (click)="d.toggle()" [maxDate]="maxBirthDate"
+                                                #d="ngbDatepicker" (click)="d.toggle()" [minDate]="minBirthDate" [maxDate]="maxBirthDate"
                                                 (focus)="focusBirthday = true" (blur)="focusBirthday = false" />
                                         </div>
                                     </div>
