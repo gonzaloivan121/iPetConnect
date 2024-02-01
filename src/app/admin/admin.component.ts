@@ -21,6 +21,7 @@ export class AdminComponent implements OnInit {
     constructor(
         private sessionService: SessionService,
         private location: Location,
+        private navigationService: NavigationService
     ) {
         this.navigationService.set(Page.Admin);
     }
