@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { UntypedFormGroup, UntypedFormBuilder, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { DataService, SessionService, AppConfigService, NavigationService } from 'src/app/services';
+import { DataService, SessionService, AppConfigService, NavigationService, AlertService } from 'src/app/services';
 import { DBTables } from 'src/classes';
 import { IConfig, IUser } from 'src/app/interfaces';
 import { Page } from 'src/app/enums/enums';
@@ -49,7 +49,8 @@ export class SignupComponent implements OnInit {
         private dataService: DataService,
         private sessionService: SessionService,
         private configService: AppConfigService,
-        private navigationService: NavigationService
+        private navigationService: NavigationService,
+        private alertService: AlertService
     ) {
         this.navigationService.set(Page.Register);
     }
@@ -262,5 +263,9 @@ export class SignupComponent implements OnInit {
 
     toggleShowConfirmPassword() {
         this.isConfirmPasswordShown = !this.isConfirmPasswordShown;
+    }
+
+    comingSoon() {
+        this.alertService.openInfo("COMING_SOON");
     }
 }

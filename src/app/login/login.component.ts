@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
-import { DataService, SessionService, NavigationService } from 'src/app/services';
+import { DataService, SessionService, NavigationService, AlertService } from 'src/app/services';
 import { Page } from 'src/app/enums/enums';
 
 @Component({
@@ -23,7 +23,8 @@ export class LoginComponent implements OnInit {
         private formBuilder: UntypedFormBuilder,
         private dataService: DataService,
         private sessionService: SessionService,
-        private navigationService: NavigationService
+        private navigationService: NavigationService,
+        private alertService: AlertService
     ) {
         this.navigationService.set(Page.Login);
     }
@@ -78,5 +79,9 @@ export class LoginComponent implements OnInit {
 
     toggleShowPassword() {
         this.isPasswordShown = !this.isPasswordShown;
+    }
+
+    comingSoon() {
+        this.alertService.openInfo("COMING_SOON");
     }
 }
