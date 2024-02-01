@@ -343,5 +343,6 @@
     "ITS_A_MATCH": "Это совпадение!",
     "YOU_HAVE_NEW_MATCH_WHAT_DO_YOU_WANT_TO_DO": "У вас новый матч, что вы хотите сделать?",
     "CLOSE": "Закрывать",
-    "COMING_SOON": "Вскоре..."
+    "COMING_SOON": "Вскоре...",
+    "SHOW_LESS": "Смотрите меньше"
 }

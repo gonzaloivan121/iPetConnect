@@ -8,6 +8,7 @@ import { HttpClientModule, HttpClientJsonpModule } from "@angular/common/http";
 import { AppRoutingModule } from "./app.routing";
 import { GoogleMapsModule } from "@angular/google-maps";
 import { NgxEditorModule } from "ngx-editor";
+import { EllipsisModule } from "ngx-ellipsis";
 
 import { AppComponent } from "./app.component";
 import { SignupComponent } from "./signup/signup.component";
@@ -169,6 +170,7 @@ export function setupTranslateServiceFactory(
         HttpClientJsonpModule,
         GoogleMapsModule,
         NgxEditorModule,
+        EllipsisModule,
         ServiceWorkerModule.register("ngsw-worker.js", {
             enabled: !isDevMode(),
             // Register the ServiceWorker as soon as the application is stable

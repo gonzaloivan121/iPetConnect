@@ -59,8 +59,18 @@
         </div>
         <div class="card-footer bg-white">
             <a href="javascript:;" class="text-dark font-weight-600 text-sm">{{ postUser.username }}</a>
-            <div class="text-dark text-break text-justify py-3">{{ post.description }}</div>
+            <div *ngIf="showEllipsis; else noEllipsis">
+                <div class="text-dark text-break text-justify py-3 hidden" 
+                    ellipsis="... {{ 'SHOW_MORE' | translate }}"
+                    (ellipsis-click-more)="showEllipsis = false"
+                    [ellipsis-content]="post.description"
+                ></div>
+            </div>
             <a href="javascript:;" class="text-dark font-weight-600 text-sm">{{ "VIEW_ALL_COMMENTS" | translate }}</a>
         </div>
     </div>
 </div>
+
+<ng-template #noEllipsis>
+    <div class="text-dark text-break text-justify py-3">{{ post.description }}</div>
+</ng-template>

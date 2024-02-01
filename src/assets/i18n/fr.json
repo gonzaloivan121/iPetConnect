@@ -73,7 +73,7 @@
     "COMMENTS": "Commentaires",
     "CONNECT": "Connecter",
     "MESSAGE": "Message",
-    "SHOW_MORE": "Afficher plus",
+    "SHOW_MORE": "Voir plus",
     "NOT_FOUND": "Non trouvé",
     "FOLLOW_US": "Suivez-nous",
     "LIKE_US": "Aimez-nous",
@@ -343,5 +343,6 @@
     "ITS_A_MATCH": "C'est un match!",
     "YOU_HAVE_NEW_MATCH_WHAT_DO_YOU_WANT_TO_DO": "Vous avez un nouveau match, que voulez-vous faire?",
     "CLOSE": "Fermer",
-    "COMING_SOON": "À venir..."
+    "COMING_SOON": "À venir...",
+    "SHOW_LESS": "Voir moins"
 }

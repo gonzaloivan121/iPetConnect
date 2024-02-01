@@ -12,6 +12,8 @@ import { IUser } from 'src/app/interfaces';
 export class ProfileComponent implements OnInit {
     public user: IUser;
 
+    showEllipsis: boolean = true;
+
     constructor(
         public location: Location,
         private sessionService: SessionService,

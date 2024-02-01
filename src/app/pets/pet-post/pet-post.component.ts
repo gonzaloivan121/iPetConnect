@@ -18,6 +18,8 @@ export class PetPostComponent implements OnInit {
     postUser: IUser;
     postUserLoaded: Observable<boolean>;
 
+    showEllipsis: boolean = true;
+
     constructor(private dataService: DataService) {}
 
     ngOnInit(): void {

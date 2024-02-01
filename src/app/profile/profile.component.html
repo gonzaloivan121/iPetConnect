@@ -49,17 +49,19 @@
             </div>
           </div>
           <div class="text-center mt-5">
-            <h3>{{ user.name }}<span class="font-weight-light">, {{ user.birthday | age }}</span>
-            </h3>
-            <div class="h6 font-weight-300"><i class="ni ni-pin-3 mr-2"></i>Bucharest, Romania</div>
-            <div class="h6 mt-4"><i class="ni ni-briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer</div>
-            <div><i class="ni ni-hat-3 mr-2"></i>University of Computer Science</div>
+            <h3>{{ user.name }}<span class="font-weight-light">, {{ user.birthday | age }}</span></h3>
+            <div class="h6">{{ user.username }}</div>
           </div>
           <div class="mt-5 py-5 border-top text-center">
             <div class="row justify-content-center">
               <div class="col-lg-9">
-                <p class="text-justify text-break">{{ user.bio }}</p>
-                <a href="javascript:void(0)">{{ "SHOW_MORE" | translate }}</a>
+                <div *ngIf="showEllipsis; else noEllipsis">
+                  <div class="text-justify text-break mb-3 hidden" ellipsis>{{ user.bio }}</div>
+                </div>
+                <a href="javascript:void(0)" (click)="showEllipsis = !showEllipsis">
+                  <span *ngIf="showEllipsis">{{ "SHOW_MORE" | translate }}</span>
+                  <span *ngIf="!showEllipsis">{{ "SHOW_LESS" | translate }}</span>
+                </a>
               </div>
             </div>
           </div>
@@ -68,3 +70,7 @@
     </div>
   </section>
 </main>
+
+<ng-template #noEllipsis>
+  <div class="text-justify text-break mb-3">{{ user.bio }}</div>
+</ng-template>

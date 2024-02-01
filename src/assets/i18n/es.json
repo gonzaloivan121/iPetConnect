@@ -343,5 +343,6 @@
     "ITS_A_MATCH": "¡Es un match!",
     "YOU_HAVE_NEW_MATCH_WHAT_DO_YOU_WANT_TO_DO": "Tienes un nuevo match, ¿qué quieres hacer?",
     "CLOSE": "Cerrar",
-    "COMING_SOON": "Próximamente..."
+    "COMING_SOON": "Próximamente...",
+    "SHOW_LESS": "Ver menos"
 }
