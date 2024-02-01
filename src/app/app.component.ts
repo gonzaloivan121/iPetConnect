@@ -1,9 +1,9 @@
-import { Component, OnInit, Inject, Renderer2, ElementRef, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, Inject, Renderer2, ElementRef, ViewChild, HostListener, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd, ChildrenOutletContexts } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 import { LocationStrategy, PlatformLocation, Location } from '@angular/common';
 import { filter, Subscription } from 'rxjs';
-import { AppConfigService, TranslateService } from './services';
+import { AppConfigService, TranslateService, SessionService } from './services';
 import {
     trigger,
     state,
@@ -23,7 +23,7 @@ var navbarHeight = 0;
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
     private _router: Subscription;
     isAuthenticated: boolean;
 
@@ -35,7 +35,8 @@ export class AppComponent implements OnInit {
         private contexts: ChildrenOutletContexts,
         public location: Location,
         public appConfig: AppConfigService,
-        public translateService: TranslateService
+        public translateService: TranslateService,
+        private sessionService: SessionService
     ) { }
 
     @HostListener('window:scroll', ['$event'])
@@ -92,6 +93,14 @@ export class AppComponent implements OnInit {
             });
         });
         this.hasScrolled();
+    }
+
+    ngOnDestroy(): void {
+        if (this.sessionService.exists("remember")) {
+            if (!JSON.parse(this.sessionService.get("remember"))) {
+                this.sessionService.clear("user");
+            }
+        }
     }
 
     getRouteAnimationData() {
