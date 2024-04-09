@@ -1,0 +1,24 @@
+.header {
+    padding-top: 72px;
+}
+
+.profile-picture {
+    width: 150px;
+    height: 150px;
+}
+
+.pets-container {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-gap: 10px;
+}
+
+.no-posts-icon {
+    font-size: 5rem;
+}
+
+@media (max-width: 768px) {
+    .pets-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}

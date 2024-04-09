@@ -2,11 +2,11 @@
     <div class="card shadow">
         <div class="card-header bg-white d-flex align-items-center">
             <div class="d-flex align-items-center">
-                <a href="javascript:;">
+                <a [routerLink]="['/pets', postUser.username]">
                     <div class="background-image avatar shadow" style="background-image: url('{{ postUser.image }}');"></div>
                 </a>
                 <div class="mx-3">
-                    <a href="javascript:;" class="text-dark font-weight-600 text-sm">{{ postUser.username }}</a>
+                    <a [routerLink]="['/pets', postUser.username]" class="text-dark font-weight-600 text-sm">{{ postUser.username }}</a>
                     <small class="d-block text-muted text-lowercase">{{ (post.created_at | dateAgo).time }} {{ (post.created_at | dateAgo).text | translate }}</small>
                 </div>
             </div>
@@ -21,7 +21,13 @@
         </div>
         <div class="card-body">
             <div class="mb-4 text-dark text-break">{{ post.title }}</div>
-            <img class="img-fluid rounded" [src]="post.image">
+
+            <ngb-carousel data-bs-touch="true">
+                <ng-template ngbSlide>
+                    <img class="img-fluid rounded" [src]="post.image">
+                </ng-template>
+            </ngb-carousel>
+
             <div class="row align-items-center mt-3">
                 <div class="col-sm-6">
                     <div class="icon-actions d-flex">

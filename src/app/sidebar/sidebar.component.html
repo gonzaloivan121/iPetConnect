@@ -1,0 +1,27 @@
+<div class="sidebar shadow" [ngClass]="{ 'expanded': isExpanded }">
+    <div class="header">
+        <div class="toggle" (click)="handleSidebarToggle()">
+            <button type="button" class="navbar-toggler" >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </div>
+    <div class="content">
+
+        <div *ngFor="let specLink of specification.links" class="link" [ngClass]="{ 'with-children': specLink.hasChildren }">
+            <div class="content" [routerLink]="[specLink.routerUrl]" [routerLinkActive]="'active'">
+                <img *ngIf="specLink.hasIcon" [src]="specLink.icon">
+                <div class="title">{{ specLink.text | translate }}</div>
+            </div>
+            <div *ngIf="specLink.hasChildren" class="children">
+                <div *ngFor="let childrenLink of specLink.children" class="link">
+                    <div class="content" [routerLink]="[childrenLink.routerUrl]" [routerLinkActive]="'active'">
+                        <img *ngIf="childrenLink.hasIcon" [src]="childrenLink.icon">
+                        <div class="title">{{ childrenLink.text | translate }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

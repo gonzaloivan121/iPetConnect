@@ -4,6 +4,7 @@ import { DBTables } from "src/classes";
 import { Observable, from, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import { IPetPost, IUser } from "src/app/interfaces";
+import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
     selector: "app-pet-post",
@@ -20,7 +21,12 @@ export class PetPostComponent implements OnInit {
 
     showEllipsis: boolean = true;
 
-    constructor(private dataService: DataService) {}
+    constructor(private dataService: DataService, config: NgbCarouselConfig) {
+        config.interval = 0;
+        config.keyboard = true;
+        config.animation = false;
+        config.wrap = false;
+    }
 
     ngOnInit(): void {
         this.postUserLoaded = this.getPostUser();

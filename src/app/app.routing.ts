@@ -21,28 +21,31 @@ import { ForgotpasswordComponent } from "./forgotpassword/forgotpassword.compone
 import { BlogPostComponent } from "./blog/blog-post/blog-post.component";
 import { EditorComponent } from "./blog/editor/editor.component";
 import { PetsComponent } from "./pets/pets.component";
+import { PetProfileComponent } from "./pets/pet-profile/pet-profile.component";
 
 const routes: Routes = [
-    { path: "home",             component: HomeComponent },
-    { path: "profile",          component: ProfileComponent },
-    { path: "profile/edit",     component: EditProfileComponent },
-    { path: "register",         component: SignupComponent },
-    { path: "landing",          component: LandingComponent },
-    { path: "login",            component: LoginComponent },
-    { path: "logout",           component: LogoutComponent },
-    { path: "match",            component: MatchComponent },
-    { path: "map",              component: MapComponent },
-    { path: "admin",            component: AdminComponent },
-    { path: "settings",         component: SettingsComponent },
-    { path: "blog",             component: BlogComponent },
-    { path: "blog/editor",      component: EditorComponent },
+    { path: "home", component: HomeComponent },
+    { path: "profile", component: ProfileComponent },
+    { path: "profile/edit", component: EditProfileComponent },
+    { path: "register", component: SignupComponent },
+    { path: "landing", component: LandingComponent },
+    { path: "login", component: LoginComponent },
+    { path: "logout", component: LogoutComponent },
+    { path: "match", component: MatchComponent },
+    { path: "map", component: MapComponent },
+    { path: "admin", component: AdminComponent },
+    { path: "settings", component: SettingsComponent },
+    { path: "blog", component: BlogComponent },
+    { path: "blog/editor", component: EditorComponent },
+    { path: "blog/editor/:id", component: EditorComponent },
     { path: "blog/post", redirectTo: "blog", pathMatch: "full" },
-    { path: "blog/post/:id",    component: BlogPostComponent },
-    { path: "privacy",          component: PrivacyComponent },
-    { path: "password",         component: ForgotpasswordComponent },
-    { path: "pets",             component: PetsComponent },
+    { path: "blog/post/:id", component: BlogPostComponent },
+    { path: "privacy", component: PrivacyComponent },
+    { path: "password", component: ForgotpasswordComponent },
+    { path: "pets", component: PetsComponent },
+    { path: "pets/:username", component: PetProfileComponent },
     { path: "", redirectTo: "home", pathMatch: "full" },
-    { path: "**",               component: PageNotFoundComponent },
+    { path: "**", component: PageNotFoundComponent },
 ];
 
 @NgModule({

@@ -79,6 +79,8 @@ import { CreateMarkerComponent } from './map/create-marker/create-marker.compone
 import { EditMarkerComponent } from './map/edit-marker/edit-marker.component';
 import { OrderByMessagesPipe } from './pipes/order-by-messages.pipe';
 import { ImpersonateComponent } from './impersonate/impersonate.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { PetProfileComponent } from './pets/pet-profile/pet-profile.component';
 
 export function setupAppConfigServiceFactory(
     service: AppConfigService
@@ -157,6 +159,8 @@ export function setupTranslateServiceFactory(
         EditMarkerComponent,
         OrderByMessagesPipe,
         ImpersonateComponent,
+        SidebarComponent,
+        PetProfileComponent,
     ],
     imports: [
         NgbModule,

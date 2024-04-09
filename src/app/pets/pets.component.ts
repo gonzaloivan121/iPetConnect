@@ -5,7 +5,7 @@ import { DBTables } from 'src/classes';
 import { Page, RoleEnum } from "src/app/enums/enums";
 import { Observable, from, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
-import { IPetPost, IUser } from "src/app/interfaces";
+import { IPetPost, IUser, ISidebarSpecification } from "src/app/interfaces";
 
 @Component({
     selector: "app-pets",
@@ -17,6 +17,33 @@ export class PetsComponent implements OnInit {
     petPosts: IPetPost[];
 
     public petPostsLoaded: Observable<boolean>;
+
+    sidebarExpanded: boolean = true;
+    sidebarSpecification: ISidebarSpecification = {
+        links: [
+            {
+                text: "HOME",
+                routeUrl: "",
+                hasChildren: false,
+                hasIcon: true,
+                icon: "assets/img/svg/icon.svg",
+            },
+            {
+                text: "CREATE",
+                routeUrl: "",
+                hasChildren: false,
+                hasIcon: true,
+                icon: "assets/img/svg/icon.svg",
+            },
+            {
+                text: "PROFILE",
+                routeUrl: "",
+                hasChildren: false,
+                hasIcon: true,
+                icon: "assets/img/svg/icon.svg",
+            },
+        ],
+    };
 
     constructor(
         private sessionService: SessionService,

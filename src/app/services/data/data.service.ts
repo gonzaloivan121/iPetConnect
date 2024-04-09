@@ -36,6 +36,11 @@ export class DataService {
         return this.request("GET", url);
     }
 
+    getFromText(table: string, fromTable: string, text: string) {
+        let url: string = `${environment.serverUrl}/${table}/${fromTable}/${text}`;
+        return this.request("GET", url);
+    }
+
     getBothFrom(table: string, fromTable: string, id1: number, id2: number) {
         let url: string = `${environment.serverUrl}/${table}/${fromTable}/${id1}/${id2}`;
         return this.request("GET", url);

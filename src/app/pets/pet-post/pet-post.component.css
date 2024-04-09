@@ -1,3 +1,7 @@
 .hidden {
     height: 5rem;
 }
+
+.carousel-item {
+    height: auto !important;
+}

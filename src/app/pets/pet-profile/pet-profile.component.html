@@ -1,0 +1,87 @@
+<div class="header"></div>
+<div *ngIf="profileUserLoaded | async" class="container">
+    <div class="card my-5">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4 d-flex justify-content-center align-items-center">
+                    <div class="background-image profile-picture rounded-circle shadow" style="background-image: url('{{ profileUser.image }}');"></div>
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col d-flex align-items-center">
+                            <span class="text-dark font-weight-600 mr-4">{{ profileUser.username }}</span>
+                
+                            <button type="button" class="btn btn-sm btn-primary">
+                                <span class="btn-inner--text">{{ "FOLLOW" | translate }}</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col-4">
+                            <span *ngIf="postsLoaded | async" class="text-dark text-lowercase">
+                                <div *ngIf="petPosts.length === 0">
+                                    <span class="font-weight-600">0</span> {{ "PET_POSTS" | translate }}
+                                </div>
+                                <div *ngIf="petPosts.length === 1">
+                                    <span class="font-weight-600">{{ petPosts.length }}</span> {{ "PET_POST" | translate }}
+                                </div>
+                                <div *ngIf="petPosts.length > 1">
+                                    <span class="font-weight-600">{{ petPosts.length }}</span> {{ "PET_POSTS" | translate }}
+                                </div>
+                            </span>
+                        </div>
+                        <div class="col-4">
+                            <span class="text-dark text-lowercase">
+                                <span class="font-weight-600">999</span> {{ "FOLLOWERS" | translate }}
+                            </span>
+                        </div>
+                        <div class="col-4">
+                            <span class="text-dark text-lowercase">
+                                <span class="font-weight-600">999</span> {{ "FOLLOWING" | translate }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <span class="text-dark font-weight-600">{{ profileUser.name }}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <span class="text-dark text-break">{{ profileUser.bio }}</span>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <span class="text-dark small">{{ "FOLLOWED_BY" | translate }} <span class="font-weight-600">DanteInferno</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="postsLoaded | async" class="row">
+        <div class="col">
+            <div *ngIf="petPosts.length > 0" class="pets-container">
+                <div *ngFor="let post of petPosts" data-animation="zooming" class="card card-blog card-background">
+                    <div class="full-background" style="background-image: url('{{ post.image }}');"></div>
+                    <a>
+                        <div class="card-body">
+                            <div class="content-bottom">
+                                <h5 class="card-title">{{ post.title }}</h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div *ngIf="petPosts.length === 0">
+                <h1 class="text-center no-posts-icon">
+                    <i class="ni ni-image"></i>
+                </h1>
+                <h3 class="text-center">{{ "NO_POSTS_YET" | translate }}</h3>
+            </div>
+        </div>
+    </div>
+</div>

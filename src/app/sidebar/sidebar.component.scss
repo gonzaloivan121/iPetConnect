@@ -1,0 +1,99 @@
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,<svg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'><path stroke='rgba(255, 255, 255, 0.95)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/></svg>");
+}
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding-top: 72px;
+    height: 100vh;
+    transition: 0.3s;
+    width: 5rem;
+
+    &.expanded {
+        width: 16.666666666666%;
+
+        .content {
+            .link {
+                .content {
+                    .title {
+                        max-width: 100px;
+                        margin-left: .25rem;
+                    }
+                }
+
+                .children {
+                    .content {
+                        padding-left: 30px;
+                    }
+                }
+            }
+        }
+    }
+
+    background: #1d1e2c;
+    color: #6d6e7e;
+
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 10px;
+        background: #0f1017;
+    }
+
+    .content {
+        .link {
+            .children {
+                .content {
+                    background: #27283a;
+                    padding-left: 10px;
+
+                    &.active {
+                        background: #191a27;
+                    }
+                }
+            }
+
+            .content {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 10px;
+
+                cursor: pointer;
+
+                transition: 0.3s;
+
+                &:hover {
+                    background: #0f1017;
+
+                    .title {
+                        color: white;
+                    }
+
+                    svg {
+                        fill: white;
+                    }
+                }
+
+                &.active {
+                    background: #0f1017;
+
+                    .title {
+                        color: white;
+                    }
+                }
+
+                .title {
+                    flex: 1;
+                    color: #6d6e7e;
+                    transition: 0.3s;
+                    max-width: 0px;
+                    overflow: hidden;
+                }
+            }
+        }
+    }
+}

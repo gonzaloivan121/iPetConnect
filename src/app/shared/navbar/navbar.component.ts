@@ -117,7 +117,14 @@ export class NavbarComponent implements OnInit {
     }
 
     public isPets(): boolean {
-        return this.navigationService.is(Page.Pets);
+        return (
+            this.navigationService.is(Page.Pets) ||
+            this.navigationService.is(Page.PetsProfile)
+        );
+    }
+
+    public isPetsProfile(): boolean {
+        return this.navigationService.is(Page.PetsProfile);
     }
 
     logout(): void {

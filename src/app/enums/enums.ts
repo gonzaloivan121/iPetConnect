@@ -49,6 +49,7 @@ export enum Page {
     BlogPost,
     Privacy,
     Pets,
+    PetsProfile,
     Match,
     Settings,
     ForgotPassword,
