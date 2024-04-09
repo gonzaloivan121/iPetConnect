@@ -20,6 +20,7 @@ var navbarHeight = 0;
 export class AppComponent implements OnInit, OnDestroy {
     private _router: Subscription;
     isAuthenticated: boolean;
+    isImpersonating: boolean;
 
     selectedUserToImpersonate: IUser = null;
 
@@ -120,6 +121,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
         this.sessionService.set("user", JSON.stringify(this.selectedUserToImpersonate));
         this.selectedUserToImpersonate = null;
+        this.isImpersonating = true;
         window.location.reload();
     }
 
