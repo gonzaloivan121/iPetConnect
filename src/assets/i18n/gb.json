@@ -346,5 +346,11 @@
     "COMING_SOON": "Coming soon...",
     "SHOW_LESS": "Show less",
     "IMPERSONATE": "Impersonate",
-    "IMPERSONATE_USER": "Impersonate user"
+    "IMPERSONATE_USER": "Impersonate user",
+    "PET_POST": "Post",
+    "PET_POSTS": "Posts",
+    "FOLLOWERS": "Followers",
+    "FOLLOWING": "Following",
+    "FOLLOWED_BY": "Followed by",
+    "NO_POSTS_YET": "No posts yet"
 }

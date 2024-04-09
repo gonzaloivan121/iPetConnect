@@ -346,5 +346,11 @@
     "COMING_SOON": "Em breve...",
     "SHOW_LESS": "Ver menos",
     "IMPERSONATE": "Representar",
-    "IMPERSONATE_USER": "Representar um usuário"
+    "IMPERSONATE_USER": "Representar um usuário",
+    "PET_POST": "Publicação",
+    "PET_POSTS": "Publicações",
+    "FOLLOWERS": "Seguidores",
+    "FOLLOWING": "Seguidos",
+    "FOLLOWED_BY": "Seguido por",
+    "NO_POSTS_YET": "Ainda não há postagens"
 }

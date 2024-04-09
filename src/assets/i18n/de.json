@@ -346,5 +346,11 @@
     "COMING_SOON": "Demnächst...",
     "SHOW_LESS": "Zeige weniger",
     "IMPERSONATE": "Imitieren",
-    "IMPERSONATE_USER": "Sich als Benutzer ausgeben"
+    "IMPERSONATE_USER": "Sich als Benutzer ausgeben",
+    "PET_POST": "Veröffentlichung",
+    "PET_POSTS": "Veröffentlichungen",
+    "FOLLOWERS": "Followers",
+    "FOLLOWING": "Gefolgt",
+    "FOLLOWED_BY": "Gefolgt von",
+    "NO_POSTS_YET": "Noch keine beiträge"
 }

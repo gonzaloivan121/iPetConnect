@@ -346,5 +346,11 @@
     "COMING_SOON": "À venir...",
     "SHOW_LESS": "Voir moins",
     "IMPERSONATE": "Emprunter identité",
-    "IMPERSONATE_USER": "Emprunter l’identité d’un utilisateur"
+    "IMPERSONATE_USER": "Emprunter l’identité d’un utilisateur",
+    "PET_POST": "Publication",
+    "PET_POSTS": "Publications",
+    "FOLLOWERS": "Suiveurs",
+    "FOLLOWING": "Suivie",
+    "FOLLOWED_BY": "Suivi par",
+    "NO_POSTS_YET": "Il n'y a pas encore de posts"
 }

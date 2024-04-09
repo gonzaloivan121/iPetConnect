@@ -346,5 +346,11 @@
     "COMING_SOON": "Вскоре...",
     "SHOW_LESS": "Смотрите меньше",
     "IMPERSONATE": "Олицетворять",
-    "IMPERSONATE_USER": "Выдавать себя за пользователя"
+    "IMPERSONATE_USER": "Выдавать себя за пользователя",
+    "PET_POST": "Публикация",
+    "PET_POSTS": "Публикации",
+    "FOLLOWERS": "Последователи",
+    "FOLLOWING": "Последовал за",
+    "FOLLOWED_BY": "С последующим",
+    "NO_POSTS_YET": "Постов пока нет"
 }
