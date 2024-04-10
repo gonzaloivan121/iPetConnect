@@ -33,6 +33,7 @@ export {
     IRole,
     ISpecies,
     IUser,
+    IUserFollowing,
     IUserReport,
     ITeamMember,
     ICoordinates

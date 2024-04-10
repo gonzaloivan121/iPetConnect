@@ -1,7 +1,7 @@
 <div class="header"></div>
 <div *ngIf="profileUserLoaded | async" class="container">
     <div class="card my-5">
-        <div class="card-body">
+        <div class="card-body p-5">
             <div class="row">
                 <div class="col-md-4 d-flex justify-content-center align-items-center">
                     <div class="background-image profile-picture rounded-circle shadow" style="background-image: url('{{ profileUser.image }}');"></div>
@@ -10,34 +10,44 @@
                     <div class="row">
                         <div class="col d-flex align-items-center">
                             <span class="text-dark font-weight-600 mr-4">{{ profileUser.username }}</span>
+
+                            <div *ngIf="profileUser.id === user.id">
+                                <button type="button" class="btn btn-sm btn-dark" [routerLink]="['/profile/edit']">
+                                    <span class="btn-inner--text">{{ "EDIT_PROFILE" | translate }}</span>
+                                </button>
+                            </div>
+
+                            <div *ngIf="profileUser.id !== user.id">
+                                <button *ngIf="isFollowing" type="button" class="btn btn-sm btn-dark" (click)="unfollow()">
+                                    <span class="btn-inner--text">{{ "UNFOLLOW" | translate }}</span>
+                                </button>
+
+                                <button *ngIf="!isFollowing" type="button" class="btn btn-sm btn-primary" (click)="follow()">
+                                    <span class="btn-inner--text">{{ "FOLLOW" | translate }}</span>
+                                </button>
+                            </div>
                 
-                            <button type="button" class="btn btn-sm btn-primary">
-                                <span class="btn-inner--text">{{ "FOLLOW" | translate }}</span>
-                            </button>
                         </div>
                     </div>
                     <div class="row my-3">
-                        <div class="col-4">
+                        <div class="col-3">
+                            <span class="text-dark text-lowercase">
+                                <span class="font-weight-600">1</span> {{ "PET" | translate }}
+                            </span>
+                        </div>
+                        <div class="col-3">
                             <span *ngIf="postsLoaded | async" class="text-dark text-lowercase">
-                                <div *ngIf="petPosts.length === 0">
-                                    <span class="font-weight-600">0</span> {{ "PET_POSTS" | translate }}
-                                </div>
-                                <div *ngIf="petPosts.length === 1">
-                                    <span class="font-weight-600">{{ petPosts.length }}</span> {{ "PET_POST" | translate }}
-                                </div>
-                                <div *ngIf="petPosts.length > 1">
-                                    <span class="font-weight-600">{{ petPosts.length }}</span> {{ "PET_POSTS" | translate }}
-                                </div>
+                                <span class="font-weight-600">{{ petPosts.length }}</span> {{ (petPosts.length === 1 ? "PET_POST" : "PET_POSTS") | translate }}
                             </span>
                         </div>
-                        <div class="col-4">
+                        <div class="col-3">
                             <span class="text-dark text-lowercase">
-                                <span class="font-weight-600">999</span> {{ "FOLLOWERS" | translate }}
+                                <span class="font-weight-600">{{ followers }}</span> {{ (followers === 1 ? "FOLLOWER" : "FOLLOWERS") | translate }}
                             </span>
                         </div>
-                        <div class="col-4">
+                        <div class="col-3">
                             <span class="text-dark text-lowercase">
-                                <span class="font-weight-600">999</span> {{ "FOLLOWING" | translate }}
+                                <span class="font-weight-600">{{ following }}</span> {{ (following === 1 ? "FOLLOWING" : "FOLLOWING_PLURAL") | translate }}
                             </span>
                         </div>
                     </div>
@@ -48,12 +58,39 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <span class="text-dark text-break">{{ profileUser.bio }}</span>
+                            <span class="text-dark text-break text-justify font-weight-300">{{ profileUser.bio }}</span>
                         </div>
                     </div>
-                    <div class="row mt-3">
-                        <div class="col">
-                            <span class="text-dark small">{{ "FOLLOWED_BY" | translate }} <span class="font-weight-600">DanteInferno</span></span>
+                    <div *ngIf="followedByLoaded | async">
+                        <div *ngIf="profileUser.id !== user.id && followedBy.length > 0" class="row mt-3">
+                            <div class="col">
+                                <span *ngIf="followedBy.length === 1" class="text-dark small">
+                                    {{ "FOLLOWED_BY" | translate }}
+                                    <span class="font-weight-600 cursor-pointer" [routerLink]="['/pets', followedBy[0].username]">{{ followedBy[0].username }}</span>
+                                </span>
+                                <span *ngIf="followedBy.length === 2" class="text-dark small">
+                                    {{ "FOLLOWED_BY" | translate }}
+                                    <span class="font-weight-600 cursor-pointer" [routerLink]="['/pets', followedBy[0].username]">{{ followedBy[0].username }}</span>
+                                    {{ "AND" | translate }}
+                                    <span class="font-weight-600 cursor-pointer" [routerLink]="['/pets', followedBy[1].username]">{{ followedBy[1].username }}</span>
+                                </span>
+                                <span *ngIf="followedBy.length === 3" class="text-dark small">
+                                    {{ "FOLLOWED_BY" | translate }}
+                                    <span class="font-weight-600 cursor-pointer" [routerLink]="['/pets', followedBy[0].username]">{{ followedBy[0].username }}</span>,
+                                    <span class="font-weight-600 cursor-pointer" [routerLink]="['/pets', followedBy[1].username]">{{ followedBy[1].username }}</span>
+                                    {{ "AND" | translate }}
+                                    <span class="font-weight-600 cursor-pointer" [routerLink]="['/pets', followedBy[2].username]">{{ followedBy[2].username }}</span>
+                                </span>
+                                <span *ngIf="followedBy.length > 3" class="text-dark small">
+                                    {{ "FOLLOWED_BY" | translate }}
+                                    <span class="font-weight-600 cursor-pointer" [routerLink]="['/pets', followedBy[0].username]">{{ followedBy[0].username }}</span>,
+                                    <span class="font-weight-600 cursor-pointer" [routerLink]="['/pets', followedBy[1].username]">{{ followedBy[1].username }}</span>,
+                                    <span class="font-weight-600 cursor-pointer" [routerLink]="['/pets', followedBy[2].username]">{{ followedBy[2].username }}</span>
+                                    {{ "AND" | translate }}
+                                    <span class="font-weight-600">{{ followedBy.length - 3 }}</span>
+                                    {{ "MORE" | translate }}
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -66,7 +103,7 @@
             <div *ngIf="petPosts.length > 0" class="pets-container">
                 <div *ngFor="let post of petPosts" data-animation="zooming" class="card card-blog card-background">
                     <div class="full-background" style="background-image: url('{{ post.image }}');"></div>
-                    <a>
+                    <a class="cursor-pointer" (click)="openPost(post)">
                         <div class="card-body">
                             <div class="content-bottom">
                                 <h5 class="card-title">{{ post.title }}</h5>
@@ -85,3 +122,18 @@
         </div>
     </div>
 </div>
+
+<ng-template #postContent let-modal>
+    <div class="modal-header align-items-center">
+        <h4 class="modal-title">{{ "PET_POST" | translate }}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'CLOSE' | translate }}"
+            (click)="modal.dismiss('Cross click')">
+            <span class="btn-inner--icon">✖</span>
+        </button>
+    </div>
+    <div class="modal-body p-0">
+
+        <app-pet-post [post]="selectedPost" [user]="profileUser" [isLast]="true" [isFromProfile]="true"></app-pet-post>
+
+    </div>
+</ng-template>

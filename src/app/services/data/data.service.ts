@@ -19,6 +19,7 @@ export class DataService {
                 Authorization: "Bearer " + token,
             },
         });
+
         return new Promise((resolve, reject) => {
             result.subscribe(resolve, reject);
         });
@@ -79,6 +80,11 @@ export class DataService {
     delete(table: string, data: any) {
         let url: string = `${environment.serverUrl}/${table}/${data.id}`;
         return this.request("DELETE", url);
+    }
+
+    deleteByData(table: string, data: any) {
+        let url: string = `${environment.serverUrl}/${table}`;
+        return this.request("DELETE", url, data);
     }
 
     login(data: any) {

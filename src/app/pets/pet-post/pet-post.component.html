@@ -1,4 +1,4 @@
-<div *ngIf="postUserLoaded | async" class="py-5" [ngClass]="{ 'border-bottom': !isLast }">
+<div *ngIf="postUserLoaded | async" [ngClass]="{ 'border-bottom': !isLast, 'py-5': !isFromProfile }">
     <div class="card shadow">
         <div class="card-header bg-white d-flex align-items-center">
             <div class="d-flex align-items-center">
@@ -64,7 +64,7 @@
             </div>
         </div>
         <div class="card-footer bg-white">
-            <a href="javascript:;" class="text-dark font-weight-600 text-sm">{{ postUser.username }}</a>
+            <a class="text-dark font-weight-600 text-sm" [routerLink]="['/pets', postUser.username]">{{ postUser.username }}</a>
             <div *ngIf="showEllipsis; else noEllipsis">
                 <div class="text-dark text-break text-justify py-3 hidden" 
                     ellipsis="... {{ 'SHOW_MORE' | translate }}"

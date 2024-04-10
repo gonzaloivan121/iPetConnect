@@ -13,7 +13,11 @@ export class UsersService {
     }
 
     getByUsername(username: string) {
-        return this.dataService.getFromText(DBTables.User, "username", username);
+        return this.dataService.getFromText(
+            DBTables.User,
+            "username",
+            username
+        );
     }
 
     insert(data: any) {
@@ -26,5 +30,52 @@ export class UsersService {
 
     delete(data: any) {
         return this.dataService.delete(DBTables.User, data);
+    }
+
+    isFollowing(followerId: number, followingId: number) {
+        return this.dataService.getBothFrom(
+            DBTables.UserFollowing,
+            "isFollowing",
+            followerId,
+            followingId
+        );
+    }
+
+    follow(followerId: number, followingId: number) {
+        const data = {
+            follower_user_id: followerId,
+            following_user_id: followingId,
+        };
+
+        return this.dataService.insert(DBTables.UserFollowing, data);
+    }
+
+    unfollow(followerId: number, followingId: number) {
+        const data = {
+            follower_user_id: followerId,
+            following_user_id: followingId,
+        };
+
+        return this.dataService.deleteByData(DBTables.UserFollowing, data);
+    }
+
+    getFollowers(id: number) {
+        return this.dataService.getFrom(
+            DBTables.UserFollowing,
+            "followers",
+            id
+        );
+    }
+
+    getFollowing(id: number) {
+        return this.dataService.getFrom(
+            DBTables.UserFollowing,
+            "following",
+            id
+        );
+    }
+
+    getFollowedBy(id: number, currentUserId: number) {
+        return this.dataService.getBothFrom(DBTables.UserFollowing, "followedBy", id, currentUserId);
     }
 }

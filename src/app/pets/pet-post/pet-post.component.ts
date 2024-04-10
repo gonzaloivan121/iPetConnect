@@ -15,6 +15,7 @@ export class PetPostComponent implements OnInit {
     @Input() post: IPetPost;
     @Input() user: IUser;
     @Input() isLast: boolean;
+    @Input() isFromProfile: boolean = false;
 
     postUser: IUser;
     postUserLoaded: Observable<boolean>;

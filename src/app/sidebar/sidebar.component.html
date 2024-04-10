@@ -1,27 +1,30 @@
-<div class="sidebar shadow" [ngClass]="{ 'expanded': isExpanded }">
-    <div class="header">
-        <div class="toggle" (click)="handleSidebarToggle()">
-            <button type="button" class="navbar-toggler" >
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </div>
-    </div>
+<div class="sidebar bg-white shadow" [ngClass]="{ 'expanded': isExpanded }">
     <div class="content">
-
-        <div *ngFor="let specLink of specification.links" class="link" [ngClass]="{ 'with-children': specLink.hasChildren }">
-            <div class="content" [routerLink]="[specLink.routerUrl]" [routerLinkActive]="'active'">
-                <img *ngIf="specLink.hasIcon" [src]="specLink.icon">
+        <div *ngFor="let specLink of specification.links" class="link" [ngClass]="{ 'with-children': specLink.hasChildren }" placement="right" [ngbTooltip]="specLink.text | translate" [disableTooltip]="isExpanded" tooltipClass="ml-1">
+            <div class="content p-3" [routerLink]="[specLink.routerUrl]" [routerLinkActive]="'active'">
+                <div *ngIf="specLink.hasIcon" class="d-flex justify-content-center display-4 m-0">
+                    <i class="ni ni-{{ specLink.icon }}"></i>
+                </div>
                 <div class="title">{{ specLink.text | translate }}</div>
             </div>
             <div *ngIf="specLink.hasChildren" class="children">
-                <div *ngFor="let childrenLink of specLink.children" class="link">
-                    <div class="content" [routerLink]="[childrenLink.routerUrl]" [routerLinkActive]="'active'">
-                        <img *ngIf="childrenLink.hasIcon" [src]="childrenLink.icon">
+                <div *ngFor="let childrenLink of specLink.children" class="link" placement="right" [ngbTooltip]="childrenLink.text | translate" [disableTooltip]="isExpanded" tooltipClass="ml-1">
+                    <div class="content p-3" [routerLink]="[childrenLink.routerUrl]" [routerLinkActive]="'active'">
+                        <div *ngIf="childrenLink.hasIcon" class="d-flex justify-content-center display-4 m-0">
+                            <i class="ni ni-{{ childrenLink.icon }}"></i>
+                        </div>
                         <div class="title">{{ childrenLink.text | translate }}</div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
+    <div class="header bg-default">
+        <div class="toggle" (click)="handleSidebarToggle()">
+            <button type="button" class="navbar-toggler" >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
     </div>
 </div>
