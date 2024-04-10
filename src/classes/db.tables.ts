@@ -20,5 +20,6 @@ export class DBTables {
     public static readonly Role: string = "role";
     public static readonly Species: string = "species";
     public static readonly User: string = "user";
+    public static readonly UserFollowing: string = "user_following";
     public static readonly UserReport: string = "user_report";
 }
