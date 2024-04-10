@@ -349,8 +349,13 @@
     "IMPERSONATE_USER": "Suplantar usuario",
     "PET_POST": "Publicación",
     "PET_POSTS": "Publicaciones",
+    "FOLLOWER": "Seguidor",
     "FOLLOWERS": "Seguidores",
-    "FOLLOWING": "Seguidos",
+    "FOLLOWING": "Seguido",
+    "FOLLOWING_PLURAL": "Seguidos",
     "FOLLOWED_BY": "Seguido por",
-    "NO_POSTS_YET": "Aún no hay publicaciones"
+    "NO_POSTS_YET": "Aún no hay publicaciones",
+    "AND": "y",
+    "MORE": "más",
+    "HOME": "Inicio"
 }

@@ -352,5 +352,8 @@
     "FOLLOWERS": "Followers",
     "FOLLOWING": "Gefolgt",
     "FOLLOWED_BY": "Gefolgt von",
-    "NO_POSTS_YET": "Noch keine beiträge"
+    "NO_POSTS_YET": "Noch keine beiträge",
+    "AND": "und",
+    "MORE": "weiter",
+    "HOME": "Start"
 }

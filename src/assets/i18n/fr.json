@@ -352,5 +352,8 @@
     "FOLLOWERS": "Suiveurs",
     "FOLLOWING": "Suivie",
     "FOLLOWED_BY": "Suivi par",
-    "NO_POSTS_YET": "Il n'y a pas encore de posts"
+    "NO_POSTS_YET": "Il n'y a pas encore de posts",
+    "AND": "et",
+    "MORE": "plus",
+    "HOME": "Début"
 }
