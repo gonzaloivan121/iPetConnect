@@ -252,7 +252,7 @@ export class MatchComponent implements OnInit {
         this.activeTab = tab;
 
         if (tab == MatchTabEnum.Matches || tab == MatchTabEnum.Messages) {
-            this.activeSubTab = LikesTabEnum.Received;
+            this.changeSubTab(LikesTabEnum.Received)
         }
     }
 
