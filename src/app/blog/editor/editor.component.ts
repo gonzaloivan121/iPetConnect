@@ -3,10 +3,13 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Editor, Toolbar } from "ngx-editor";
 import { schema } from "ngx-editor/schema";
 import { Page, RoleEnum } from "src/app/enums/enums";
-import { IBlogCategory, IBlogPost, IBlogPostRequest, IBlogPostInsertResponse, IBlogTag, IUser } from "src/app/interfaces";
+import { IBlogCategory, IBlogPost, IBlogPostRequest, IBlogPostInsertResponse, IBlogTag, IUser, IBlogPostResponse } from "src/app/interfaces";
 import { SessionService, DataService, AlertService, NavigationService } from "src/app/services";
 import { DBTables } from "src/classes";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { ActivatedRoute } from "@angular/router";
+import { Observable, Subscription, from, of } from "rxjs";
+import { catchError, map } from "rxjs/operators";
 
 @Component({
     selector: "app-editor",
@@ -42,6 +45,10 @@ export class EditorComponent implements OnInit, OnDestroy {
         ["horizontal_rule", "format_clear"],
     ];
 
+    public postLoaded: Observable<boolean>;
+    routeSubscription: Subscription;
+    post?: IBlogPost;
+
     constructor(
         private location: Location,
         private sessionService: SessionService,
@@ -49,6 +56,7 @@ export class EditorComponent implements OnInit, OnDestroy {
         private alertService: AlertService,
         private modalService: NgbModal,
         private navigationService: NavigationService,
+        private route: ActivatedRoute
     ) {
         this.navigationService.set(Page.BlogEditor);
     }
@@ -74,13 +82,57 @@ export class EditorComponent implements OnInit, OnDestroy {
             attributes: {}, // https://prosemirror.net/docs/ref/#view.EditorProps.attributes
             linkValidationPattern: "",
         });
+
+        this.routeSubscription = this.route.params.subscribe(
+            (params: { id: number }) => {
+                const id = params.id;
+
+                if (id) {
+                    this.postLoaded = this.loadPost(id);
+                }
+            }
+        );
+    }
+
+    loadPost(id: number): Observable<boolean> {
+        return from(
+            this.dataService
+                .get(DBTables.BlogPost, id)
+                .then((response: IBlogPostResponse) => {
+                    if (response.success) {
+                        if (response.result.length > 0) {
+                            this.post = response.result[0] as IBlogPost;
+
+                            this.fillEditPostInfo();
+                        } else {
+                            console.warn("Empty data!");
+                        }
+                    } else {
+                        console.error(response.message);
+                    }
+                })
+                .catch((error) => console.error(error))
+        ).pipe(
+            map(() => true),
+            catchError(() => of(false))
+        );
+    }
+
+    fillEditPostInfo() {
+        this.content = this.post.content;
+
+        this.changeTitle(this.post.title);
+        this.changeDescription(this.post.description);
+        this.changeImage(this.post.image);
+        this.category.id = this.post.category_id;
     }
 
     ngOnDestroy(): void {
         this.editor.destroy();
+        this.routeSubscription.unsubscribe();
     }
 
-    publish() {
+    save(publish: boolean = false) {
         const data: IBlogPostRequest = {
             title: this.title,
             description: this.description,
@@ -90,16 +142,38 @@ export class EditorComponent implements OnInit, OnDestroy {
             user_id: this.user.id,
         };
 
-        this.insertPost(data);
+        if (publish) {
+            this.insertPost(data, (post: IBlogPost) => {
+                post.published = true;
+                this.dataService.update(DBTables.BlogPost, post);
+            });
+        } else {
+            this.insertPost(data);
+        }
+
     }
 
-    insertPost(data: IBlogPostRequest) {
+    publish() {
+        this.save(true);
+    }
+
+    unpublish() {
+        
+    }
+
+    insertPost(data: IBlogPostRequest, callback?: Function) {
         this.dataService
             .insert(DBTables.BlogPost, data)
             .then((response: IBlogPostInsertResponse) => {
                 if (response.success) {
                     const postId = response.result.insertId;
                     this.insertTags(postId);
+
+                    if (callback) {
+                        callback({
+                            id: postId
+                        });
+                    }
                 } else {
                     this.alertService.openWarning(response.message);
                 }
@@ -216,6 +290,7 @@ export class EditorComponent implements OnInit, OnDestroy {
             content: this.content,
             image: this.image,
             popularity: 0,
+            published: false,
             category_id: this.category.id,
             user_id: this.user.id,
             created_at: new Date(),
@@ -224,6 +299,4 @@ export class EditorComponent implements OnInit, OnDestroy {
 
         this.modalService.open(content, { fullscreen: true });
     }
-
-    save() {}
 }

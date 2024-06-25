@@ -28,6 +28,7 @@ export class LatestBlogpostsComponent implements OnInit {
                 .then((response: any) => {
                     if (response.success) {
                         this.posts = response.result as IBlogPost[];
+                        console.log(this.posts)
                     } else {
                         console.error(response.message);
                     }

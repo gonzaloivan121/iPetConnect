@@ -18,7 +18,9 @@
                     <button class="btn btn-outline-default btn-block" (click)="save()" [disabled]="!isValidForSaving">{{ "SAVE" | translate }}</button>
                 </div>
                 <div class="col-lg-4 col-12 mt-3 m-lg-0">
-                    <button class="btn btn-default btn-block badge-pill" (click)="publish()" [disabled]="!isValidForPublishing">{{ "PUBLISH" | translate }}</button>
+                    <button *ngIf="!post" class="btn btn-default btn-block badge-pill" (click)="publish()" [disabled]="!isValidForPublishing">{{ "PUBLISH" | translate }}</button>
+                    <button *ngIf="post && !post.published" class="btn btn-default btn-block badge-pill" (click)="publish()" [disabled]="!isValidForPublishing">{{ "PUBLISH" | translate }}</button>
+                    <button *ngIf="post && post.published" class="btn btn-default btn-block badge-pill" (click)="unpublish()">{{ "UNPUBLISH" | translate }}</button>
                 </div>
             </div>
         </div>

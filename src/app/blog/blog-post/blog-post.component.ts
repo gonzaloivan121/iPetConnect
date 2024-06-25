@@ -4,7 +4,7 @@ import { Observable, Subscription, from, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import { DataService, SessionService, AlertService, NavigationService } from "src/app/services";
 import { DBTables } from "src/classes";
-import { IBlogPostResponse, IBlogPost, IBlogComment, IBlogTag, IUser } from "src/app/interfaces";
+import { IBlogPostResponse, IBlogPost, IBlogComment, IBlogTag, IUser, IMessageResponse } from "src/app/interfaces";
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { Page } from "src/app/enums/enums";
 
@@ -113,6 +113,7 @@ export class BlogPostComponent implements OnInit, OnDestroy {
                                 this.post.id
                             );
                             this.tagsLoaded = this.loadPostTags(this.post.id);
+                            this.increasePopularity();
                         } else {
                             console.warn("Empty data!");
                         }
@@ -125,6 +126,15 @@ export class BlogPostComponent implements OnInit, OnDestroy {
             map(() => true),
             catchError(() => of(false))
         );
+    }
+
+    increasePopularity() {
+        this.post.popularity++;
+        this.dataService.update(DBTables.BlogPost, this.post).then((response: any) => {
+            if (!response.success) {
+                console.warn(response.message);
+            }
+        }).catch((error) => console.error(error));
     }
 
     loadPostUser(id: number): Observable<boolean> {
