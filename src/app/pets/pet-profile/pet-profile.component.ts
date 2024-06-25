@@ -4,8 +4,8 @@ import { Observable, Subscription, from, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import { DataService, UsersService, SessionService, AlertService, NavigationService } from "src/app/services";
 import { DBTables } from "src/classes";
-import { IPetPost, IUser } from "src/app/interfaces";
-import { Page } from "src/app/enums/enums";
+import { IPet, IPetPost, IUser } from "src/app/interfaces";
+import { Page, PetProfileTabEnum } from "src/app/enums/enums";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
@@ -18,13 +18,22 @@ export class PetProfileComponent {
     user: IUser;
     profileUser: IUser;
     petPosts: IPetPost[];
+    pets: IPet[];
 
     public profileUserLoaded: Observable<boolean>;
     public postsLoaded: Observable<boolean>;
+    public petsLoaded: Observable<boolean>;
     public followedByLoaded: Observable<boolean>;
-
+    
+    public activeTab: PetProfileTabEnum = PetProfileTabEnum.Posts;
+    
+    public get petProfileTabEnum(): typeof PetProfileTabEnum {
+        return PetProfileTabEnum;
+    }
+    
     isFollowing: boolean = false;
-
+    isUserFound: boolean = true;
+    
     followers: number = 0;
     following: number = 0;
 
@@ -34,6 +43,12 @@ export class PetProfileComponent {
 
     @ViewChild("postContent", { static: false })
     postContent: ElementRef;
+
+    @ViewChild("followingContent", { static: false })
+    followingContent: ElementRef;
+
+    @ViewChild("followersContent", { static: false })
+    followersContent: ElementRef;
 
     constructor(
         private route: ActivatedRoute,
@@ -60,14 +75,37 @@ export class PetProfileComponent {
         );
     }
 
+    setIsUserFoundToFalse(): Observable<boolean> {
+        return from(
+            Promise.resolve(false)
+                .then((value) => {
+                    console.log(value);
+                })
+                .catch((error) => console.error(error))
+        ).pipe(
+            map(() => false),
+            catchError(() => of(false))
+        );
+    }
+
     loadProfileUser(username: string): Observable<boolean> {
         return from(
             this.usersService
                 .getByUsername(username)
                 .then((response: any) => {
                     if (response.success) {
+                        var user = response.result[0] as IUser;
+
+                        if (!user) {
+                            this.isUserFound = false;
+                            return;
+                        }
+
                         this.profileUser = response.result[0] as IUser;
-                        this.postsLoaded = this.loadPetsFromUser(
+                        this.postsLoaded = this.loadPostsFromUser(
+                            this.profileUser.id
+                        );
+                        this.petsLoaded = this.loadPetsFromUser(
                             this.profileUser.id
                         );
 
@@ -86,14 +124,35 @@ export class PetProfileComponent {
         );
     }
 
-    loadPetsFromUser(id: number): Observable<boolean> {
+    loadPostsFromUser(userId: number): Observable<boolean> {
         return from(
             this.dataService
-                .getFrom(DBTables.PetPost, DBTables.User, id)
+                .getFrom(DBTables.PetPost, DBTables.User, userId)
                 .then((response: any) => {
                     if (response.success) {
-                        this.petPosts = (response.result as IPetPost[]).reverse();
+                        this.petPosts = (
+                            response.result as IPetPost[]
+                        ).reverse();
                         console.log(this.petPosts);
+                    } else {
+                        console.error(response.message);
+                    }
+                })
+                .catch((error) => console.error(error))
+        ).pipe(
+            map(() => true),
+            catchError(() => of(false))
+        );
+    }
+
+    loadPetsFromUser(userId: number): Observable<boolean> {
+        return from(
+            this.dataService
+                .getFrom(DBTables.Pet, DBTables.User, userId)
+                .then((response: any) => {
+                    if (response.success) {
+                        this.pets = (response.result as IPet[]).reverse();
+                        console.log(this.pets);
                     } else {
                         console.error(response.message);
                     }
@@ -122,9 +181,9 @@ export class PetProfileComponent {
             .catch((error) => console.error(error));
     }
 
-    follow() {
+    follow(userId: number) {
         this.usersService
-            .follow(this.user.id, this.profileUser.id)
+            .follow(this.user.id, userId)
             .then((response: any) => {
                 if (response.success) {
                     this.isFollowing = true;
@@ -138,9 +197,9 @@ export class PetProfileComponent {
             });
     }
 
-    unfollow() {
+    unfollow(userId: number) {
         this.usersService
-            .unfollow(this.user.id, this.profileUser.id)
+            .unfollow(this.user.id, userId)
             .then((response: any) => {
                 if (response.success) {
                     this.isFollowing = false;
@@ -175,6 +234,7 @@ export class PetProfileComponent {
             .then((response: any) => {
                 if (response.success) {
                     this.following = response.result.length;
+                    console.log(response.result);
                 } else {
                     console.error(response.message);
                 }
@@ -209,7 +269,27 @@ export class PetProfileComponent {
         this.selectedPost = post;
         this.modalService.open(this.postContent, {
             centered: true,
-            size: "lg",
+            size: "xxl",
         });
+    }
+
+    openPet(pet: IPet) {
+        console.log(pet);
+    }
+
+    openFollowing() {
+        this.modalService.open(this.followingContent, {
+            centered: true,
+        });
+    }
+
+    openFollowers() {
+        this.modalService.open(this.followersContent, {
+            centered: true,
+        });
+    }
+
+    changeTab(tab: PetProfileTabEnum): void {
+        this.activeTab = tab;
     }
 }

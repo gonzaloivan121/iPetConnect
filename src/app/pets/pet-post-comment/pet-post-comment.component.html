@@ -1,0 +1,54 @@
+<div *ngIf="commentUserLoaded | async" class="row pt-4" [ngClass]="{ 'ml-5': isAnswer }">
+    <div class="col-10 d-flex">
+        <a class="d-flex" [routerLink]="['/pets', commentUser.username]" (click)="closePost()">
+            <div class="background-image avatar shadow" style="background-image: url('{{ commentUser.image }}');"></div>
+        </a>
+        <div class="mx-3">
+            <div class="d-flex align-items-center">
+                <a [routerLink]="['/pets', commentUser.username]" class="text-dark font-weight-600 text-sm" (click)="closePost()">{{ commentUser.username }}</a>
+                
+                <small class="text-muted px-2">—</small>
+                <small class="text-muted text-lowercase">{{ (comment.created_at | dateAgo).time }} {{ (comment.created_at | dateAgo).text | translate }}</small>
+
+                <div *ngIf="isCommentLikedByPostUser()" class="d-flex align-items-center user-liked">
+                    <div class="icon icon-sm icon-shape icon-shape-danger bg-transparent">
+                        <i class="ni ni-favourite-28"></i>
+                    </div>
+                    <div class="background-image avatar avatar-xs shadow" style="background-image: url('{{ postUser.image }}');"></div>
+                </div>
+            </div>
+
+            <div *ngIf="showEllipsis; else noEllipsis">
+                <p class="text-dark m-0 comment word-break text-break hidden" ellipsis="... {{ 'SHOW_MORE' | translate }}" (ellipsis-click-more)="showEllipsis = false" [ellipsis-content]="comment.content"></p>
+            </div>
+
+            <div *ngIf="!isDescription" class="d-block pt-3">
+                <small class="d-inline-block text-muted">{{ commentLikes.length }} {{ "LIKES_TRANSLATED" | translate }}</small>
+                <small *ngIf="!comment.is_answer" class="d-inline-block text-muted ml-3 cursor-pointer" (click)="answer()">{{ "ANSWER_COMMENT" | translate }}</small>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!isDescription" class="col-2 d-flex justify-content-end align-items-center">
+        <a *ngIf="!isLiked" class="d-flex small-icon" (click)="likeComment()">
+            <div class="icon icon-shape cursor-pointer">
+                <i class="ni ni-favourite-28"></i>
+            </div>
+        </a>
+
+        <a *ngIf="isLiked" class="d-flex small-icon" (click)="dislikeComment()">
+            <div class="icon icon-shape cursor-pointer icon-shape-primary">
+                <i class="ni ni-favourite-28"></i>
+            </div>
+        </a>
+    </div>
+</div>
+
+<app-pet-post-comment *ngFor="let c of comment.answers" [user]="user" [postUser]="postUser" [comment]="c" [isAnswer]="true" (closePostEvent)="closePost()"></app-pet-post-comment>
+
+<ng-template #noEllipsis>
+    <p class="text-dark m-0 comment word-break text-break">{{ comment.content }}
+        <br>
+        <a (click)="showEllipsis = true" href="javascript:void(0)">{{ "SHOW_LESS" | translate }}</a>
+    </p>
+</ng-template>

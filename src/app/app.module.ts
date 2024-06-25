@@ -81,6 +81,12 @@ import { OrderByMessagesPipe } from './pipes/order-by-messages.pipe';
 import { ImpersonateComponent } from './impersonate/impersonate.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { PetProfileComponent } from './pets/pet-profile/pet-profile.component';
+import { PetFollowComponent } from './pets/pet-follow/pet-follow.component';
+import { MentionPipe } from './pipes/mention.pipe';
+import { PetPostProfileComponent } from './pets/pet-post-profile/pet-post-profile.component';
+import { PetPostCommentComponent } from './pets/pet-post-comment/pet-post-comment.component';
+import { PetProfileThumbnailComponent } from './pets/pet-profile-thumbnail/pet-profile-thumbnail.component';
+import { PetPostCreateComponent } from './pets/pet-post-create/pet-post-create.component';
 
 export function setupAppConfigServiceFactory(
     service: AppConfigService
@@ -161,6 +167,12 @@ export function setupTranslateServiceFactory(
         ImpersonateComponent,
         SidebarComponent,
         PetProfileComponent,
+        PetFollowComponent,
+        MentionPipe,
+        PetPostProfileComponent,
+        PetPostCommentComponent,
+        PetProfileThumbnailComponent,
+        PetPostCreateComponent,
     ],
     imports: [
         NgbModule,

@@ -56,3 +56,8 @@ export enum Page {
     NotFound,
     Profile,
 };
+
+export enum PetProfileTabEnum {
+    Posts = 1,
+    Pets = 2,
+};

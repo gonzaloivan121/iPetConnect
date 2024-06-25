@@ -1,8 +1,8 @@
-<div *ngIf="postUserLoaded | async" [ngClass]="{ 'border-bottom': !isLast, 'py-5': !isFromProfile }">
+<div *ngIf="postUserLoaded | async" class="py-5" [ngClass]="{ 'border-bottom': !isLast }">
     <div class="card shadow">
         <div class="card-header bg-white d-flex align-items-center">
             <div class="d-flex align-items-center">
-                <a [routerLink]="['/pets', postUser.username]">
+                <a class="d-flex" [routerLink]="['/pets', postUser.username]">
                     <div class="background-image avatar shadow" style="background-image: url('{{ postUser.image }}');"></div>
                 </a>
                 <div class="mx-3">
@@ -10,73 +10,106 @@
                     <small class="d-block text-muted text-lowercase">{{ (post.created_at | dateAgo).time }} {{ (post.created_at | dateAgo).text | translate }}</small>
                 </div>
             </div>
-            <div class="text-right ml-auto">
-                <button type="button" class="btn btn-sm btn-primary btn-icon">
-                    <span class="btn-inner--icon icon-big">
-                        <i class="ni ni-fat-add"></i>
-                    </span>
-                    <span class="btn-inner--text">{{ "FOLLOW" | translate }}</span>
-                </button>
-            </div>
         </div>
+
         <div class="card-body">
             <div class="mb-4 text-dark text-break">{{ post.title }}</div>
 
-            <ngb-carousel data-bs-touch="true">
+            <ngb-carousel data-bs-touch="true" class="h-100 w-100">
                 <ng-template ngbSlide>
-                    <img class="img-fluid rounded" [src]="post.image">
+                    <img class="img-fluid rounded h-100 w-100" [src]="post.image">
                 </ng-template>
             </ngb-carousel>
 
-            <div class="row align-items-center mt-3">
-                <div class="col-sm-6">
-                    <div class="icon-actions d-flex">
-                        <a href="javascript:;" class="d-flex align-items-center like active">
-                            <i class="ni ni-like-2"></i>
-                            <span class="text-muted">150</span>
-                        </a>
-                        <a href="javascript:;" class="d-flex align-items-center">
-                            <i class="ni ni-chat-round"></i>
-                            <span class="text-muted">36</span>
-                        </a>
-                        <a href="javascript:;" class="d-flex align-items-center">
-                            <i class="ni ni-curved-next"></i>
-                            <span class="text-muted">12</span>
-                        </a>
+            <div class="d-flex align-items-center pt-4">
+                <a *ngIf="!isLiked" class="d-block cursor-pointer" (click)="likePost()">
+                    <div class="icon icon-shape">
+                        <i class="ni ni-favourite-28"></i>
                     </div>
-                </div>
-                <div class="col-sm-6 d-none d-sm-block">
-                    <div class="d-flex align-items-center justify-content-sm-end">
-                        <div class="avatar-group">
-                            <a href="javascript:;" class="avatar avatar-xs rounded-circle">
-                                <img alt="Image placeholder" src="assets/img/faces/team-1.jpg">
-                            </a>
-                            <a href="javascript:;" class="avatar avatar-xs rounded-circle">
-                                <img alt="Image placeholder" src="assets/img/faces/team-2.jpg">
-                            </a>
-                            <a href="javascript:;" class="avatar avatar-xs rounded-circle">
-                                <img alt="Image placeholder" src="assets/img/faces/team-3.jpg">
-                            </a>
-                        </div>
-                        <small class="pl-2 font-weight-bold">and 30+ more</small>
+                </a>
+
+                <a *ngIf="isLiked" class="d-block cursor-pointer" (click)="dislikePost()">
+                    <div class="icon icon-shape icon-shape-primary">
+                        <i class="ni ni-favourite-28"></i>
                     </div>
-                </div>
+                </a>
+
+                <span class="text-muted px-2">{{ postLikes.length }}</span>
+
+                <a *ngIf="!showComments" class="d-block cursor-pointer" (click)="showComments = true">
+                    <div class="icon icon-shape">
+                        <i class="ni ni-chat-round"></i>
+                    </div>
+                </a>
+
+                <a *ngIf="showComments" class="d-block cursor-pointer" (click)="showComments = false">
+                    <div class="icon icon-shape icon-shape-primary bg-transparent">
+                        <i class="ni ni-chat-round"></i>
+                    </div>
+                </a>
+
+                <span class="text-muted px-2">{{ commentsLength }}</span>
             </div>
         </div>
+
         <div class="card-footer bg-white">
             <a class="text-dark font-weight-600 text-sm" [routerLink]="['/pets', postUser.username]">{{ postUser.username }}</a>
             <div *ngIf="showEllipsis; else noEllipsis">
-                <div class="text-dark text-break text-justify py-3 hidden" 
+                <div class="text-dark text-break text-justify py-4 hidden" 
                     ellipsis="... {{ 'SHOW_MORE' | translate }}"
                     (ellipsis-click-more)="showEllipsis = false"
                     [ellipsis-content]="post.description"
                 ></div>
             </div>
-            <a href="javascript:;" class="text-dark font-weight-600 text-sm">{{ "VIEW_ALL_COMMENTS" | translate }}</a>
+
+            <div *ngIf="showComments" class="card-body p-0">
+                <strong class="text-dark text-break">{{ "COMMENTS" | translate }}</strong>
+
+                <small *ngIf="postComments.length === 0" class="d-block pt-4">{{ "NO_COMMENTS" | translate }}</small>
+
+                <div class="comments px-2 pb-4">
+                    <div *ngIf="postCommentsLoaded | async">
+                        <app-pet-post-comment *ngFor="let comment of postComments" [user]="user" [postUser]="postUser"
+                            [comment]="comment" (closePostEvent)="closePost()"
+                            (answerCommentEvent)="setCommentAsAnswer(comment.id)"></app-pet-post-comment>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="showComments" class="form-group mb-4">
+                <div class="input-group" [ngClass]="{ 'focused': isCommentInputFocused }">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text p-3">
+                            <div class="background-image avatar avatar-sm shadow"
+                                style="background-image: url('{{ user.image }}');"></div>
+                        </span>
+                    </div>
+            
+                    <textarea #commentField autosize name="comment" [(ngModel)]="comment"
+                        class="form-control py-3 overflow-hidden hide-resize" placeholder="{{ 'TYPE_A_MESSAGE' | translate }}..."
+                        (focus)="isCommentInputFocused = true" (blur)="isCommentInputFocused = false"></textarea>
+            
+                    <div class="input-group-append">
+                        <span class="input-group-text p-3">
+                            <button class="btn btn-primary rounded-circle p-0 circle" [disabled]="comment.length === 0"
+                                (click)="postComment()">
+                                <span class="btn-inner--icon">
+                                    <i class="ni ni-send"></i>
+                                </span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <a *ngIf="!showComments" class="text-dark font-weight-600 text-sm cursor-pointer" (click)="showComments = true">{{ "VIEW_ALL_COMMENTS" | translate }}</a>
+            <a *ngIf="showComments" class="text-dark font-weight-600 text-sm cursor-pointer" (click)="showComments = false">{{ "HIDE_ALL_COMMENTS" | translate }}</a>
         </div>
     </div>
 </div>
 
 <ng-template #noEllipsis>
-    <div class="text-dark text-break text-justify py-3">{{ post.description }}</div>
+    <div class="text-dark text-break text-justify py-4">{{ post.description }}
+        <a class="d-inline-block" href="javascript:void(0)" (click)="showEllipsis = true">{{ "SHOW_LESS" | translate }}</a>
+    </div>
 </ng-template>

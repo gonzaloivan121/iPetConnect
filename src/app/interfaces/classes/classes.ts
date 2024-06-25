@@ -174,6 +174,33 @@ export interface IPetPost {
     updated_at?: Date;
 }
 
+export interface IPetPostComment {
+    id?: number;
+    content: string;
+    is_answer: boolean;
+    answer_comment_id?: number;
+    answers?: IPetPostComment[];
+    post_id: number;
+    user_id: number;
+    created_at?: Date;
+    updated_at?: Date;
+}
+
+export interface IPetPostCommentUserLike {
+    id?: number;
+    comment_id: number;
+    user_id: number;
+    created_at?: Date;
+    updated_at?: Date;
+}
+export interface IPetPostUserLike {
+    id?: number;
+    post_id: number;
+    user_id: number;
+    created_at?: Date;
+    updated_at?: Date;
+}
+
 export interface IRole {
     id?: number;
     name: string;

@@ -76,6 +76,27 @@ export class UsersService {
     }
 
     getFollowedBy(id: number, currentUserId: number) {
-        return this.dataService.getBothFrom(DBTables.UserFollowing, "followedBy", id, currentUserId);
+        return this.dataService.getBothFrom(
+            DBTables.UserFollowing,
+            "followedBy",
+            id,
+            currentUserId
+        );
+    }
+
+    getFollowingFull(id: number) {
+        return this.dataService.getFrom(
+            DBTables.UserFollowing,
+            "followingFull",
+            id
+        );
+    }
+
+    getFollowersFull(id: number) {
+        return this.dataService.getFrom(
+            DBTables.UserFollowing,
+            "followersFull",
+            id
+        );
     }
 }

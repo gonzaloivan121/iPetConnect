@@ -15,9 +15,10 @@ export class DateAgoPipe implements PipeTransform {
         "SECOND": 1,
     };
 
-    transform(value: string, args?: any): { time?: number, text: string } {
+    transform(value: string): { time?: number, text: string } {
         if (value) {
-            const seconds = Math.floor((+new Date() - +new Date(value)) / 1000);
+            let date: Date = typeof value === "string" ? new Date(value) : value;
+            const seconds = Math.floor((+new Date() - +date) / 1000);
             let counter;
 
             for (const i in this.intervals) {
@@ -31,6 +32,12 @@ export class DateAgoPipe implements PipeTransform {
                     }
                 }
             }
+
+            if (counter === 0) {
+                return { time: 0, text: "SECONDS" };
+            }
+
+            console.log(counter)
         }
 
         return { text: value };

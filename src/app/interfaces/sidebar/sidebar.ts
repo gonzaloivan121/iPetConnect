@@ -1,10 +1,14 @@
 export interface ISidebarLink {
     text: string;
-    routeUrl: string;
+    hasRouterLink: boolean;
     hasChildren: boolean;
     hasIcon: boolean;
+    hasCallback: boolean;
+    isActive: boolean;
+    routerUrl?: string;
     icon?: string;
     children?: ISidebarLink[];
+    callback?: Function;
 }
 
 export interface ISidebarSpecification {

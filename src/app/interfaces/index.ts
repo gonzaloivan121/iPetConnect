@@ -30,6 +30,9 @@ export {
     IPasswordResets,
     IPet,
     IPetPost,
+    IPetPostComment,
+    IPetPostCommentUserLike,
+    IPetPostUserLike,
     IRole,
     ISpecies,
     IUser,
@@ -41,3 +44,9 @@ export {
 export { IEmail } from "./email/email";
 export { IAlert } from "./alert/alert";
 export { ISidebarLink, ISidebarSpecification } from "./sidebar/sidebar";
+export {
+    IImageCategoryType,
+    IImageCategoryResponse,
+    IImageCategory,
+    IImageCategoryName,
+} from "./image/image.interface";

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { Location } from "@angular/common";
 import { DataService, NavigationService, SessionService } from 'src/app/services';
 import { DBTables } from 'src/classes';
@@ -6,6 +6,7 @@ import { Page, RoleEnum } from "src/app/enums/enums";
 import { Observable, from, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import { IPetPost, IUser, ISidebarSpecification } from "src/app/interfaces";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
     selector: "app-pets",
@@ -19,37 +20,17 @@ export class PetsComponent implements OnInit {
     public petPostsLoaded: Observable<boolean>;
 
     sidebarExpanded: boolean = true;
-    sidebarSpecification: ISidebarSpecification = {
-        links: [
-            {
-                text: "HOME",
-                routeUrl: "",
-                hasChildren: false,
-                hasIcon: true,
-                icon: "world",
-            },
-            {
-                text: "CREATE",
-                routeUrl: "",
-                hasChildren: false,
-                hasIcon: true,
-                icon: "album-2",
-            },
-            {
-                text: "PROFILE",
-                routeUrl: "",
-                hasChildren: false,
-                hasIcon: true,
-                icon: "circle-08",
-            },
-        ],
-    };
+    sidebarSpecification: ISidebarSpecification;
+
+    @ViewChild("createPostContent", { static: false })
+    createPostContent: ElementRef;
 
     constructor(
         private sessionService: SessionService,
         private dataService: DataService,
         private location: Location,
-        private navigationService: NavigationService
+        private navigationService: NavigationService,
+        private modalService: NgbModal
     ) {
         this.navigationService.set(Page.Pets);
     }
@@ -65,21 +46,66 @@ export class PetsComponent implements OnInit {
         }
 
         this.getData();
+        this.setupSidebar();
     }
 
     getData() {
         this.petPostsLoaded = this.getPetPosts();
     }
 
+    setupSidebar() {
+        this.sidebarSpecification = {
+            links: [
+                {
+                    text: "HOME",
+                    routerUrl: "/pets",
+                    hasRouterLink: true,
+                    hasChildren: false,
+                    hasIcon: true,
+                    hasCallback: true,
+                    isActive: true,
+                    icon: "world",
+                    callback: () => {
+                        console.log("HOME");
+                    },
+                },
+                {
+                    text: "CREATE",
+                    hasRouterLink: false,
+                    hasChildren: false,
+                    hasIcon: true,
+                    hasCallback: true,
+                    isActive: false,
+                    icon: "album-2",
+                    callback: () => {
+                        console.log("CREATE");
+                        this.openCreatePost();
+                    },
+                },
+                {
+                    text: "PROFILE",
+                    hasRouterLink: true,
+                    routerUrl: "/pets/" + this.user.username,
+                    hasChildren: false,
+                    hasIcon: true,
+                    hasCallback: true,
+                    isActive: false,
+                    icon: "circle-08",
+                    callback: () => {
+                        console.log("PROFILE");
+                    },
+                },
+            ],
+        };
+    }
+
     getPetPosts(): Observable<boolean> {
         return from(
             this.dataService
-                .get(DBTables.PetPost)
+                .getFrom(DBTables.PetPost, DBTables.UserFollowing, this.user.id)
                 .then((response: any) => {
                     if (response.success) {
-                        this.petPosts = (
-                            response.result as IPetPost[]
-                        ).reverse();
+                        this.petPosts = response.result as IPetPost[];
                     } else {
                         console.warn(response.message);
                     }
@@ -91,5 +117,12 @@ export class PetsComponent implements OnInit {
             map(() => true),
             catchError(() => of(false))
         );
+    }
+
+    openCreatePost() {
+        this.modalService.open(this.createPostContent, {
+            centered: true,
+            size: "lg",
+        });
     }
 }

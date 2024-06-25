@@ -500,3 +500,25 @@
 .card-background[data-animation=zooming]:hover::after {
     background: rgba(0, 0, 0, 0);
 }
+
+app-pet-post .carousel-item,
+app-pet-post-profile .carousel-item {
+    height: auto !important;
+}
+
+.table td {
+    vertical-align: middle !important;
+}
+
+.gm-style-iw-chr {
+    display: none !important;
+}
+
+app-pet-post-profile .carousel-inner,
+app-pet-post-profile .carousel-item {
+    height: 100% !important;
+}
+
+.word-break {
+    word-break: break-word;
+}

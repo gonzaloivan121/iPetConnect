@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { NavigationService, SessionService } from 'src/app/services';
+import { ImageService, NavigationService, SessionService } from 'src/app/services';
 import { Page, RoleEnum } from 'src/app/enums/enums';
 import { IUser } from 'src/app/interfaces';
 

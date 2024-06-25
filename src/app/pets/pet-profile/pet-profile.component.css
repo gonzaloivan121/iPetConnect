@@ -3,18 +3,74 @@
 }
 
 .profile-picture {
-    width: 150px;
-    height: 150px;
+    width: 12.5rem;
+    height: 12.5rem;
 }
 
 .pets-container {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-gap: 10px;
+    grid-gap: 0.5rem;
 }
 
-.no-posts-icon {
+.no-posts-icon,
+.no-pets-icon {
     font-size: 5rem;
+}
+
+.scroll {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.underline-container ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.underline-container ul li {
+    display: flex;
+    text-align: center;
+    list-style: none;
+    width: 100%;
+    justify-content: center;
+}
+
+.underline-container ul li a {
+    text-decoration: none;
+    color: #252525;
+    font-size: 16px;
+    transition: .2s ease-in-out;
+    font-weight: 600;
+    display: inline-block;
+    width: 100%;
+    padding: 0.75rem;
+    margin: 0;
+}
+
+.underline-container ul li.active a,
+.underline-container ul li a:hover {
+    color: rgb(78, 78, 78);
+    transform: scale(1.1);
+    font-weight: 700;
+}
+
+.underline-container .line {
+    height: 0.3rem;
+    width: 50%;
+    margin: 0;
+    background: var(--primary);
+    border: none;
+    transition: .2s ease-in-out;
+}
+
+.underline-container .line.posts-selected {
+    margin-left: 0%;
+}
+
+.underline-container .line.pets-selected {
+    margin-left: 50%;
 }
 
 @media (max-width: 768px) {

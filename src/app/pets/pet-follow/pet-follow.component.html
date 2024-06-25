@@ -1,0 +1,29 @@
+<div *ngFor="let user of users" class="follow-list w-100">
+    <button type="button" class="btn follow-item p-3 w-100" [routerLink]="['/pets', user.username]" (click)="closeModal()">
+        <div class="d-flex align-items-center">
+            <div class="background-image avatar shadow aspect-ratio-1by1" style="background-image: url('{{ user.image }}');"></div>
+            <div class="d-flex flex-column ml-3">
+                <strong>{{ user.username }}</strong>
+                <small>{{ user.name }}</small>
+            </div>
+        </div>
+
+        <button *ngIf="!isCurrentUserFollowingThisUser(user.id) && user.id !== currentUser.id" type="button" class="btn btn-sm btn-primary" (click)="follow(user.id);$event.stopPropagation()">
+            <span class="btn-inner--text">{{ "FOLLOW" | translate }}</span>
+        </button>
+
+        <button *ngIf="isCurrentUserFollowingThisUser(user.id) && user.id !== currentUser.id" type="button" class="btn btn-sm btn-dark" (click)="unfollow(user.id);$event.stopPropagation()">
+            <span class="btn-inner--text">{{ "FOLLOWING" | translate }}</span>
+        </button>
+
+        <button *ngIf="user.id === currentUser.id" type="button" class="btn btn-sm btn-dark" [routerLink]="['/profile/edit']" (click)="closeModal();$event.stopPropagation()">
+            <span class="btn-inner--text">{{ "EDIT_PROFILE" | translate }}</span>
+        </button>
+    </button>
+</div>
+
+<div *ngIf="users.length === 0">
+    <button type="button" class="follow-item p-3 w-100">
+        <span>{{ "USER_HAS_NO_FOLLOWERS" | translate }}</span>
+    </button>
+</div>

@@ -7,3 +7,4 @@ export { NewVersionCheckerService } from "./new-version-checker/new-version-chec
 export { AlertService } from './alert/alert.service';
 export { NavigationService } from './navigation/navigation.service';
 export { UsersService } from "./data/users.service";
+export { ImageService } from './image/image.service';

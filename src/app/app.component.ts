@@ -3,9 +3,10 @@ import { Router, NavigationEnd, ChildrenOutletContexts } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 import { LocationStrategy, PlatformLocation, Location } from '@angular/common';
 import { filter, Subscription } from 'rxjs';
-import { AppConfigService, TranslateService, SessionService } from 'src/app/services';
+import { AppConfigService, TranslateService, SessionService, NavigationService } from 'src/app/services';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IUser } from 'src/app/interfaces';
+import { Page } from './enums/enums';
 
 var didScroll;
 var lastScrollTop = 0;
@@ -37,11 +38,16 @@ export class AppComponent implements OnInit, OnDestroy {
         public appConfig: AppConfigService,
         public translateService: TranslateService,
         private sessionService: SessionService,
-        private modalService: NgbModal
+        private modalService: NgbModal,
+        private navigationService: NavigationService
     ) {}
 
     @HostListener("window:scroll", ["$event"])
     hasScrolled() {
+        if (this.isHeaderFixed()) {
+            return;
+        }
+
         var st = window.pageYOffset;
         // Make sure they scroll more than delta
         if (Math.abs(lastScrollTop - st) <= delta) return;
@@ -70,6 +76,15 @@ export class AppComponent implements OnInit, OnDestroy {
         }
 
         lastScrollTop = st;
+    }
+
+    isHeaderFixed(): boolean {
+        return (
+            this.navigationService.is(Page.Pets) ||
+            this.navigationService.is(Page.PetsProfile) ||
+            this.navigationService.is(Page.Match) ||
+            this.navigationService.is(Page.Map)
+        );
     }
 
     ngOnInit() {

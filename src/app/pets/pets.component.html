@@ -9,3 +9,16 @@
         </div>
     </div>
 </div>
+
+<ng-template #createPostContent let-modal>
+    <div class="modal-header align-items-center">
+        <h4 class="modal-title">{{ "CREATE_NEW_POST" | translate }}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'CLOSE' | translate }}"
+            (click)="modal.dismiss('Cross click')">
+            <span class="btn-inner--icon">✖</span>
+        </button>
+    </div>
+    <div class="modal-body scroll">
+        <app-pet-post-create [user]="user"></app-pet-post-create>
+    </div>
+</ng-template>

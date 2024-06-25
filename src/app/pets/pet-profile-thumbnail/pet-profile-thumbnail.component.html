@@ -1,0 +1,21 @@
+<div *ngIf="post" data-animation="zooming" class="card card-blog card-background">
+    <div class="full-background" style="background-image: url('{{ post.image }}');"></div>
+    <a class="cursor-pointer" (click)="openPost()">
+        <div class="card-body">
+            <div class="content-bottom">
+                <h5 class="card-title word-break text-break">{{ post.title }}</h5>
+            </div>
+        </div>
+    </a>
+</div>
+
+<div *ngIf="pet" data-animation="zooming" class="card card-blog card-background">
+    <div class="full-background" style="background-image: url('{{ pet.image }}');"></div>
+    <a class="cursor-pointer" (click)="openPet()">
+        <div class="card-body">
+            <div class="content-bottom">
+                <h5 class="card-title word-break text-break">{{ pet.name }}</h5>
+            </div>
+        </div>
+    </a>
+</div>

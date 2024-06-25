@@ -20,3 +20,11 @@
 .hide-resize {
     resize: none;
 }
+
+.card-header:first-child {
+    border-radius: unset;
+}
+
+.cover {
+    object-fit: cover;
+}

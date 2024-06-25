@@ -1,9 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { Location } from "@angular/common";
-import { DataService, SessionService, AlertService } from "src/app/services";
+import { DataService, SessionService, AlertService, ImageService } from "src/app/services";
 import { DBTables } from "src/classes";
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
-import { IUser } from "src/app/interfaces";
+import { IImageCategory, IImageCategoryResponse, IUser } from "src/app/interfaces";
 
 @Component({
     selector: "app-edit-profile",
@@ -23,7 +23,8 @@ export class EditProfileComponent implements OnInit {
         private location: Location,
         private formBuilder: UntypedFormBuilder,
         private dataService: DataService,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private imageService: ImageService
     ) {}
 
     ngOnInit(): void {
@@ -106,6 +107,29 @@ export class EditProfileComponent implements OnInit {
 
         if (!file) return;
 
+        const data = new FormData();
+        data.append("image", file);
+
+        this.imageService
+            .categories(data, { category: "nsfw_beta" })
+            .then((response: IImageCategoryResponse) => {
+                console.log(response)
+                if (response.status.type === "success") {
+                    const categories = response.result.categories;
+                    const result = this.checkNSFWImageConfidence(categories);
+
+                    if (result === "safe") {
+                        this.updateImage(file);
+                    } else {
+                        this.alertService.openWarning("NO_NSFW_ALLOWED");
+                    }
+                } else {
+                    this.alertService.openWarning(response.status.text);
+                }
+            });
+    }
+
+    updateImage(file: File) {
         const reader = new FileReader();
 
         reader.onload = (e: ProgressEvent<FileReader>) => {
@@ -113,5 +137,21 @@ export class EditProfileComponent implements OnInit {
         };
 
         reader.readAsDataURL(file);
+    }
+
+    checkNSFWImageConfidence(categories: IImageCategory[]): string {
+        const minConfidenceThreshold = 75;
+        const maxConfidenceThreshold = 50;
+        var result: string = "nsfw";
+
+        categories.forEach((category: IImageCategory) => {
+            if (category.confidence > minConfidenceThreshold) {
+                result = category.name.en;
+            } else if (category.confidence >= maxConfidenceThreshold && category.confidence < minConfidenceThreshold) {
+                result = category.name.en;
+            }
+        });
+
+        return result;
     }
 }

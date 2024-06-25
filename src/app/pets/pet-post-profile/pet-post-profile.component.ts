@@ -1,36 +1,38 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
+import { Component, Input, Output, OnInit, EventEmitter, ViewChild, ElementRef } from "@angular/core";
 import { DataService } from "src/app/services";
 import { DBTables } from "src/classes";
 import { Observable, from, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
-import { IInsertResponse, IPetPost, IPetPostComment, IPetPostUserLike, IUser } from "src/app/interfaces";
+import { IPetPost, IUser, IPetPostComment, IPetPostUserLike, IInsertResponse } from "src/app/interfaces";
 import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
-    selector: "app-pet-post",
-    templateUrl: "./pet-post.component.html",
-    styleUrls: ["./pet-post.component.css"],
+    selector: "app-pet-post-profile",
+    templateUrl: "./pet-post-profile.component.html",
+    styleUrls: ["./pet-post-profile.component.css"],
 })
-export class PetPostComponent implements OnInit {
+export class PetPostProfileComponent implements OnInit {
     @Input() post: IPetPost;
     @Input() user: IUser;
-    @Input() isLast: boolean;
+
+    @Output() closePostEvent = new EventEmitter<void>();
 
     postUser: IUser;
     postUserLoaded: Observable<boolean>;
 
+    descriptionComment: IPetPostComment;
+
     postComments: IPetPostComment[] = [];
     postCommentsLoaded: Observable<boolean>;
-
+    
     postLikes: IPetPostUserLike[] = [];
     postLikesLoaded: Observable<boolean>;
-
+    
     showEllipsis: boolean = true;
-    showComments: boolean = false;
     isLiked: boolean = false;
     isCommentInputFocused: boolean = false;
     isCommentAnAnswer: boolean = false;
-
+    
     comment: string = "";
     answerCommentId: number = null;
     commentsLength: number = 0;
@@ -48,6 +50,7 @@ export class PetPostComponent implements OnInit {
         this.postUserLoaded = this.getPostUser();
         this.postCommentsLoaded = this.getPostComments();
         this.postLikesLoaded = this.getPostLikes();
+        this.generateDescriptionComment();
     }
 
     getPostUser(): Observable<boolean> {
@@ -155,6 +158,17 @@ export class PetPostComponent implements OnInit {
         }
     }
 
+    generateDescriptionComment() {
+        this.descriptionComment = {
+            content: this.post.description,
+            is_answer: false,
+            post_id: this.post.id,
+            user_id: this.post.user_id,
+            created_at: this.post.created_at,
+            updated_at: this.post.created_at,
+        };
+    }
+
     likePost() {
         const data: IPetPostUserLike = {
             post_id: this.post.id,
@@ -253,5 +267,9 @@ export class PetPostComponent implements OnInit {
         var commentTextAreaNativeElement: HTMLTextAreaElement =
             this.commentField.nativeElement;
         commentTextAreaNativeElement.focus();
+    }
+
+    closePost() {
+        this.closePostEvent.emit();
     }
 }

@@ -1,0 +1,130 @@
+<div *ngIf="postUserLoaded | async">
+    <div class="card shadow">
+        <div class="card-body p-0">
+            <div class="row m-0">
+                <div class="col-12 col-lg-8 p-0">
+                    <ngb-carousel data-bs-touch="true" class="h-100 w-100">
+                        <ng-template ngbSlide>
+                            <img class="img-fluid rounded h-100 w-100 cover" [src]="post.image">
+                        </ng-template>
+                    </ngb-carousel>
+                </div>
+                <div class="col-12 col-lg-4 p-0">
+                    <div class="card-header p-4 bg-white d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <a class="d-flex" [routerLink]="['/pets', postUser.username]" (click)="closePost()" [ngbPopover]="popoverContent" triggers="mouseenter" placement="bottom" [autoClose]="'outside'">
+                                <div class="background-image avatar shadow" style="background-image: url('{{ postUser.image }}');"></div>
+                            </a>
+                            <div class="mx-3">
+                                <a class="text-dark font-weight-600 text-sm" [routerLink]="['/pets', postUser.username]" (click)="closePost()">
+                                    {{ postUser.username }}
+                                </a>
+                                <small class="d-block text-muted text-lowercase">
+                                    {{ (post.created_at | dateAgo).time }} {{ (post.created_at | dateAgo).text | translate }}
+                                </small>
+                            </div>
+                        </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'CLOSE' | translate }}" (click)="closePost()">
+                            <span class="btn-inner--icon">✖</span>
+                        </button>
+                    </div>
+                    <div class="card-header p-4 bg-white">
+                        <div class="text-dark text-break">{{ post.title }}</div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="px-4 pt-4">
+                            <div class="text-dark text-break">{{ "COMMENTS" | translate }}</div>
+                        </div>
+                        <div class="comments px-4 pb-4">
+                            <app-pet-post-comment [user]="user" [postUser]="postUser" [comment]="descriptionComment" [isDescription]="true" (closePostEvent)="closePost()" (answerCommentEvent)="setCommentAsAnswer(comment.id)"></app-pet-post-comment>
+
+                            <div *ngIf="postCommentsLoaded | async">
+                                <app-pet-post-comment *ngFor="let comment of postComments" [user]="user" [postUser]="postUser" [comment]="comment" (closePostEvent)="closePost()" (answerCommentEvent)="setCommentAsAnswer(comment.id)"></app-pet-post-comment>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer p-4 bg-white">
+                        <div class="d-flex align-items-center">
+                            <a *ngIf="!isLiked" class="d-block cursor-pointer" (click)="likePost()">
+                                <div class="icon icon-shape">
+                                    <i class="ni ni-favourite-28"></i>
+                                </div>
+                            </a>
+                        
+                            <a *ngIf="isLiked" class="d-block cursor-pointer" (click)="dislikePost()">
+                                <div class="icon icon-shape icon-shape-primary">
+                                    <i class="ni ni-favourite-28"></i>
+                                </div>
+                            </a>
+                        
+                            <span class="text-muted px-2">{{ postLikes.length }}</span>
+                        
+                            <a *ngIf="!isCommentInputFocused" class="d-block cursor-pointer" (click)="focusComment()">
+                                <div class="icon icon-shape">
+                                    <i class="ni ni-chat-round"></i>
+                                </div>
+                            </a>
+                        
+                            <a *ngIf="isCommentInputFocused" class="d-block cursor-pointer" (click)="focusComment()">
+                                <div class="icon icon-shape icon-shape-primary bg-transparent">
+                                    <i class="ni ni-chat-round"></i>
+                                </div>
+                            </a>
+                        
+                            <span class="text-muted px-2">{{ commentsLength }}</span>
+                        </div>
+
+                        <div class="form-group m-0 pt-4">
+                            <div class="input-group" [ngClass]="{ 'focused': isCommentInputFocused }">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text p-3">
+                                        <div class="background-image avatar avatar-sm shadow"
+                                            style="background-image: url('{{ user.image }}');"></div>
+                                    </span>
+                                </div>
+    
+                                <textarea #commentField autosize name="comment" [(ngModel)]="comment"
+                                    class="form-control py-3 overflow-hidden hide-resize"
+                                    placeholder="{{ 'TYPE_A_MESSAGE' | translate }}..."
+                                    (focus)="isCommentInputFocused = true" (blur)="isCommentInputFocused = false"></textarea>
+
+                                <div class="input-group-append">
+                                    <span class="input-group-text p-3">
+                                        <button class="btn btn-primary rounded-circle p-0 circle" [disabled]="comment.length === 0" (click)="postComment()">
+                                            <span class="btn-inner--icon">
+                                                <i class="ni ni-send"></i>
+                                            </span>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #noEllipsis>
+    <div class="text-dark text-break text-justify py-3">{{ post.description }}</div>
+</ng-template>
+
+<ng-template #popoverContent>
+    <div style="width: 400px;">
+        <div class="d-flex align-items-center p-1">
+            <a class="d-flex" [routerLink]="['/pets', postUser.username]" (click)="closePost()">
+                <div class="background-image avatar shadow" style="background-image: url('{{ postUser.image }}');"></div>
+            </a>
+            <div class="mx-3 text-left">
+                <a class="text-dark font-weight-600 text-sm" [routerLink]="['/pets', postUser.username]" (click)="closePost()">
+                    {{ postUser.username }}
+                </a>
+                <small class="d-block text-muted text-lowercase">
+                    {{ (post.created_at | dateAgo).time }} {{ (post.created_at | dateAgo).text | translate }}
+                </small>
+            </div>
+        </div>
+
+    </div>
+</ng-template>

@@ -18,37 +18,56 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-3 order-lg-2">
                             <div class="card-profile-image">
-                                <a (click)="fileUpload.click()" class="image-upload" href="javascript:void(0)">
-                                    <img [src]="user.image" class="rounded-circle">
-                                    <div class="upload-button-container">
-                                        <button class="btn btn-icon-only rounded-circle w-100 h-100">
-                                            <i class="ni ni-ruler-pencil"></i>
-                                        </button>
-                                    </div>
-                                </a>
+                                <img [src]="user.image" class="rounded-circle">
                             </div>
                         </div>
                     </div>
                     <div class="row pt-xl">
                         <div class="col">
-                            <h2 class="text-uppercase text-center">{{ "GENERAL_INFORMATION" | translate }}</h2>
+                            <h2 class="text-uppercase text-center">{{ "EDIT_PROFILE" | translate }}</h2>
                         </div>
                     </div>
-                    <div class="row py-lg p-lg-md px-sm-sm">
+                    <div class="row pt-sm pb-md px-lg-md pt-lg-sm pb-lg-md px-sm-sm">
                         <div class="col">
                             <!-- START - Form -->
                             <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" role="form">
                                 <input type="file" accept="image/png, image/jpeg" name="image" class="file-input" (change)="onFileSelected($event.target.files)" #fileUpload>
+                                <!-- START - Image -->
+                                <div class="row">
+                                    <div class="col-lg-2"></div>
+                                    <div class="col-lg-10">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="follow-list w-100">
+                                                    <div class="btn follow-item p-3 w-100">
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="background-image avatar shadow aspect-ratio-1by1" style="background-image: url('{{ user.image }}');"></div>
+                                                            <div class="d-flex flex-column ml-3">
+                                                                <strong>{{ user.username }}</strong>
+                                                                <small>{{ user.name }}</small>
+                                                            </div>
+                                                        </div>
+                                                
+                                                        <button type="button" class="btn btn-sm btn-primary" (click)="fileUpload.click()">
+                                                            <span class="btn-inner--text">{{ "CHANGE_PICTURE" | translate }}</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END - Image -->
                                 <!-- START - Username -->
                                 <div class="row">
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-2">
                                         <label for="#username" class="m-0">{{ 'USERNAME' | translate }}</label>
                                     </div>
-                                    <div class="col-lg-9">
+                                    <div class="col-lg-10">
                                         <div class="form-group">
-                                            <div class="input-group" placement="top" ngbTooltip="{{ 'CONTACT_TO_CHANGE' | translate }}">
+                                            <div class="input-group">
                                                 <input id="username" name="username" formControlName="username" type="text" placeholder="{{ 'USERNAME' | translate }}" class="form-control">
-                                                <div class="input-group-append">
+                                                <div class="input-group-append cursor-pointer" placement="top" ngbTooltip="{{ 'CONTACT_TO_CHANGE' | translate }}">
                                                     <span class="input-group-text disabled">?</span>
                                                 </div>
                                             </div>
@@ -58,14 +77,14 @@
                                 <!-- END - Username -->
                                 <!-- START - Email -->
                                 <div class="row">
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-2">
                                         <label for="#email" class="m-0">{{ 'EMAIL' | translate }}</label>
                                     </div>
-                                    <div class="col-lg-9">
+                                    <div class="col-lg-10">
                                         <div class="form-group">
-                                            <div class="input-group" placement="top" ngbTooltip="{{ 'CONTACT_TO_CHANGE' | translate }}">
+                                            <div class="input-group">
                                                 <input id="email" name="email" formControlName="email" type="email" placeholder="{{ 'EMAIL' | translate }}" class="form-control">
-                                                <div class="input-group-append">
+                                                <div class="input-group-append cursor-pointer" placement="top" ngbTooltip="{{ 'CONTACT_TO_CHANGE' | translate }}">
                                                     <span class="input-group-text disabled">?</span>
                                                 </div>
                                             </div>
@@ -75,10 +94,10 @@
                                 <!-- END - Email -->
                                 <!-- START - Name -->
                                 <div class="row">
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-2">
                                         <label for="#name" class="m-0">{{ 'NAME' | translate }}</label>
                                     </div>
-                                    <div class="col-lg-9">
+                                    <div class="col-lg-10">
                                         <div class="form-group" [class.focused]="focusName" [class.has-danger]="!name.valid">
                                             <div class="input-group">
                                                 <input id="name" name="name" formControlName="name" type="text" placeholder="{{ 'NAME' | translate }}"
@@ -90,10 +109,10 @@
                                 <!-- END - Name -->
                                 <!-- START - Gender -->
                                 <div class="row">
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-2">
                                         <label for="#gender" class="m-0">{{ 'GENDER' | translate }}</label>
                                     </div>
-                                    <div class="col-lg-9">
+                                    <div class="col-lg-10">
                                         <div class="form-group" [class.focused]="focusGender" [class.has-danger]="!gender.valid">
                                             <div class="input-group">
                                                 <select id="gender" name="gender" formControlName="gender" class="form-control form-select"
@@ -109,10 +128,10 @@
                                 <!-- END - Gender -->
                                 <!-- START - Bio -->
                                 <div class="row">
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-2">
                                         <label for="#bio" class="m-0">{{ 'BIO' | translate }}</label>
                                     </div>
-                                    <div class="col-lg-9">
+                                    <div class="col-lg-10">
                                         <div class="form-group" [class.focused]="focusBio" [class.has-danger]="!bio.valid">
                                             <div class="input-group">
                                                 <textarea autosize id="bio" name="bio" formControlName="bio" placeholder="{{ 'BIO' | translate }}" class="form-control"
@@ -123,11 +142,13 @@
                                 </div>
                                 <!-- END - Bio -->
                                 <!-- START - Buttons -->
-                                <div class="row">
-                                    <div class="col-lg-3"></div>
-                                    <div class="col-lg-9">
-                                        <button type="submit" class="btn btn-primary btn-block-sm" [disabled]="profileForm.invalid">{{ "SAVE_CHANGES" | translate }}</button>
-                                        <button type="button" (click)="onCancel()" class="btn btn-outline-primary btn-block-sm">{{ "CANCEL" | translate }}</button>
+                                <div class="row mt-4">
+                                    <div class="col-lg-2"></div>
+                                    <div class="col-lg-5">
+                                        <button type="submit" class="btn btn-primary btn-block" [disabled]="profileForm.invalid">{{ "SAVE" | translate }}</button>
+                                    </div>
+                                    <div class="col-lg-5 mt-lg-0 mt-3">
+                                        <button type="button" (click)="onCancel()" class="btn btn-outline-primary btn-block">{{ "CANCEL" | translate }}</button>
                                     </div>
                                 </div>
                                 <!-- END - Buttons -->

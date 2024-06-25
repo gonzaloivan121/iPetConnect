@@ -1,0 +1,15 @@
+.comment {
+    line-height: 1.5;
+}
+
+.hidden {
+    max-height: 5rem;
+}
+
+.small-icon {
+    transform: scale(0.65);
+}
+
+.user-liked {
+    transform: scale(0.75);
+}

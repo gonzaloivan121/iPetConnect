@@ -17,6 +17,9 @@ export class DBTables {
     public static readonly PasswordResets: string = "password_resets";
     public static readonly Pet: string = "pet";
     public static readonly PetPost: string = "pet_post";
+    public static readonly PetPostComment: string = "pet_post_comment";
+    public static readonly PetPostCommentUserLike: string = "pet_post_comment_user_like";
+    public static readonly PetPostUserLike: string = "pet_post_user_like";
     public static readonly Role: string = "role";
     public static readonly Species: string = "species";
     public static readonly User: string = "user";

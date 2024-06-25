@@ -1,16 +1,5 @@
-.card-profile .card-profile-image img {
-    margin-top: -10em;
-    max-width: 350px !important;
+.aspect-ratio-1by1 {
     aspect-ratio: 1/1;
-    object-fit: cover;
-}
-
-.file-input {
-    display: none;
-}
-
-.input-group-text.disabled {
-    background-color: #e9ecef !important;
 }
 
 .follow-list {
@@ -23,10 +12,13 @@
     color: #212529;
     text-align: inherit;
     text-transform: none;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border: 1px solid #cad1d7;
 }
 
 .follow-item:active,
