@@ -26,6 +26,50 @@
     <div *ngIf="user && user.role_id != roleEnum.Blogger" ngbAccordionItem [collapsed]="false" [destroyOnHide]="false">
         <div ngbAccordionHeader class="text-center py-sm">
             <button ngbAccordionButton>
+                <span class="display-4">{{ "MY_MARKERS" | translate }}</span>
+            </button>
+        </div>
+    
+        <div ngbAccordionCollapse>
+            <div ngbAccordionBody>
+                <ng-template>
+                    <table *ngIf="myMarkers.length > 0" class="table table-striped m-0">
+                        <thead>
+                            <tr>
+                                <th scope="col">{{ "TYPE" | translate }}</th>
+                                <th scope="col">{{ "TITLE" | translate }}</th>
+                                <th scope="col">{{ "GO" | translate }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let marker of myMarkers">
+                                <td>
+                                    <img [src]="marker.type | markerIcon" [alt]="marker.type | translate" class="me-2"
+                                        [ngbTooltip]="marker.type | translate">
+                                </td>
+                                <td>{{ marker.title }}</td>
+                                <td>
+                                    <button (click)="goToMarker(marker)" class="btn btn-icon-only btn-secondary">
+                                        <i class="ni ni-pin-3"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+    
+                    <div *ngIf="favouriteMarkers.length == 0">
+                        <p class="text-center lead m-0 pt-4 pb-3">{{ "NO_MARKERS" | translate }}</p>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="user && user.role_id != roleEnum.Blogger" class="dropdown-divider m-0"></div>
+
+    <div *ngIf="user && user.role_id != roleEnum.Blogger" ngbAccordionItem [collapsed]="false" [destroyOnHide]="false">
+        <div ngbAccordionHeader class="text-center py-sm">
+            <button ngbAccordionButton>
                 <span class="display-4">{{ "FAVOURITE_MARKERS" | translate }}</span>
             </button>
         </div>
@@ -57,7 +101,7 @@
                     </table>
 
                     <div *ngIf="favouriteMarkers.length == 0">
-                        <p class="text-center lead">{{ "NO_FAVOURITE_MARKERS" | translate }}</p>
+                        <p class="text-center lead m-0 pt-4 pb-3">{{ "NO_FAVOURITE_MARKERS" | translate }}</p>
                     </div>
                 </ng-template>
             </div>

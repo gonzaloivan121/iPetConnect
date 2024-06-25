@@ -9,6 +9,7 @@ import { IMapLegendIcon, IMarker, IUser } from 'src/app/interfaces';
 })
 export class LegendComponent {
     @Input() public favouriteMarkers: IMarker[] = [];
+    @Input() public myMarkers: IMarker[] = [];
     @Input() public user: IUser;
 
     @Output() filterMarkersEvent = new EventEmitter<string>();

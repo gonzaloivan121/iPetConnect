@@ -19,6 +19,7 @@ export class MapComponent implements OnInit {
     public apiLoaded: Observable<boolean>;
     public markersLoaded: Observable<boolean>;
     public favouriteMarkersLoaded: Observable<boolean>;
+    public myMarkersLoaded: Observable<boolean>;
 
     public user: IUser;
     public isLoggedIn: boolean = false;
@@ -26,6 +27,7 @@ export class MapComponent implements OnInit {
     public showGoToLocationButton: boolean = false;
 
     public favouriteMarkers: IMarker[] = [];
+    public myMarkers: IMarker[] = [];
 
     @ViewChild("myGoogleMap", { static: false }) map!: GoogleMap;
     @ViewChild(MapInfoWindow, { static: false }) infoWindow!: MapInfoWindow;
@@ -69,7 +71,7 @@ export class MapComponent implements OnInit {
         private sessionService: SessionService,
         private alertService: AlertService,
         private modalService: NgbModal,
-        private navigationService: NavigationService,
+        private navigationService: NavigationService
     ) {
         this.navigationService.set(Page.Map);
     }
@@ -92,6 +94,7 @@ export class MapComponent implements OnInit {
 
         if (this.user) {
             this.favouriteMarkersLoaded = this.loadFavouriteMarkers();
+            this.myMarkersLoaded = this.loadMyMarkers();
         }
     }
 
@@ -411,6 +414,24 @@ export class MapComponent implements OnInit {
         );
     }
 
+    loadMyMarkers(): Observable<boolean> {
+        return from(
+            this.dataService
+                .getFrom(DBTables.Marker, DBTables.User, this.user.id)
+                .then((response: any) => {
+                    if (response.success) {
+                        this.myMarkers = response.result as IMarker[];
+                    } else {
+                        console.error(response.message);
+                    }
+                })
+                .catch((error) => console.error(error))
+        ).pipe(
+            map(() => true),
+            catchError(() => of(false))
+        );
+    }
+
     openMarkerModal(content) {
         this.modalService.open(content, { centered: true });
     }
@@ -433,6 +454,7 @@ export class MapComponent implements OnInit {
                     let icons = this.generateIcons();
                     let mapMarker = this.generateMarker(marker, icons);
                     this.markers.push(mapMarker);
+                    this.myMarkers.push(marker);
 
                     closeEvent("Marker created");
                 } else {
@@ -486,9 +508,18 @@ export class MapComponent implements OnInit {
                             (m.get("data") as IMarker).id ===
                             this.selectedMarker.id
                     )[0];
+                    const myMarkerToDelete = this.myMarkers.filter(
+                        (m) =>
+                            m.id ===
+                            this.selectedMarker.id
+                    )[0];
                     this.infoWindow.close();
                     this.markers.splice(
                         this.markers.indexOf(markerToDelete),
+                        1
+                    );
+                    this.myMarkers.splice(
+                        this.myMarkers.indexOf(myMarkerToDelete),
                         1
                     );
                     this.selectedMarker = null;
