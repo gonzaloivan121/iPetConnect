@@ -9,17 +9,17 @@
                     </div>
 
                     <div class="col-md-8">
-                        <div class="row">
-                            <div class="col d-flex align-items-center">
-                                <span class="text-dark font-weight-600 mr-4">{{ profileUser.username }}</span>
+                        <div class="mt-4 mt-lg-0 row">
+                            <div class="col text-center text-lg-left">
+                                <span class="d-block d-lg-inline-block text-dark font-weight-600 mr-0 mr-lg-4">{{ profileUser.username }}</span>
     
-                                <div *ngIf="profileUser.id === user.id">
+                                <div *ngIf="profileUser.id === user.id" class="d-inline-block my-2 my-lg-0">
                                     <button type="button" class="btn btn-sm btn-dark" [routerLink]="['/profile/edit']">
                                         <span class="btn-inner--text">{{ "EDIT_PROFILE" | translate }}</span>
                                     </button>
                                 </div>
     
-                                <div *ngIf="profileUser.id !== user.id">
+                                <div *ngIf="profileUser.id !== user.id" class="d-inline-block my-2 my-lg-0">
                                     <button *ngIf="isFollowing" type="button" class="btn btn-sm btn-dark" (click)="unfollow(profileUser.id)">
                                         <span class="btn-inner--text">{{ "FOLLOWING" | translate }}</span>
                                     </button>
@@ -32,22 +32,22 @@
                         </div>
 
                         <div class="row my-3">
-                            <div class="col-3">
+                            <div class="col-6 col-lg-3 pb-1 pb-lg-0">
                                 <span *ngIf="petsLoaded | async" class="text-dark text-lowercase">
                                     <span class="font-weight-600">{{ pets.length }}</span> {{ (pets.length === 1 ? "PET" : "PETS") | translate }}
                                 </span>
                             </div>
-                            <div class="col-3">
+                            <div class="col-6 col-lg-3 pb-1 pb-lg-0">
                                 <span *ngIf="postsLoaded | async" class="text-dark text-lowercase">
                                     <span class="font-weight-600">{{ petPosts.length }}</span> {{ (petPosts.length === 1 ? "PET_POST" : "PET_POSTS") | translate }}
                                 </span>
                             </div>
-                            <div class="col-3">
+                            <div class="col-6 col-lg-3">
                                 <span class="text-dark text-lowercase cursor-pointer" (click)="openFollowers()">
                                     <span class="font-weight-600">{{ followers }}</span> {{ (followers === 1 ? "FOLLOWER" : "FOLLOWERS") | translate }}
                                 </span>
                             </div>
-                            <div class="col-3">
+                            <div class="col-6 col-lg-3">
                                 <span class="text-dark text-lowercase cursor-pointer" (click)="openFollowing()">
                                     <span class="font-weight-600">{{ following }}</span> {{ (following === 1 ? "FOLLOWING" : "FOLLOWING_PLURAL") | translate }}
                                 </span>

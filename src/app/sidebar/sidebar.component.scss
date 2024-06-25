@@ -55,6 +55,11 @@
 
                     &.active {
                         background: #191a27;
+                        color: white;
+
+                        .title {
+                            color: white;
+                        }
                     }
                 }
             }
@@ -71,6 +76,7 @@
 
                 &:hover {
                     background: #0f1017;
+                    color: white;
 
                     .title {
                         color: white;
@@ -83,6 +89,7 @@
 
                 &.active {
                     background: #0f1017;
+                    color: white;
 
                     .title {
                         color: white;
@@ -97,6 +104,28 @@
                     overflow: hidden;
                 }
             }
+        }
+    }
+
+    &.mobile {
+        width: 100%;
+        z-index: 16;
+        height: auto;
+        bottom: 0;
+        top: auto;
+        padding-top: 0;
+
+        .link {
+            width: 33%;
+            display: inline-block;
+
+            .title {
+                display: none;
+            }
+        }
+
+        .header {
+            display: none;
         }
     }
 }

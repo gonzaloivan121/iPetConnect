@@ -1,28 +1,36 @@
-<div class="sidebar bg-white shadow" [ngClass]="{ 'expanded': isExpanded }">
+<!-- START - PC Version -->
+<div class="d-none d-lg-block sidebar bg-white shadow" [ngClass]="{ 'expanded': isExpanded }">
     <div class="content">
-        <div *ngFor="let specLink of specification.links" class="link" [ngClass]="{ 'with-children': specLink.hasChildren }" placement="right" [ngbTooltip]="specLink.text | translate" [disableTooltip]="isExpanded" tooltipClass="ml-1">
-            <div *ngIf="!specLink.hasRouterLink" class="content p-3" [ngClass]="{ 'active': specLink.isActive }" (click)="specLink.hasCallback ? specLink.callback() : null">
-                <div *ngIf="specLink.hasIcon" class="d-flex justify-content-center display-4 m-0">
-                    <i class="ni ni-{{ specLink.icon }}"></i>
-                </div>
-                <div class="title">{{ specLink.text | translate }}</div>
-            </div>
-            <div *ngIf="specLink.hasRouterLink" class="content p-3" [ngClass]="{ 'active': specLink.isActive }" [routerLink]="[specLink.routerUrl]"
+        <div *ngFor="let specLink of specification.links" class="link"
+            [ngClass]="{ 'with-children': specLink.hasChildren }" placement="right"
+            [ngbTooltip]="specLink.text | translate" [disableTooltip]="isExpanded" tooltipClass="ml-1">
+            <div *ngIf="!specLink.hasRouterLink" class="content p-3" [ngClass]="{ 'active': specLink.isActive }"
                 (click)="specLink.hasCallback ? specLink.callback() : null">
                 <div *ngIf="specLink.hasIcon" class="d-flex justify-content-center display-4 m-0">
                     <i class="ni ni-{{ specLink.icon }}"></i>
                 </div>
                 <div class="title">{{ specLink.text | translate }}</div>
             </div>
+            <div *ngIf="specLink.hasRouterLink" class="content p-3" [ngClass]="{ 'active': specLink.isActive }"
+                [routerLink]="[specLink.routerUrl]" (click)="specLink.hasCallback ? specLink.callback() : null">
+                <div *ngIf="specLink.hasIcon" class="d-flex justify-content-center display-4 m-0">
+                    <i class="ni ni-{{ specLink.icon }}"></i>
+                </div>
+                <div class="title">{{ specLink.text | translate }}</div>
+            </div>
             <div *ngIf="specLink.hasChildren" class="children">
-                <div *ngFor="let childrenLink of specLink.children" class="link" placement="right" [ngbTooltip]="childrenLink.text | translate" [disableTooltip]="isExpanded" tooltipClass="ml-1">
-                    <div *ngIf="!childrenLink.hasRouterLink" class="content p-3" [ngClass]="{ 'active': childrenLink.isActive }" (click)="childrenLink.hasCallback ? childrenLink.callback() : null">
+                <div *ngFor="let childrenLink of specLink.children" class="link" placement="right"
+                    [ngbTooltip]="childrenLink.text | translate" [disableTooltip]="isExpanded" tooltipClass="ml-1">
+                    <div *ngIf="!childrenLink.hasRouterLink" class="content p-3"
+                        [ngClass]="{ 'active': childrenLink.isActive }"
+                        (click)="childrenLink.hasCallback ? childrenLink.callback() : null">
                         <div *ngIf="childrenLink.hasIcon" class="d-flex justify-content-center display-4 m-0">
                             <i class="ni ni-{{ childrenLink.icon }}"></i>
                         </div>
                         <div class="title">{{ childrenLink.text | translate }}</div>
                     </div>
-                    <div *ngIf="childrenLink.hasRouterLink" class="content p-3" [ngClass]="{ 'active': childrenLink.isActive }" [routerLink]="[childrenLink.routerUrl]"
+                    <div *ngIf="childrenLink.hasRouterLink" class="content p-3"
+                        [ngClass]="{ 'active': childrenLink.isActive }" [routerLink]="[childrenLink.routerUrl]"
                         (click)="childrenLink.hasCallback ? childrenLink.callback() : null">
                         <div *ngIf="childrenLink.hasIcon" class="d-flex justify-content-center display-4 m-0">
                             <i class="ni ni-{{ childrenLink.icon }}"></i>
@@ -36,9 +44,64 @@
 
     <div class="header bg-default">
         <div class="toggle" (click)="handleSidebarToggle()">
-            <button type="button" class="navbar-toggler" >
+            <button type="button" class="navbar-toggler">
                 <span class="navbar-toggler-icon"></span>
             </button>
         </div>
     </div>
 </div>
+<!-- END - PC Version -->
+
+<!-- START - Mobile Version -->
+<div class="d-block d-lg-none sidebar mobile bg-white shadow" [ngClass]="{ 'expanded': isExpanded }">
+    <div class="content">
+        <div *ngFor="let specLink of specification.links" class="link"
+            [ngClass]="{ 'with-children': specLink.hasChildren }" placement="right"
+            [ngbTooltip]="specLink.text | translate" [disableTooltip]="isExpanded" tooltipClass="ml-1">
+            <div *ngIf="!specLink.hasRouterLink" class="content p-3" [ngClass]="{ 'active': specLink.isActive }"
+                (click)="specLink.hasCallback ? specLink.callback() : null">
+                <div *ngIf="specLink.hasIcon" class="d-flex justify-content-center display-4 m-0">
+                    <i class="ni ni-{{ specLink.icon }}"></i>
+                </div>
+                <div class="title">{{ specLink.text | translate }}</div>
+            </div>
+            <div *ngIf="specLink.hasRouterLink" class="content p-3" [ngClass]="{ 'active': specLink.isActive }"
+                [routerLink]="[specLink.routerUrl]" (click)="specLink.hasCallback ? specLink.callback() : null">
+                <div *ngIf="specLink.hasIcon" class="d-flex justify-content-center display-4 m-0">
+                    <i class="ni ni-{{ specLink.icon }}"></i>
+                </div>
+                <div class="title">{{ specLink.text | translate }}</div>
+            </div>
+            <div *ngIf="specLink.hasChildren" class="children">
+                <div *ngFor="let childrenLink of specLink.children" class="link" placement="right"
+                    [ngbTooltip]="childrenLink.text | translate" [disableTooltip]="isExpanded" tooltipClass="ml-1">
+                    <div *ngIf="!childrenLink.hasRouterLink" class="content p-3"
+                        [ngClass]="{ 'active': childrenLink.isActive }"
+                        (click)="childrenLink.hasCallback ? childrenLink.callback() : null">
+                        <div *ngIf="childrenLink.hasIcon" class="d-flex justify-content-center display-4 m-0">
+                            <i class="ni ni-{{ childrenLink.icon }}"></i>
+                        </div>
+                        <div class="title">{{ childrenLink.text | translate }}</div>
+                    </div>
+                    <div *ngIf="childrenLink.hasRouterLink" class="content p-3"
+                        [ngClass]="{ 'active': childrenLink.isActive }" [routerLink]="[childrenLink.routerUrl]"
+                        (click)="childrenLink.hasCallback ? childrenLink.callback() : null">
+                        <div *ngIf="childrenLink.hasIcon" class="d-flex justify-content-center display-4 m-0">
+                            <i class="ni ni-{{ childrenLink.icon }}"></i>
+                        </div>
+                        <div class="title">{{ childrenLink.text | translate }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header bg-default">
+        <div class="toggle" (click)="handleSidebarToggle()">
+            <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </div>
+</div>
+<!-- END - Mobile Version -->

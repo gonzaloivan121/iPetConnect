@@ -76,7 +76,7 @@ export class PetsComponent implements OnInit {
                     hasIcon: true,
                     hasCallback: true,
                     isActive: false,
-                    icon: "album-2",
+                    icon: "image",
                     callback: () => {
                         console.log("CREATE");
                         this.openCreatePost();
