@@ -35,51 +35,63 @@
                         <div class="col-lg-4">
                             <div class="card card-lift--hover shadow border-0">
                                 <div class="card-body py-5">
-                                    <div class="icon icon-shape icon-shape-primary rounded-circle mb-4">
-                                        <i class="ni ni-badge"></i>
+                                    <div class="d-flex justify-content-center mb-4">
+                                        <div class="icon icon-shape icon-shape-primary rounded-circle">
+                                            <i class="ni ni-badge"></i>
+                                        </div>
                                     </div>
-                                    <h6 class="text-primary text-uppercase">{{ "INFORMATION_WE_COLLECT" | translate }}</h6>
-                                    <p class="description mt-3">{{ "INFORMATION_WE_COLLECT_DESCRIPTION" | translate }}</p>
-                                    <div>
+                                    <h6 class="text-primary text-uppercase text-center">{{ "INFORMATION_WE_COLLECT" | translate }}</h6>
+                                    <p class="description text-justify mt-3">{{ "INFORMATION_WE_COLLECT_DESCRIPTION" | translate }}</p>
+                                    <div class="d-flex justify-content-between">
                                         <span class="badge badge-pill badge-primary">{{ "NAME" | translate }}</span>
                                         <span class="badge badge-pill badge-primary">{{ "EMAIL" | translate }}</span>
                                         <span class="badge badge-pill badge-primary">{{ "PET" | translate }}</span>
                                     </div>
-                                    <button (click)="scrollTo(informationWeCollect)" class="btn btn-primary mt-4">{{ "READ_MORE" | translate }}</button>
+                                    <div class="mt-4">
+                                        <button (click)="scrollTo(informationWeCollect)" class="btn btn-primary btn-block">{{ "READ_MORE" | translate }}</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="card card-lift--hover shadow border-0">
                                 <div class="card-body py-5">
-                                    <div class="icon icon-shape icon-shape-success rounded-circle mb-4">
-                                        <i class="ni ni-glasses-2"></i>
+                                    <div class="d-flex justify-content-center mb-4">
+                                        <div class="icon icon-shape icon-shape-success rounded-circle">
+                                            <i class="ni ni-glasses-2"></i>
+                                        </div>
                                     </div>
-                                    <h6 class="text-success text-uppercase">{{ "USE_OF_INFORMATION" | translate }}</h6>
-                                    <p class="description mt-3">{{ "USE_OF_INFORMATION_DESCRIPTION" | translate }}</p>
-                                    <div>
+                                    <h6 class="text-success text-uppercase text-center">{{ "USE_OF_INFORMATION" | translate }}</h6>
+                                    <p class="description text-justify mt-3">{{ "USE_OF_INFORMATION_DESCRIPTION" | translate }}</p>
+                                    <div class="d-flex justify-content-between">
                                         <span class="badge badge-pill badge-success">{{ "PROFILES" | translate }}</span>
                                         <span class="badge badge-pill badge-success">{{ "MATCHES" | translate }}</span>
                                         <span class="badge badge-pill badge-success">{{ "NOTIFICATIONS" | translate }}</span>
                                     </div>
-                                    <button (click)="scrollTo(useOfInformation)" class="btn btn-success mt-4">{{ "READ_MORE" | translate }}</button>
+                                    <div class="mt-4">
+                                        <button (click)="scrollTo(useOfInformation)" class="btn btn-success btn-block">{{ "READ_MORE" | translate }}</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="card card-lift--hover shadow border-0">
                                 <div class="card-body py-5">
-                                    <div class="icon icon-shape icon-shape-warning rounded-circle mb-4">
-                                        <i class="ni ni-lock-circle-open"></i>
+                                    <div class="d-flex justify-content-center mb-4">
+                                        <div class="icon icon-shape icon-shape-warning rounded-circle">
+                                            <i class="ni ni-lock-circle-open"></i>
+                                        </div>
                                     </div>
-                                    <h6 class="text-warning text-uppercase">{{ "SECURITY_MEASURES" | translate }}</h6>
-                                    <p class="description mt-3">{{ "SECURITY_MEASURES_SHORT_DESCRIPTION" | translate }}</p>
-                                    <div>
+                                    <h6 class="text-warning text-uppercase text-center">{{ "SECURITY_MEASURES" | translate }}</h6>
+                                    <p class="description text-justify mt-3">{{ "SECURITY_MEASURES_SHORT_DESCRIPTION" | translate }}</p>
+                                    <div class="d-flex justify-content-between">
                                         <span class="badge badge-pill badge-warning">{{ "ENCRYPTING" | translate }}</span>
                                         <span class="badge badge-pill badge-warning">{{ "UPDATES" | translate }}</span>
                                         <span class="badge badge-pill badge-warning">{{ "ACCESS" | translate }}</span>
                                     </div>
-                                    <button (click)="scrollTo(securityMeasures)" class="btn btn-warning mt-4">{{ "READ_MORE" | translate }}</button>
+                                    <div class="mt-4">
+                                        <button (click)="scrollTo(securityMeasures)" class="btn btn-warning btn-block">{{ "READ_MORE" | translate }}</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -136,7 +148,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <h6 class="mb-0">{{ "INFORMATION_WE_COLLECT_LIST_3" | translate }}</h6>
+                                        <h6 class="mb-0">{{ "INFORMATION_WE_COLLECT_LIST_3" | translate }}*</h6>
                                     </div>
                                 </div>
                             </li>
