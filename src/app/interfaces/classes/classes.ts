@@ -32,6 +32,7 @@ export interface IBlogPost {
     content: string;
     image: string;
     popularity: number;
+    published: boolean;
     category_id: number;
     user_id: number;
     created_at?: Date;
