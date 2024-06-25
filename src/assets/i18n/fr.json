@@ -355,5 +355,7 @@
     "NO_POSTS_YET": "Il n'y a pas encore de posts",
     "AND": "et",
     "MORE": "plus",
-    "HOME": "Début"
+    "HOME": "Début",
+    "MY_MARKERS": "Mes Marqueurs",
+    "NO_NSFW_ALLOWED": "Le contenu NSFW n'est pas autorisé"
 }

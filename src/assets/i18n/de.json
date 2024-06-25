@@ -355,5 +355,7 @@
     "NO_POSTS_YET": "Noch keine beiträge",
     "AND": "und",
     "MORE": "weiter",
-    "HOME": "Start"
+    "HOME": "Start",
+    "MY_MARKERS": "Meine Marker",
+    "NO_NSFW_ALLOWED": "NSFW-Inhalte sind nicht erlaubt"
 }

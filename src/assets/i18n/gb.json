@@ -321,7 +321,7 @@
     "DAY": "Day",
     "DAYS": "Days",
     "HOUR": "Hour",
-    "HOURS": "Hour",
+    "HOURS": "Hours",
     "MINUTE": "Minute",
     "MINUTES": "Minutes",
     "SECOND": "Second",
@@ -355,5 +355,9 @@
     "NO_POSTS_YET": "No posts yet",
     "AND": "and",
     "MORE": "more",
-    "HOME": "Home"
+    "HOME": "Home",
+    "MY_MARKERS": "My Markers",
+    "NO_NSFW_ALLOWED": "No NSFW content allowed",
+    "LIKES_TRANSLATED": "Likes",
+    "POSTS": "Posts"
 }

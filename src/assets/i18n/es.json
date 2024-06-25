@@ -357,5 +357,12 @@
     "NO_POSTS_YET": "Aún no hay publicaciones",
     "AND": "y",
     "MORE": "más",
-    "HOME": "Inicio"
+    "HOME": "Inicio",
+    "MY_MARKERS": "Mis Marcadores",
+    "NO_NSFW_ALLOWED": "No se permite contenido NSFW",
+    "CHANGE_PICTURE": "Cambiar foto",
+    "LIKES_TRANSLATED": "Me gusta",
+    "POSTS": "Publicaciones",
+    "ANSWER_COMMENT": "Responder",
+    "HIDE_ALL_COMMENTS": "Ocultar todos los comentarios"
 }
