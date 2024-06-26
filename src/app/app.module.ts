@@ -27,7 +27,7 @@ import { PageNotFoundComponent } from "./pagenotfound/pagenotfound.component";
 import { InfoComponent } from "./map/info/info.component";
 import { LegendComponent } from "./map/legend/legend.component";
 import { SettingsComponent } from "./settings/settings.component";
-import { AppConfigService, TranslateService } from "./services";
+import { AppConfigService, TranslateService, BadWordsService } from "./services";
 import { BlogComponent } from "./blog/blog.component";
 import { CardComponent } from "./match/card/card.component";
 import { CategoriesComponent } from "./blog/categories/categories.component";
@@ -87,6 +87,7 @@ import { PetPostProfileComponent } from './pets/pet-post-profile/pet-post-profil
 import { PetPostCommentComponent } from './pets/pet-post-comment/pet-post-comment.component';
 import { PetProfileThumbnailComponent } from './pets/pet-profile-thumbnail/pet-profile-thumbnail.component';
 import { PetPostCreateComponent } from './pets/pet-post-create/pet-post-create.component';
+import { LoadingComponent } from './loading/loading.component';
 
 export function setupAppConfigServiceFactory(
     service: AppConfigService
@@ -98,6 +99,12 @@ export function setupTranslateServiceFactory(
     service: TranslateService
 ): Function {
     return () => service.use(navigator.language == "es-ES" ? "es" : "gb");
+}
+
+export function setupBadWordsServiceFactory(
+    service: BadWordsService
+): Function {
+    return () => service.setup();
 }
 
 @NgModule({
@@ -173,6 +180,7 @@ export function setupTranslateServiceFactory(
         PetPostCommentComponent,
         PetProfileThumbnailComponent,
         PetPostCreateComponent,
+        LoadingComponent,
     ],
     imports: [
         NgbModule,
@@ -210,6 +218,12 @@ export function setupTranslateServiceFactory(
             deps: [TranslateService],
             multi: true,
         },
+        {
+            provide: APP_INITIALIZER,
+            useFactory: setupBadWordsServiceFactory,
+            deps: [BadWordsService],
+            multi: true
+        }
     ],
     bootstrap: [AppComponent],
 })

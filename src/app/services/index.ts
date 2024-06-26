@@ -8,3 +8,5 @@ export { AlertService } from './alert/alert.service';
 export { NavigationService } from './navigation/navigation.service';
 export { UsersService } from "./data/users.service";
 export { ImageService } from './image/image.service';
+export { BadWordsService } from './bad-words/bad-words.service';
+export { LoadingService } from './loading/loading.service';

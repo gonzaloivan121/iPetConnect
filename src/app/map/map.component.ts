@@ -4,7 +4,7 @@ import { Observable, from, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import { environment } from 'src/environments/environment';
 import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
-import { DataService, SessionService, AlertService, NavigationService } from 'src/app/services';
+import { DataService, SessionService, AlertService, NavigationService, LoadingService } from 'src/app/services';
 import { DBTables } from 'src/classes';
 import { IMarkerResponse, IMarker, IUser, IFavouriteMarker, ICoordinates } from 'src/app/interfaces';
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
@@ -71,7 +71,8 @@ export class MapComponent implements OnInit {
         private sessionService: SessionService,
         private alertService: AlertService,
         private modalService: NgbModal,
-        private navigationService: NavigationService
+        private navigationService: NavigationService,
+        private loadingService: LoadingService
     ) {
         this.navigationService.set(Page.Map);
     }
@@ -217,6 +218,8 @@ export class MapComponent implements OnInit {
     }
 
     initMap() {
+        this.loadingService.open();
+
         this.markersLoaded = this.loadMarkersFromDataService();
         this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(
             document.getElementById("go-to-location")
@@ -233,6 +236,8 @@ export class MapComponent implements OnInit {
         this.searchBox.addListener("places_changed", () => {
             this.search();
         });
+
+        this.loadingService.close();
     }
 
     search() {

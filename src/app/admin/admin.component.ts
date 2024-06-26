@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { SessionService } from 'src/app/services';
 import { RoleEnum, AdminViewEnum, Page } from 'src/app/enums/enums';
 import { NavigationService } from 'src/app/services';
+import { IUser } from "src/app/interfaces";
 
 @Component({
     selector: 'app-admin',
@@ -10,7 +11,7 @@ import { NavigationService } from 'src/app/services';
     styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-    user: any;
+    user: IUser;
 
     activePage: AdminViewEnum = AdminViewEnum.Dashboard;
 

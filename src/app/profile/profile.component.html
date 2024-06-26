@@ -72,5 +72,5 @@
 </main>
 
 <ng-template #noEllipsis>
-  <div class="text-justify text-break mb-3">{{ user.bio }}</div>
+  <div class="text-justify text-break mb-3" [innerHtml]="user.bio | mention"></div>
 </ng-template>

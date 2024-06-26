@@ -16,8 +16,9 @@
         </span>
     </div>
     <input #userInput id="typeahead-template" type="text" class="form-control" [placeholder]="'SEARCH' | translate"
-        [ngbTypeahead]="search" [resultTemplate]="userRT" [inputFormatter]="formatter" (selectItem)="selectUser($event)"
-        (focus)="isSearchFocused = true" (blur)="isSearchFocused = false">
+        [ngbTypeahead]="search" [resultTemplate]="userRT" [inputFormatter]="formatter" [popupClass]="'typeahead-window'"
+        (selectItem)="selectUser($event)" (focus)="isSearchFocused = true" (blur)="isSearchFocused = false"
+    >
     <div *ngIf="userInput.value !== ''" class="input-group-append">
         <span class="input-group-text cursor-pointer" (click)="userInput.value = ''">×</span>
     </div>

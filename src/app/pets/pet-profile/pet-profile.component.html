@@ -12,18 +12,17 @@
                         <div class="mt-4 mt-lg-0 row">
                             <div class="col text-center text-lg-left">
                                 <span class="d-block d-lg-inline-block text-dark font-weight-600 mr-0 mr-lg-4">{{ profileUser.username }}</span>
-    
                                 <div *ngIf="profileUser.id === user.id" class="d-inline-block my-2 my-lg-0">
                                     <button type="button" class="btn btn-sm btn-dark" [routerLink]="['/profile/edit']">
                                         <span class="btn-inner--text">{{ "EDIT_PROFILE" | translate }}</span>
                                     </button>
                                 </div>
-    
+                                
                                 <div *ngIf="profileUser.id !== user.id" class="d-inline-block my-2 my-lg-0">
                                     <button *ngIf="isFollowing" type="button" class="btn btn-sm btn-dark" (click)="unfollow(profileUser.id)">
                                         <span class="btn-inner--text">{{ "FOLLOWING" | translate }}</span>
                                     </button>
-    
+                                    
                                     <button *ngIf="!isFollowing" type="button" class="btn btn-sm btn-primary" (click)="follow(profileUser.id)">
                                         <span class="btn-inner--text">{{ "FOLLOW" | translate }}</span>
                                     </button>

@@ -1,4 +1,3 @@
-
 <div *ngIf="alertService.alerts.length > 0">
     <div class="alerts-container">
         <ngb-alert *ngFor="let alert of alertService.alerts" [type]="alert.type" [dismissible]="alert.dismissable" (closed)="close(alert)">

@@ -1,8 +1,9 @@
 import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { Location } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { Observable, Subscription, from, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
-import { DataService, UsersService, SessionService, AlertService, NavigationService } from "src/app/services";
+import { DataService, UsersService, SessionService, AlertService, NavigationService, LoadingService } from "src/app/services";
 import { DBTables } from "src/classes";
 import { IPet, IPetPost, IUser } from "src/app/interfaces";
 import { Page, PetProfileTabEnum } from "src/app/enums/enums";
@@ -24,16 +25,16 @@ export class PetProfileComponent {
     public postsLoaded: Observable<boolean>;
     public petsLoaded: Observable<boolean>;
     public followedByLoaded: Observable<boolean>;
-    
+
     public activeTab: PetProfileTabEnum = PetProfileTabEnum.Posts;
-    
+
     public get petProfileTabEnum(): typeof PetProfileTabEnum {
         return PetProfileTabEnum;
     }
-    
+
     isFollowing: boolean = false;
     isUserFound: boolean = true;
-    
+
     followers: number = 0;
     following: number = 0;
 
@@ -57,38 +58,36 @@ export class PetProfileComponent {
         private sessionService: SessionService,
         private alertService: AlertService,
         private navigationService: NavigationService,
-        private modalService: NgbModal
+        private modalService: NgbModal,
+        private location: Location,
+        private loadingService: LoadingService
     ) {
         this.navigationService.set(Page.PetsProfile);
+    }
+
+    test() {
+        this.loadingService.open();
     }
 
     ngOnInit(): void {
         if (this.sessionService.exists("user")) {
             this.user = JSON.parse(this.sessionService.get("user"));
+        } else {
+            this.location.back();
         }
 
-        this.routeSubscription = this.route.params.subscribe(
-            (params: { username: string }) => {
-                const username = params.username;
-                this.profileUserLoaded = this.loadProfileUser(username);
-            }
-        );
-    }
-
-    setIsUserFoundToFalse(): Observable<boolean> {
-        return from(
-            Promise.resolve(false)
-                .then((value) => {
-                    console.log(value);
-                })
-                .catch((error) => console.error(error))
-        ).pipe(
-            map(() => false),
-            catchError(() => of(false))
-        );
+        if (this.user) {
+            this.routeSubscription = this.route.params.subscribe(
+                (params: { username: string }) => {
+                    const username = params.username;
+                    this.profileUserLoaded = this.loadProfileUser(username);
+                }
+            );
+        }
     }
 
     loadProfileUser(username: string): Observable<boolean> {
+        this.loadingService.open();
         return from(
             this.usersService
                 .getByUsername(username)
@@ -113,6 +112,7 @@ export class PetProfileComponent {
                         this.getFollowers();
                         this.getFollowing();
                         this.followedByLoaded = this.getFollowedBy();
+                        this.loadingService.close();
                     } else {
                         console.error(response.message);
                     }
@@ -133,7 +133,6 @@ export class PetProfileComponent {
                         this.petPosts = (
                             response.result as IPetPost[]
                         ).reverse();
-                        console.log(this.petPosts);
                     } else {
                         console.error(response.message);
                     }
@@ -165,10 +164,16 @@ export class PetProfileComponent {
     }
 
     ngOnDestroy(): void {
-        this.routeSubscription.unsubscribe();
+        if (this.routeSubscription) {
+            this.routeSubscription.unsubscribe();
+        }
     }
 
     checkIfIsFollowing(): void {
+        if (!this.user) {
+            return;
+        }
+
         this.usersService
             .isFollowing(this.user.id, this.profileUser.id)
             .then((response: any) => {
@@ -245,6 +250,10 @@ export class PetProfileComponent {
     }
 
     getFollowedBy() {
+        if (!this.user) {
+            return;
+        }
+
         return from(
             this.usersService
                 .getFollowedBy(this.profileUser.id, this.user.id)

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { UntypedFormGroup, UntypedFormBuilder, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { DataService, SessionService, AppConfigService, NavigationService, AlertService } from 'src/app/services';
+import { DataService, SessionService, AppConfigService, NavigationService, AlertService, BadWordsService } from 'src/app/services';
 import { DBTables } from 'src/classes';
 import { IConfig, IUser } from 'src/app/interfaces';
 import { Page } from 'src/app/enums/enums';
@@ -50,9 +50,11 @@ export class SignupComponent implements OnInit {
         private sessionService: SessionService,
         private configService: AppConfigService,
         private navigationService: NavigationService,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private badWordsService: BadWordsService
     ) {
         this.navigationService.set(Page.Register);
+        console.log(this.badWordsService.check("puta@madre.com"))
     }
 
     ngOnInit() {
@@ -164,11 +166,24 @@ export class SignupComponent implements OnInit {
         return this.signupForm.get("gender");
     }
 
+    isBadWord(text: string) {
+        return this.badWordsService.check(text);
+    }
+
     onSubmit() {
         const formData = this.signupForm.value;
         formData.birthday = `${formData.birthday.year}/${formData.birthday.month}/${formData.birthday.day}`;
         formData.birthday = new Date(formData.birthday);
         formData.image = "assets/img/ipetconnect_background.jpg";
+
+        if (
+            this.isBadWord(formData.username) ||
+            this.isBadWord(formData.email) ||
+            this.isBadWord(formData.name)
+        ) {
+            this.alertService.openDanger("BAD_WORDS_ARE_NOT_ALLOWED");
+            return;
+        }
 
         this.dataService
             .insert(DBTables.User, formData)
