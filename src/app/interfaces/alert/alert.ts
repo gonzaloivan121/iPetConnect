@@ -5,7 +5,7 @@ export interface IAlert {
     /** Alert type, available types: 'success', 'info', 'warning', 'danger', 'primary', 'secondary', 'light', 'dark'.  */
     type: string;
     /** Bold text inside the alert. */
-    strong?: string;
+    title?: string;
     /** Body of the alert. */
     message: string;
     /** The icon the alert will have. */

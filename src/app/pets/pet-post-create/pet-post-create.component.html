@@ -1,7 +1,68 @@
-<div class="d-flex flex-column justify-content-center align-items-center aspect-ratio-1by1">
-    <h1 class="text-center icon-xl mb-1">
-        <i class="ni ni-image"></i>
-    </h1>
-    <h3 class="text-center m-0">{{ "SELECT_PICTURE" | translate }}</h3>
-    <button class="btn btn-primary btn-sm mt-3">{{ "SELECT_PICTURE" }}</button>
-</div>
+<form [formGroup]="createPostForm" (ngSubmit)="onSubmit()" role="form">
+    <!-- START - Image -->
+    <input #fileInput type="file" accept="image/png, image/jpeg" name="image" formControlName="image" class="d-none"
+        (change)="onFileSelected($event.target.files)">
+
+    <div class="position-relative mb-4">
+        <button type="button" class="btn bg-default background-image thumbnail shadow w-100 m-0 p-0"
+            style="background-image: url('{{ image.value }}');" (click)="fileInput.click()">
+            <div *ngIf="image.value === ''">
+                <i class="ni ni-image image-icon text-white m-0 pb-4"></i>
+                <h4 class="thumbnail-text text-white m-0">{{ "NO_IMAGE" | translate }}</h4>
+                <p class="thumbnail-text text-white m-0">{{ "ADD_POST_IMAGE" | translate }}</p>
+            </div>
+        </button>
+
+        <button *ngIf="image.value !== ''" type="button"
+            class="btn btn-secondary rounded-circle btn-icon-only position-absolute right-0 m-3" (click)="clearImage()">
+            <span class="btn-inner--icon">✖</span>
+        </button>
+    </div>
+    <!-- END - Image -->
+    <!-- START - Title -->
+    <div class="form-group" [ngClass]="{ 'focused': focusTitle }">
+        <div class="input-group mb-3">
+            <input type="text" id="title" name="title" formControlName="title" class="form-control"
+                [ngClass]="{ 'is-invalid': (!title?.valid && (title?.dirty || title?.touched) && title.errors?.required) }"
+                placeholder="{{ 'TITLE' | translate }}" (focus)="focusTitle = true" (blur)="focusTitle = false">
+        </div>
+    </div>
+    <!-- END - Title -->
+    <!-- START - Description -->
+    <div class="form-group" [ngClass]="{ 'focused': focusDescription }">
+        <div class="input-group mb-3">
+            <textarea autosize id="description" name="description" formControlName="description"
+                class="form-control description hide-resize"
+                [ngClass]="{ 'is-invalid': (!description?.valid && (description?.dirty || description?.touched) && description.errors?.required) }"
+                placeholder="{{ 'DESCRIPTION' | translate }}" (focus)="focusDescription = true"
+                (blur)="focusDescription = false">
+            </textarea>
+        </div>
+    </div>
+    <!-- END - Description -->
+    <!-- START - Pet -->
+    <div class="form-group" [ngClass]="{ 'focused': focusPet }">
+        <div class="input-group mb-3">
+            <select id="pet_id" name="pet_id" formControlName="pet_id" class="form-control form-select"
+                [ngClass]="{ 'is-invalid': (!pet_id?.valid && (pet_id?.dirty || pet_id?.touched) && pet_id.errors?.required) }"
+                (focus)="focusPet = true" (blur)="focusPet = false">
+                <option value="" disabled selected>{{ "PET" | translate }}</option>
+                <option *ngFor="let pet of pets" [value]="pet.id">{{ pet.name }}</option>
+            </select>
+            <div *ngIf="pet_id.value !== ''" class="input-group-append">
+                <span class="input-group-text cursor-pointer" (click)="pet_id.setValue('')">×</span>
+            </div>
+        </div>
+    </div>
+    <!-- END - Pets -->
+    <!-- START - Buttons -->
+    <div class="text-right mt-4">
+        <button type="button" class="btn btn-outline-secondary" (click)="closeModal()">
+            {{ "CANCEL" | translate }}
+        </button>
+        <button type="submit" [disabled]="createPostForm.invalid" class="btn btn-default">
+            {{ "CREATE" | translate }}
+        </button>
+    </div>
+    <!-- END - Buttons -->
+</form>

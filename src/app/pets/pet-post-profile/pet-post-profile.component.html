@@ -24,9 +24,24 @@
                                 </small>
                             </div>
                         </div>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'CLOSE' | translate }}" (click)="closePost()">
-                            <span class="btn-inner--icon">✖</span>
-                        </button>
+                        <div>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'CLOSE' | translate }}" (click)="closePost()">
+                                <span class="btn-inner--icon">✖</span>
+                            </button>
+                            <div ngbDropdown class="d-inline-block menu-dropdown">
+                                <button *ngIf="user.id === postUser.id" type="button" class="close pr-3 menu-button" ngbDropdownToggle>
+                                    <span class="btn-inner--icon">···</span>
+                                </button>
+                                <div ngbDropdownMenu>
+                                    <button ngbDropdownItem (click)="editPost()">{{ "EDIT_POST" | translate }}</button>
+                                    <button *ngIf="post.enable_comments" ngbDropdownItem (click)="disableComments()">{{ "DISABLE_COMMENTS" | translate }}</button>
+                                    <button *ngIf="!post.enable_comments" ngbDropdownItem (click)="enableComments()">{{ "ENABLE_COMMENTS" | translate }}</button>
+                                    <button ngbDropdownItem (click)="share()">{{ "SHARE" | translate }}</button>
+                                    <button ngbDropdownItem (click)="copyLink()">{{ "COPY_LINK" | translate }}</button>
+                                    <button ngbDropdownItem (click)="delete()">{{ "DELETE" | translate }}</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-header p-4 bg-white">
                         <div class="text-dark text-break">{{ post.title }}</div>
@@ -36,10 +51,10 @@
                             <div class="text-dark text-break">{{ "COMMENTS" | translate }}</div>
                         </div>
                         <div class="comments px-4 pb-4">
-                            <app-pet-post-comment [user]="user" [postUser]="postUser" [comment]="descriptionComment" [isDescription]="true" (closePostEvent)="closePost()" (answerCommentEvent)="setCommentAsAnswer(comment.id)"></app-pet-post-comment>
+                            <app-pet-post-comment [user]="user" [postUser]="postUser" [comment]="descriptionComment" [isDescription]="true" (closePostEvent)="closePost()"></app-pet-post-comment>
 
                             <div *ngIf="postCommentsLoaded | async">
-                                <app-pet-post-comment *ngFor="let comment of postComments" [user]="user" [postUser]="postUser" [comment]="comment" (closePostEvent)="closePost()" (answerCommentEvent)="setCommentAsAnswer(comment.id)"></app-pet-post-comment>
+                                <app-pet-post-comment *ngFor="let comment of postComments" [user]="user" [postUser]="postUser" [comment]="comment" [enableComments]="post.enable_comments" (closePostEvent)="closePost()" (answerCommentEvent)="setCommentAsAnswer(comment.id)"></app-pet-post-comment>
                             </div>
                         </div>
                     </div>
@@ -74,7 +89,7 @@
                             <span class="text-muted px-2">{{ commentsLength }}</span>
                         </div>
 
-                        <div class="form-group m-0 pt-4">
+                        <div *ngIf="post.enable_comments" class="form-group m-0 pt-4">
                             <div class="input-group" [ngClass]="{ 'focused': isCommentInputFocused }">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text p-3">
@@ -126,5 +141,26 @@
             </div>
         </div>
 
+    </div>
+</ng-template>
+
+<ng-template #deletePostContent let-modal>
+    <div class="modal-header align-items-center">
+        <h4 class="modal-title">{{ "DELETE_POST" | translate }}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'CLOSE' | translate }}"
+            (click)="modal.dismiss('Cross click')">
+            <span class="btn-inner--icon">✖</span>
+        </button>
+    </div>
+    <div class="modal-body text-center">
+        <label class="m-4">{{ "ARE_YOU_SURE_YOU_WANT_TO_DELETE_POST" | translate }}</label>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-block btn-default" (click)="modal.dismiss('No button click')">
+            {{ "NO" | translate }}
+        </button>
+        <button class="btn btn-block btn-danger m-0" (click)="handleDeletePost(modal.dismiss)">
+            {{ "YES" | translate }}
+        </button>
     </div>
 </ng-template>

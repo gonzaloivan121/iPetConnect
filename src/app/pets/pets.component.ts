@@ -70,6 +70,18 @@ export class PetsComponent implements OnInit {
                     },
                 },
                 {
+                    text: "SEARCH",
+                    hasRouterLink: false,
+                    hasChildren: false,
+                    hasIcon: true,
+                    hasCallback: true,
+                    isActive: false,
+                    icon: "zoom-split-in",
+                    callback: () => {
+                        console.log("SEARCH");
+                    },
+                },
+                {
                     text: "CREATE",
                     hasRouterLink: false,
                     hasChildren: false,

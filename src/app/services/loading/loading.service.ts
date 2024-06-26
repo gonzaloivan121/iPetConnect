@@ -7,10 +7,17 @@ import { LoadingComponent } from "src/app/loading/loading.component";
 })
 export class LoadingService {
     protected modalRef: NgbModalRef;
+    private _isLoading: boolean = false;
 
     constructor(protected modalService: NgbModal) {}
 
+    public isLoading(): boolean {
+        return this._isLoading;
+    }
+
     public open() {
+        this._isLoading = true;
+
         this.modalRef = this.modalService.open(LoadingComponent, {
             centered: true,
             fullscreen: true,
@@ -21,6 +28,8 @@ export class LoadingService {
     }
 
     public close() {
+        this._isLoading = true;
+
         if (this.modalRef) {
             this.modalRef.close();
         }

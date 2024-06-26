@@ -16,6 +16,7 @@ export class PetPostCommentComponent implements OnInit {
     @Input() comment: IPetPostComment;
     @Input() isDescription: boolean = false;
     @Input() isAnswer: boolean = false;
+    @Input() enableComments: boolean = false;
 
     @Output() closePostEvent: EventEmitter<void> = new EventEmitter<void>();
     @Output() answerCommentEvent: EventEmitter<void> = new EventEmitter<void>();

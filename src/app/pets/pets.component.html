@@ -19,6 +19,6 @@
         </button>
     </div>
     <div class="modal-body scroll">
-        <app-pet-post-create [user]="user"></app-pet-post-create>
+        <app-pet-post-create [user]="user" (closeModalEvent)="modal.dismiss('Post created')"></app-pet-post-create>
     </div>
 </ng-template>

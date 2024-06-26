@@ -1,6 +1,20 @@
 import { Injectable } from "@angular/core";
 import { IAlert } from "src/app/interfaces";
 
+interface IAlertConfig {
+    title?: string;
+    dismissable?: boolean;
+    duration?: number;
+    type?:
+        | "default"
+        | "primary"
+        | "secondary"
+        | "info"
+        | "success"
+        | "danger"
+        | "warning";
+}
+
 @Injectable({
     providedIn: "root",
 })
@@ -23,17 +37,31 @@ export class AlertService {
         }
     }
 
+    openDefault(
+        message: string,
+        config?: IAlertConfig
+    ) {
+        this.open({
+            type: "success",
+            icon: "ni ni-like-2",
+            message,
+            title: config.title,
+            dismissable: config.dismissable,
+            duration: config.duration,
+        });
+    }
+
     openSuccess(
         message: string,
         dismissable: boolean = true,
-        strong?: string,
+        title?: string,
         duration?: number
     ) {
         this.open({
             type: "success",
             icon: "ni ni-like-2",
             message,
-            strong,
+            title,
             dismissable,
             duration,
         });
@@ -42,14 +70,14 @@ export class AlertService {
     openInfo(
         message: string,
         dismissable: boolean = true,
-        strong?: string,
+        title?: string,
         duration?: number
     ) {
         this.open({
             type: "info",
             icon: "ni ni-bell-55",
             message,
-            strong,
+            title,
             dismissable,
             duration,
         });
@@ -58,14 +86,14 @@ export class AlertService {
     openWarning(
         message: string,
         dismissable: boolean = true,
-        strong?: string,
+        title?: string,
         duration?: number
     ) {
         this.open({
             type: "warning",
             icon: "ni ni-bell-55",
             message,
-            strong,
+            title,
             dismissable,
             duration,
         });
@@ -74,14 +102,14 @@ export class AlertService {
     openDanger(
         message: string,
         dismissable: boolean = true,
-        strong: string = "Error",
+        title: string = "ERROR",
         duration?: number
     ) {
         this.open({
             type: "danger",
             icon: "ni ni-support-16",
             message,
-            strong,
+            title,
             dismissable,
             duration,
         });

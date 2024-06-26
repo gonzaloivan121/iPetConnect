@@ -169,6 +169,7 @@ export interface IPetPost {
     title: string;
     description: string;
     image?: string;
+    enable_comments: boolean;
     pet_id: number;
     user_id: number;
     created_at?: Date;

@@ -1,10 +1,10 @@
 import { Component, Input, Output, OnInit, EventEmitter, ViewChild, ElementRef } from "@angular/core";
-import { DataService } from "src/app/services";
+import { AlertService, DataService } from "src/app/services";
 import { DBTables } from "src/classes";
 import { Observable, from, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import { IPetPost, IUser, IPetPostComment, IPetPostUserLike, IInsertResponse } from "src/app/interfaces";
-import { NgbCarouselConfig } from "@ng-bootstrap/ng-bootstrap";
+import { NgbCarouselConfig, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
     selector: "app-pet-post-profile",
@@ -16,6 +16,7 @@ export class PetPostProfileComponent implements OnInit {
     @Input() user: IUser;
 
     @Output() closePostEvent = new EventEmitter<void>();
+    @Output() deletePostEvent = new EventEmitter<void>();
 
     postUser: IUser;
     postUserLoaded: Observable<boolean>;
@@ -24,22 +25,28 @@ export class PetPostProfileComponent implements OnInit {
 
     postComments: IPetPostComment[] = [];
     postCommentsLoaded: Observable<boolean>;
-    
+
     postLikes: IPetPostUserLike[] = [];
     postLikesLoaded: Observable<boolean>;
-    
+
     showEllipsis: boolean = true;
     isLiked: boolean = false;
     isCommentInputFocused: boolean = false;
     isCommentAnAnswer: boolean = false;
-    
+
     comment: string = "";
     answerCommentId: number = null;
     commentsLength: number = 0;
 
     @ViewChild("commentField") commentField: ElementRef;
+    @ViewChild("deletePostContent") deletePostContent: ElementRef;
 
-    constructor(private dataService: DataService, config: NgbCarouselConfig) {
+    constructor(
+        private dataService: DataService,
+        private alertService: AlertService,
+        private modalService: NgbModal,
+        config: NgbCarouselConfig
+    ) {
         config.interval = 0;
         config.keyboard = true;
         config.animation = false;
@@ -51,6 +58,8 @@ export class PetPostProfileComponent implements OnInit {
         this.postCommentsLoaded = this.getPostComments();
         this.postLikesLoaded = this.getPostLikes();
         this.generateDescriptionComment();
+
+        console.log(this.post);
     }
 
     getPostUser(): Observable<boolean> {
@@ -85,7 +94,7 @@ export class PetPostProfileComponent implements OnInit {
                     if (response.success) {
                         this.postComments =
                             response.result as IPetPostComment[];
-                            this.commentsLength = this.postComments.length;
+                        this.commentsLength = this.postComments.length;
                         this.configureCommentAnswers();
                     } else {
                         console.warn(response.message);
@@ -271,5 +280,83 @@ export class PetPostProfileComponent implements OnInit {
 
     closePost() {
         this.closePostEvent.emit();
+    }
+
+    editPost() {}
+
+    enableComments() {
+        this.post.enable_comments = true;
+
+        this.dataService
+            .update(DBTables.PetPost, this.post)
+            .then((response: IInsertResponse) => {
+                if (response.success) {
+                    this.alertService.openInfo("COMMENTS_ENABLED");
+                } else {
+                    console.warn(response.message);
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
+    disableComments() {
+        this.post.enable_comments = false;
+
+        this.dataService
+            .update(DBTables.PetPost, this.post)
+            .then((response: IInsertResponse) => {
+                if (response.success) {
+                    this.alertService.openInfo("COMMENTS_DISABLED");
+                } else {
+                    console.warn(response.message);
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
+    async share() {
+        const base64Response = await fetch(this.post.image);
+        const blob = await base64Response.blob();
+
+        const data: ShareData = {
+            url: location.href,
+            text: "World!",
+            title: "Hello",
+            files: [new File([blob], this.user.name)],
+        };
+        if (navigator.canShare(data)) {
+            navigator.share(data);
+        }
+    }
+
+    copyLink() {
+        navigator.clipboard.writeText("Test");
+        this.alertService.openInfo("LINK_COPIED_TO_CLIPBOARD");
+    }
+
+    delete() {
+        this.modalService.open(this.deletePostContent, {
+            centered: true
+        })
+    }
+
+    handleDeletePost(closeEvent: any) {
+        this.dataService
+            .delete(DBTables.PetPost, this.post)
+            .then((response: any) => {
+                if (response.success) {
+                    this.deletePostEvent.emit();
+                    closeEvent("Post deleted");
+                    this.alertService.openInfo("POST_DELETED");
+                    this.closePost();
+                } else {
+                    console.warn(response.message);
+                }
+            })
+            .catch((error) => console.error(error));
     }
 }

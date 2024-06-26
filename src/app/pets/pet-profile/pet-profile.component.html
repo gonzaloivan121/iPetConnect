@@ -1,172 +1,179 @@
 <div class="header"></div>
 <div *ngIf="profileUserLoaded | async">
-    <div *ngIf="isUserFound" class="container">
-        <div class="card mt-5">
-            <div class="card-body p-5">
-                <div class="row">
-                    <div class="col-md-4 d-flex justify-content-center align-items-center">
-                        <div class="background-image profile-picture rounded-circle shadow" style="background-image: url('{{ profileUser.image }}');"></div>
-                    </div>
-
-                    <div class="col-md-8">
-                        <div class="mt-4 mt-lg-0 row">
-                            <div class="col text-center text-lg-left">
-                                <span class="d-block d-lg-inline-block text-dark font-weight-600 mr-0 mr-lg-4">{{ profileUser.username }}</span>
-                                <div *ngIf="profileUser.id === user.id" class="d-inline-block my-2 my-lg-0">
-                                    <button type="button" class="btn btn-sm btn-dark" [routerLink]="['/profile/edit']">
-                                        <span class="btn-inner--text">{{ "EDIT_PROFILE" | translate }}</span>
-                                    </button>
-                                </div>
-                                
-                                <div *ngIf="profileUser.id !== user.id" class="d-inline-block my-2 my-lg-0">
-                                    <button *ngIf="isFollowing" type="button" class="btn btn-sm btn-dark" (click)="unfollow(profileUser.id)">
-                                        <span class="btn-inner--text">{{ "FOLLOWING" | translate }}</span>
-                                    </button>
-                                    
-                                    <button *ngIf="!isFollowing" type="button" class="btn btn-sm btn-primary" (click)="follow(profileUser.id)">
-                                        <span class="btn-inner--text">{{ "FOLLOW" | translate }}</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row my-3">
-                            <div class="col-6 col-lg-3 pb-1 pb-lg-0">
-                                <span *ngIf="petsLoaded | async" class="text-dark text-lowercase">
-                                    <span class="font-weight-600">{{ pets.length }}</span> {{ (pets.length === 1 ? "PET" : "PETS") | translate }}
-                                </span>
-                            </div>
-                            <div class="col-6 col-lg-3 pb-1 pb-lg-0">
-                                <span *ngIf="postsLoaded | async" class="text-dark text-lowercase">
-                                    <span class="font-weight-600">{{ petPosts.length }}</span> {{ (petPosts.length === 1 ? "PET_POST" : "PET_POSTS") | translate }}
-                                </span>
-                            </div>
-                            <div class="col-6 col-lg-3">
-                                <span class="text-dark text-lowercase cursor-pointer" (click)="openFollowers()">
-                                    <span class="font-weight-600">{{ followers }}</span> {{ (followers === 1 ? "FOLLOWER" : "FOLLOWERS") | translate }}
-                                </span>
-                            </div>
-                            <div class="col-6 col-lg-3">
-                                <span class="text-dark text-lowercase cursor-pointer" (click)="openFollowing()">
-                                    <span class="font-weight-600">{{ following }}</span> {{ (following === 1 ? "FOLLOWING" : "FOLLOWING_PLURAL") | translate }}
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col">
-                                <span class="text-dark font-weight-600">{{ profileUser.name }}</span>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col">
-                                <span class="text-dark text-break text-justify font-weight-300" [innerHtml]="profileUser.bio | mention"></span>
-                            </div>
-                        </div>
-
-                        <div *ngIf="followedByLoaded | async">
-                            <div *ngIf="profileUser.id !== user.id && followedBy.length > 0" class="row mt-3">
-                                <div class="col">
-                                    <span *ngIf="followedBy.length === 1" class="text-dark small">
-                                        {{ "FOLLOWED_BY" | translate }}
-                                        <span class="font-weight-600 cursor-pointer" [routerLink]="['/pets', followedBy[0].username]">{{ followedBy[0].username }}</span>
-                                    </span>
-
-                                    <span *ngIf="followedBy.length === 2" class="text-dark small">
-                                        {{ "FOLLOWED_BY" | translate }}
-                                        <span class="font-weight-600 cursor-pointer" [routerLink]="['/pets', followedBy[0].username]">{{ followedBy[0].username }}</span>
-                                        {{ "AND" | translate }}
-                                        <span class="font-weight-600 cursor-pointer" [routerLink]="['/pets', followedBy[1].username]">{{ followedBy[1].username }}</span>
-                                    </span>
-
-                                    <span *ngIf="followedBy.length === 3" class="text-dark small">
-                                        {{ "FOLLOWED_BY" | translate }}
-                                        <span class="font-weight-600 cursor-pointer" [routerLink]="['/pets', followedBy[0].username]">{{ followedBy[0].username }}</span>,
-                                        <span class="font-weight-600 cursor-pointer" [routerLink]="['/pets', followedBy[1].username]">{{ followedBy[1].username }}</span>
-                                        {{ "AND" | translate }}
-                                        <span class="font-weight-600 cursor-pointer" [routerLink]="['/pets', followedBy[2].username]">{{ followedBy[2].username }}</span>
-                                    </span>
-
-                                    <span *ngIf="followedBy.length > 3" class="text-dark small">
-                                        {{ "FOLLOWED_BY" | translate }}
-                                        <span class="font-weight-600 cursor-pointer" [routerLink]="['/pets', followedBy[0].username]">{{ followedBy[0].username }}</span>,
-                                        <span class="font-weight-600 cursor-pointer" [routerLink]="['/pets', followedBy[1].username]">{{ followedBy[1].username }}</span>,
-                                        <span class="font-weight-600 cursor-pointer" [routerLink]="['/pets', followedBy[2].username]">{{ followedBy[2].username }}</span>
-                                        {{ "AND" | translate }}
-                                        <span class="font-weight-600">{{ followedBy.length - 3 }}</span>
-                                        {{ "MORE" | translate }}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    
+    <div *ngIf="isUserFound" class="container-fluid">
         <div class="row">
-            <div class="col-1 col-lg-3"></div>
-            <div class="col-10 col-lg-6">
-                <div class="underline-container">
-                    <hr class="line"
-                        [class.posts-selected]="activeTab == petProfileTabEnum.Posts"
-                        [class.pets-selected]="activeTab == petProfileTabEnum.Pets"
-                    >
-                    <ul>
-                        <li [class.active]="activeTab == petProfileTabEnum.Posts">
-                            <a class="text-dark" (click)="changeTab(petProfileTabEnum.Posts)" href="javascript:void(0)">
-                                {{ "POSTS" | translate }}
-                            </a>
-                        </li>
-                        <li [class.active]="activeTab == petProfileTabEnum.Pets">
-                            <a class="text-dark" (click)="changeTab(petProfileTabEnum.Pets)" href="javascript:void(0)">
-                                {{ "PETS" | translate }}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+            <div class="col-md-2">
+                <app-sidebar [isExpanded]="sidebarExpanded" [specification]="sidebarSpecification"
+                    (toggleSidebar)="sidebarExpanded = !sidebarExpanded"></app-sidebar>
             </div>
-            <div class="col-1 col-lg-3"></div>
-        </div>
-    
-        <!-- START - Posts -->
-        <div *ngIf="activeTab === petProfileTabEnum.Posts">
-            <div *ngIf="postsLoaded | async" class="row">
-                <div class="col">
-                    <div *ngIf="petPosts.length > 0" class="pets-container">
-                        <app-pet-profile-thumbnail *ngFor="let post of petPosts" [post]="post" (openPostEvent)="openPost(post)"></app-pet-profile-thumbnail>
-                    </div>
+            <div class="container">
+                <div class="card mt-5">
+                    <div class="card-body p-5">
+                        <div class="row">
+                            <div class="col-md-4 d-flex justify-content-center align-items-center">
+                                <div class="background-image profile-picture rounded-circle shadow" style="background-image: url('{{ profileUser.image }}');"></div>
+                            </div>
         
-                    <div *ngIf="petPosts.length === 0" class="mt-5">
-                        <h1 class="text-center no-posts-icon">
-                            <i class="ni ni-image"></i>
-                        </h1>
-                        <h3 class="text-center">{{ "NO_POSTS_YET" | translate }}</h3>
+                            <div class="col-md-8">
+                                <div class="mt-4 mt-lg-0 row">
+                                    <div class="col text-center text-lg-left">
+                                        <span class="d-block d-lg-inline-block text-dark font-weight-600 mr-0 mr-lg-4">{{ profileUser.username }}</span>
+                                        <div *ngIf="profileUser.id === user.id" class="d-inline-block my-2 my-lg-0">
+                                            <button type="button" class="btn btn-sm btn-dark" [routerLink]="['/profile/edit']">
+                                                <span class="btn-inner--text">{{ "EDIT_PROFILE" | translate }}</span>
+                                            </button>
+                                        </div>
+                                        
+                                        <div *ngIf="profileUser.id !== user.id" class="d-inline-block my-2 my-lg-0">
+                                            <button *ngIf="isFollowing" type="button" class="btn btn-sm btn-dark" (click)="unfollow(profileUser.id)">
+                                                <span class="btn-inner--text">{{ "FOLLOWING" | translate }}</span>
+                                            </button>
+                                            
+                                            <button *ngIf="!isFollowing" type="button" class="btn btn-sm btn-primary" (click)="follow(profileUser.id)">
+                                                <span class="btn-inner--text">{{ "FOLLOW" | translate }}</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+        
+                                <div class="row my-3">
+                                    <div class="col-6 col-lg-3 pb-1 pb-lg-0">
+                                        <span *ngIf="petsLoaded | async" class="text-dark text-lowercase">
+                                            <span class="font-weight-600">{{ pets.length }}</span> {{ (pets.length === 1 ? "PET" : "PETS") | translate }}
+                                        </span>
+                                    </div>
+                                    <div class="col-6 col-lg-3 pb-1 pb-lg-0">
+                                        <span *ngIf="postsLoaded | async" class="text-dark text-lowercase">
+                                            <span class="font-weight-600">{{ petPosts.length }}</span> {{ (petPosts.length === 1 ? "PET_POST" : "PET_POSTS") | translate }}
+                                        </span>
+                                    </div>
+                                    <div class="col-6 col-lg-3">
+                                        <span class="text-dark text-lowercase cursor-pointer" (click)="openFollowers()">
+                                            <span class="font-weight-600">{{ followers }}</span> {{ (followers === 1 ? "FOLLOWER" : "FOLLOWERS") | translate }}
+                                        </span>
+                                    </div>
+                                    <div class="col-6 col-lg-3">
+                                        <span class="text-dark text-lowercase cursor-pointer" (click)="openFollowing()">
+                                            <span class="font-weight-600">{{ following }}</span> {{ (following === 1 ? "FOLLOWING" : "FOLLOWING_PLURAL") | translate }}
+                                        </span>
+                                    </div>
+                                </div>
+        
+                                <div class="row">
+                                    <div class="col">
+                                        <span class="text-dark font-weight-600">{{ profileUser.name }}</span>
+                                    </div>
+                                </div>
+        
+                                <div class="row">
+                                    <div class="col">
+                                        <span class="text-dark text-break text-justify font-weight-300" [innerHtml]="profileUser.bio | mention"></span>
+                                    </div>
+                                </div>
+        
+                                <div *ngIf="followedByLoaded | async">
+                                    <div *ngIf="profileUser.id !== user.id && followedBy.length > 0" class="row mt-3">
+                                        <div class="col">
+                                            <span *ngIf="followedBy.length === 1" class="text-dark small">
+                                                {{ "FOLLOWED_BY" | translate }}
+                                                <span class="font-weight-600 cursor-pointer" [routerLink]="['/pets', followedBy[0].username]">{{ followedBy[0].username }}</span>
+                                            </span>
+        
+                                            <span *ngIf="followedBy.length === 2" class="text-dark small">
+                                                {{ "FOLLOWED_BY" | translate }}
+                                                <span class="font-weight-600 cursor-pointer" [routerLink]="['/pets', followedBy[0].username]">{{ followedBy[0].username }}</span>
+                                                {{ "AND" | translate }}
+                                                <span class="font-weight-600 cursor-pointer" [routerLink]="['/pets', followedBy[1].username]">{{ followedBy[1].username }}</span>
+                                            </span>
+        
+                                            <span *ngIf="followedBy.length === 3" class="text-dark small">
+                                                {{ "FOLLOWED_BY" | translate }}
+                                                <span class="font-weight-600 cursor-pointer" [routerLink]="['/pets', followedBy[0].username]">{{ followedBy[0].username }}</span>,
+                                                <span class="font-weight-600 cursor-pointer" [routerLink]="['/pets', followedBy[1].username]">{{ followedBy[1].username }}</span>
+                                                {{ "AND" | translate }}
+                                                <span class="font-weight-600 cursor-pointer" [routerLink]="['/pets', followedBy[2].username]">{{ followedBy[2].username }}</span>
+                                            </span>
+        
+                                            <span *ngIf="followedBy.length > 3" class="text-dark small">
+                                                {{ "FOLLOWED_BY" | translate }}
+                                                <span class="font-weight-600 cursor-pointer" [routerLink]="['/pets', followedBy[0].username]">{{ followedBy[0].username }}</span>,
+                                                <span class="font-weight-600 cursor-pointer" [routerLink]="['/pets', followedBy[1].username]">{{ followedBy[1].username }}</span>,
+                                                <span class="font-weight-600 cursor-pointer" [routerLink]="['/pets', followedBy[2].username]">{{ followedBy[2].username }}</span>
+                                                {{ "AND" | translate }}
+                                                <span class="font-weight-600">{{ followedBy.length - 3 }}</span>
+                                                {{ "MORE" | translate }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <!-- END - Posts -->
-        <!-- START - Pets -->
-        <div *ngIf="activeTab === petProfileTabEnum.Pets">
-            <div *ngIf="petsLoaded | async" class="row">
-                <div class="col">
-                    <div *ngIf="pets.length > 0" class="pets-container">
-                        <app-pet-profile-thumbnail *ngFor="let pet of pets" [pet]="pet" (openPetEvent)="openPet(pet)"></app-pet-profile-thumbnail>
-                    </div>
             
-                    <div *ngIf="pets.length === 0" class="mt-5">
-                        <h1 class="text-center no-pets-icon">
-                            <i class="ni ni-image"></i>
-                        </h1>
-                        <h3 class="text-center">{{ "NO_PETS_YET" | translate }}</h3>
+                <div class="row">
+                    <div class="col-1 col-lg-3"></div>
+                    <div class="col-10 col-lg-6">
+                        <div class="underline-container">
+                            <hr class="line"
+                                [class.posts-selected]="activeTab == petProfileTabEnum.Posts"
+                                [class.pets-selected]="activeTab == petProfileTabEnum.Pets"
+                            >
+                            <ul>
+                                <li [class.active]="activeTab == petProfileTabEnum.Posts">
+                                    <a class="text-dark" (click)="changeTab(petProfileTabEnum.Posts)" href="javascript:void(0)">
+                                        {{ "POSTS" | translate }}
+                                    </a>
+                                </li>
+                                <li [class.active]="activeTab == petProfileTabEnum.Pets">
+                                    <a class="text-dark" (click)="changeTab(petProfileTabEnum.Pets)" href="javascript:void(0)">
+                                        {{ "PETS" | translate }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-1 col-lg-3"></div>
+                </div>
+            
+                <!-- START - Posts -->
+                <div *ngIf="activeTab === petProfileTabEnum.Posts">
+                    <div *ngIf="postsLoaded | async" class="row">
+                        <div class="col">
+                            <div *ngIf="petPosts.length > 0" class="pets-container">
+                                <app-pet-profile-thumbnail *ngFor="let post of petPosts" [post]="post" (openPostEvent)="openPost(post)"></app-pet-profile-thumbnail>
+                            </div>
+                
+                            <div *ngIf="petPosts.length === 0" class="mt-5">
+                                <h1 class="text-center no-posts-icon">
+                                    <i class="ni ni-image"></i>
+                                </h1>
+                                <h3 class="text-center">{{ "NO_POSTS_YET" | translate }}</h3>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <!-- END - Posts -->
+                <!-- START - Pets -->
+                <div *ngIf="activeTab === petProfileTabEnum.Pets">
+                    <div *ngIf="petsLoaded | async" class="row">
+                        <div class="col">
+                            <div *ngIf="pets.length > 0" class="pets-container">
+                                <app-pet-profile-thumbnail *ngFor="let pet of pets" [pet]="pet" (openPetEvent)="openPet(pet)"></app-pet-profile-thumbnail>
+                            </div>
+                    
+                            <div *ngIf="pets.length === 0" class="mt-5">
+                                <h1 class="text-center no-pets-icon">
+                                    <i class="ni ni-image"></i>
+                                </h1>
+                                <h3 class="text-center">{{ "NO_PETS_YET" | translate }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END - Pets -->
             </div>
         </div>
-        <!-- END - Pets -->
-    
     </div>
 
     <div *ngIf="!isUserFound" class="container">
@@ -190,7 +197,7 @@
 
 <ng-template #postContent let-modal>
     <div class="modal-body p-0">
-        <app-pet-post-profile [post]="selectedPost" [user]="user" (closePostEvent)="modal.dismiss('Closed from post')"></app-pet-post-profile>
+        <app-pet-post-profile [post]="selectedPost" [user]="user" (closePostEvent)="modal.dismiss('Closed from post')" (deletePostEvent)="deletePost(selectedPost)"></app-pet-post-profile>
     </div>
 </ng-template>
 
@@ -217,5 +224,18 @@
     </div>
     <div class="modal-body scroll">
         <app-pet-follow [currentUser]="user" [profileUser]="profileUser" [isFollowing]="true" (closeModalEvent)="modal.dismiss('Cancel click')"></app-pet-follow>
+    </div>
+</ng-template>
+
+<ng-template #createPostContent let-modal>
+    <div class="modal-header align-items-center">
+        <h4 class="modal-title">{{ "CREATE_NEW_POST" | translate }}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'CLOSE' | translate }}"
+            (click)="modal.dismiss('Cross click')">
+            <span class="btn-inner--icon">✖</span>
+        </button>
+    </div>
+    <div class="modal-body scroll">
+        <app-pet-post-create [user]="user" (postCreatedEvent)="addNewPost($event)" (closeModalEvent)="modal.dismiss('Post created')"></app-pet-post-create>
     </div>
 </ng-template>

@@ -113,7 +113,6 @@ export class EditProfileComponent implements OnInit {
         this.imageService
             .categories(data, { category: "nsfw_beta" })
             .then((response: IImageCategoryResponse) => {
-                console.log(response)
                 if (response.status.type === "success") {
                     const categories = response.result.categories;
                     const result = this.checkNSFWImageConfidence(categories);

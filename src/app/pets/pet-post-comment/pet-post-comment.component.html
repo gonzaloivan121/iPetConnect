@@ -24,7 +24,7 @@
 
             <div *ngIf="!isDescription" class="d-block pt-3">
                 <small class="d-inline-block text-muted">{{ commentLikes.length }} {{ "LIKES_TRANSLATED" | translate }}</small>
-                <small *ngIf="!comment.is_answer" class="d-inline-block text-muted ml-3 cursor-pointer" (click)="answer()">{{ "ANSWER_COMMENT" | translate }}</small>
+                <small *ngIf="!comment.is_answer && enableComments" class="d-inline-block text-muted ml-3 cursor-pointer" (click)="answer()">{{ "ANSWER_COMMENT" | translate }}</small>
             </div>
         </div>
     </div>

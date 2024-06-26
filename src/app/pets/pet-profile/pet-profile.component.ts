@@ -5,7 +5,7 @@ import { Observable, Subscription, from, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import { DataService, UsersService, SessionService, AlertService, NavigationService, LoadingService } from "src/app/services";
 import { DBTables } from "src/classes";
-import { IPet, IPetPost, IUser } from "src/app/interfaces";
+import { IPet, IPetPost, ISidebarSpecification, IUser } from "src/app/interfaces";
 import { Page, PetProfileTabEnum } from "src/app/enums/enums";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
@@ -35,6 +35,9 @@ export class PetProfileComponent {
     isFollowing: boolean = false;
     isUserFound: boolean = true;
 
+    sidebarExpanded: boolean = true;
+    sidebarSpecification: ISidebarSpecification;
+
     followers: number = 0;
     following: number = 0;
 
@@ -50,6 +53,9 @@ export class PetProfileComponent {
 
     @ViewChild("followersContent", { static: false })
     followersContent: ElementRef;
+
+    @ViewChild("createPostContent", { static: false })
+    createPostContent: ElementRef;
 
     constructor(
         private route: ActivatedRoute,
@@ -83,7 +89,67 @@ export class PetProfileComponent {
                     this.profileUserLoaded = this.loadProfileUser(username);
                 }
             );
+
+            this.setupSidebar();
         }
+    }
+
+    setupSidebar() {
+        this.sidebarSpecification = {
+            links: [
+                {
+                    text: "HOME",
+                    routerUrl: "/pets",
+                    hasRouterLink: true,
+                    hasChildren: false,
+                    hasIcon: true,
+                    hasCallback: true,
+                    isActive: false,
+                    icon: "world",
+                    callback: () => {
+                        console.log("HOME");
+                    },
+                },
+                {
+                    text: "SEARCH",
+                    hasRouterLink: false,
+                    hasChildren: false,
+                    hasIcon: true,
+                    hasCallback: true,
+                    isActive: false,
+                    icon: "zoom-split-in",
+                    callback: () => {
+                        console.log("SEARCH");
+                    },
+                },
+                {
+                    text: "CREATE",
+                    hasRouterLink: false,
+                    hasChildren: false,
+                    hasIcon: true,
+                    hasCallback: true,
+                    isActive: false,
+                    icon: "image",
+                    callback: () => {
+                        console.log("CREATE");
+                        this.openCreatePost();
+                    },
+                },
+                {
+                    text: "PROFILE",
+                    hasRouterLink: true,
+                    routerUrl: "/pets/" + this.user.username,
+                    hasChildren: false,
+                    hasIcon: true,
+                    hasCallback: true,
+                    isActive: true,
+                    icon: "circle-08",
+                    callback: () => {
+                        console.log("PROFILE");
+                    },
+                },
+            ],
+        };
     }
 
     loadProfileUser(username: string): Observable<boolean> {
@@ -300,5 +366,21 @@ export class PetProfileComponent {
 
     changeTab(tab: PetProfileTabEnum): void {
         this.activeTab = tab;
+    }
+
+    deletePost(post: IPetPost) {
+        this.petPosts.splice(this.petPosts.indexOf(post), 1);
+        this.selectedPost = undefined;
+    }
+
+    openCreatePost() {
+        this.modalService.open(this.createPostContent, {
+            centered: true,
+            size: "lg",
+        });
+    }
+
+    addNewPost(post: IPetPost) {
+        this.petPosts.unshift(post);
     }
 }

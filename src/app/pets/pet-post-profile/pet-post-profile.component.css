@@ -28,3 +28,7 @@
 .cover {
     object-fit: cover;
 }
+
+.menu-dropdown .menu-button::after {
+    display: none;
+}
