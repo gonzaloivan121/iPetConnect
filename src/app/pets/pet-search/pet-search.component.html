@@ -1,0 +1,24 @@
+<ng-template #userRT let-user="result" let-t="term">
+    <div class="d-flex align-items-center">
+        <div style="background-image: url('{{ user.image }}')" class="background-image avatar shadow aspect-ratio-1by1">
+        </div>
+        <div class="d-flex flex-column ml-3">
+            <ngb-highlight [result]="user.name" [term]="t"></ngb-highlight>
+            <ngb-highlight [result]="user.username" [term]="t"></ngb-highlight>
+        </div>
+    </div>
+</ng-template>
+
+<div class="input-group" [ngClass]="{ 'focused': isSearchFocused }">
+    <div class="input-group-prepend">
+        <span class="input-group-text">
+            <i class="ni ni-zoom-split-in"></i>
+        </span>
+    </div>
+    <input #userInput id="typeahead-template" type="text" class="form-control" [placeholder]="'SEARCH' | translate"
+        [ngbTypeahead]="search" [resultTemplate]="userRT" [inputFormatter]="formatter" [popupClass]="'typeahead-window'"
+        (selectItem)="selectUser($event)" (focus)="isSearchFocused = true" (blur)="isSearchFocused = false">
+    <div *ngIf="userInput.value !== ''" class="input-group-append">
+        <span class="input-group-text cursor-pointer" (click)="userInput.value = ''">×</span>
+    </div>
+</div>

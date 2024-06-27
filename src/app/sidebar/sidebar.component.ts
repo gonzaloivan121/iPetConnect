@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { ISidebarSpecification } from "src/app/interfaces";
+import { ISidebarLink, ISidebarSpecification } from "src/app/interfaces";
 
 @Component({
     selector: "app-sidebar",
@@ -13,5 +13,13 @@ export class SidebarComponent {
     @Output() toggleSidebar: EventEmitter<boolean> =
         new EventEmitter<boolean>();
 
-    handleSidebarToggle = () => this.toggleSidebar.emit(!this.isExpanded);
+    handleSidebarToggle() {
+        this.toggleSidebar.emit(!this.isExpanded);
+    }
+
+    toggleChildren(link: ISidebarLink) {
+        link.children.forEach((children) => {
+            children.isActive = !children.isActive;
+        });
+    }
 }

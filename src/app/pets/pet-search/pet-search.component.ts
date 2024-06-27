@@ -1,4 +1,5 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, OperatorFunction, from, of } from "rxjs";
 import { catchError, debounceTime, map } from "rxjs/operators";
@@ -7,26 +8,27 @@ import { AlertService, DataService } from "src/app/services";
 import { DBTables } from 'src/classes';
 
 @Component({
-    selector: "app-impersonate",
-    templateUrl: "./impersonate.component.html",
-    styleUrls: ["./impersonate.component.css"],
+    selector: "app-pet-search",
+    templateUrl: "./pet-search.component.html",
+    styleUrls: ["./pet-search.component.css"],
 })
-export class ImpersonateComponent implements OnInit {
-    public users: IUser[] = [];
-    public usersLoaded: Observable<boolean>;
-
-    public selectedUser: IUser;
-
-    isSearchFocused: boolean = false;
+export class PetSearchComponent implements OnInit {
+    @Input() user: IUser;
 
     @Output() closeModalEvent = new EventEmitter<void>();
     @Output() userSelectedEvent = new EventEmitter<IUser>();
+
+    public users: IUser[] = [];
+    public usersLoaded: Observable<boolean>;
+
+    isSearchFocused: boolean = false;
 
     @ViewChild("userInput", { static: true }) userInput: HTMLInputElement;
 
     constructor(
         private dataService: DataService,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private router: Router
     ) {}
 
     ngOnInit(): void {
@@ -36,7 +38,7 @@ export class ImpersonateComponent implements OnInit {
     getUsers(): Observable<boolean> {
         return from(
             this.dataService
-                .get(DBTables.User)
+                .getExcluding(DBTables.User, this.user.id)
                 .then((response: any) => {
                     if (response.success) {
                         this.users = response.result as IUser[];
@@ -55,17 +57,10 @@ export class ImpersonateComponent implements OnInit {
     }
 
     selectUser(userEvent: NgbTypeaheadSelectItemEvent<IUser>): void {
-        this.selectedUser = Object.assign({}, userEvent.item);
-        this.emitUserSelectedEvent();
-    }
-
-    deleteSelectedUser(): void {
-        this.selectedUser = null;
-        this.emitUserSelectedEvent();
-    }
-
-    emitUserSelectedEvent(): void {
-        this.userSelectedEvent.emit(this.selectedUser);
+        var user: IUser = Object.assign({}, userEvent.item);
+        this.router.navigate(["/pets", user.username]);
+        this.closeModal();
+        //this.location.go("/pets/" + user.username);
     }
 
     search: OperatorFunction<string, readonly IUser[]> = (

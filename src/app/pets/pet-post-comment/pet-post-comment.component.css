@@ -13,3 +13,11 @@
 .user-liked {
     transform: scale(0.75);
 }
+
+.comment-container .menu {
+    display: none;
+}
+
+.comment-container:hover .menu {
+    display: inline-block;
+}

@@ -57,6 +57,12 @@ export class PetProfileComponent {
     @ViewChild("createPostContent", { static: false })
     createPostContent: ElementRef;
 
+    @ViewChild("createPetContent", { static: false })
+    createPetContent: ElementRef;
+
+    @ViewChild("searchContent", { static: false })
+    searchContent: ElementRef;
+
     constructor(
         private route: ActivatedRoute,
         private dataService: DataService,
@@ -69,10 +75,6 @@ export class PetProfileComponent {
         private loadingService: LoadingService
     ) {
         this.navigationService.set(Page.PetsProfile);
-    }
-
-    test() {
-        this.loadingService.open();
     }
 
     ngOnInit(): void {
@@ -120,10 +122,11 @@ export class PetProfileComponent {
                     icon: "zoom-split-in",
                     callback: () => {
                         console.log("SEARCH");
+                        this.openSearch();
                     },
                 },
                 {
-                    text: "CREATE",
+                    text: "PET_POST",
                     hasRouterLink: false,
                     hasChildren: false,
                     hasIcon: true,
@@ -131,8 +134,21 @@ export class PetProfileComponent {
                     isActive: false,
                     icon: "image",
                     callback: () => {
-                        console.log("CREATE");
+                        console.log("PET_POST");
                         this.openCreatePost();
+                    },
+                },
+                {
+                    text: "PET",
+                    hasRouterLink: false,
+                    hasChildren: false,
+                    hasIcon: true,
+                    hasCallback: true,
+                    isActive: false,
+                    icon: "album-2",
+                    callback: () => {
+                        console.log("PET");
+                        this.openCreatePet();
                     },
                 },
                 {
@@ -158,11 +174,13 @@ export class PetProfileComponent {
             this.usersService
                 .getByUsername(username)
                 .then((response: any) => {
+                    console.log(response);
                     if (response.success) {
                         var user = response.result[0] as IUser;
 
                         if (!user) {
                             this.isUserFound = false;
+                            this.loadingService.close();
                             return;
                         }
 
@@ -180,10 +198,14 @@ export class PetProfileComponent {
                         this.followedByLoaded = this.getFollowedBy();
                         this.loadingService.close();
                     } else {
+                        this.loadingService.close();
                         console.error(response.message);
                     }
                 })
-                .catch((error) => console.error(error))
+                .catch((error) => {
+                    this.loadingService.close();
+                    console.error(error);
+                })
         ).pipe(
             map(() => true),
             catchError(() => of(false))
@@ -380,7 +402,25 @@ export class PetProfileComponent {
         });
     }
 
+    openCreatePet() {
+        this.modalService.open(this.createPetContent, {
+            centered: true,
+            size: "lg",
+        });
+    }
+
+    openSearch() {
+        this.modalService.open(this.searchContent, {
+            centered: true,
+            size: "md",
+        });
+    }
+
     addNewPost(post: IPetPost) {
         this.petPosts.unshift(post);
+    }
+
+    addNewPet(pet: IPet) {
+        this.pets.unshift(pet);
     }
 }

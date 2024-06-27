@@ -12,7 +12,7 @@
     width: 5rem;
 
     &.expanded {
-        width: 16.666666666666%;
+        width: 13.75%;
 
         .content {
             .link {
@@ -24,6 +24,15 @@
                 }
 
                 .children {
+                    .link {
+                        height: 0;
+                        overflow: hidden;
+
+                        &.active {
+                            height: auto;
+                        }
+                    }
+
                     .content {
                         padding-left: 30px;
                     }
@@ -50,22 +59,6 @@
 
     .content {
         .link {
-            .children {
-                .content {
-                    background: #27283a;
-                    padding-left: 10px;
-
-                    &.active {
-                        background: #191a27;
-                        color: white;
-
-                        .title {
-                            color: white;
-                        }
-                    }
-                }
-            }
-
             .content {
                 display: flex;
                 align-items: center;
@@ -116,10 +109,22 @@
         bottom: 0;
         top: auto;
         padding-top: 0;
+        
 
         .link {
-            width: 25%;
+            width: 20%;
             display: inline-block;
+
+            .children {
+                .link {
+                    width: 0;
+                    overflow: hidden;
+        
+                    &.active {
+                        width: 200%;
+                    }
+                }
+            }
         }
 
         .header {

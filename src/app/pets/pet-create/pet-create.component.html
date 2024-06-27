@@ -1,0 +1,89 @@
+<form [formGroup]="createPetForm" (ngSubmit)="onSubmit()" role="form">
+    <!-- START - Image -->
+    <input #fileInput type="file" accept="image/png, image/jpeg" name="image" formControlName="image" class="d-none"
+        (change)="onFileSelected($event.target.files)">
+
+    <div class="position-relative mb-4">
+        <button type="button" class="btn bg-default background-image thumbnail shadow w-100 m-0 p-0"
+            style="background-image: url('{{ image.value }}');" (click)="fileInput.click()">
+            <div *ngIf="image.value === ''">
+                <i class="ni ni-image image-icon text-white m-0 pb-4"></i>
+                <h4 class="thumbnail-text text-white m-0">{{ "NO_IMAGE" | translate }}</h4>
+                <p class="thumbnail-text text-white m-0">{{ "ADD_PET_IMAGE" | translate }}</p>
+            </div>
+        </button>
+
+        <button *ngIf="image.value !== ''" type="button"
+            class="btn btn-secondary rounded-circle btn-icon-only position-absolute right-0 m-3" (click)="clearImage()">
+            <span class="btn-inner--icon">✖</span>
+        </button>
+    </div>
+    <!-- END - Image -->
+    <!-- START - Name -->
+    <div class="form-group" [ngClass]="{ 'focused': focusName }">
+        <div class="input-group mb-3">
+            <input type="text" id="name" name="name" formControlName="name" class="form-control"
+                [ngClass]="{ 'is-invalid': (!name?.valid && (name?.dirty || name?.touched) && name.errors?.required) }"
+                placeholder="{{ 'NAME' | translate }}" (focus)="focusName = true" (blur)="focusName = false">
+        </div>
+    </div>
+    <!-- END - Name -->
+    <!-- START - Species -->
+    <div class="form-group" [ngClass]="{ 'focused': focusSpecies }">
+        <div class="input-group mb-3">
+            <select id="species_id" name="species_id" formControlName="species_id" class="form-control form-select"
+                [ngClass]="{ 'is-invalid': (!species_id?.valid && (species_id?.dirty || species_id?.touched) && species_id.errors?.required) }"
+                (focus)="focusSpecies = true" (blur)="focusSpecies = false" (change)="onSpeciesSelected()">
+                <option value="" disabled selected>{{ "SPECIES_SINGULAR" | translate }}</option>
+                <option *ngFor="let s of allSpecies" [value]="s.id">{{ s.name | translate }}</option>
+            </select>
+            <div *ngIf="species_id.value !== ''" class="input-group-append">
+                <span class="input-group-text cursor-pointer" (click)="clearSpeciesField()">×</span>
+            </div>
+        </div>
+    </div>
+    <!-- END - Species -->
+    <!-- START - Breed -->
+    <div class="form-group" [ngClass]="{ 'focused': focusBreed }">
+        <div class="input-group mb-3">
+            <select id="breed_id" name="breed_id" formControlName="breed_id" class="form-control form-select"
+                [ngClass]="{ 'is-invalid': (!breed_id?.valid && (breed_id?.dirty || breed_id?.touched) && breed_id.errors?.required) }"
+                (focus)="focusBreed = true" (blur)="focusBreed = false">
+                <option value="" disabled selected>{{ "BREED" | translate }}</option>
+                <option *ngFor="let b of breedsBySpecies" [value]="b.id">{{ b.name | translate }}</option>
+            </select>
+            <div *ngIf="breed_id.value !== ''" class="input-group-append">
+                <span class="input-group-text cursor-pointer" (click)="clearBreedField()">×</span>
+            </div>
+        </div>
+    </div>
+    <!-- END - Breed -->
+    <!-- START - Gender -->
+    <div class="form-group" [ngClass]="{ 'focused': focusGender }">
+        <div class="input-group mb-3">
+            <input type="text" id="gender" name="gender" formControlName="gender" class="form-control"
+                [ngClass]="{ 'is-invalid': (!gender?.valid && (gender?.dirty || gender?.touched) && gender.errors?.required) }"
+                placeholder="{{ 'GENDER' | translate }}" (focus)="focusGender = true" (blur)="focusGender = false">
+        </div>
+    </div>
+    <!-- END - Gender -->
+    <!-- START - Color -->
+    <div class="form-group" [ngClass]="{ 'focused': focusColor }">
+        <div class="input-group mb-3">
+            <input type="text" id="color" name="color" formControlName="color" class="form-control"
+                [ngClass]="{ 'is-invalid': (!color?.valid && (color?.dirty || color?.touched) && color.errors?.required) }"
+                placeholder="{{ 'COLOR' | translate }}" (focus)="focusColor = true" (blur)="focusColor = false">
+        </div>
+    </div>
+    <!-- END - Color -->
+    <!-- START - Buttons -->
+    <div class="text-right mt-4">
+        <button type="button" class="btn btn-outline-secondary" (click)="closeModal()">
+            {{ "CANCEL" | translate }}
+        </button>
+        <button type="submit" [disabled]="createPetForm.invalid" class="btn btn-default">
+            {{ "CREATE" | translate }}
+        </button>
+    </div>
+    <!-- END - Buttons -->
+</form>

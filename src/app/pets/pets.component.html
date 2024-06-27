@@ -1,7 +1,7 @@
 <div class="header"></div>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-2">
+        <div class="custom-sidebar">
             <app-sidebar [isExpanded]="sidebarExpanded" [specification]="sidebarSpecification" (toggleSidebar)="sidebarExpanded = !sidebarExpanded"></app-sidebar>
         </div>
         <div *ngIf="petPostsLoaded | async" class="col-md-4 mx-auto">
@@ -18,7 +18,33 @@
             <span class="btn-inner--icon">✖</span>
         </button>
     </div>
-    <div class="modal-body scroll">
+    <div class="modal-body">
         <app-pet-post-create [user]="user" (closeModalEvent)="modal.dismiss('Post created')"></app-pet-post-create>
+    </div>
+</ng-template>
+
+<ng-template #createPetContent let-modal>
+    <div class="modal-header align-items-center">
+        <h4 class="modal-title">{{ "CREATE_NEW_PET" | translate }}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'CLOSE' | translate }}"
+            (click)="modal.dismiss('Cross click')">
+            <span class="btn-inner--icon">✖</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-pet-create [user]="user" (closeModalEvent)="modal.dismiss('Post created')"></app-pet-create>
+    </div>
+</ng-template>
+
+<ng-template #searchContent let-modal>
+    <div class="modal-header align-items-center">
+        <h4 class="modal-title">{{ "SEARCH" | translate }}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'CLOSE' | translate }}"
+            (click)="modal.dismiss('Cross click')">
+            <span class="btn-inner--icon">✖</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-pet-search [user]="user" (closeModalEvent)="modal.dismiss('User selected')"></app-pet-search>
     </div>
 </ng-template>

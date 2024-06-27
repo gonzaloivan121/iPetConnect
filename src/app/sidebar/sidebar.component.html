@@ -5,7 +5,7 @@
             [ngClass]="{ 'with-children': specLink.hasChildren }" placement="right"
             [ngbTooltip]="specLink.text | translate" [disableTooltip]="isExpanded" tooltipClass="ml-1">
             <div *ngIf="!specLink.hasRouterLink" class="content p-3" [ngClass]="{ 'active': specLink.isActive }"
-                (click)="specLink.hasCallback ? specLink.callback() : null">
+                (click)="specLink.hasChildren ? toggleChildren(specLink) : specLink.hasCallback ? specLink.callback() : null">
                 <div *ngIf="specLink.hasIcon" class="d-flex justify-content-center display-4 m-0">
                     <i class="ni ni-{{ specLink.icon }}"></i>
                 </div>
@@ -19,8 +19,8 @@
                 <div class="title">{{ specLink.text | translate }}</div>
             </div>
             <div *ngIf="specLink.hasChildren" class="children">
-                <div *ngFor="let childrenLink of specLink.children" class="link" placement="right"
-                    [ngbTooltip]="childrenLink.text | translate" [disableTooltip]="isExpanded" tooltipClass="ml-1">
+                <div *ngFor="let childrenLink of specLink.children" class="link" [ngClass]="{ 'active': childrenLink.isActive }" 
+                    placement="right" [ngbTooltip]="childrenLink.text | translate" [disableTooltip]="isExpanded" tooltipClass="ml-1">
                     <div *ngIf="!childrenLink.hasRouterLink" class="content p-3"
                         [ngClass]="{ 'active': childrenLink.isActive }"
                         (click)="childrenLink.hasCallback ? childrenLink.callback() : null">
@@ -59,7 +59,7 @@
             [ngClass]="{ 'with-children': specLink.hasChildren }" placement="top"
             [ngbTooltip]="specLink.text | translate" tooltipClass="ml-1">
             <div *ngIf="!specLink.hasRouterLink" class="content p-3" [ngClass]="{ 'active': specLink.isActive }"
-                (click)="specLink.hasCallback ? specLink.callback() : null">
+                (click)="specLink.hasChildren ? toggleChildren(specLink) : specLink.hasCallback ? specLink.callback() : null">
                 <div *ngIf="specLink.hasIcon" class="d-flex justify-content-center display-4 m-0">
                     <i class="ni ni-{{ specLink.icon }}"></i>
                 </div>
@@ -73,8 +73,8 @@
                 <div class="title">{{ specLink.text | translate }}</div>
             </div>
             <div *ngIf="specLink.hasChildren" class="children">
-                <div *ngFor="let childrenLink of specLink.children" class="link" placement="top"
-                    [ngbTooltip]="childrenLink.text | translate" tooltipClass="ml-1">
+                <div *ngFor="let childrenLink of specLink.children" class="link" [ngClass]="{ 'active': childrenLink.isActive }"
+                    placement="top" [ngbTooltip]="childrenLink.text | translate" tooltipClass="ml-1">
                     <div *ngIf="!childrenLink.hasRouterLink" class="content p-3"
                         [ngClass]="{ 'active': childrenLink.isActive }"
                         (click)="childrenLink.hasCallback ? childrenLink.callback() : null">

@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { DataService } from "src/app/services";
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
+import { AlertService, DataService } from "src/app/services";
 import { DBTables } from "src/classes";
 import { Observable, from, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import { IUser, IPetPostComment, IPetPostCommentUserLike, IInsertResponse } from "src/app/interfaces";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
     selector: "app-pet-post-comment",
@@ -31,7 +32,13 @@ export class PetPostCommentComponent implements OnInit {
 
     isLiked: boolean = false;
 
-    constructor(private dataService: DataService) {}
+    @ViewChild("deleteCommentContent") deleteCommentContent: ElementRef;
+
+    constructor(
+        private dataService: DataService,
+        private modalService: NgbModal,
+        private alertService: AlertService
+    ) {}
 
     ngOnInit(): void {
         this.commentUserLoaded = this.getCommentUser();
@@ -166,6 +173,17 @@ export class PetPostCommentComponent implements OnInit {
 
     answer() {
         this.answerCommentEvent.emit();
+    }
+
+    delete() {
+        this.modalService.open(this.deleteCommentContent, {
+            centered: true,
+        });
+    }
+
+    handleDelete(dismiss: Function) {
+        console.log(this.comment)
+        dismiss("Comment deleted");
     }
 
     closePost() {

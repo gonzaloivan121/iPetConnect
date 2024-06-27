@@ -88,6 +88,8 @@ import { PetPostCommentComponent } from './pets/pet-post-comment/pet-post-commen
 import { PetProfileThumbnailComponent } from './pets/pet-profile-thumbnail/pet-profile-thumbnail.component';
 import { PetPostCreateComponent } from './pets/pet-post-create/pet-post-create.component';
 import { LoadingComponent } from './loading/loading.component';
+import { PetCreateComponent } from './pets/pet-create/pet-create.component';
+import { PetSearchComponent } from './pets/pet-search/pet-search.component';
 
 export function setupAppConfigServiceFactory(
     service: AppConfigService
@@ -181,6 +183,8 @@ export function setupBadWordsServiceFactory(
         PetProfileThumbnailComponent,
         PetPostCreateComponent,
         LoadingComponent,
+        PetCreateComponent,
+        PetSearchComponent,
     ],
     imports: [
         NgbModule,

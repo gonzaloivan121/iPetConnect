@@ -1,4 +1,4 @@
-<div *ngIf="commentUserLoaded | async" class="row pt-4" [ngClass]="{ 'ml-5': isAnswer }">
+<div *ngIf="commentUserLoaded | async" class="row pt-4 comment-container" [ngClass]="{ 'ml-5': isAnswer }">
     <div class="col-10 d-flex">
         <a class="d-flex" [routerLink]="['/pets', commentUser.username]" (click)="closePost()">
             <div class="background-image avatar shadow" style="background-image: url('{{ commentUser.image }}');"></div>
@@ -22,9 +22,22 @@
                 <p class="text-dark m-0 comment word-break text-break hidden" ellipsis="... {{ 'SHOW_MORE' | translate }}" (ellipsis-click-more)="showEllipsis = false" [ellipsis-content]="comment.content"></p>
             </div>
 
-            <div *ngIf="!isDescription" class="d-block pt-3">
+            <div *ngIf="!isDescription" class="d-block pt-2">
                 <small class="d-inline-block text-muted">{{ commentLikes.length }} {{ "LIKES_TRANSLATED" | translate }}</small>
                 <small *ngIf="!comment.is_answer && enableComments" class="d-inline-block text-muted ml-3 cursor-pointer" (click)="answer()">{{ "ANSWER_COMMENT" | translate }}</small>
+
+                <div ngbDropdown class="d-inline-block menu-dropdown">
+                    <svg class="text-muted ml-3 cursor-pointer menu" fill="currentColor" height="12" role="img" viewBox="0 0 24 12"
+                        width="24" ngbDropdownToggle>
+                        <circle cx="12" cy="6" r="1.5"></circle>
+                        <circle cx="6" cy="6" r="1.5"></circle>
+                        <circle cx="18" cy="6" r="1.5"></circle>
+                    </svg>
+                    <div ngbDropdownMenu>
+                        <button *ngIf="user.id === commentUser.id" ngbDropdownItem (click)="delete()">{{ "DELETE" | translate }}</button>
+                        <button *ngIf="user.id !== commentUser.id" ngbDropdownItem (click)="report()">{{ "REPORT" | translate }}</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -51,4 +64,25 @@
         <br>
         <a (click)="showEllipsis = true" href="javascript:void(0)">{{ "SHOW_LESS" | translate }}</a>
     </p>
+</ng-template>
+
+<ng-template #deleteCommentContent let-modal>
+    <div class="modal-header align-items-center">
+        <h4 class="modal-title">{{ "DELETE_COMMENT" | translate }}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="{{ 'CLOSE' | translate }}"
+            (click)="modal.dismiss('Cross click')">
+            <span class="btn-inner--icon">✖</span>
+        </button>
+    </div>
+    <div class="modal-body text-center">
+        <label class="m-4">{{ "ARE_YOU_SURE_YOU_WANT_TO_DELETE_COMMENT" | translate }}</label>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-block btn-default" (click)="modal.dismiss('No button click')">
+            {{ "NO" | translate }}
+        </button>
+        <button class="btn btn-block btn-danger m-0" (click)="handleDelete(modal.dismiss)">
+            {{ "YES" | translate }}
+        </button>
+    </div>
 </ng-template>

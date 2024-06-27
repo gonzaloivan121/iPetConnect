@@ -25,6 +25,12 @@ export class PetsComponent implements OnInit {
     @ViewChild("createPostContent", { static: false })
     createPostContent: ElementRef;
 
+    @ViewChild("createPetContent", { static: false })
+    createPetContent: ElementRef;
+
+    @ViewChild("searchContent", { static: false })
+    searchContent: ElementRef;
+
     constructor(
         private sessionService: SessionService,
         private dataService: DataService,
@@ -79,10 +85,11 @@ export class PetsComponent implements OnInit {
                     icon: "zoom-split-in",
                     callback: () => {
                         console.log("SEARCH");
+                        this.openSearch();
                     },
                 },
                 {
-                    text: "CREATE",
+                    text: "PET_POST",
                     hasRouterLink: false,
                     hasChildren: false,
                     hasIcon: true,
@@ -90,8 +97,21 @@ export class PetsComponent implements OnInit {
                     isActive: false,
                     icon: "image",
                     callback: () => {
-                        console.log("CREATE");
+                        console.log("PET_POST");
                         this.openCreatePost();
+                    },
+                },
+                {
+                    text: "PET",
+                    hasRouterLink: false,
+                    hasChildren: false,
+                    hasIcon: true,
+                    hasCallback: true,
+                    isActive: false,
+                    icon: "album-2",
+                    callback: () => {
+                        console.log("PET");
+                        this.openCreatePet();
                     },
                 },
                 {
@@ -135,6 +155,20 @@ export class PetsComponent implements OnInit {
         this.modalService.open(this.createPostContent, {
             centered: true,
             size: "lg",
+        });
+    }
+
+    openCreatePet() {
+        this.modalService.open(this.createPetContent, {
+            centered: true,
+            size: "lg",
+        });
+    }
+
+    openSearch() {
+        this.modalService.open(this.searchContent, {
+            centered: true,
+            size: "md",
         });
     }
 }

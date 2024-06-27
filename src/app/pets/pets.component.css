@@ -1,3 +1,8 @@
 .header {
     padding-top: 72px;
 }
+
+.custom-sidebar {
+    flex: 0 0 13.75%;
+    max-width: 13.75%;
+}

@@ -2,6 +2,11 @@
     padding-top: 72px;
 }
 
+.custom-sidebar {
+    max-width: 13.75%;
+    flex: 0 0 13.75%;
+}
+
 .profile-picture {
     width: 12.5rem;
     height: 12.5rem;
