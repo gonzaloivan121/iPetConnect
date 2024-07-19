@@ -40,7 +40,7 @@ export class MapComponent implements OnInit {
     deleteMarkerContent: ElementRef;
 
     maxZoom = 20;
-    minZoom = 5;
+    minZoom = 2;
     zoom = 14;
     center!: google.maps.LatLng;
     options: google.maps.MapOptions = {
