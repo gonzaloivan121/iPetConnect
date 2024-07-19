@@ -60,7 +60,6 @@ export class PetSearchComponent implements OnInit {
         var user: IUser = Object.assign({}, userEvent.item);
         this.router.navigate(["/pets", user.username]);
         this.closeModal();
-        //this.location.go("/pets/" + user.username);
     }
 
     search: OperatorFunction<string, readonly IUser[]> = (
@@ -70,19 +69,18 @@ export class PetSearchComponent implements OnInit {
             debounceTime(200),
             map((usernameStr) =>
                 usernameStr === ""
-                    ? []
-                    : this.users
-                          .filter(
-                              (user) =>
-                                  JSON.stringify({
-                                      username: user.username,
-                                      email: user.email,
-                                      name: user.name,
-                                  })
-                                      .toLowerCase()
-                                      .indexOf(usernameStr.toLowerCase()) > -1
-                          )
-                          .slice(0, 10)
+                    ?   []
+                    :   this.users
+                            .filter(
+                                (user) =>
+                                    JSON.stringify({
+                                        username: user.username,
+                                        name: user.name,
+                                    })
+                                    .toLowerCase()
+                                    .indexOf(usernameStr.toLowerCase()) > -1
+                            )
+                            .slice(0, 10)
             )
         );
 
