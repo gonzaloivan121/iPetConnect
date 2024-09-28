@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: "root",
@@ -9,7 +9,7 @@ export class DataService {
     constructor(private http: HttpClient) {}
 
     private async request(method: string, url: string, data?: any) {
-        const token = "";
+        const token = environment.apiKey;
 
         const result = this.http.request(method, url, {
             body: data,
